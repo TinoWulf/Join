@@ -16,6 +16,12 @@ body {
   color: var(--text-color);
 }
 
+.main-board{
+  width: calc(100% - 232px);
+  margin-left: 232px;
+  position: fixed;
+}
+
 .board-nav {
   display: flex;
   justify-content: space-between;
@@ -214,4 +220,79 @@ h4 {
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.tasks-container {
+  max-height: calc(100vh - 200px);
+  overflow-y: scroll;
+  padding-right: 1px;
+}
+
+.tasks-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+@media (max-width: 1200px) {
+  .todo, .done, .in-progress, .await-feedback {
+    width: 100%;
+  }
+
+  .container-board{
+    flex-direction: column;
+    align-items: center;  
+  }
+
+  .tasks-container{
+    display: flex;
+    max-height: 400px;
+  }
+
+  .board-scroll-wrapper {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+
+  .board-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .board-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .main-board{
+    position: relative;
+  }
+}
+
+@media (max-width: 760px) {
+  .main-board {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .board-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .board-nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .todo, .done, .in-progress, .await-feedback {
+    width: 100%;
+    padding: 10px;
+  }
+  
 }
