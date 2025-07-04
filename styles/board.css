@@ -1,0 +1,217 @@
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --black: #000000;
+  --primary-color: #2a3647;
+  --secondary-color: #e7e7e7;
+  --text-color: #84888c;
+  --border-color: #ccc;
+  --hover-color: #1a252f;
+  --grey-color: #888;
+  --light-grey-color: #f6f7f8;
+}
+
+body {
+  background-color: var(--light-grey-color);
+  color: var(--text-color);
+}
+
+.board-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 30px 10px;
+}
+
+.board-nav-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 32px;
+}
+
+.search-box input {
+  padding: 10px 36px 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  width: 200px;
+  outline: none;
+}
+
+.search-box .search-icon {
+  right: 170px;
+  position: absolute;
+  top: 48px;
+  color: var(--grey-color);
+  pointer-events: none;
+  margin-left: 10px;
+  border-left: var(--grey-color) 2px solid;
+}
+
+.add-task {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 1px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.add-task:hover {
+  background-color: var(--hover-color);
+}
+
+.container-board {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.todo,
+.done,
+.in-progress,
+.await-feedback {
+  padding: 20px;
+  width: 300px;
+}
+
+.board-nav-tasks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 20px 0;
+}
+
+.board-nav-tasks span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  border: var(--primary-color) 2px solid;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.board-nav-tasks img {
+  width: 10px;
+  height: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.show {
+  display: flex;
+}
+
+.hide {
+  display: none;
+}
+
+.placeholder {
+  width: 100%;
+  height: 60px;
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  justify-content: center;
+  align-items: center;
+}
+
+.taskCard {
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.taskCard-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5px;
+  height: 40px;
+}
+
+.taskCard-header span {
+  font-size: 16px;
+  font-weight: 600;
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+h4 {
+  font-size: 18px;
+  color: var(--black);
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.taskCard-body {
+  padding: 7px;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  padding: 6px;
+  color: var(--black);
+}
+
+.taskCard-footer {
+  padding: 10px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.asigned-to {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+}
+
+.asigned-to span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 5px 10px;
+  border-radius: 50px;
+  margin-left: -5px;
+  border: 2px solid var(--white);
+  z-index: 1;
+}
+
+.asigned-to span:first-child {
+  margin-left: 0;
+  z-index: 2;
+}
+
+.drag-area-highlight {
+  background-color: rgba(0, 0, 0, 0.2);
+}

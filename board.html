@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board|Join</title>
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./styles/board.css" />
+  </head>
+  <body onload="initiateBoard()">
+    <header></header>
+    <main>
+      <nav class="board-nav">
+        <h1>Board</h1>
+        <div class="board-nav-links">
+          <div class="search-box">
+            <input type="text" />
+            <img
+              src="./assets/icons/search.png"
+              alt="search icon"
+              class="search-icon"
+            />
+          </div>
+          <button class="add-task">
+            Add Task
+            <img src="./assets/icons/add.png" alt="add icon" />
+          </button>
+        </div>
+      </nav>
+      <div class="container-board">
+        <section class="todo">
+          <nav class="board-nav-tasks">
+            <h3>Todo</h3>
+            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+          </nav>
+          <div id="toDoTask" class="tasks-container" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDoTask')" ondragover="allowDrop(event); highlight('toDoTask')">
+
+            <div id="toDoTaskPlaceholder" class="placeholder show">No tasks To do</div>
+          </div>
+        </section>
+        <section class="in-progress">
+          <nav class="board-nav-tasks">
+            <h3>In Progress</h3>
+            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+          </nav>
+          <div id="inProgressTask" class="tasks-container" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgressTask')" ondragover="allowDrop(event); highlight('inProgressTask')">
+
+            <div id="inProgressTaskPlaceholder" class="placeholder show">no tasks in progress</div>
+          </div>
+        </section>
+        <section class="await-feedback">
+          <nav class="board-nav-tasks">
+            <h3>Await Feedback</h3>
+            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+          </nav>
+          <section class="tasks">
+            <div id="awaitReviewTask" class="tasks-container" ondrop="moveTo('awaitReview')" ondragleave="removeHighlight('awaitReviewTask')" ondragover="allowDrop(event); highlight('awaitReviewTask')">
+                    
+                <div id="awaitReviewTaskPlaceholder" class="placeholder show">no tasks awaiting feedback</div>
+            </div>
+          </section>
+        </section>
+        <section class="done">
+          <nav class="board-nav-tasks">
+            <h3>Done</h3>
+          </nav>
+          <section class="tasks">
+            <div id="doneTask" class="tasks-container" ondrop="moveTo('done')" ondragleave="removeHighlight('doneTask')" ondragover="allowDrop(event); highlight('doneTask')">
+
+              <div id="doneTaskPlaceholder" class="placeholder show">No Task Done</div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+    <footer></footer>
+    <script src="./scripts/board.js"></script>
+  </body>
+</html>
