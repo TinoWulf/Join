@@ -4,7 +4,7 @@
   --black: #000000;
   --primary-color: #2a3647;
   --secondary-color: #e7e7e7;
-  --text-color: #84888c;
+  --text-color: #6c6e71;
   --border-color: #ccc;
   --hover-color: #1a252f;
   --grey-color: #888;
@@ -18,7 +18,7 @@ body {
 
 .main-board{
   width: calc(100% - 232px);
-  margin-left: 232px;
+  margin-left: 250px;
   position: fixed;
 }
 
@@ -177,6 +177,12 @@ h4 {
   padding: 6px;
   color: var(--black);
 }
+
+progress{
+  width: 50%;
+}
+
+
 
 .taskCard-footer {
   padding: 10px;

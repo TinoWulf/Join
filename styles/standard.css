@@ -1,9 +1,54 @@
+@font-face {
+    font-family: 'Inter 18pt';
+    src: url('../assets/fonts/fontInter/Inter18pt-Bold.woff2') format('woff2'),
+        url('../assets/fonts/fontInter/Inter18pt-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter 28pt';
+    src: url('../assets/fonts/fontInter/Inter28pt-BoldItalic.woff2') format('woff2'),
+        url('../assets/fonts/fontInter/Inter28pt-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter-Bold';
+    src: url('../assets/fonts/fontInter/Inter28pt-Bold.woff2') format('woff2'),
+        url('./assets/fonts/fontInter/Inter28pt-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter 24pt';
+    src: url('../assets/fonts/fontInter/Inter24pt-Bold.woff2') format('woff2'),
+        url('../assets/fonts/fontInter/Inter24pt-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/fontInter/Inter24pt-SemiBold.woff2') format('woff2'),
+       url('../assets/fonts/fontInter/Inter24pt-SemiBold.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
 }
-
 
 h1{
     font-size: 61px;

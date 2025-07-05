@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/fontInter/Inter24pt-SemiBold.woff2') format('woff2'),
+       url('./assets/fonts/fontInter/Inter24pt-SemiBold.woff') format('woff');
+  font-style: normal;
+  font-display: swap;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
 .menu {
     width: 232px;
     height: 100vh;

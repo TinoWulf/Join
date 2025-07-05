@@ -1,0 +1,6 @@
+.main-summary{
+    width: calc(100% - 232px);
+    margin-left: 250px;
+    position: fixed;
+    padding: 20px;
+}
