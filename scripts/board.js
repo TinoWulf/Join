@@ -316,7 +316,9 @@ function clicked(id) {
  * @param {string} id - The ID of the drop area element.
  */
 function highlight(id) {
-  document.getElementById(id).classList.add("drag-area-highlight");
+  const dropArea = document.getElementById(id);
+  dropArea.classList.add("add-height");
+  dropArea.classList.add("drag-area-highlight");
 }
 
 /**
@@ -324,6 +326,8 @@ function highlight(id) {
  * @param {string} id - The ID of the drop area element.
  */
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("drag-area-highlight");
+  const dropArea = document.getElementById(id);
+  dropArea.classList.remove("add-height");
+  dropArea.classList.remove("drag-area-highlight");
 }
 

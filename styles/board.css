@@ -1,22 +1,10 @@
-:root {
-  --blue: #29ABE2;
-  --white: #ffffff;
-  --black: #000000;
-  --primary-color: #2a3647;
-  --secondary-color: #e7e7e7;
-  --text-color: #6c6e71;
-  --border-color: #ccc;
-  --hover-color: #1a252f;
-  --grey-color: #888;
-  --light-grey-color: #f6f7f8;
-}
-
 .main-board{
-  width: calc(100% - 232px);
+  max-width: calc(100% - 232px);
   margin-left: 250px;
-  margin-top: 100px;
-  position: fixed;
-  padding: 40px;
+  margin-top: 70px;
+  position: absolute;
+  padding: 10px 20px 10px 20px;
+  margin-bottom: 150px;
 }
 
 .board-nav {
@@ -24,7 +12,8 @@
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  padding: 20px 10px;
+  padding: 15px 10px;
+
 }
 
 .board-nav-links {
@@ -88,7 +77,7 @@
   flex-direction: row;
   justify-content: space-around;
   gap: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .todo,
@@ -235,6 +224,10 @@ progress{
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.add-height{
+  height: 100%;
 }
 
 .tasks-container {
