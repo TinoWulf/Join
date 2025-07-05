@@ -1,57 +1,38 @@
-@font-face {
-    font-family: 'Inter 18pt';
-    src: url('../assets/fonts/fontInter/Inter18pt-Bold.woff2') format('woff2'),
-        url('../assets/fonts/fontInter/Inter18pt-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --white: #ffffff;
+  --black: #000000;
+  --blue: #3498db;
+  --hover-color: #1a252f;
+  --light-grey-color: #f6f7f8;
+  --text-color: #2c3e50;
 }
 
 @font-face {
-    font-family: 'Inter 28pt';
-    src: url('../assets/fonts/fontInter/Inter28pt-BoldItalic.woff2') format('woff2'),
-        url('../assets/fonts/fontInter/Inter28pt-BoldItalic.woff') format('woff');
-    font-weight: bold;
-    font-style: italic;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter-Bold';
-    src: url('../assets/fonts/fontInter/Inter28pt-Bold.woff2') format('woff2'),
-        url('./assets/fonts/fontInter/Inter28pt-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter 24pt';
-    src: url('../assets/fonts/fontInter/Inter24pt-Bold.woff2') format('woff2'),
-        url('../assets/fonts/fontInter/Inter24pt-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('../assets/fonts/fontInter/Inter24pt-SemiBold.woff2') format('woff2'),
-       url('../assets/fonts/fontInter/Inter24pt-SemiBold.woff') format('woff');
+  font-family: "Inter";
+  src: url("../assets/fonts/fontInter/Inter24pt-Medium.woff2") format("woff2"),
+    url("../assets/fonts/fontInter/Inter24pt-Medium.woff") format("woff");
   font-style: normal;
   font-display: swap;
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+body {
+  background-color: var(--light-grey-color);
+  color: var(--text-color);
 }
 
 h1{
-    font-size: 61px;
-    font-weight: 700;
-    color: #000000;
+  font-size:40px;
+  font-weight: 600;
+  color: var(--black);
 }

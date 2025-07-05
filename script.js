@@ -10,8 +10,9 @@ function loadMenu() {
   fetch("menu-bar.html")
     .then((response) => response.text())
     .then((html) => {
-      console.log(html);
       document.getElementById("navbar").innerHTML = html;
     })
     .catch((error) => console.error("Failed to load nav:", error));
 }
+
+loadMenu();

@@ -1,5 +1,5 @@
 :root {
-  --blue: #1e90ff;
+  --blue: #29ABE2;
   --white: #ffffff;
   --black: #000000;
   --primary-color: #2a3647;
@@ -11,15 +11,12 @@
   --light-grey-color: #f6f7f8;
 }
 
-body {
-  background-color: var(--light-grey-color);
-  color: var(--text-color);
-}
-
 .main-board{
   width: calc(100% - 232px);
   margin-left: 250px;
+  margin-top: 100px;
   position: fixed;
+  padding: 40px;
 }
 
 .board-nav {
@@ -27,7 +24,7 @@ body {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  padding: 30px 10px;
+  padding: 20px 10px;
 }
 
 .board-nav-links {
@@ -37,9 +34,23 @@ body {
   gap: 32px;
 }
 
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding-left: 20px;
+  font-size: 14px;
+  width: 250px;
+  outline: none;
+}
+
 .search-box input {
   padding: 10px 36px 10px 12px;
-  border: 1px solid var(--border-color);
+  border: none;
   border-radius: 8px;
   font-size: 14px;
   width: 200px;
@@ -47,12 +58,11 @@ body {
 }
 
 .search-box .search-icon {
-  right: 170px;
-  position: absolute;
-  top: 48px;
-  color: var(--grey-color);
-  pointer-events: none;
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 20px;
+  padding-left: 10px;
   border-left: var(--grey-color) 2px solid;
 }
 
@@ -77,14 +87,15 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  gap: 20px;
+  gap: 5px;
+  margin-bottom: 20px;
 }
 
 .todo,
 .done,
 .in-progress,
 .await-feedback {
-  padding: 20px;
+  padding: 10px;
   width: 300px;
 }
 
@@ -127,7 +138,7 @@ body {
   height: 60px;
   border: 2px dashed var(--border-color);
   border-radius: 10px;
-  background-color: var(--secondary-color);
+  background-color: var(--grey-color);
   justify-content: center;
   align-items: center;
 }
@@ -136,7 +147,7 @@ body {
   background-color: var(--white);
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   width: 100%;
   max-width: 350px;
 }
@@ -146,29 +157,29 @@ body {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 5px;
-  height: 40px;
+  padding: 20px 5px;
+  height: 30px;
 }
 
 .taskCard-header span {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   background-color: var(--blue);
   color: var(--white);
   padding: 5px 10px;
   border-radius: 5px;
 }
 
-h4 {
-  font-size: 18px;
+.taskCard h4 {
+  font-size: 20px;
   color: var(--black);
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 10px;
   padding: 10px;
 }
 
 .taskCard-body {
-  padding: 7px;
+  padding: 5px;
 }
 
 .progress {
@@ -185,16 +196,14 @@ progress{
 
 
 .taskCard-footer {
-  padding: 10px;
-  margin-top: 30px;
+  padding: 5px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 .asigned-to {
-  font-size: 16px;
-  font-weight: 600;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -209,7 +218,7 @@ progress{
   width: 30px;
   height: 30px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--white);
   background-color: var(--blue);
   padding: 5px 10px;

@@ -33,7 +33,7 @@ let tasks = [
       { title: "Update redirect logic", done: false },
     ],
     assignedTo: ["MJ"],
-    category: "done",
+    category: "awaitReview",
     grade: "urgent",
   },
   {
