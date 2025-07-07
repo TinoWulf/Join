@@ -33,7 +33,7 @@ if (!database) {
 async function createUserAndProfile() {
   const name = "Kristof Developer";
   const email = "kristof@dev.com";
-  const password = "abcd1234";
+  const password ="123456"; // Password should be at least 6 characters long;
   const acceptedPolicy = true;
 
   if (!acceptedPolicy) {
@@ -46,7 +46,7 @@ async function createUserAndProfile() {
   }
   try {
     const userData = {
-      id: Date.now(),
+      id: Date.now(), // Unique identifier for the user 
       name: name,
       email: email,
       acceptedPolicy: acceptedPolicy,
