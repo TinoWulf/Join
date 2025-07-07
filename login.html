@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style/standart.css">
-    <link rel="stylesheet" href="./style/assets.css">
-    <link rel="stylesheet" href="./style/login.css">
-    <title>Log In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./styles/login.css">
+    <title>Join Log In</title>
 </head>
 <body>
     <header>
         <div class="head">
-            <img class="logo" src="./assets/img/templates/join_logo.png">
+            <img class="logo" src="./assets/img/logo.png">
 
             <div class="signup-div">
                 <a>Not a Join user?</a>
-                <button class="sign-up-button">Sign up</button>
+                <a href="./sign-up.html">
+                    <button class="sign-up-button">Sign up</button>
+                </a>
             </div>
         </div>
     </header>
@@ -26,21 +28,33 @@
         <div class="login-div">
             <div class="log-in-div">
                 <h1>Log in</h1>
+                <div class="border-line"></div>
             </div>
-            <input class="login" type="text" placeholder="Email" src="./assets/img/templates/mail.png">
-            <input class="login" type="text" placeholder="Password">
-            <!-- <img src="./assets/img/templates/mail.png"> -->
-        
 
-            <div>
-                <button>Log in</button>
-                <button class="Guest-login-button">Guest Log in</button>
+
+
+            <form class="login-form" id="loginform">
+                <input class="login" id="email" type="email" placeholder="Email" required>
+                <input class="login" id="password" type="password" placeholder="Password" required>
+                <div class="button-overlay">
+                <button type="submit" class="log-in-and-guest-log-in white-color-text">Log in</button>
+                <a href="./board.html">
+                    <button class="Guest-login-button log-in-and-guest-log-in">Guest Log in</button>
+                </a>
             </div>
+            <div id="messageLogin"></div>
+            </form>
         </div>
+            <div class="signup-div-mobile">
+                <a>Not a Join user?</a>
+                <button class="sign-up-button">Sign up</button>
+            </div>
     </section>
     <footer>
-        <a>Privacy Policy</a>
-        <a>Lega notice</a>
+        <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
+        <a class="grey-text datenschutz">Lega notice</a>
     </footer>
+
+    <script type="module" src="./scripts/log.js"></script>
 </body>
 </html>
