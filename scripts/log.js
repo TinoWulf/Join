@@ -7,7 +7,7 @@ import {
     updateProfile 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// dein Firebase Config
+// jerrys Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyAxdb4CbOOtGb6A5XsP6kRjCgqsWPbwNCk",
   authDomain: "join-login-data.firebaseapp.com",
@@ -27,7 +27,7 @@ const auth = getAuth(app);
 // =============================
 function setupSignUp() {
   const signupForm = document.getElementById("signupForm");
-  if (!signupForm) return; // nur aktivieren, wenn das Formular vorhanden ist
+  if (!signupForm) return;
 
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -37,18 +37,30 @@ function setupSignUp() {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
+    const acceptPolicy = document.getElementById("acceptPolicy");
+    const message = document.getElementById("message");
+
+    if (!acceptPolicy.checked) {
+      message.innerText = "Bitte akzeptieren Sie die Datenschutzrichtlinie.";
+      message.style.display = "flex";
+      return; // blockiere die Registrierung
+    }
+
     if (password !== confirmPassword) {
-      document.getElementById("message").innerText = "Passwörter stimmen nicht überein!";
+      message.innerText = "Passwörter stimmen nicht überein!";
+      message.style.display = "flex";
       return;
     }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
-      document.getElementById("message").innerText = `Registrierung erfolgreich, Willkommen ${name}!`;
+      message.innerText = `Registrierung erfolgreich, Willkommen ${name}!`;
+      message.style.display = "flex";
     } catch (err) {
       console.error(err);
-      document.getElementById("message").innerText = err.message;
+      message.innerText = `Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut`;
+      message.style.display = "flex";
     }
   });
 }
@@ -72,13 +84,15 @@ function setupLogin() {
       window.location.href = "./board.html";
     } catch (err) {
       console.error(err);
-      document.getElementById("messageLogin").innerText = "Login fehlgeschlagen: " + err.message;
+      // document.getElementById("messageLogin").innerText = "Your email or password is incorrect.";
+      let emailStyle = document.getElementById("email");
+      let passwordStyle = document.getElementById("password");
+      emailStyle.style.borderColor = "red";
+      document.getElementById("password");
+      passwordStyle.style.borderColor = "red";
     }
   });
 }
 
-// =============================
-// Funktionen einmal aufrufen
-// =============================
 setupSignUp();
 setupLogin();

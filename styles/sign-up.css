@@ -8,7 +8,7 @@
 }
 
 #message {
-    display: flex;
+    display: none;
     align-items: center;
     color: #FFFFFF;
     background-color: #2A3647;
