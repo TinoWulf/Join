@@ -1,30 +1,32 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    background-color: #F6F7F8;
-    font-family: "Inter", sans-serif;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #f6f7f8;
+  font-family: "Inter", sans-serif;
 
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-section {
-    display: flex;
-    flex: 1;
+.login-section {
+  display: flex;
+  flex: 1;
 }
 
 button {
-    background-color: #2A3647;
+  background-color: #2a3647;
 }
 
 .white-color-text {
-    color: #FFFFFF;
+  color: #ffffff;
 }
 
 .grey-text {
-    color: #CDCDCD;
-}:root {
+  color: #cdcdcd;
+}
+:root {
   --primary-color: #2c3e50;
   --secondary-color: #34495e;
   --white: #ffffff;
@@ -33,7 +35,6 @@ button {
   --hover-color: #1a252f;
   --light-grey-color: #f6f7f8;
   --text-color: #2c3e50;
-
 }
 
 @font-face {
@@ -58,8 +59,8 @@ body {
   color: var(--text-color);
 }
 
-h1{
-  font-size:40px;
+h1 {
+  font-size: 40px;
   font-weight: 600;
   color: var(--black);
 }
