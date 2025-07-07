@@ -24,4 +24,42 @@ button {
 
 .grey-text {
     color: #CDCDCD;
+}:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --white: #ffffff;
+  --black: #000000;
+  --blue: #3498db;
+  --hover-color: #1a252f;
+  --light-grey-color: #f6f7f8;
+  --text-color: #2c3e50;
+
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/fontInter/Inter24pt-Medium.woff2") format("woff2"),
+    url("../assets/fonts/fontInter/Inter24pt-Medium.woff") format("woff");
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+body {
+  background-color: var(--light-grey-color);
+  color: var(--text-color);
+}
+
+h1{
+  font-size:40px;
+  font-weight: 600;
+  color: var(--black);
 }
