@@ -24,50 +24,29 @@ function moveTo(range) {
     console.warn("No task is currently being dragged to move in ", range);
     return;
   } else {
-    const urlquery = `${dataBaseURL}/${query}/${currentDraggedTask}/.json`;
-    fetch(urlquery)
-        .then((response) => {
-            if( !response.ok){
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }else{
-                let data = response.json();
-                const taskFind =data;    
-                console.log("Fetched task data:", data);
-                console.log(taskFind);
-
-            }
-    })
-    //   .then((data) => {
-    //     console.log("Fetched tasks:", data);
-    //     const task = Object.values(data).find(
-    //       (task) => task.id === currentDraggedTask
-    //     );
-    //     if (task) {
-    //       const updatedTask = { ...task, range };
-    //       console.log("Updating task:", updatedTask);
-    //       fetch(urlquery, {
-    //         method: "PUT", // or "PUT" depending on your API
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(updatedTask),
-    //       })
-    //         .then((res) => res.json())
-    //         .then((updatedTask) => {
-    //           console.log("Task updated:", updatedTask);
-    //         })
-    //         .catch((error) => {
-    //           console.error("Update failed:", error);
-    //         });
-    //     } else {
-    //       console.warn("Task with ID", currentDraggedTask, "not found.");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching tasks:", error);
-    //   });
-    currentDraggedTask = null;
+    const taskID = currentDraggedTask;
+    fetch(`${dataBaseURL}/${query}/${taskID}.json`)
+      .then((response) => response.json())
+      .then((task) => {
+        if (task) {
+          task.range = range;
+          fetch(`${dataBaseURL}/${query}/${taskID}.json`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...task, range: range }),
+          })
+            .then(() => {
+              initiateBoard(); 
+            })
+            .catch((error) => console.error("Error updating task:", error));
+        } else {
+          console.warn("Task not found for ID:", taskID);
+        }
+      });
   }
+  currentDraggedTask = null; 
 }
 
 /**
@@ -78,23 +57,14 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
-/**
- * Handles the click event on a task card.
- * @param {number} id - The ID of the clicked task.
- */
-function clicked(id, event) {
-  event.stopPropagation(); // Prevents the click from propagating to parent elements
-  console.log("Task clicked:", id);
-}
 
 /**
  * Highlights a drop area by adding a CSS class.
  * @param {string} id - The ID of the drop area element.
  */
 function highlight(id) {
-  const dropArea = document.getElementById(id);
-  dropArea.classList.add("add-height");
-  dropArea.classList.add("drag-area-highlight");
+ document.getElementById(id).classList.add("add-height");
+ document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 /**
@@ -102,7 +72,6 @@ function highlight(id) {
  * @param {string} id - The ID of the drop area element.
  */
 function removeHighlight(id) {
-  const dropArea = document.getElementById(id);
-  dropArea.classList.remove("add-height");
-  dropArea.classList.remove("drag-area-highlight");
+  document.getElementById(id).classList.remove("add-height");
+  document.getElementById(id).classList.remove("drag-area-highlight");
 }

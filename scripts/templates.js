@@ -6,7 +6,7 @@ import { countSubtasks, countSubtasksDone, getAbbreviation } from "./board.js";
  */
 function templateTaskCard(task) {
   return `
-    <div class="taskCard" draggable="true" data-taskId = "${task.id}" ondragstart="startDragging(${task.id})" onclick="clicked(${task.id}, event)" id="${task.id}">
+    <div class="taskCard" draggable="true" data-taskId = "${task.id}" ondragstart="startDragging(${task.id})" id="${task.id}">
       <div class="taskCard-header">
         <span class="taskType">${task.category}</span>
         <img src="./assets/icons/iconoir_cancel.png" alt="cancel" class="hide" />
@@ -27,3 +27,5 @@ function templateTaskCard(task) {
 }
 
 export { templateTaskCard };
+
+window.templateTaskCard = templateTaskCard ;

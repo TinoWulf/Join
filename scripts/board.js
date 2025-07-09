@@ -121,6 +121,7 @@ async function getAllTasks() {
   try {
     const snapshot = await get(tasksRef);
     if (snapshot.exists()) {
+      tasksList = [];
       const tasks = snapshot.val();
       for (let taskId in tasks) {
         const task = tasks[taskId];
@@ -149,6 +150,7 @@ function loadTasks() {
   }
   applyAssignedToColors();
 }
+
 
 /**
  * Finds and renders all tasks for a given category name.
@@ -193,7 +195,6 @@ function findTasksByCategory(categoryName) {
 }
 
 function initiateBoard() {
-  loadMenu();
   getAllTasks();
 }
 
@@ -205,3 +206,11 @@ export {
   countSubtasksDone,
   applyAssignedToColors,
 };
+
+window.initiateBoard = initiateBoard;
+window.findTasksByCategory = findTasksByCategory;
+window.getAbbreviation = getAbbreviation;
+window.countSubtasks = countSubtasks;
+window.countSubtasksDone = countSubtasksDone;
+window.applyAssignedToColors = applyAssignedToColors;
+window.loadTasks = loadTasks;

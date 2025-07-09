@@ -10,12 +10,8 @@
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <script src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
-    <script type="module" defer>
-      import { initiateBoard } from "./scripts/board.js";
-      window.addEventListener("load", initiateBoard);
-    </script>
   </head>
-  <body>
+  <body onload="initiateBoard()">
     <header id="navbar">
     </header>
     <main id="main" class="main-board">
@@ -32,7 +28,7 @@
           </button>
         </div>
       </nav>
-      <div class="container-board">
+      <div class="container-board" onload="loadTasks()">
         <section class="todo">
           <nav class="board-nav-tasks">
             <h3>Todo</h3>
