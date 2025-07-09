@@ -230,7 +230,7 @@ progress{
 }
 
 .add-height{
-  height: 100%;
+  height: 100vh !important;
 }
 
 .tasks-container {

@@ -20,34 +20,30 @@ function startDragging(id) {
  */
 
 function moveTo(range) {
-  if (!currentDraggedTask) {
-    console.warn("No task is currently being dragged to move in ", range);
-    return;
-  } else {
-    const taskID = currentDraggedTask;
-    fetch(`${dataBaseURL}/${query}/${taskID}.json`)
-      .then((response) => response.json())
-      .then((task) => {
-        if (task) {
-          task.range = range;
-          fetch(`${dataBaseURL}/${query}/${taskID}.json`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...task, range: range }),
+  const taskID = currentDraggedTask;
+  fetch(`${dataBaseURL}/${query}/${taskID}.json`)
+    .then((response) => response.json())
+    .then((task) => {
+      if (task) {
+        task.range = range;
+        fetch(`${dataBaseURL}/${query}/${taskID}.json`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...task, range: range }),
+        })
+          .then(() => {
+            initiateBoard();
           })
-            .then(() => {
-              initiateBoard(); 
-            })
-            .catch((error) => console.error("Error updating task:", error));
-        } else {
-          console.warn("Task not found for ID:", taskID);
-        }
-      });
-  }
-  currentDraggedTask = null; 
+          .catch((error) => console.error("Error updating task:", error));
+      } else {
+        console.warn("Task not found for ID:", taskID);
+      }
+    });
+  currentDraggedTask = null;
 }
+
 
 /**
  * Allows a drop event by preventing the default behavior.
@@ -57,14 +53,13 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
-
 /**
  * Highlights a drop area by adding a CSS class.
  * @param {string} id - The ID of the drop area element.
  */
 function highlight(id) {
- document.getElementById(id).classList.add("add-height");
- document.getElementById(id).classList.add("drag-area-highlight");
+  document.getElementById(id).classList.add("add-height");
+  document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 /**

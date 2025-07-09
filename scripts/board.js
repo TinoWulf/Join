@@ -35,7 +35,16 @@ let inProgressPlaceholder = document.getElementById(
   "inProgressTaskPlaceholder"
 );
 let donePlaceholder = document.getElementById("doneTaskPlaceholder");
-let currentDraggedTask;
+let tasksList = [];
+const categoryMap = {
+    toDo: { container: toDo, placeholder: todoPlacehoder },
+    awaitReview: {
+      container: awaitReview,
+      placeholder: awaitReviewPlaceholder,
+    },
+    inProgress: { container: inProgress, placeholder: inProgressPlaceholder },
+    done: { container: done, placeholder: donePlaceholder },
+  };
 
 const letterColors = {
   A: "#e57373",
@@ -115,24 +124,21 @@ function applyAssignedToColors() {
   });
 }
 
-let tasksList = [];
+
 async function getAllTasks() {
   const tasksRef = ref(database, "tasks");
   try {
     const snapshot = await get(tasksRef);
-    if (snapshot.exists()) {
-      tasksList = [];
-      const tasks = snapshot.val();
-      for (let taskId in tasks) {
-        const task = tasks[taskId];
-        tasksList.push(task);
-        loadTasks();
-        templateTaskCard(task);
-      }
-      return tasksList;
-    } else {
-      return null;
+    if (!snapshot.exists()) return null;
+    const tasks = snapshot.val();
+    tasksList = [];
+    for (let id in tasks) {
+      const task = tasks[id];
+      tasksList.push(task);
+      templateTaskCard(task);
     }
+    loadTasks();
+    return tasksList;
   } catch (error) {
     console.error("Error retrieving tasks:", error);
   }
@@ -151,6 +157,16 @@ function loadTasks() {
   applyAssignedToColors();
 }
 
+function schwichtPlaceholderVisibility(task) {
+  const range = task.range;
+  if (categoryMap[range]) {
+    const { container, placeholder } = categoryMap[range];
+    if (task) placeholder.classList.add("hide");
+    container.innerHTML += templateTaskCard(task);
+  } else {
+    console.warn(`Unknown category: ${task.range}`);
+  }
+}
 
 /**
  * Finds and renders all tasks for a given category name.
@@ -163,36 +179,11 @@ function findTasksByCategory(categoryName) {
   getElementById(categoryTask).innerHTML = "";
   for (let i = 0; i < taskForThisCat.length; i++) {
     let task = taskForThisCat[i];
-    switch (task.range) {
-      case "toDo":
-        if (task) {
-          todoPlacehoder.classList.add("hide");
-        }
-        toDo.innerHTML += templateTaskCard(task);
-        break;
-      case "awaitReview":
-        if (task) {
-          awaitReviewPlaceholder.classList.add("hide");
-        }
-        awaitReview.innerHTML += templateTaskCard(task);
-        break;
-      case "inProgress":
-        if (task) {
-          inProgressPlaceholder.classList.add("hide");
-        }
-        inProgress.innerHTML += templateTaskCard(task);
-        break;
-      case "done":
-        if (task) {
-          donePlaceholder.classList.add("hide");
-        }
-        done.innerHTML += templateTaskCard(task);
-        break;
-      default:
-        console.warn(`Unknown category: ${task.category}`);
-    }
+    schwichtPlaceholderVisibility(task);
   }
 }
+
+
 
 function initiateBoard() {
   getAllTasks();
@@ -205,6 +196,8 @@ export {
   countSubtasks,
   countSubtasksDone,
   applyAssignedToColors,
+  tasksList,
+  getAllTasks
 };
 
 window.initiateBoard = initiateBoard;
