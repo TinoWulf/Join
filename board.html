@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="./styles/board.css" />
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <script src="./script.js"></script>
-    <script defer src="./connection.js" type="module"></script>
+    <script src="./scripts/scriptBord.js"></script>
+    <script type="module" defer>
+      import { initiateBoard } from "./scripts/board.js";
+      window.addEventListener("load", initiateBoard);
+    </script>
   </head>
-  <body onload="initiateBoard()">
+  <body>
     <header id="navbar">
-
     </header>
     <main id="main" class="main-board">
       <nav class="board-nav">
@@ -56,7 +59,7 @@
             <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
           </nav>
           <section class="tasks">
-            <div id="awaitReviewTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('awaitReview')" ondragleave="removeHighlight('awaitReviewTask')" ondragover="allowDrop(event); highlight('awaitReviewTask')">
+            <div id="awaitReviewTask" class="tasks-container board-scroll-wrapper"  ondrop="moveTo('awaitReview')" ondragleave="removeHighlight('awaitReviewTask')" ondragover="allowDrop(event); highlight('awaitReviewTask')">
                     
                 <div id="awaitReviewTaskPlaceholder" class="placeholder show">no tasks awaiting feedback</div>
             </div>
@@ -76,6 +79,6 @@
       </div>
     </main>
     <footer></footer>
-    <script defer src="./scripts/board.js"></script>
+    <script type="module" defer src="./scripts/board.js"></script>
   </body>
 </html>

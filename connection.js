@@ -24,11 +24,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-if (!database) {
-  console.error("Database connection failed");
-} else {
-  console.log(database);
-}
+export { app, database, ref, set, onValue, update, push, remove, get, child, query };
 
 async function createUserAndProfile() {
   const name = "Kristof Developer";
@@ -91,6 +87,21 @@ async function createUser(user) {
   }
 }
 
+function getUserById(userId) {
+  const usersRef = ref(database, "users/" + userId);
+  onValue(usersRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const user = snapshot.val();
+      console.log("User data:", user);
+    } else {
+      console.log("No user found with ID:", userId);
+    }
+  }, (error) => {
+    console.error("Error retrieving user:", error);
+  }
+  );
+}
+
 async function getAllUser() {
   const usersRef = ref(database, "users");
   try {
@@ -113,7 +124,7 @@ async function getAllUser() {
   }
 }
 
-getAllUser();
+// getAllUser();
 
 const contact = {
   id: Date.now(),
@@ -155,35 +166,28 @@ async function getAllContacts() {
     console.error("Error retrieving contacts:", error);
   }
 }
-getAllContacts();
-
+// getAllContacts();
 const task = {
   id: Date.now(),
-  title: "Integrate Firebase with Web App Using NPM",
+  title: "Run Lighthouse Performance Audit",
   description:
-    "Set up Firebase in a frontend project using Vite and NPM, enabling database access and modular imports.",
-  dueDate: "2025-07-10",
-  category: "Development",
-  priority: "urgent",
+    "Use Chrome Lighthouse to evaluate the web app's performance, accessibility, and SEO. Document and prioritize areas for improvement.",
+  dueDate: "2025-07-14",
+  category: "Optimization",
+  priority: "low",
   assignedTo: [
-    { name: "Alice Johnson", email: "alice@example.com" },
-    { name: "Bob Smith", email: "bob@example.com" },
+    { name: "Amira Soltan", email: "amira.soltan@jobboard.dev" },
   ],
   subtasks: [
-    {
-      title: "Initialize Vite project",
-    },
-    {
-      title: "Install Firebase via NPM",
-    },
-    {
-      title: "Set up Firebase configuration",
-    },
-    {
-      title: "Test writing data to Realtime Database",
-    },
+    { title: "Run Lighthouse on staging", checked: false },
+    { title: "Document all metrics < 90", checked: false },
+    { title: "Propose optimization actions", checked: false },
   ],
 };
+
+
+
+
 
 async function createTask(task) {
   const tasksRef = ref(database, "tasks/" + task.id);
@@ -197,26 +201,4 @@ async function createTask(task) {
 
 // createTask(task);
 
-async function getAllTasks() {
-  const tasksRef = ref(database, "tasks");
-  try {
-    const snapshot = await get(tasksRef);
-    if (snapshot.exists()) {
-      const tasks = snapshot.val();
-      for (const taskId in tasks) {
-        const task = tasks[taskId];
-        console.log(
-          `Task ID: ${taskId}, Title: ${task.title}, Category: ${task.category}`
-        );
-      }
-      return tasks;
-    } else {
-      console.log("No tasks found");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error retrieving tasks:", error);
-  }
-}
 
-getAllTasks();

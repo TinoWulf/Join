@@ -1,31 +1,4 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  background-color: #f6f7f8;
-  font-family: "Inter", sans-serif;
 
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.login-section {
-  display: flex;
-  flex: 1;
-}
-
-button {
-  background-color: #2a3647;
-}
-
-.white-color-text {
-  color: #ffffff;
-}
-
-.grey-text {
-  color: #cdcdcd;
-}
 :root {
   --primary-color: #2c3e50;
   --secondary-color: #34495e;
@@ -52,6 +25,34 @@ button {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
   font-weight: 500;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #f6f7f8;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-section {
+  display: flex;
+  flex: 1;
+}
+
+button {
+  background-color: #2a3647;
+}
+
+.white-color-text {
+  color: #ffffff;
+}
+
+.grey-text {
+  color: #cdcdcd;
 }
 
 body {
