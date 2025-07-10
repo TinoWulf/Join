@@ -93,6 +93,6 @@ function setupLogin() {
     }
   });
 }
-
+console.log("i'm the main script");
 setupSignUp();
 setupLogin();

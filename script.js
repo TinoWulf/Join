@@ -22,6 +22,11 @@ function openBoard() {
   window.location.href = "board.html";
 }
 
+function openSummary() {
+  window.location.href = "summary.html";
+}
+
+console.log("i'm the main script");
 
 
 

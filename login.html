@@ -27,7 +27,7 @@
     <section class="login-section">
         <div class="login-div">
             <div class="log-in-div">
-                <h1>Log in</h1>
+                <h1  onclick="openSummary()">Log in</h1>
                 <div class="border-line"></div>
             </div>
 
@@ -39,7 +39,7 @@
                 <div class="button-overlay">
                 <button type="submit" class="log-in-and-guest-log-in white-color-text">Log in</button>
                 <a href="./board.html">
-                    <button class="Guest-login-button log-in-and-guest-log-in">Guest Log in</button>
+                    <button class="Guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
                 </a>
             </div>
             <div id="messageLogin"></div>
@@ -52,9 +52,9 @@
     </section>
     <footer>
         <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
-        <a class="grey-text datenschutz">Lega notice</a>
+        <a class="grey-text datenschutz">Legal notice</a>
     </footer>
-
+    <script defer src="./script.js"></script>
     <script type="module" src="./scripts/log.js"></script>
 </body>
 </html>
