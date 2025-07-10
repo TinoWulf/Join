@@ -32,10 +32,12 @@
     left: 650px;
     border-radius: 56px;
     padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .popup-close-btn {
-    position: relative;
     width: 24px;
     height: 24px;
     opacity: 1;
@@ -50,8 +52,8 @@
 }
 
 .popup-banner {
-    width: 371px;
-    height: 462px;
+    width: 467px;
+    height: 594px;
     opacity: 1;
     padding-top: 66px;
     padding-right: 48px;
@@ -249,6 +251,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #FFFFFF;
 
 }
 
