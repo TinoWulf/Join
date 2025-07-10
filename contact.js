@@ -88,7 +88,14 @@ function showContact(initials, color, user, email, phone) {
                 <sub class="center-bottom-phone-number">${phone}</sub>
             </div>
         </div>`;
-    
+}
+
+function addContact() {
+    document.getElementById("popup").classList.remove("none");
+}
+
+function closePopup() {
+    document.getElementById("popup").classList.add("none");
 }
 
 
