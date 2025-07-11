@@ -8,7 +8,6 @@ import {
   push,
   remove,
   get,
-  child,
   query,
 } from "./connection.js";
 import { templateTaskCard } from "./templates.js";

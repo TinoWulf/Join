@@ -26,7 +26,6 @@ function openSummary() {
   window.location.href = "summary.html";
 }
 
-console.log("i'm the main script");
 
 
 

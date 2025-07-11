@@ -7,7 +7,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/login.css">
     <title>Join Log In</title>
 </head>
@@ -27,15 +29,17 @@
     <section class="login-section">
         <div class="login-div">
             <div class="log-in-div">
-                <h1  onclick="openSummary()">Log in</h1>
-                <div class="border-line"></div>
+                <h1>Log in</h1>
             </div>
 
 
 
             <form class="login-form" id="loginform">
+                <p class="error" id="loginErrorCredential"></p>
                 <input class="login" id="email" type="email" placeholder="Email" required>
+                <p id="error-email" class="error"></p>
                 <input class="login" id="password" type="password" placeholder="Password" required>
+                <p id="error-message" class="error"></p>
                 <div class="button-overlay">
                 <button type="submit" class="log-in-and-guest-log-in white-color-text">Log in</button>
                 <a href="./board.html">
@@ -54,7 +58,6 @@
         <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
         <a class="grey-text datenschutz">Legal notice</a>
     </footer>
-    <script defer src="./script.js"></script>
     <script type="module" src="./scripts/log.js"></script>
 </body>
 </html>

@@ -1,98 +1,121 @@
+import{app, database,ref, set, update, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from './connection.js'
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-    getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    updateProfile 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const nameRef = document.getElementById("sign-up-name");
+const emailRef = document.getElementById("sign-up-email");
+const passwordRef = document.getElementById("sign-up-password");
+const confirmPasswordRef = document.getElementById("confirmPassword");
 
-// jerrys Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyAxdb4CbOOtGb6A5XsP6kRjCgqsWPbwNCk",
-  authDomain: "join-login-data.firebaseapp.com",
-  projectId: "join-login-data",
-  storageBucket: "join-login-data.firebasestorage.app",
-  messagingSenderId: "218354818242",
-  appId: "1:218354818242:web:aef67a0223f6e4f492ef5b",
-  measurementId: "G-PPCD6JRHGM"
-};
+const acceptPolicyRef = document.getElementById("acceptPolicy");
+const message = document.getElementById("message");
 
-// Firebase einmal initialisieren
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+let emailError = document.getElementById('emailError');
+let signUpError = document.getElementById('sign-up-error');
+let passwordError = document.getElementById('error-passord');
+let loginError = document.getElementById('error-message');
 
-// =============================
-// SIGN UP Funktion
-// =============================
+
+let loginEmailRef = document.getElementById('email');
+let loginPasswordRef = document.getElementById('password');
+
+async function signUpUser(email, password, name, acceptedPolicy) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    const userId = user.uid;
+    const userProfileRef = ref(database, 'users/' + userId);
+    await set(userProfileRef, {
+      id: userId,
+      name: name,
+      email: email, 
+      acceptedPolicy: acceptedPolicy,
+      created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),
+    });
+    message.innerText = `Registrierung erfolgreich, Willkommen ${name}!`;
+    return user;
+  } catch (error) {
+    catchError(error);
+  }
+}
+
+
+function catchError(error){
+  if (error.code === 'auth/email-already-in-use') {
+      emailError.innerText="This email address is already in use.";
+    } else if (error.code === 'auth/invalid-email') {
+      emailError.innerText="Invalid email address.";
+    } else if (error.code === 'auth/weak-password') {
+      signUpError.innerText="Password is too weak. Please choose a stronger password.";
+    } else {
+      signUpError.innerText="An error occurred. Please try again.";
+    }
+    throw error;
+}
+
+
 function setupSignUp() {
   const signupForm = document.getElementById("signupForm");
   if (!signupForm) return;
-
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    const acceptPolicy = document.getElementById("acceptPolicy");
-    const message = document.getElementById("message");
-
-    if (!acceptPolicy.checked) {
-      message.innerText = "Bitte akzeptieren Sie die Datenschutzrichtlinie.";
-      message.style.display = "flex";
-      return; // blockiere die Registrierung
-    }
-
-    if (password !== confirmPassword) {
-      message.innerText = "Passwörter stimmen nicht überein!";
-      message.style.display = "flex";
+    const name = nameRef.value;
+    const email = emailRef.value;
+    const password = passwordRef.value;
+    const confirmPassword = confirmPasswordRef.value;
+    const acceptedPolicy = acceptPolicyRef;
+    if (!acceptedPolicy.checked) {
+      signUpError.innerText = "Bitte akzeptieren Sie die Datenschutzrichtlinie.";
       return;
     }
-
+    if (password !== confirmPassword) {
+      passwordError.innerText = "Passwörter stimmen nicht überein!";
+      return;
+    }
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: name });
-      message.innerText = `Registrierung erfolgreich, Willkommen ${name}!`;
-      message.style.display = "flex";
-    } catch (err) {
-      console.error(err);
-      message.innerText = `Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut`;
-      message.style.display = "flex";
+      await signUpUser(email, password, name, acceptedPolicy);
+      window.location.href = "login.html";
+    } catch (error) {
+      catchError(error)
     }
   });
 }
 
-// =============================
-// LOGIN Funktion
-// =============================
+
+async function loginUser(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log(user);
+  } catch (error) {
+    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+      console.error("Error: Invalid email or password.");
+    } else {
+      console.error("Error logging in:", error.message);
+    }
+    throw error;
+  }
+}
+
+
 function setupLogin() {
   const loginForm = document.getElementById("loginform");
-  if (!loginForm) return; // nur aktivieren, wenn das Formular vorhanden ist
-
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
+  if (!loginForm) return;
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = loginEmailRef.value;
+    const password = loginPasswordRef.value;
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      document.getElementById("messageLogin").innerText = `Willkommen zurück, ${userCredential.user.email}!`;
-      window.location.href = "./board.html";
-    } catch (err) {
-      console.error(err);
-      // document.getElementById("messageLogin").innerText = "Your email or password is incorrect.";
-      let emailStyle = document.getElementById("email");
-      let passwordStyle = document.getElementById("password");
-      emailStyle.style.borderColor = "red";
-      document.getElementById("password");
-      passwordStyle.style.borderColor = "red";
+      await loginUser(email, password);
+      openSummary();
+    } catch (e) {
+      loginError.innerText = "A Problem occurred, please try again";
     }
   });
 }
-console.log("i'm the main script");
+
+function openSummary() {
+  window.location.href = "summary.html";
+}
+
+window.openSummary = openSummary;
 setupSignUp();
 setupLogin();
