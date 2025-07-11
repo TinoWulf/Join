@@ -1,7 +1,8 @@
 /**
  * Imports the necessary Firebase database functions and references.
  */
-import { database, ref, get } from "./connection.js";
+import { database, ref, get} from "./connection.js";
+import { getAbbreviation} from "./board.js";
 
 
 /**
@@ -62,6 +63,14 @@ function getAllNumber(tasksList) {
     toDoTasksNumber: tasksList.filter(task => task.range === "toDo").length,
     awaitReviewTasksNumber: tasksList.filter(task => task.range === "awaitReview").length,
   };
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const currentUserName = urlParams.get('name');
+if(currentUserName){
+  document.getElementById('initial-user').textContent = getAbbreviation(currentUserName);
+}else{
+  document.getElementById('initial-user').textContent = 'G';
 }
 
 

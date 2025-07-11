@@ -44,6 +44,16 @@
         </div>
     </div>
 
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentUserName = urlParams.get('name');
+        if(currentUserName){
+            document.getElementById('initial-user').textContent = getAbbreviation(currentUserName);
+        }else{
+            document.getElementById('initial-user').textContent = 'JT';
+        }
+    </script>
+
 
 </body>
 </html>

@@ -1,5 +1,5 @@
 .main-board{
-  max-width: calc(100% - 232px);
+  max-width: calc(1920px - 232px);
   margin-left: 250px;
   margin-top: 70px;
   position: absolute;
@@ -75,6 +75,7 @@
 .container-board {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   gap: 5px;
   margin-bottom: 50px;

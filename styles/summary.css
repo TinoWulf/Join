@@ -1,5 +1,5 @@
 .main-summary{
-    max-width: calc(100% - 232px);
+    max-width: calc(1920px - 232px);
     margin-left: 250px;
     margin-right: 250px;
     margin-top: 90px;
@@ -87,6 +87,7 @@
     background-color: var(--text-color);
     cursor: pointer;
     color: var(--white);
+    animation: hover 1.5s ease-in-out 1.5S forwards;
 
     .task-number, .task-category{
         color: var(--white) ;
@@ -102,6 +103,20 @@
 
     .hide{
         display: flex !important;
+    }
+
+    .hide-image{
+        transform: scale(1.5);
+    }
+
+    @keyframes hover {
+        0% {
+            transform: scale(1);
+        }
+
+        100%{
+            transform: scale(1.1);
+        }
     }
 
 }
