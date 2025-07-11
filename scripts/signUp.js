@@ -6,16 +6,14 @@ const passwordRef = document.getElementById("sign-up-password");
 const confirmPasswordRef = document.getElementById("confirmPassword");
 
 const acceptPolicyRef = document.getElementById("acceptPolicy");
-const message = document.getElementById("message");
+const successMessage = document.getElementById("success-message");
+const mainSignup = document.getElementById("main-signup");
+const signUpBtn = document.getElementById("signUpBtn");
 
 let emailError = document.getElementById('emailError');
 let signUpError = document.getElementById('sign-up-error');
 let passwordError = document.getElementById('error-passord');
-let loginError = document.getElementById('error-message');
 
-
-let loginEmailRef = document.getElementById('email');
-let loginPasswordRef = document.getElementById('password');
 
 async function signUpUser(email, password, name, acceptedPolicy) {
   try {
@@ -30,7 +28,8 @@ async function signUpUser(email, password, name, acceptedPolicy) {
       acceptedPolicy: acceptedPolicy,
       created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),
     });
-    message.innerText = `Registrierung erfolgreich, Willkommen ${name}!`;
+    successMessage.style.display = "block";
+    mainSignup.style.display = "none";
     return user;
   } catch (error) {
     catchError(error);
@@ -62,17 +61,16 @@ function setupSignUp() {
     const password = passwordRef.value;
     const confirmPassword = confirmPasswordRef.value;
     const acceptedPolicy = acceptPolicyRef;
-    if (!acceptedPolicy.checked) {
-      signUpError.innerText = "Bitte akzeptieren Sie die Datenschutzrichtlinie.";
-      return;
-    }
     if (password !== confirmPassword) {
       passwordError.innerText = "Passwörter stimmen nicht überein!";
       return;
     }
+    verifyPolicy(acceptedPolicy);
     try {
       await signUpUser(email, password, name, acceptedPolicy);
-      window.location.href = "login.html";
+      signupForm.reset();
+      const successMessage = encodeURIComponent("You Signed Up successfully!");
+      window.location.href = `login.html?message=${successMessage}`;
     } catch (error) {
       catchError(error)
     }
@@ -80,50 +78,14 @@ function setupSignUp() {
 }
 
 
-async function loginUser(email, password) {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    console.log(user);
-  } catch (error) {
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      console.error("Error: Invalid email or password.");
+function verifyPolicy(acceptedPolicy){
+        if (!acceptedPolicy.checked) {
+        signUpError.innerText = "You must accept the policy.";
+        return;
     } else {
-      console.error("Error logging in:", error.message);
+        signUpError.innerText = ""; 
+        signUpBtn.removeAttribute("disabled");
     }
-    throw error;
-  }
 }
 
-
-function setupLogin() {
-  const loginForm = document.getElementById("loginform");
-  if (!loginForm) return;
-  loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const email = loginEmailRef.value;
-    const password = loginPasswordRef.value;
-    try {
-      await loginUser(email, password);
-      openSummary();
-    } catch (e) {
-      loginError.innerText = "A Problem occurred, please try again";
-    }
-  });
-}
-
-function openSummary() {
-  window.location.href = "summary.html";
-}
-
-
-window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      document.getElementById('overlay').classList.add('hide');
-    }, 1700); 
-});
-
-
-window.openSummary = openSummary;
 setupSignUp();
-setupLogin();

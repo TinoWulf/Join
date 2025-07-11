@@ -10,6 +10,7 @@
     <title>Sign Up</title>
 </head>
 <body>
+    <main class="main-signup" id="main-signup">
         <div class="head">
             <img class="logo" src="./assets/img/logonoir.png">
             <div id="message"></div>
@@ -36,16 +37,23 @@
                           <label for="acceptPolicy" class="label-policy-text">I accept the <a class="a-policy-text"> Privacy policy</a></label><br>
                         </div>
                         <p id="sign-up-error" class="error"></p>
-                        <button type="submit" class="sign-up-button">Sign up</button>
+                        <button type="submit" class="sign-up-button" id="signUpBtn">Sign up</button>
                     </form>
                 </div>
             </div>
-    </section>
-    <footer>
-        <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
-        <a class="grey-text datenschutz">Legal notice</a>
-    </footer>
+        </section>
+        <footer>
+            <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
+            <a class="grey-text datenschutz">Legal notice</a>
+        </footer>
+    </main>
 
-    <script type="module" src="./scripts/log.js"></script>
+    <div class="success-message hide" id="success-message">
+        <div class="success-message-content" >
+            You are Sign Up successfully!
+        </div>
+    </div>
+
+    <script type="module" src="./scripts/signUp.js"></script>
 </body>
 </html>
