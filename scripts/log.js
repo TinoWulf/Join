@@ -116,6 +116,14 @@ function openSummary() {
   window.location.href = "summary.html";
 }
 
+
+window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('overlay').classList.add('hide');
+    }, 1700); 
+});
+
+
 window.openSummary = openSummary;
 setupSignUp();
 setupLogin();

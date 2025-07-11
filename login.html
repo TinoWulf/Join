@@ -14,7 +14,9 @@
     <title>Join Log In</title>
 </head>
 <body>
-    <header>
+    
+
+    <header class="header" id="header-login">
         <div class="head">
             <img class="logo" src="./assets/img/logonoir.png" alt="Join Logo">
 
@@ -26,7 +28,7 @@
             </div>
         </div>
     </header>
-    <section class="login-section">
+    <section class="login-section" id="login-section">
         <div class="login-div">
             <div class="log-in-div">
                 <h1>Log in</h1>
@@ -46,7 +48,7 @@
                     <button class="Guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
                 </a>
             </div>
-            <div id="messageLogin"></div>
+            <div id="messageLogin"> </div>
             </form>
         </div>
             <div class="signup-div-mobile">
@@ -58,6 +60,9 @@
         <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
         <a class="grey-text datenschutz">Legal notice</a>
     </footer>
+    <div id="overlay" class="">
+        <img src="./assets/img/logonoir.png" alt="Logo" id="animatedLogo" class="animate">
+    </div>
     <script type="module" src="./scripts/log.js"></script>
 </body>
 </html>
