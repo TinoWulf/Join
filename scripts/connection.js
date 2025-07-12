@@ -178,10 +178,6 @@ const task = {
   ],
 };
 
-
-
-
-
 async function createTask(task) {
   const tasksRef = ref(database, "tasks/" + task.id);
   try {

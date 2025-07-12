@@ -199,7 +199,17 @@ function findTasksByCategory(categoryName) {
 }
 
 
+function callUserData(){
+  let actualUser = localStorage.getItem("userName");
+  if (actualUser && actualUser !== 'null') {
+    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  } else {
+    document.getElementById('initial-user').textContent = 'G';
+  }
+}
+
 function initiateBoard() {
+  callUserData()
   getAllTasks();
 }
 
@@ -211,6 +221,7 @@ export {
   countSubtasks,
   countSubtasksDone,
   applyAssignedToColors,
+  callUserData
 };
 
 
@@ -221,3 +232,4 @@ window.countSubtasks = countSubtasks;
 window.countSubtasksDone = countSubtasksDone;
 window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
+window.callUserData = callUserData;

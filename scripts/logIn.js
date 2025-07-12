@@ -30,7 +30,6 @@ function setupLogin() {
     try {
       await loginUser(email, password);
       loginForm.reset();
-      // openSummary();
     } catch (e) {
       if(e.code == "auth/invalid-credential"){
         loginError.innerText="Invalid email or password.";
@@ -61,9 +60,15 @@ function openSummaryPara(name) {
   window.location.href = `summary.html?name=${name} `;
 }
 
-
 function openSummary() {
-  window.location.href = "summary.html";
+  if(localStorage.getItem("userName")){
+    localStorage.removeItem("userName");
+    return window.location.href = "summary.html";
+  }
+  else{
+    localStorage.clear();
+    return window.location.href = "summary.html";
+  }
 }
 
 

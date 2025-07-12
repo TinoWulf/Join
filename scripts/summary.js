@@ -65,13 +65,33 @@ function getAllNumber(tasksList) {
   };
 }
 
+
+function capitalizeName(name) {
+  return name
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const currentUserName = urlParams.get('name');
-if(currentUserName){
-  document.getElementById('initial-user').textContent = getAbbreviation(currentUserName);
-}else{
-  document.getElementById('initial-user').textContent = 'G';
+if (currentUserName && currentUserName.trim() !== '') {
+  const loggedUser = capitalizeName(currentUserName.trim().toUpperCase());
+  localStorage.setItem("userName", loggedUser);
 }
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser && actualUser !== 'null') {
+  document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  document.getElementById('greetMessage').textContent = "Good Morning,";
+  document.getElementById('userName').textContent = actualUser;
+} else {
+  document.getElementById('initial-user').textContent = 'G';
+  document.getElementById('greetMessage').textContent = "Good Morning";
+}
+
 
 
 /**

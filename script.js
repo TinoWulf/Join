@@ -23,7 +23,15 @@ function openBoard() {
 }
 
 function openSummary() {
-  window.location.href = "summary.html";
+  if(localStorage.getItem("userName")){
+    localStorage.removeItem("userName");
+    console.log(" User logged out");
+    return window.location.href = "summary.html";
+  }
+  else{
+    localStorage.clear();
+    return window.location.href = "summary.html";
+  }
 }
 
 
