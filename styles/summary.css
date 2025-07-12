@@ -1,10 +1,9 @@
 .main-summary{
     max-width: calc(1920px - 232px);
     margin-left: 250px;
-    margin-right: 250px;
     margin-top: 90px;
     position: absolute;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px 10px 30px;
     margin-bottom: 200px;
 }
 
@@ -12,6 +11,7 @@
     height: 40px;
     width: 100%;
     display: flex;
+    margin-bottom: 20px;
     justify-content: start;
     align-items: center;
     padding: 20px 10px;
@@ -36,6 +36,7 @@
     align-items: center;
     justify-content: start;
     gap: 30px;
+    margin-top: 10px;
     padding-top: 20px;
 }
 
@@ -43,6 +44,7 @@
     width: 560px;
     height: 562px;
     padding-bottom: 30px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -69,6 +71,7 @@
     align-items: center;
     gap: 18px;
     border-radius: 10px;
+    padding: 5px;
 }
 
 .todo-summary-section, .done-summary-section{
@@ -79,6 +82,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 30px;
+    padding-left: 15px;
     gap: 20px;
     background-color: var(--white);
 }
@@ -87,7 +91,8 @@
     background-color: var(--text-color);
     cursor: pointer;
     color: var(--white);
-    animation: hover 1.5s ease-in-out 1.5S forwards;
+    transform: scale(1.05);
+    animation: all 5s ease-in-out 5s forwards ;
 
     .task-number, .task-category{
         color: var(--white) ;
@@ -108,17 +113,6 @@
     .hide-image{
         transform: scale(1.5);
     }
-
-    @keyframes hover {
-        0% {
-            transform: scale(1);
-        }
-
-        100%{
-            transform: scale(1.1);
-        }
-    }
-
 }
 
 .image-summary{
@@ -278,3 +272,15 @@
   display: none !important;
 }
 
+@media (max-width : 1090px) {
+    .container-summary{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .great-user{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+    }
+}

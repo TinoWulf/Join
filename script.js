@@ -17,6 +17,23 @@ function loadMenu() {
 
 loadMenu();
 
+function getAbbreviation(str) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
+}
+
+
+function callUserData(){
+  let actualUser = localStorage.getItem("userName");
+  if (actualUser && actualUser !== 'null') {
+    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  } else {
+    document.getElementById('initial-user').textContent = 'G';
+  }
+}
+
 
 function openBoard() {
   window.location.href = "board.html";
@@ -35,7 +52,14 @@ function openSummary() {
 }
 
 
+function showLogout(){
+  document.getElementById('popup').classList.toggle("hide");
+}
 
+function logOut(){
+  localStorage.clear();
+  return window.location.href = "login.html";
+}
 
 
 

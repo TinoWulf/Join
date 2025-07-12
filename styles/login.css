@@ -229,10 +229,20 @@ input {
   gap: 10px;
 }
 
-.Guest-login-button {
+.guest-login-button {
   padding: 30px;
   background-color: #ffffff;
   margin-left: 20px;
+}
+.guest-login-button:hover{
+  transform: scale(1.1);
+  border: 1px solid var(--blue);
+  color: var(--blue);
+}
+
+#login-button:hover{
+  transform: scale(1.1);
+  background-color: var(--blue);
 }
 
 .log-in-and-guest-log-in {

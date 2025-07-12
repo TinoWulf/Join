@@ -98,10 +98,15 @@ input {
     flex-direction: column;
     width: 100%;
 }
+.sign-up-button:hover{
+    border: unset;
+    transform: scale(1.1);
+    background-color: var(--blue);
+}
 
 .log-in-div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
