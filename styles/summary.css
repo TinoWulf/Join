@@ -26,7 +26,11 @@
     align-items: center;
     justify-content: center;
     padding-left: 20px;
-    border-left: 2px solid var(--blue);
+    border-left: 3px solid var(--blue);
+}
+
+.hr-join{
+    display: none;
 }
 
 .container-summary{
@@ -90,11 +94,21 @@
     background-color: var(--text-color);
     cursor: pointer;
     color: var(--white);
-    transform: scale(1.05);
-    animation: all 5s ease-in-out 5s forwards ;
+    animation: showup 10s ease-in-out ;
 
     .task-number, .task-category{
         color: var(--white) ;
+    }
+
+    @keyframes showup {
+        from{
+            transform: scale(1);
+            opacity: 0;
+        }
+        to{
+            transform: scale(1.05);
+            opacity: 1;
+        }
     }
 
     .show-image-hover {

@@ -24,6 +24,10 @@
   z-index: 2;
 }
 
+.back{
+  display: none;
+}
+
 .popup ul{
   list-style: none;
   display: flex;

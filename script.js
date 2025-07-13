@@ -53,7 +53,8 @@ function openSummary() {
 
 
 function showLogout(){
-  document.getElementById('popup').classList.toggle("hide");
+  document.getElementById('popup').classList.toggle("popupshow");
+  document.getElementById('popup').classList.toggle("back");
 }
 
 function logOut(){
