@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./styles/menu-bar.css">
     <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
 </head>
 <body>
     <div class="popup hide" id="popup">
@@ -18,14 +19,15 @@
     </div>
 
     <nav class="navbar">
-        <h4>Kanban Project Management Tool</h4>
+        <img src="./assets/img/logonoir.png" alt="logo mobile" class="logo-mobile">
+        <h4 class="help-pc">Kanban Project Management Tool</h4>
         <ul>
            <li class="help-pc"><a href=""><img src="./assets/icons/help.png" alt="help icon"></a></li>
             <li><span id="initial-user" onclick="showLogout()">G</span></li>
         </ul>
     </nav>
-    <div class="menu">
-        <div class="menu-header">
+    <div class="menu menu-mobile">
+        <div class="menu-header help-pc">
             <a href=""><img src="./assets/img/logo.png" alt=""></a>
         </div>
         <div class="menu-body">
@@ -46,7 +48,7 @@
                 <p class="menu-p">Contacts</p>
             </div></a>
         </div>
-        <div class="menu-footer">
+        <div class="menu-footer help-pc">
             <a href="policy.html"><p class="menu-p">Privacy Policy</p></a>
             <a href="notice.html"><p class="menu-p">Legal notice</p></a>
         </div>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <script src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
@@ -15,6 +16,18 @@
     <header id="navbar">
     </header>
     <main id="main" class="main-board">
+      <nav class="board-nav-mobile">
+        <div class="search-box">
+            <input type="text" placeholder="Find Task"/>
+            <span class="search-icon"><img src="./assets/icons/search.png" alt="search icon"/></span>
+        </div>
+        <div class="board-nav-links board-nav-links-mobile">
+          <h1>Board</h1>
+          <button class="add-task">
+            <img src="./assets/icons/add.png" alt="add icon" />
+          </button>
+        </div>
+      </nav>
       <nav class="board-nav">
         <h1>Board</h1>
         <div class="board-nav-links">

@@ -2,7 +2,6 @@
   max-width: calc(1920px - 232px);
   margin-left: 250px;
   margin-top: 70px;
-  position: absolute;
   padding: 10px 0 10px 20px;
   margin-bottom: 150px;
 }
@@ -14,6 +13,10 @@
   align-items: center;
   padding: 15px 10px;
 
+}
+
+.board-nav-mobile{
+  display: none;
 }
 
 .board-nav-links {
@@ -142,7 +145,8 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 8px;
   width: 100%;
-  max-width: 350px;
+  min-width: 252px;
+  max-width: 252px;
 }
 
 .taskCard-header {
@@ -201,7 +205,6 @@ progress{
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  position: relative;
 }
 
 .asigned-to span {
@@ -218,12 +221,14 @@ progress{
   border-radius: 50px;
   margin-left: -5px;
   border: 2px solid var(--white);
-  z-index: 1;
 }
 
 .asigned-to span:first-child {
   margin-left: 0;
-  z-index: 2;
+}
+
+.asigned-to span::not-first-child{
+  margin-left: 5px;
 }
 
 .drag-area-highlight {
@@ -249,24 +254,8 @@ progress{
   background-color: transparent;
   border-radius: 4px;
 }
-.taskPopup{
-  height: 100vh;
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--grey-color);
-}
 
-.taskCardPopup{
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  width: 600px;
-  height: 700px;
-}
+
 
 @media (max-width: 1200px) {
   .todo, .done, .in-progress, .await-feedback {
@@ -284,24 +273,24 @@ progress{
   }
 
   .board-scroll-wrapper {
-    display: flex;
-    gap: 4px;
+    display: inline-flex;
+    gap: 5px;
     overflow-x: auto;
     scroll-behavior: smooth;
+    background: transparent;
   }
 
   .board-scroll-wrapper::-webkit-scrollbar {
     height: 8px;
+    background-color: transparent;
   }
 
   .board-scroll-wrapper::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
+    background: transparent;
   }
 
-  .main-board{
-    position: relative;
-  }
 }
 
 @media (max-width: 760px) {
