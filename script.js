@@ -51,6 +51,17 @@ function openSummary() {
   }
 }
 
+const items = document.querySelectorAll('.menu-btn');
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      items.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      console("i was clicked")
+      console.log(item);
+    });
+  });
+
 
 function showLogout(){
   document.getElementById('popup').classList.toggle("popupshow");

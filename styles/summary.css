@@ -93,22 +93,13 @@
 .todo-summary-section:hover, .done-summary-section:hover, .tasks-sum-section:hover{
     background-color: var(--text-color);
     cursor: pointer;
+    font-size: 16px;
+    transform: scale(1.1);
     color: var(--white);
-    animation: showup 10s ease-in-out ;
+    transition: transform 0.3s ease;
 
     .task-number, .task-category{
         color: var(--white) ;
-    }
-
-    @keyframes showup {
-        from{
-            transform: scale(1);
-            opacity: 0;
-        }
-        to{
-            transform: scale(1.05);
-            opacity: 1;
-        }
     }
 
     .show-image-hover {
@@ -227,6 +218,9 @@
 .urgent-summary:hover{
     background-color: var(--text-color);
     color: var(--white);
+    transform: scale(1.1);
+    font-size: 16px;
+    transition: all 0.3s ease;
     cursor: pointer;
     .task-number, .task-category{
         color: var(--white) ;

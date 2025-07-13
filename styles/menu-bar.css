@@ -60,7 +60,9 @@
   color: #CDCDCD;
 }
 
-
+.active{
+  background-color: #142641;
+}
 
 .navbar {
   display: flex;
@@ -69,7 +71,7 @@
   padding: 16px 0 16px 0;
   height: 60px;
   background-color: var(--white);
-  position: absolute;
+  position: fixed;
   top: 0;
   width: calc(100% - 232px);
   z-index: 1000;
