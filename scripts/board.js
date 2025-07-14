@@ -154,6 +154,41 @@ function openTaskDetail(taskId){
   taskCardParent.classList.toggle('hide');
 }
 
+/**
+ * Searches a list of tasks by title, description, and category
+ * @param {Array} tasks - Array of task objects
+ * @param {string} keyword - The keyword to search for
+ * @returns {Array} - Filtered list of tasks matching the keyword
+ */
+function searchTasks(tasks, keyword) {
+  if (!keyword) return tasks;
+  const lowerKeyword = keyword.trim().toLowerCase();
+  return tasks.filter(task => {
+    const inTitle = task.title.toLowerCase().includes(lowerKeyword);
+    const inDescription = task.description.toLowerCase().includes(lowerKeyword);
+    const inCategory = task.category.toLowerCase().includes(lowerKeyword);
+    return inTitle || inDescription || inCategory;
+  });
+}
+
+
+function searchParticularTask(){
+  let searchInput = document.getElementById("searchValue").value;
+  let showSearchResult = document.getElementById("containerBoard");
+  let resultSearch = searchTasks(tasksList, searchInput);
+  tasksList = [];
+  showSearchResult.innerHTML = '';
+  for(let taskindex in resultSearch){
+    const task = resultSearch[taskindex];
+    if(showSearchResult){
+      showSearchResult.innerHTML += templateTaskCard(task);
+    }else{
+      showSearchResult.innerHTML = 'The Problem occur during the search result or the search result is empty';
+    }
+
+  }
+}
+
 
 /**
  * Loads all tasks, finds unique categories, renders tasks by category,
@@ -180,7 +215,21 @@ function findTasksByCategory(categoryName) {
   getElementById(categoryTask).innerHTML = "";
   for (let i = 0; i < taskForThisCat.length; i++) {
     let task = taskForThisCat[i];
-    switch (task.range) {
+    switchedRange1(task);
+    switchedRange2(task);
+  }
+}
+
+
+/**
+ * Moves a task to the appropriate section on the board based on its range property.
+ * Updates the DOM by hiding the relevant placeholder and appending the task card.
+ *
+ * @param {Object} task - The task object to be moved.
+ * @param {string} task.range - The target range for the task ('toDo' or 'awaitReview').
+ */
+function switchedRange1(task){
+  switch (task.range) {
       case "toDo":
         if (task) {
           todoPlacehoder.classList.add("hide");
@@ -192,7 +241,13 @@ function findTasksByCategory(categoryName) {
           awaitReviewPlaceholder.classList.add("hide");
         }
         awaitReview.innerHTML += templateTaskCard(task);
-        break;
+        break;;
+    }
+}
+
+
+function switchedRange2(task){
+  switch (task.range) {
       case "inProgress":
         if (task) {
           inProgressPlaceholder.classList.add("hide");
@@ -205,13 +260,17 @@ function findTasksByCategory(categoryName) {
         }
         done.innerHTML += templateTaskCard(task);
         break;
-      default:
-        console.warn(`Unknown category: ${task.category}`);
     }
-  }
 }
 
 
+/**
+ * Retrieves the current user's name from localStorage and updates the DOM element
+ * with the user's initials. If no user is found, sets a default initial 'G'.
+ *
+ * Depends on a function `getAbbreviation` to generate initials from the username.
+ * Updates the element with id 'initial-user'.
+ */
 function callUserData(){
   let actualUser = localStorage.getItem("userName");
   if (actualUser && actualUser !== 'null') {
@@ -236,7 +295,8 @@ export {
   countSubtasksDone,
   applyAssignedToColors,
   callUserData,
-  openTaskDetail
+  openTaskDetail,
+  searchParticularTask
 };
 
 
@@ -249,3 +309,4 @@ window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
 window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
+window.searchParticularTask = searchParticularTask;

@@ -21,56 +21,13 @@
     <header id="navbar"></header>
     <main id="main" class="main-board">
       <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
-        <!-- <div class="taskPopup">
-          <div class="taskCardPopup">
-            <div class="taskCard-header">
-              <span class="taskType">Developement</span>
-              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel"  class="show"/>
-            </div>
-            <h4>Join Bord Setup</h4>
-            <p class="taskCard-body description">
-              the project of the year about the kanban bord
-            </p>
-            <p class="taskCard-body due-date">
-              <span>Due Date: </span> <span>02/08/2025</span>
-            </p>
-            <p class="taskCard-body priority">
-              <span>Priority: </span> <span class="priority-img">Medium <img src="./assets/icons/medium.png" alt="" /></span>
-            </p>
-            <p class="asigned-to">Assigned To</p>
-            <ul class="asigned-to-list">
-              <li><span>RU</span> Rocket Urfeld</li>
-              <li><span>TH</span>Thedor Hannor</li>
-              <li><span>JN</span> Jeni Nebon</li>
-            </ul>
-            <div class="subtasks">
-              <h5>Subtasks</h5>
-              <section class="form-subtask">
-                <div class="form-check">
-                  <input type="checkbox" id="subtask1" name="subtask1" value="subtask1"/>
-                  <label for="subtask1">
-                    Implementation Recipes Recommendation</label
-                  >
-                </div>
-                <div class="form-check">
-                  <input type="checkbox" id="subtask2" name="subtask2" value="subtask2" />
-                  <label for="subtask2"> Start Page Layout</label>
-                </div>
-              </section>
-            </div>
-
-            <div class="taskPopupFooter">
-              <p><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
-              <p><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
-            </div>
-          </div>
-        </div> -->
+        
       </div>
 
       <nav class="board-nav-mobile">
         <div class="search-box">
-          <input type="text" placeholder="Find Task" />
-          <span class="search-icon"
+          <input type="text" placeholder="Find Task" id="searchValue" />
+          <span class="search-icon" onclick="searchParticularTask()"
             ><img src="./assets/icons/search.png" alt="search icon"
           /></span>
         </div>
@@ -85,8 +42,8 @@
         <h1>Board</h1>
         <div class="board-nav-links">
           <div class="search-box">
-            <input type="text" placeholder="Find Task" />
-            <span class="search-icon"
+            <input type="text" placeholder="Find Task" id="searchValue" />
+            <span class="search-icon" onclick="searchParticularTask()"
               ><img src="./assets/icons/search.png" alt="search icon"
             /></span>
           </div>
@@ -96,7 +53,7 @@
           </button>
         </div>
       </nav>
-      <div class="container-board">
+      <div class="container-board" id="containerBoard">
         <section class="todo">
           <nav class="board-nav-tasks">
             <h3>Todo</h3>

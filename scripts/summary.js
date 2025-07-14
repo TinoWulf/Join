@@ -31,6 +31,7 @@ async function getAllTasksSummary() {
     const {
       tasksNumber,doneTasksNumber,inProgressTasksNumber,toDoTasksNumber,awaitReviewTasksNumber
     } = getAllNumber(tasksList);
+    getNearestTask(tasksList);
     document.getElementById("totalTasks").innerText = tasksNumber;
     document.getElementById("doneTasks").innerText = doneTasksNumber;
     document.getElementById("tasksInProgress").innerText = inProgressTasksNumber;
@@ -66,6 +67,12 @@ function getAllNumber(tasksList) {
 }
 
 
+/**
+ * Capitalizes the first letter of each word in a given name string.
+ *
+ * @param {string} name - The name string to capitalize.
+ * @returns {string} The capitalized name string.
+ */
 function capitalizeName(name) {
   return name
     .toLowerCase()
@@ -78,6 +85,30 @@ function capitalizeName(name) {
 const currentDate = new Date();
 const currentHour = currentDate.getHours();
 
+/**
+ * Finds the nearest upcoming task from a list of tasks based on their due dates,
+ * updates the inner text of the element with ID "upComingDeadline" to display the formatted due date,
+ * and returns the formatted due date string. If there are no upcoming tasks, returns null.
+ *
+ * @param {Array<{ dueDate: string }>} tasksList - The list of task objects, each containing a dueDate property.
+ * @returns {string|null} The formatted due date of the nearest upcoming task, or null if none exist.
+ */
+function getNearestTask(tasksList) {
+  const nextUrgentTask = document.getElementById("upComingDeadline");
+  const today = new Date();
+  const urgentTasks = tasksList.filter(task => new Date(task.dueDate) >= today);
+  if (urgentTasks.length === 0) return null;
+  urgentTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  return nextUrgentTask.innerText =  formatDueDate(urgentTasks[0].dueDate, "long"); 
+}
+
+
+/**
+ * Returns a greeting message based on the provided hour of the day.
+ *
+ * @param {number} currentHour - The current hour in 24-hour format (0-23).
+ * @returns {string} A greeting message: "Good morning,", "Good afternoon,", "Good evening,", or "Good night,".
+ */
 function getUserExits(currentHour){
   if (currentHour >= 5 && currentHour < 12) {
       return "Good morning,";

@@ -40,7 +40,7 @@ function templateTaskCardDetail(task){
               ${task.description}
             </p>
             <p class="taskCard-body due-date">
-              <span>Due Date: </span> <span>${task.dueDate}</span>
+              <span>Due Date: </span> <span>${formatDueDate(task.dueDate, "numeric")}</span>
             </p>
             <p class="taskCard-body priority">
               <span>Priority: </span> <span class="priority-img">${capitalizeName(task.priority)} <img src="./assets/icons/${task.priority}.png" alt="" /></span>
