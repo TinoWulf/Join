@@ -119,6 +119,8 @@ if (actualUser && actualUser !== 'null') {
   document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
 }
 
+document.getElementById('summary').classList.add('active');
+
 
 
 /**

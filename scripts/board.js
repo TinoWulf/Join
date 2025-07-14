@@ -209,6 +209,7 @@ function callUserData(){
 }
 
 function initiateBoard() {
+  document.getElementById('board').classList.add('active');
   callUserData()
   getAllTasks();
 }

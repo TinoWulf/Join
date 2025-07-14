@@ -275,6 +275,9 @@
     height: 110px;
     gap: 20px;
   }
+  .urgent-summary-deadline span, .urgent-summary-deadline p{
+    font-size: 16px;
+  }
   .todo-summary-section p,
   .done-summary-section p,
   .tasks-sum-section,
