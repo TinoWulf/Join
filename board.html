@@ -5,21 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board|Join</title>
     <link rel="stylesheet" href="./styles/standard.css" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/board.css" />
+    <link rel="stylesheet" href="./styles/show-task.css" />
     <link rel="stylesheet" href="./styles/responsive.css" />
-    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./assets/img/logo.png"
+      type="image/x-icon"
+    />
     <script src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
   </head>
   <body onload="initiateBoard()">
-    <header id="navbar">
-    </header>
+    <header id="navbar"></header>
     <main id="main" class="main-board">
+      <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
+        <!-- <div class="taskPopup">
+          <div class="taskCardPopup">
+            <div class="taskCard-header">
+              <span class="taskType">Developement</span>
+              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel"  class="show"/>
+            </div>
+            <h4>Join Bord Setup</h4>
+            <p class="taskCard-body description">
+              the project of the year about the kanban bord
+            </p>
+            <p class="taskCard-body due-date">
+              <span>Due Date: </span> <span>02/08/2025</span>
+            </p>
+            <p class="taskCard-body priority">
+              <span>Priority: </span> <span class="priority-img">Medium <img src="./assets/icons/medium.png" alt="" /></span>
+            </p>
+            <p class="asigned-to">Assigned To</p>
+            <ul class="asigned-to-list">
+              <li><span>RU</span> Rocket Urfeld</li>
+              <li><span>TH</span>Thedor Hannor</li>
+              <li><span>JN</span> Jeni Nebon</li>
+            </ul>
+            <div class="subtasks">
+              <h5>Subtasks</h5>
+              <section class="form-subtask">
+                <div class="form-check">
+                  <input type="checkbox" id="subtask1" name="subtask1" value="subtask1"/>
+                  <label for="subtask1">
+                    Implementation Recipes Recommendation</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" id="subtask2" name="subtask2" value="subtask2" />
+                  <label for="subtask2"> Start Page Layout</label>
+                </div>
+              </section>
+            </div>
+
+            <div class="taskPopupFooter">
+              <p><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
+              <p><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
       <nav class="board-nav-mobile">
         <div class="search-box">
-            <input type="text" placeholder="Find Task"/>
-            <span class="search-icon"><img src="./assets/icons/search.png" alt="search icon"/></span>
+          <input type="text" placeholder="Find Task" />
+          <span class="search-icon"
+            ><img src="./assets/icons/search.png" alt="search icon"
+          /></span>
         </div>
         <div class="board-nav-links board-nav-links-mobile">
           <h1>Board</h1>
@@ -32,8 +85,10 @@
         <h1>Board</h1>
         <div class="board-nav-links">
           <div class="search-box">
-            <input type="text" placeholder="Find Task"/>
-            <span class="search-icon"><img src="./assets/icons/search.png" alt="search icon"/></span>
+            <input type="text" placeholder="Find Task" />
+            <span class="search-icon"
+              ><img src="./assets/icons/search.png" alt="search icon"
+            /></span>
           </div>
           <button class="add-task">
             Add Task
@@ -41,36 +96,63 @@
           </button>
         </div>
       </nav>
-      <div class="container-board" onload="loadTasks()">
+      <div class="container-board">
         <section class="todo">
           <nav class="board-nav-tasks">
             <h3>Todo</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
-          <div id="toDoTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDoTask')" ondragover="allowDrop(event); highlight('toDoTask')">
-
-            <div id="toDoTaskPlaceholder" class="placeholder show">No tasks To do</div>
+          <div
+            id="toDoTask"
+            class="tasks-container board-scroll-wrapper"
+            ondrop="moveTo('toDo')"
+            ondragleave="removeHighlight('toDoTask')"
+            ondragover="allowDrop(event); highlight('toDoTask')"
+          >
+            <div id="toDoTaskPlaceholder" class="placeholder show">
+              No tasks To do
+            </div>
           </div>
         </section>
         <section class="in-progress">
           <nav class="board-nav-tasks">
             <h3>In Progress</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
-          <div id="inProgressTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgressTask')" ondragover="allowDrop(event); highlight('inProgressTask')">
-
-            <div id="inProgressTaskPlaceholder" class="placeholder show">no tasks in progress</div>
+          <div
+            id="inProgressTask"
+            class="tasks-container board-scroll-wrapper"
+            ondrop="moveTo('inProgress')"
+            ondragleave="removeHighlight('inProgressTask')"
+            ondragover="allowDrop(event); highlight('inProgressTask')"
+          >
+            <div id="inProgressTaskPlaceholder" class="placeholder show">
+              no tasks in progress
+            </div>
           </div>
         </section>
         <section class="await-feedback">
           <nav class="board-nav-tasks">
             <h3>Await Feedback</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
           <section class="tasks">
-            <div id="awaitReviewTask" class="tasks-container board-scroll-wrapper"  ondrop="moveTo('awaitReview')" ondragleave="removeHighlight('awaitReviewTask')" ondragover="allowDrop(event); highlight('awaitReviewTask')">
-                    
-                <div id="awaitReviewTaskPlaceholder" class="placeholder show">no tasks awaiting feedback</div>
+            <div
+              id="awaitReviewTask"
+              class="tasks-container board-scroll-wrapper"
+              ondrop="moveTo('awaitReview')"
+              ondragleave="removeHighlight('awaitReviewTask')"
+              ondragover="allowDrop(event); highlight('awaitReviewTask')"
+            >
+              <div id="awaitReviewTaskPlaceholder" class="placeholder show">
+                no tasks awaiting feedback
+              </div>
             </div>
           </section>
         </section>
@@ -79,46 +161,20 @@
             <h3>Done</h3>
           </nav>
           <section class="tasks">
-            <div id="doneTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('done')" ondragleave="removeHighlight('doneTask')" ondragover="allowDrop(event); highlight('doneTask')">
-
-              <div id="doneTaskPlaceholder" class="placeholder show">No Task Done</div>
+            <div
+              id="doneTask"
+              class="tasks-container board-scroll-wrapper"
+              ondrop="moveTo('done')"
+              ondragleave="removeHighlight('doneTask')"
+              ondragover="allowDrop(event); highlight('doneTask')"
+            >
+              <div id="doneTaskPlaceholder" class="placeholder show">
+                No Task Done
+              </div>
             </div>
           </section>
         </section>
       </div>
-
-      <!-- <div class="taskPopup hide">
-        <div class="taskCard taskCardPopup hide">
-          <div class="taskCard-header">
-            <span class="taskType">Developement</span>
-            <img src="./assets/icons/iconoir_cancel.png" alt="cancel" class="show" />
-          </div>
-          <h4>Join Bord Setup</h4>
-          <p class="taskCard-body">the project of the year about the kanban bord</p>
-          <p class="taskCard-body"><span>Due Date: </span> <span>02/08/2025</span></p>
-          <p class="taskCard-body"><span>Priority: </span> <span>Medium</span><img src="./assets/icons/medium.png" alt=""></p>
-          <p>assigned To</p>
-          <ul class="asigned-to">
-            <li><span>RU</span> Rocket Urfeld</li>
-            <li><span>TH</span>Thedor Hannor</li>
-            <li><span>JN</span> Jeni Nebon</li>
-          </ul>
-          <div class="subtasks">
-            <h5>subtasks</h5>
-            <section class="form-subtask">
-              <input type="checkbox" id="subtask1" name="subtask1" value="subtask1">
-              <label for="subtask1"> Implementation Recipes Recommendation</label><br>
-              <input type="checkbox" id="subtask2" name="subtask2" value="subtask2">
-              <label for="subtask2"> Start Page Layout</label><br>
-            </section>
-          </div>
-          
-          <div class="taskPopupFooter">
-            <p><img src="./assets/icons/delete.png" alt="delete"><span>delete</span></p>
-            <p><img src="./assets/icons/edit.png" alt="edit"><span>edit</span></p>
-          </div>  
-        </div>
-      </div> -->
     </main>
     <footer></footer>
     <script type="module" defer src="./scripts/board.js"></script>

@@ -45,6 +45,16 @@ function moveTo(range) {
 }
 
 
+function closePopUp(event){
+  document.getElementById("taskCardParent").classList.toggle('hide');
+  event.stopPropagation()
+}
+
+function preventEvent(event){
+  event.stopPropagation()
+}
+
+
 /**
  * Allows a drop event by preventing the default behavior.
  * @param {DragEvent} event - The drag event.

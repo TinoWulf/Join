@@ -10,7 +10,7 @@ import {
   get,
   query,
 } from "./connection.js";
-import { templateTaskCard } from "./templates.js";
+import { templateTaskCard, templateTaskCardDetail } from "./templates.js";
 
 /**
  * Loads all tasks and renders them into their respective category columns on the board.
@@ -106,15 +106,20 @@ function getAbbreviation(str) {
 
 
 function applyAssignedToColors() {
-  document.querySelectorAll(".asigned-to span").forEach((span) => {
-    const firstLetter = span.textContent.trim().charAt(0).toUpperCase();
+  document.querySelectorAll(".asigned-to span").forEach((spantask) => {
+    const firstLetter = spantask.textContent.trim().charAt(0).toUpperCase();
     const color = letterColors[firstLetter] || "#000";
-    span.style.backgroundColor = color;
+    spantask.style.backgroundColor = color;
   });
-  document.querySelectorAll(".taskCard-header span").forEach((span) => {
-    const firstLetter = span.textContent.trim().charAt(0).toUpperCase();
+  document.querySelectorAll(".taskCardPopup ul li span").forEach((spanuser) => {
+    const firstLetter = spanuser.textContent.trim().charAt(0).toUpperCase();
     const color = letterColors[firstLetter] || "#000";
-    span.style.backgroundColor = color;
+    spanuser.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".taskCard-header span").forEach((spancategory) => {
+    const firstLetter = spancategory.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    spancategory.style.backgroundColor = color;
   });
 }
 
@@ -139,6 +144,14 @@ async function getAllTasks() {
   } catch (error) {
     console.error("Error retrieving tasks:", error);
   }
+}
+
+function openTaskDetail(taskId){
+  let taskCardParent = document.getElementById("taskCardParent");
+  taskCardParent.innerHTML = '';
+  const task = tasksList.find(task => task.id === taskId);
+  taskCardParent.innerHTML = templateTaskCardDetail(task);
+  taskCardParent.classList.toggle('hide');
 }
 
 
@@ -222,7 +235,8 @@ export {
   countSubtasks,
   countSubtasksDone,
   applyAssignedToColors,
-  callUserData
+  callUserData,
+  openTaskDetail
 };
 
 
@@ -234,3 +248,4 @@ window.countSubtasksDone = countSubtasksDone;
 window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
 window.callUserData = callUserData;
+window.openTaskDetail = openTaskDetail;
