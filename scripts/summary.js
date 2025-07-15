@@ -28,10 +28,10 @@ async function getAllTasksSummary() {
     if (!snapshot.exists()) return;
     const tasks = snapshot.val();
     tasksList = Object.values(tasks); 
+    getNearestTask(tasksList);
     const {
       tasksNumber,doneTasksNumber,inProgressTasksNumber,toDoTasksNumber,awaitReviewTasksNumber
     } = getAllNumber(tasksList);
-    getNearestTask(tasksList);
     document.getElementById("totalTasks").innerText = tasksNumber;
     document.getElementById("doneTasks").innerText = doneTasksNumber;
     document.getElementById("tasksInProgress").innerText = inProgressTasksNumber;
@@ -97,7 +97,7 @@ function getNearestTask(tasksList) {
   const nextUrgentTask = document.getElementById("upComingDeadline");
   const today = new Date();
   const urgentTasks = tasksList.filter(task => new Date(task.dueDate) >= today);
-  if (urgentTasks.length === 0) return null;
+  if (urgentTasks.length === 0) return  nextUrgentTask.innerText = "No Upcoming tasks";
   urgentTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
   return nextUrgentTask.innerText =  formatDueDate(urgentTasks[0].dueDate, "long"); 
 }
@@ -150,7 +150,16 @@ if (actualUser && actualUser !== 'null') {
   document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
 }
 
-document.getElementById('summary').classList.add('active');
+/**
+ * Sets the 'active' class on the summary navigation item and removes it from other navigation items.
+ * This function highlights the summary section in the navigation bar.
+ */
+function activeNavItem(){
+  document.getElementById('board').classList.remove('active');
+  document.getElementById('contacts').classList.remove('active');
+  document.getElementById('addtask').classList.remove('active');
+  document.getElementById('summary').classList.add('active');
+}
 
 
 
@@ -158,3 +167,4 @@ document.getElementById('summary').classList.add('active');
  * Initializes the summary by fetching and displaying all task statistics.
  */
 getAllTasksSummary();
+activeNavItem();

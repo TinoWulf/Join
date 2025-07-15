@@ -19,7 +19,38 @@
   gap: 24px;
   opacity: 2;
   border-radius: 30px;
+  position: absolute;
+  right: -650px;
   overflow-y: scroll;
+  animation: animatePopUpTask 0.5s ease-in-out 0.5s forwards;
+}
+
+.task-popup-remove{
+  position: absolute;
+  right: 50%;
+  animation: animatePopUpTaskRemove 0.5s ease-in-out 0.5s forwards;
+}
+
+@keyframes animatePopUpTask {
+  0% {
+    right: -650px;
+  }
+
+  100% {
+    right: 50%;
+    transform: translate(50%, 0);
+  }
+}
+
+@keyframes animatePopUpTaskRemove {
+  from{
+    transform: translate(50%, 0);
+  }
+  to {
+    right: -650px;
+    transform: translate(0, 0);
+    display: none;
+  }
 }
 
 .taskCardPopup h4 {

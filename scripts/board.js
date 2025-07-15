@@ -112,8 +112,8 @@ function applyAssignedToColors() {
     spantask.style.backgroundColor = color;
   });
   document.querySelectorAll(".taskCardPopup ul li span").forEach((spanuser) => {
-    const firstLetter = spanuser.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
+    const firstLetterUser = spanuser.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetterUser] || "#000";
     spanuser.style.backgroundColor = color;
   });
   document.querySelectorAll(".taskCard-header span").forEach((spancategory) => {
@@ -151,6 +151,7 @@ function openTaskDetail(taskId){
   taskCardParent.innerHTML = '';
   const task = tasksList.find(task => task.id === taskId);
   taskCardParent.innerHTML = templateTaskCardDetail(task);
+  applyAssignedToColors();
   taskCardParent.classList.toggle('hide');
 }
 
@@ -182,10 +183,11 @@ function searchParticularTask(){
     const task = resultSearch[taskindex];
     if(showSearchResult){
       showSearchResult.innerHTML += templateTaskCard(task);
+      applyAssignedToColors();
+      initiateBoard();
     }else{
       showSearchResult.innerHTML = 'The Problem occur during the search result or the search result is empty';
     }
-
   }
 }
 
@@ -280,12 +282,26 @@ function callUserData(){
   }
 }
 
-function initiateBoard() {
+
+/**
+ * Sets the 'active' class on the board navigation item and removes it from other navigation items.
+ * This function highlights the board section in the navigation bar.
+ */
+function activeNavItem(){
   document.getElementById('board').classList.add('active');
+  document.getElementById('contacts').classList.remove('active');
+  document.getElementById('addtask').classList.remove('active');
+  document.getElementById('summary').classList.remove('active');
+}
+
+
+function initiateBoard() {
+  activeNavItem();
   callUserData()
   getAllTasks();
 }
 
+initiateBoard();
 
 export {
   initiateBoard,

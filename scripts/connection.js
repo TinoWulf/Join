@@ -162,19 +162,22 @@ async function getAllContacts() {
 // getAllContacts();
 const task = {
   id: Date.now(),
-  title: "Run Lighthouse Performance Audit",
+  title: "Develope a new app",
   description:
-    "Use Chrome Lighthouse to evaluate the web app's performance, accessibility, and SEO. Document and prioritize areas for improvement.",
-  dueDate: "2025-07-14",
-  category: "Optimization",
-  priority: "low",
+    " Create a new app with the latest technologies and features.",
+  dueDate: "2025-09-29",
+  category: " Work",
+  priority: "urgent",
   assignedTo: [
-    { name: "Amira Soltan", email: "amira.soltan@jobboard.dev" },
+    { name: "Dev Logo", email: "devlogo@dev.com" },
+    { name: "Lena Smith", email: "lena.smith@devmail.com" },
+    { name: "Bob Johnson", email: "bob.johnson@mail.org" },
+    { name: "Jane Anderson", email: "jane.anderson@test.com" },
   ],
   subtasks: [
-    { title: "Run Lighthouse on staging", checked: false },
-    { title: "Document all metrics < 90", checked: false },
-    { title: "Propose optimization actions", checked: false },
+    { title: "Design App", checked: true },
+    { title: "Develop App", checked: true },
+    { title: "Test App", checked: false },
   ],
 };
 

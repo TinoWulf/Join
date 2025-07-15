@@ -65,7 +65,7 @@ function templateTaskCardDetail(task){
               </section>
             </div>
             <div class="taskPopupFooter">
-              <p><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
+              <p onclick = "deleteTask(${task.id}, event)"><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
               <p><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
             </div>
           </div>

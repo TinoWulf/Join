@@ -9,6 +9,23 @@ function startDragging(id) {
   currentDraggedTask = id;
 }
 
+async function deleteTask(taskId, event) {
+  try {
+    // const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
+    //   method: "DELETE",
+    // });
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    console.log(" Task deleted");
+    initiateBoard(); // Refresh
+  } catch (error) {
+    console.error("Delete task error:", error);
+    alert("Error deleting this task");
+  }
+  closePopUp(event);
+}
+
 /**
  * Moves the currently dragged task to a specified category.
  *
@@ -19,29 +36,39 @@ function startDragging(id) {
  * @param {string} range - The target category to move the task to.
  */
 
-function moveTo(range) {
+async function moveTo(range) {
   const taskID = currentDraggedTask;
-  fetch(`${dataBaseURL}/${query}/${taskID}.json`)
-    .then((response) => response.json())
-    .then((task) => {
-      if (task) {
-        task.range = range;
-        fetch(`${dataBaseURL}/${query}/${taskID}.json`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...task, range: range }),
-        })
-          .then(() => {
-            initiateBoard();
-          })
-          .catch((error) => console.error("Error updating task:", error));
-      } else {
-        console.warn("Task not found for ID:", taskID);
-      }
-    });
-  currentDraggedTask = null;
+  try {
+    const response = await fetch(`${dataBaseURL}/${query}/${taskID}.json`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch task with ID ${taskID}`);
+    }
+    const task = await response.json();
+    await updateRangeTask(task, range)
+    initiateBoard(); // Refresh board
+  } catch (error) {
+    console.error("Error moving task:", error);
+  } finally {
+    currentDraggedTask = null;
+  }
+}
+
+async function updateRangeTask(task, range) {
+  if (!task) {
+      console.warn("Task not found for ID:", task.id);
+      return;
+  }
+  task.range = range;
+  const updateResponse = await fetch(`${dataBaseURL}/${query}/${task.id}.json`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+  if (!updateResponse.ok) {
+    throw new Error(`Failed to update task with ID ${task.id}`);
+  }
 }
 
 
@@ -51,9 +78,9 @@ function moveTo(range) {
  *
  * @param {Event} event - The event object associated with the popup close action.
  */
-function closePopUp(event){
-  document.getElementById("taskCardParent").classList.toggle('hide');
-  event.stopPropagation()
+function closePopUp(event) {
+  document.getElementById("taskCardParent").classList.toggle("hide");
+  event.stopPropagation();
 }
 
 /**
@@ -61,10 +88,9 @@ function closePopUp(event){
  *
  * @param {Event} event - The event object to stop propagation for.
  */
-function preventEvent(event){
-  event.stopPropagation()
+function preventEvent(event) {
+  event.stopPropagation();
 }
-
 
 /**
  * Allows a drop event by preventing the default behavior.
