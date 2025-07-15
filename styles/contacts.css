@@ -1,5 +1,3 @@
-
-
 .contacts {
     position: fixed;
     width: 456px;
@@ -21,34 +19,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    border-radius: 10px;
-    border-width: 1px;
-    padding: 12px 56px;
-    gap: 16px;
-    background-color: #091931;
-}
-
-.contact-btn:hover {
-    cursor: pointer;
-    border-width: 3px;
-    border-color: #FFFFFF;
-
-}
-
-.contact-btn-text {
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 21px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    color: white;
 }
 
 .contact-render {
@@ -74,6 +44,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.render-div-hover {
+    background-color: #2A3647;
+    color: #FFFFFF;
 }
 
 .render-div:hover {
@@ -114,7 +89,6 @@
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .contact-mail {
@@ -144,6 +118,7 @@
 
 .render-letter {
     font-size: 20px;
+    padding-left: 12px;
 }
 
 .render-letter-splitter {
@@ -169,12 +144,10 @@
 }
 
 .center-headline-text {
-    font-family: Inter;
     font-weight: 700;
     font-style: Bold;
     font-size: 61px;
     line-height: 120%;
-    letter-spacing: 0%;
 }
 
 .center-head-splitter {
@@ -186,12 +159,8 @@
 }
 
 .center-head-text {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
     font-size: 27px;
     line-height: 120%;
-    letter-spacing: 0%;
 }
 
 .center-body {
@@ -258,12 +227,10 @@
 }
 
 .center-top-inital {
-    font-family: Inter;
     font-weight: 500;
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
-    letter-spacing: 0%;
     text-align: center;
     vertical-align: middle;
 }
@@ -278,12 +245,10 @@
 }
 
 .center-top-name {
-    font-family: Inter;
     font-weight: 500;
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
     white-space: nowrap;
 }
@@ -296,57 +261,9 @@
     gap: 12px;
 }
 
-.edit {
-    width: 62px;
-    height: 24px;
-    opacity: 1;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.edit:hover {
-    cursor: pointer;
-}
-
-.edit-sub {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-}
-
-.delete {
-    width: 62px;
-    height: 24px;
-    opacity: 1;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.delete:hover {
-    cursor: pointer;
-}
-
-.delete-sub {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-}
-
 .center-middle-text {
-    font-style: Regular;
     font-size: 20px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
 }
 
@@ -382,16 +299,12 @@
     font-style: Bold;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .center-bottom-mail-name {
-    font-style: Regular;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
     color: #007CEE;
 }
@@ -401,16 +314,11 @@
     font-style: Bold;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .center-bottom-phone-number {
-    font-style: Regular;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }

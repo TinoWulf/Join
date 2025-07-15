@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./styles/popup-contact.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./styles/contact-buttons.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
@@ -25,7 +26,7 @@
     <main class="main-contact">
         <div class="contacts">
         <div class="contact-header">
-            <button onclick="addContact()" class="contact-btn"><sub class="contact-btn-text">Add new contact</sub><img
+            <button onclick="openContactAdd()" class="contact-btn"><sub class="contact-btn-text">Add new contact</sub><img
                     src="./assets/icons/person_add.png" alt=""></button>
         </div>
         <div id="contact-render" class="contact-render">
@@ -38,7 +39,7 @@
         <sub class="center-head-text">Better with a team</sub>
     </div>
     <div id="center-body" class="center-body"></div>
-    <div id="popup" class="popup none">
+    <div id="popup-add" class="popup none">
         <div class="popup-main">
             <div class="popup-banner">
                 <div class="popup-banner-join">
@@ -52,7 +53,7 @@
             </div>
 
             <div class="popup-close-btn-div">
-                <div  onclick="closePopup()" class="popup-close-btn">
+                <div  onclick="closeContactAdd()" class="popup-close-btn">
                     <img src="./assets/icons/iconoir_cancel.png" alt="">
                 </div>
             </div>
@@ -61,21 +62,23 @@
             </div>
             <div class="popup-field">
                 <div class="popup-field-name">
-                    <input class="popup-field-name-input" type="name" placeholder="Name">
+                    <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-add">
                 </div>
                 <div class="popup-field-email">
-                    <input class="popup-field-email-input" type="email" placeholder="Email">
+                    <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-add">
                 </div>
                 <div class="popup-field-phone">
-                    <input class="popup-field-phone-input" type="number" placeholder="Phone">
+                    <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-add">
                 </div>
             </div>
             <div class="popup-buttons">
-                <button onclick="closePopup()" class="popup-btn-cancel">Cancel <img src="./assets/icons/iconoir_cancel.png" alt=""></button>
-                <button class="popup-btn-create">Create contact <img src="./assets/icons/check.png" alt=""></button>
+                <button onclick="closeContactAdd()" class="popup-btn-cancel">Cancel <img src="./assets/icons/iconoir_cancel.png" alt=""></button>
+                <button onclick="addContact()" class="popup-btn-create">Create contact <img src="./assets/icons/check.png" alt=""></button>
             </div>
         </div>
     </div>
+    <div id="popup-edit" class="popup none"></div>
+    <div id="alert" class="alert alert-close"></div>
     </main>
     
     

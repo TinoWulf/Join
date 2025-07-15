@@ -1,0 +1,186 @@
+.edit {
+    width: 62px;
+    height: 24px;
+    opacity: 1;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.edit:hover {
+    cursor: pointer;
+}
+
+.edit-sub {
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+
+.delete {
+    width: 62px;
+    height: 24px;
+    opacity: 1;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.delete:hover {
+    cursor: pointer;
+}
+
+.delete-sub {
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+
+.popup-btn-save {
+    width: 111px;
+    height: 57px;
+    gap: 4px;
+    opacity: 1;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: #2A3647;
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-buttons {
+    position: relative;
+    width: 364px;
+    height: 57px;
+    top: -200px;
+    left: 728px;
+    opacity: 1;
+    gap: 24px;
+    display: flex;
+}
+
+.popup-btn-cancel {
+    width: 126px;
+    height: 56px;
+    border-radius: 10px;
+    border-width: 1px;
+    opacity: 1;
+    gap: 4px;
+    border: 1px solid #2A3647;
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #2A3647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+
+}
+
+.popup-btn-create {
+    width: 214px;
+    height: 57px;
+    border-radius: 10px;
+    opacity: 1;
+    gap: 4px;
+    background-color: #2A3647;
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-btn-cancel:hover {
+    cursor: pointer;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.popup-btn-create:hover {
+    cursor: pointer;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #FFFFFF;
+}
+
+.popup-close-btn-div {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    top: 48px;
+    left: 650px;
+    border-radius: 56px;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-close-btn {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+    top: 4px;
+    left: 4px;
+}
+
+.popup-close-btn-div:hover {
+    cursor: pointer;
+    border-style: solid;
+    padding: 0;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 12px 56px;
+    gap: 16px;
+    background-color: #091931;
+}
+
+.contact-btn:hover {
+    cursor: pointer;
+    border-width: 3px;
+    border-color: #FFFFFF;
+
+}
+
+.contact-btn-text {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: white;
+}

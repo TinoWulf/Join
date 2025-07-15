@@ -23,34 +23,6 @@
     flex-wrap: wrap;
 }
 
-.popup-close-btn-div {
-    position: relative;
-    width: 32px;
-    height: 32px;
-    opacity: 1;
-    top: 48px;
-    left: 650px;
-    border-radius: 56px;
-    padding: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.popup-close-btn {
-    width: 24px;
-    height: 24px;
-    opacity: 1;
-    top: 4px;
-    left: 4px;
-}
-
-.popup-close-btn-div:hover {
-    cursor: pointer;
-    border-style: solid;
-    padding: 0;
-}
-
 .popup-banner {
     width: 467px;
     height: 594px;
@@ -222,82 +194,51 @@
     color: #D1D1D1;
 }
 
-.popup-buttons {
-    position: relative;
-    width: 364px;
-    height: 57px;
-    top: -200px;
-    left: 728px;
-    opacity: 1;
-    gap: 24px;
-    display: flex;
-}
-
-.popup-btn-cancel {
-    width: 126px;
-    height: 56px;
-    border-radius: 10px;
-    border-width: 1px;
-    opacity: 1;
-    gap: 4px;
-    border: 1px solid #2A3647;
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
+input[type="name"] {
     font-size: 20px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    color: #2A3647;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFFFFF;
-
 }
 
-.popup-btn-create {
-    width: 214px;
-    height: 57px;
-    border-radius: 10px;
-    opacity: 1;
-    gap: 4px;
-    background-color: #2A3647;
-    font-family: Inter;
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 21px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+input[type="email"] {
+    font-size: 20px;
 }
 
-.popup-btn-cancel:hover {
-    cursor: pointer;
-    border-style: solid;
-    border-width: 3px;
+input[type="text"] {
+    font-size: 20px;
 }
 
-.popup-btn-create:hover {
+.popup-btn-save:hover {
     cursor: pointer;
     border-style: solid;
     border-width: 3px;
     border-color: #FFFFFF;
 }
 
-input[type="name"]
-{
-    font-size:20px;
+.alert {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 426px;
+    height: 74px;
+    opacity: 1;
+    border-radius: 20px;
+    color: #FFFFFF;
+    background-color: #2A3647;
+    box-shadow: 0px 0px 4px 0px #00000026;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 500ms;
 }
 
-input[type="email"]
-{
-    font-size:20px;
+.alert-text {
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-input[type="number"]
-{
-    font-size:20px;
+.alert-close {
+    transform: translateY(-300%);
 }
