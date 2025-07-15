@@ -12,7 +12,7 @@
 
 }
 
-.popup{
+.popup-header{
   position: absolute;
   border-radius: 20px 0 20px 20px;
   top: 60px;
@@ -28,7 +28,7 @@
   display: none;
 }
 
-.popup ul{
+.popup-header ul{
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
   margin: 0;
 }
 
-.popup ul li{
+.popup-header ul li{
   width: 130px;
   height: 46px;
   text-align: left;
@@ -51,12 +51,12 @@
   cursor: pointer;
 }
 
-.popup ul li:hover {
+.popup-header ul li:hover {
   background-color: #142641;
   cursor: pointer;
 }
 
-.popup ul li a{
+.popup-header ul li a{
   color: #CDCDCD;
 }
 
@@ -189,10 +189,6 @@ a {
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
-<<<<<<< HEAD
-    color: #A8A8A8; 
-}
-=======
     color: #A8A8A8;
 }
 
@@ -200,4 +196,3 @@ a {
   color: var(--blue);
   transform: scale(1.1);
 }
->>>>>>> 3d2dfdb709d4f2d7c37c824672970055926d1ff0
