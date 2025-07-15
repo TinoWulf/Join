@@ -1,0 +1,136 @@
+.taskCardParent {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  background: rgba(24, 30, 63, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.taskCardPopup {
+  max-width: 525px;
+  max-height: 98vh;
+  background-color: var(--white);
+  padding: 48px 40px;
+  gap: 24px;
+  opacity: 2;
+  border-radius: 30px;
+  overflow-y: scroll;
+}
+
+.taskCardPopup h4 {
+  font-size: 61px;
+  font-weight: bold;
+}
+
+.taskCardPopup .taskCard-body,
+.taskCardPopup .asigned-to,
+.taskCardPopup h5 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.taskCardPopup .priority,
+.taskCardPopup .due-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+
+.taskCardPopup .priority-img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskCardPopup ul {
+  list-style: none;
+  gap: 8px;
+}
+
+.taskCardPopup::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.taskCardPopup::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.taskCardPopup ul li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 7px 16px;
+}
+
+.taskCardPopup input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #555;
+  background: none;
+  cursor: pointer;
+}
+.taskCardPopup input[type="checkbox"]:checked {
+  background: none;
+  content: "✓";
+  color: var(--border-color);
+  border-color: var(--border-color);
+}
+
+.taskCardPopup .form-check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 16px;
+}
+
+.taskCardPopup .taskPopupFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.taskCardPopup .taskPopupFooter img {
+  width: 24px;
+  height: 24px;
+}
+.taskCardPopup .taskPopupFooter p {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  margin: 10px;
+  gap: 8px;
+}
+
+@media (max-width: 600px) {
+     .taskCardPopup {
+        min-width: 300px;
+        max-height: 98vh;
+        padding: 32px 24px;
+    }
+    .taskCardPopup h4 {
+        font-size: 36px;
+    }
+
+    .taskCardPopup .taskCard-body,
+    .taskCardPopup .asigned-to,
+    .taskCardPopup h5 {
+        font-size: 16px;
+    }
+
+}

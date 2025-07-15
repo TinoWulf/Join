@@ -5,22 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Board|Join</title>
     <link rel="stylesheet" href="./styles/standard.css" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./styles/board.css" />
-    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/show-task.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
+    <link
+      rel="shortcut icon"
+      href="./assets/img/logo.png"
+      type="image/x-icon"
+    />
     <script src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
   </head>
   <body onload="initiateBoard()">
-    <header id="navbar">
-    </header>
+    <header id="navbar"></header>
     <main id="main" class="main-board">
+      <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
+        
+      </div>
+
+      <nav class="board-nav-mobile">
+        <div class="search-box">
+          <input type="text" placeholder="Find Task" id="searchValue" />
+          <span class="search-icon" onclick="searchParticularTask()"
+            ><img src="./assets/icons/search.png" alt="search icon"
+          /></span>
+        </div>
+        <div class="board-nav-links board-nav-links-mobile">
+          <h1>Board</h1>
+          <button class="add-task">
+            <img src="./assets/icons/add.png" alt="add icon" />
+          </button>
+        </div>
+      </nav>
       <nav class="board-nav">
         <h1>Board</h1>
         <div class="board-nav-links">
           <div class="search-box">
-            <input type="text" placeholder="Find Task"/>
-            <span class="search-icon"><img src="./assets/icons/search.png" alt="search icon"/></span>
+            <input type="text" placeholder="Find Task" id="searchValue" />
+            <span class="search-icon" onclick="searchParticularTask()"
+              ><img src="./assets/icons/search.png" alt="search icon"
+            /></span>
           </div>
           <button class="add-task">
             Add Task
@@ -28,36 +53,63 @@
           </button>
         </div>
       </nav>
-      <div class="container-board" onload="loadTasks()">
+      <div class="container-board" id="containerBoard">
         <section class="todo">
           <nav class="board-nav-tasks">
             <h3>Todo</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
-          <div id="toDoTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('toDo')" ondragleave="removeHighlight('toDoTask')" ondragover="allowDrop(event); highlight('toDoTask')">
-
-            <div id="toDoTaskPlaceholder" class="placeholder show">No tasks To do</div>
+          <div
+            id="toDoTask"
+            class="tasks-container board-scroll-wrapper"
+            ondrop="moveTo('toDo')"
+            ondragleave="removeHighlight('toDoTask')"
+            ondragover="allowDrop(event); highlight('toDoTask')"
+          >
+            <div id="toDoTaskPlaceholder" class="placeholder show">
+              No tasks To do
+            </div>
           </div>
         </section>
         <section class="in-progress">
           <nav class="board-nav-tasks">
             <h3>In Progress</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
-          <div id="inProgressTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('inProgress')" ondragleave="removeHighlight('inProgressTask')" ondragover="allowDrop(event); highlight('inProgressTask')">
-
-            <div id="inProgressTaskPlaceholder" class="placeholder show">no tasks in progress</div>
+          <div
+            id="inProgressTask"
+            class="tasks-container board-scroll-wrapper"
+            ondrop="moveTo('inProgress')"
+            ondragleave="removeHighlight('inProgressTask')"
+            ondragover="allowDrop(event); highlight('inProgressTask')"
+          >
+            <div id="inProgressTaskPlaceholder" class="placeholder show">
+              no tasks in progress
+            </div>
           </div>
         </section>
         <section class="await-feedback">
           <nav class="board-nav-tasks">
             <h3>Await Feedback</h3>
-            <span><img src="./assets/icons/plusbtngrey.png" alt="add in todo"/></span>
+            <span
+              ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
+            /></span>
           </nav>
           <section class="tasks">
-            <div id="awaitReviewTask" class="tasks-container board-scroll-wrapper"  ondrop="moveTo('awaitReview')" ondragleave="removeHighlight('awaitReviewTask')" ondragover="allowDrop(event); highlight('awaitReviewTask')">
-                    
-                <div id="awaitReviewTaskPlaceholder" class="placeholder show">no tasks awaiting feedback</div>
+            <div
+              id="awaitReviewTask"
+              class="tasks-container board-scroll-wrapper"
+              ondrop="moveTo('awaitReview')"
+              ondragleave="removeHighlight('awaitReviewTask')"
+              ondragover="allowDrop(event); highlight('awaitReviewTask')"
+            >
+              <div id="awaitReviewTaskPlaceholder" class="placeholder show">
+                no tasks awaiting feedback
+              </div>
             </div>
           </section>
         </section>
@@ -66,9 +118,16 @@
             <h3>Done</h3>
           </nav>
           <section class="tasks">
-            <div id="doneTask" class="tasks-container board-scroll-wrapper" ondrop="moveTo('done')" ondragleave="removeHighlight('doneTask')" ondragover="allowDrop(event); highlight('doneTask')">
-
-              <div id="doneTaskPlaceholder" class="placeholder show">No Task Done</div>
+            <div
+              id="doneTask"
+              class="tasks-container board-scroll-wrapper"
+              ondrop="moveTo('done')"
+              ondragleave="removeHighlight('doneTask')"
+              ondragover="allowDrop(event); highlight('doneTask')"
+            >
+              <div id="doneTaskPlaceholder" class="placeholder show">
+                No Task Done
+              </div>
             </div>
           </section>
         </section>

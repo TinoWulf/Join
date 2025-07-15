@@ -6,39 +6,49 @@
     <title>Document</title>
     <link rel="stylesheet" href="./styles/menu-bar.css">
     <link rel="stylesheet" href="./styles/standard.css">
-    <script defer src="./connection.js" type="module"></script>
+    <link rel="stylesheet" href="./styles/responsive.css">
 </head>
 <body>
-    <nav class="navbar">
-        <h4>Kanban Project Management Tool</h4>
+    <div class="popup back" id="popup">
         <ul>
-           <li><a href=""><img src="./assets/icons/help.png" alt="help icon"></a></li>
-            <li><span>RT</span></li>
+            <li class="help-mobile" id="help-mobile"><a href="">Help</a></li>
+            <li><a href="">Legal Notice</a></li>
+            <li><a href="">Privacy Policy</a></li>
+            <li onclick="logOut()"><a>Logout</a></li>
+        </ul>
+    </div>
+
+    <nav class="navbar">
+        <img src="./assets/img/logonoir.png" alt="logo mobile" class="logo-mobile">
+        <h4 class="help-pc">Kanban Project Management Tool</h4>
+        <ul>
+           <li class="help-pc"><a href=""><img src="./assets/icons/help.png" alt="help icon"></a></li>
+            <li><span id="initial-user" onclick="showLogout()">G</span></li>
         </ul>
     </nav>
-    <div class="menu">
-        <div class="menu-header">
-            <a href="index.html"><img src="./assets/img/logo.png" alt=""></a>
+    <div class="menu menu-mobile">
+        <div class="menu-header help-pc">
+            <a><img src="./assets/img/logo.png" alt="logo"></a>
         </div>
         <div class="menu-body">
-            <a href="summary.html"><div class="menu-btn">
+            <a href="summary.html"><div class="menu-btn" id="summary">
                 <img src="./assets/icons/summary.png" alt="">
                 <p class="menu-p">Summary</p>
             </div></a>
-            <a href="addtask.html"><div class="menu-btn">
+            <a href="addtask.html"><div class="menu-btn" id="addtask">
                 <img src="./assets/icons/add-task.png" alt="">
                 <p class="menu-p">Add Task</p>
             </div></a>
-            <a href="board.html"><div class="menu-btn">
+            <a href="board.html"><div class="menu-btn" id="board">
                 <img src="./assets/icons/board.png" alt="">
                 <p class="menu-p">Board</p>
             </div></a>
-            <a href="contacts.html"><div class="menu-btn">
+            <a href="contacts.html"><div class="menu-btn" id="contacts">
                 <img src="./assets/icons/contact.png" alt="">
                 <p class="menu-p">Contacts</p>
             </div></a>
         </div>
-        <div class="menu-footer">
+        <div class="menu-footer help-pc">
             <a href="policy.html"><p class="menu-p">Privacy Policy</p></a>
             <a href="notice.html"><p class="menu-p">Legal notice</p></a>
         </div>

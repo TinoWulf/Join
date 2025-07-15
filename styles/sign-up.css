@@ -1,3 +1,12 @@
+.main-signup {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--light-grey-color);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .head {
     display: flex;
     justify-content: space-between;
@@ -14,7 +23,26 @@
     background-color: #2A3647;
     padding: 16px;
     border-radius: 16px;
+}
 
+.success-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.success-message-content{
+    position: absolute ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--light-grey-color);
+    width: 300px;
+    height: 70px;
+    border-radius: 15px;
 }
 
 h1 {
@@ -70,10 +98,15 @@ input {
     flex-direction: column;
     width: 100%;
 }
+.sign-up-button:hover{
+    border: unset;
+    transform: scale(1.1);
+    background-color: var(--blue);
+}
 
 .log-in-div {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -141,10 +174,16 @@ footer {
 
 .padding-privacy-policy {
     padding: 20px;
+    cursor: pointer;
 }
 
 .datenschutz {
     font-size: 16px;
+    cursor: pointer;
+}
+
+.error{
+    color: tomato;
 }
 
 

@@ -46,6 +46,27 @@ function moveTo(range) {
 
 
 /**
+ * Handles the closing of a popup by toggling the 'hide' class on the element
+ * with the ID 'taskCardParent'. Prevents the event from propagating further.
+ *
+ * @param {Event} event - The event object associated with the popup close action.
+ */
+function closePopUp(event){
+  document.getElementById("taskCardParent").classList.toggle('hide');
+  event.stopPropagation()
+}
+
+/**
+ * Prevents the event from propagating (bubbling) up the DOM tree.
+ *
+ * @param {Event} event - The event object to stop propagation for.
+ */
+function preventEvent(event){
+  event.stopPropagation()
+}
+
+
+/**
  * Allows a drop event by preventing the default behavior.
  * @param {DragEvent} event - The drag event.
  */
