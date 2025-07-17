@@ -54,7 +54,7 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
     }
     document.getElementById(`render-div${i}`).classList.add("render-div-hover"); // Highlight current
     activeContactIndex = i; // Store active index
-
+    document.getElementById("center").classList.add("display-show");
     let centerBody = document.getElementById("center-body"); // Get display area
     centerBody.innerHTML = renderContactInfo(initials, color, user, email, phone, userID); // Render contact info
 }
@@ -107,6 +107,7 @@ async function addContact() { // Add new contact
     if (result) {
         await finishAddContact(result, userID);
     }
+    clearInputs();
 }
 
 function checkInput(nameInput, emailInput, phoneInput) { // Validate input fields
@@ -305,4 +306,10 @@ function showAlertCheck(message) {
     alert.innerHTML = `<sub class="alert-text">${message}</sub>`;
     alert.classList.add("alert");
     document.getElementById('alert').classList.toggle('alert-close');
+}
+
+function clearInputs() {
+    document.getElementById("in-name-add").value = ""; // Clear inputs
+    document.getElementById("in-email-add").value = "";
+    document.getElementById("in-number-add").value = "";
 }

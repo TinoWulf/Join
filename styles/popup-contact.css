@@ -242,3 +242,21 @@ input[type="text"] {
 .alert-close {
     transform: translateY(-300%);
 }
+
+.popup-input-img-person {
+    position: relative;
+    right: 40px;
+    top: 0px;
+}
+
+.popup-input-img-email {
+    position: relative;
+    right: 40px;
+    top: 5px;
+}
+
+.popup-input-img-phone {
+    position: relative;
+    right: 40px;
+    top: 5px;
+}
