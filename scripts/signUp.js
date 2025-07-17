@@ -15,6 +15,17 @@ let signUpError = document.getElementById('sign-up-error');
 let passwordError = document.getElementById('error-passord');
 
 
+/**
+ * Registers a new user with the provided email, password, and name, and stores their profile in the database.
+ *
+ * @async
+ * @function
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @param {string} name - The user's full name.
+ * @param {boolean} acceptedPolicy - Indicates whether the user has accepted the policy.
+ * @returns {Promise<Object|undefined>} The created user object on success, or undefined if an error occurs.
+ */
 async function signUpUser(email, password, name, acceptedPolicy) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -37,6 +48,14 @@ async function signUpUser(email, password, name, acceptedPolicy) {
 }
 
 
+/**
+ * Handles authentication errors by displaying user-friendly messages
+ * based on the error code, and then rethrows the error.
+ *
+ * @param {Object} error - The error object returned from the authentication process.
+ * @param {string} error.code - The specific error code identifying the type of authentication error.
+ * @throws Will rethrow the provided error after displaying the appropriate message.
+ */
 function catchError(error){
   if (error.code === 'auth/email-already-in-use') {
       emailError.innerText="This email address is already in use.";
@@ -51,6 +70,18 @@ function catchError(error){
 }
 
 
+/**
+ * Sets up the sign-up form submission handler.
+ * Handles form validation, including password confirmation and policy acceptance,
+ * and attempts to register a new user. On success, redirects to the login page with a success message.
+ * On failure, displays appropriate error messages.
+ *
+ * Assumes the existence of referenced DOM elements and helper functions:
+ * - nameRef, emailRef, passwordRef, confirmPasswordRef, acceptPolicyRef, passwordError
+ * - verifyPolicy(acceptedPolicy)
+ * - signUpUser(email, password, name, acceptedPolicy)
+ * - catchError(error)
+ */
 function setupSignUp() {
   const signupForm = document.getElementById("signupForm");
   if (!signupForm) return;
@@ -72,12 +103,19 @@ function setupSignUp() {
       const successMessage = encodeURIComponent("You Signed Up successfully!");
       window.location.href = `login.html?message=${successMessage}`;
     } catch (error) {
-      catchError(error)
+      catchError(error);
     }
   });
 }
 
 
+/**
+ * Verifies if the policy checkbox has been accepted.
+ * Displays an error message if not accepted and disables the sign-up button.
+ * Clears the error message and enables the sign-up button if accepted.
+ *
+ * @param {HTMLInputElement} acceptedPolicy - The checkbox input element representing policy acceptance.
+ */
 function verifyPolicy(acceptedPolicy){
         if (!acceptedPolicy.checked) {
         signUpError.innerText = "You must accept the policy.";

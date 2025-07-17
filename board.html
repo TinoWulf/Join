@@ -17,14 +17,14 @@
     <script src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
   </head>
-  <body>
+  <body onload="initiateBoard()">
     <header id="navbar">
       
     </header>
     <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
       
     </div>
-    <main id="main" class="main-board">
+    <main id="main" class="main-board" onload="initiateBoard()">
 
       <nav class="board-nav-mobile">
         <div class="search-box">

@@ -5,6 +5,7 @@ let loginEmailRef = document.getElementById('email');
 let loginPasswordRef = document.getElementById('password');
 let userName = "";
 
+
 async function loginUser(email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -12,7 +13,7 @@ async function loginUser(email, password) {
     findUserWithId(user.uid)
   } catch (error) {
     if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      console.error("Error: Invalid email or password.");
+      loginError.innerText = "Invalid email or password.";
     } else {
       console.error("Error logging in:", error.message);
     }
@@ -20,6 +21,19 @@ async function loginUser(email, password) {
   }
 }
 
+
+/**
+ * Sets up the login form submission handler.
+ * Prevents default form submission, retrieves user credentials,
+ * attempts to log in the user, and handles errors by displaying
+ * appropriate messages.
+ *
+ * Assumes the existence of:
+ * - loginEmailRef: Reference to the email input element.
+ * - loginPasswordRef: Reference to the password input element.
+ * - loginUser(email: string, password: string): Promise<void> function for authentication.
+ * - loginError: Element to display error messages.
+ */
 function setupLogin() {
   const loginForm = document.getElementById("loginform");
   if (!loginForm) return;
@@ -40,6 +54,20 @@ function setupLogin() {
   });
 }
 
+
+/**
+ * Retrieves a user from the database by their user ID and handles the result.
+ *
+ * @async
+ * @function findUserWithId
+ * @param {string} userId - The unique identifier of the user to find.
+ * @returns {void}
+ *
+ * @description
+ * Listens for changes to the user data at the specified user ID path in the database.
+ * If the user exists, extracts the user's name and calls `openSummaryPara` with it.
+ * Logs an error message if the user is not found or if there is an error retrieving the user.
+ */
 async function findUserWithId(userId){
   const usersRef = ref(database, "users/" + userId);
   onValue(usersRef, (snapshot) => {
@@ -56,10 +84,24 @@ async function findUserWithId(userId){
   );
 }
 
+
+/**
+ * Redirects the browser to the summary page with the specified name as a query parameter.
+ *
+ * @param {string} name - The name to be included in the summary page URL as a query parameter.
+ */
 function openSummaryPara(name) {
   window.location.href = `summary.html?name=${name} `;
 }
 
+/**
+ * Redirects the user to the summary page after handling localStorage.
+ * If "userName" exists in localStorage, it removes only that item.
+ * Otherwise, it clears the entire localStorage.
+ * In both cases, navigates to "summary.html".
+ *
+ * @returns {string} The new URL of the summary page.
+ */
 function openSummary() {
   if(localStorage.getItem("userName")){
     localStorage.removeItem("userName");

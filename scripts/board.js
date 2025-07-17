@@ -11,17 +11,6 @@ import {
   query,
 } from "./connection.js";
 import { templateTaskCard, templateTaskCardDetail } from "./templates.js";
-
-/**
- * Loads all tasks and renders them into their respective category columns on the board.
- *
- * - Extracts unique categories from the global `tasks` array.
- * - For each category, finds and displays tasks belonging to that category using `findTasksByCategory`.
- * - Applies color styling to assigned user initials via `applyAssignedToColors`.
- *
- * @function
- */
-
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
@@ -65,10 +54,10 @@ const letterColors = {
   Z: "#c0392b",
 };
 
+
 /**
  * Initializes the board by loading all tasks and applying assigned-to colors.
  */
-
 function getElementById(id) {
   return document.getElementById(id);
 }
@@ -146,6 +135,7 @@ async function getAllTasks() {
   }
 }
 
+
 function openTaskDetail(taskId){
   let taskCardParent = document.getElementById("taskCardParent");
   taskCardParent.innerHTML = '';
@@ -154,6 +144,7 @@ function openTaskDetail(taskId){
   applyAssignedToColors();
   taskCardParent.classList.toggle('hide');
 }
+
 
 /**
  * Searches a list of tasks by title, description, and category
@@ -295,13 +286,79 @@ function activeNavItem(){
 }
 
 
+/**
+ * Moves the currently dragged task to a specified category.
+ *
+ * Finds the task in the global `tasks` array by its `id` (using `currentDraggedTask`),
+ * updates its `category` property, and reloads the tasks display.
+ * If the task is not found, logs a warning to the console.
+ *
+ * @param {string} range - The target category to move the task to.
+ */
+
+// async function moveTo(range) {
+//   const taskID = currentDraggedTask;
+//   const rangeId  = `${range}Task`;
+//   console.log(rangeId)
+//   try {
+//     const response = await fetch(`${dataBaseURL}/${querys}/${taskID}.json`);
+//     if (!response.ok) {
+//       throw new Error(`Failed to fetch task with ID ${taskID}`);
+//     }
+//     const task = await response.json();
+//     await updateRangeTask(task, range)
+//     loadTasks()
+//     getAllTasks();
+//     removeHighlight(rangeId);
+//     initiateBoard();// Refresh board
+//   } catch (error) {
+//     console.error("Error moving task:", error);
+//   } finally {
+//     currentDraggedTask = null;
+//   }
+// }
+
+// async function updateRangeTask(task, range) {
+//   if (!task) {
+//       console.warn("Task not found for ID:", task.id);
+//       return;
+//   }
+//   task.range = range;
+//   const updateResponse = await fetch(`${dataBaseURL}/${querys}/${task.id}.json`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(task),
+//   });
+//   if (!updateResponse.ok) {
+//     throw new Error(`Failed to update task with ID ${task.id}`);
+//   }
+// }
+
+
+async function moveTo(range){
+  const taskID = currentDraggedTask;
+  const rangeId  = `${range}Task`;
+  const taskRef = ref(database, "tasks/" + taskID);
+  try{
+    await update(taskRef, {range: range});
+    loadTasks();
+    removeHighlight(rangeId);
+    initiateBoard();
+    location.reload();
+    }catch(error){
+      console.warn("Error modifying task range:", error);
+    }
+}
+
+
 function initiateBoard() {
   activeNavItem();
   callUserData()
   getAllTasks();
 }
 
-initiateBoard();
 
 export {
   initiateBoard,
@@ -312,7 +369,8 @@ export {
   applyAssignedToColors,
   callUserData,
   openTaskDetail,
-  searchParticularTask
+  searchParticularTask,
+  moveTo,
 };
 
 
@@ -326,3 +384,4 @@ window.loadTasks = loadTasks;
 window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.searchParticularTask = searchParticularTask;
+window.moveTo = moveTo;

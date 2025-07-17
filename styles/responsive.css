@@ -9,16 +9,14 @@
   @keyframes slideFromRight {
     from {
       right: -250px;
-      opacity: 0;
     }
     to {
       right: 10px;
-      opacity: 1;
     }
   }
 
   .back {
-    display: block;
+    display: none;
     top: 60px;
     right: -250px;
     position: fixed;
@@ -28,11 +26,11 @@
   @keyframes slideFromLeft {
     from {
       right: 10px;
-      opacity: 1;
+      display: block;
     }
     to {
-      opacity: 0;
       right: -250px;
+      display: none;
     }
   }
   .navbar {
@@ -53,13 +51,18 @@
   .main-summary {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 0;
     padding-top: 0;
     margin-left: 0;
     margin-bottom: 0;
     padding-left: 0;
+  }
+  .nav-summary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .board-summary {
@@ -239,6 +242,14 @@
     border: 2px solid var(--blue);
   }
 
+}
+@media (max-height: 500px) {
+  .logo{
+    height: 80px;
+    padding-bottom: 30px;
+    transform: scale(2);
+  }
+  
 }
 @media (max-width: 450px) {
   .container-summary{

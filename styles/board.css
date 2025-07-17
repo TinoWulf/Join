@@ -94,6 +94,10 @@
   width: 300px;
 }
 
+.add-bg-color{
+  background-color: var(--light-grey-color);
+}
+
 .board-nav-tasks {
   display: flex;
   flex-direction: row;

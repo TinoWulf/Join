@@ -121,6 +121,13 @@ function getUserExits(currentHour){
     }
 }
 
+
+/**
+ * Returns a greeting message based on the provided hour of the day.
+ *
+ * @param {number} currentHour - The current hour in 24-hour format (0-23).
+ * @returns {string} A greeting message: "Good morning", "Good afternoon", "Good evening", or "Good night".
+ */
 function getGuestUser(currentHour){
   if (currentHour >= 5 && currentHour < 12) {
       return "Good morning";
@@ -132,6 +139,7 @@ function getGuestUser(currentHour){
       return "Good night";
     }
 }
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const currentUserName = urlParams.get('name');
