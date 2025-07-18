@@ -10,7 +10,7 @@ import {
   get,
   query,
 } from "./connection.js";
-import { templateTaskCard, templateTaskCardDetail } from "./templates.js";
+import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
@@ -54,14 +54,12 @@ const letterColors = {
   Z: "#c0392b",
 };
 
-
 /**
  * Initializes the board by loading all tasks and applying assigned-to colors.
  */
 function getElementById(id) {
   return document.getElementById(id);
 }
-
 
 /**
  * Counts the total number of subtasks for a given task.
@@ -71,7 +69,6 @@ function getElementById(id) {
 function countSubtasks(task) {
   return task.subtasks ? task.subtasks.length : 0;
 }
-
 
 /**
  * Counts the number of completed subtasks for a given task.
@@ -85,14 +82,12 @@ function countSubtasksDone(task) {
   return task.subtasks.filter((subtask) => subtask.checked).length;
 }
 
-
 function getAbbreviation(str) {
   return str
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase())
     .join("");
 }
-
 
 function applyAssignedToColors() {
   document.querySelectorAll(".asigned-to span").forEach((spantask) => {
@@ -111,7 +106,6 @@ function applyAssignedToColors() {
     spancategory.style.backgroundColor = color;
   });
 }
-
 
 async function getAllTasks() {
   const tasksRef = ref(database, "tasks");
@@ -135,16 +129,14 @@ async function getAllTasks() {
   }
 }
 
-
-function openTaskDetail(taskId){
+function openTaskDetail(taskId) {
   let taskCardParent = document.getElementById("taskCardParent");
-  taskCardParent.innerHTML = '';
-  const task = tasksList.find(task => task.id === taskId);
+  taskCardParent.innerHTML = "";
+  const task = tasksList.find((task) => task.id === taskId);
   taskCardParent.innerHTML = templateTaskCardDetail(task);
   applyAssignedToColors();
-  taskCardParent.classList.toggle('hide');
+  taskCardParent.classList.toggle("hide");
 }
-
 
 /**
  * Searches a list of tasks by title, description, and category
@@ -155,7 +147,7 @@ function openTaskDetail(taskId){
 function searchTasks(tasks, keyword) {
   if (!keyword) return tasks;
   const lowerKeyword = keyword.trim().toLowerCase();
-  return tasks.filter(task => {
+  return tasks.filter((task) => {
     const inTitle = task.title.toLowerCase().includes(lowerKeyword);
     const inDescription = task.description.toLowerCase().includes(lowerKeyword);
     const inCategory = task.category.toLowerCase().includes(lowerKeyword);
@@ -163,31 +155,31 @@ function searchTasks(tasks, keyword) {
   });
 }
 
-
-function searchParticularTask(){
+function searchParticularTask() {
   let searchInput = document.getElementById("searchValue").value;
   let showSearchResult = document.getElementById("containerBoard");
   let resultSearch = searchTasks(tasksList, searchInput);
   tasksList = [];
-  showSearchResult.innerHTML = '';
-  for(let taskindex in resultSearch){
+  showSearchResult.innerHTML = "";
+  for (let taskindex in resultSearch) {
     const task = resultSearch[taskindex];
-    if(showSearchResult){
+    if (showSearchResult) {
       showSearchResult.innerHTML += templateTaskCard(task);
       applyAssignedToColors();
       initiateBoard();
-    }else{
-      showSearchResult.innerHTML = 'The Problem occur during the search result or the search result is empty';
+    } else {
+      showSearchResult.innerHTML =
+        "The Problem occur during the search result or the search result is empty";
     }
   }
 }
-
 
 /**
  * Loads all tasks, finds unique categories, renders tasks by category,
  * and applies color styling to assigned user initials.
  */
 function loadTasks() {
+  clearAllColums();
   let categories = [...new Set(tasksList.map((t) => t.range))];
   for (let i = 0; i < categories.length; i++) {
     let category = categories[i];
@@ -196,6 +188,16 @@ function loadTasks() {
   applyAssignedToColors();
 }
 
+function clearAllColums(category) {
+  toDo.innerHTML = "";
+  toDo.innerHTML = toDoPlaceholderTemplate();
+  awaitReview.innerHTML = "";
+  awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
+  inProgress.innerHTML = "";
+  inProgress.innerHTML = inProgressPlaceholderTemplate();
+  done.innerHTML = "";
+  done.innerHTML = donePlaceholderTemplate();
+}
 
 /**
  * Finds and renders all tasks for a given category name.
@@ -208,54 +210,66 @@ function findTasksByCategory(categoryName) {
   getElementById(categoryTask).innerHTML = "";
   for (let i = 0; i < taskForThisCat.length; i++) {
     let task = taskForThisCat[i];
-    switchedRange1(task);
-    switchedRange2(task);
+    switchedRange(task);
   }
 }
-
 
 /**
  * Moves a task to the appropriate section on the board based on its range property.
  * Updates the DOM by hiding the relevant placeholder and appending the task card.
  *
  * @param {Object} task - The task object to be moved.
- * @param {string} task.range - The target range for the task ('toDo' or 'awaitReview').
+ * @param {string} task.range - The target range for the task ('toDo' or 'awaitReview' or 'inProgress' or 'done').
  */
-function switchedRange1(task){
+function switchedRange(task) {
   switch (task.range) {
-      case "toDo":
-        if (task) {
-          todoPlacehoder.classList.add("hide");
-        }
-        toDo.innerHTML += templateTaskCard(task);
-        break;
-      case "awaitReview":
-        if (task) {
-          awaitReviewPlaceholder.classList.add("hide");
-        }
-        awaitReview.innerHTML += templateTaskCard(task);
-        break;;
-    }
+    case "toDo":
+      insertTodoTask(task);
+      break;
+    case "awaitReview":
+      insertAwaitReviewTask(task);
+      break;
+    case "inProgress":
+      insertInProgressTask(task);
+      break;
+    case "done":
+      insertDoneTask(task);
+      break;
+  }
 }
 
-
-function switchedRange2(task){
-  switch (task.range) {
-      case "inProgress":
-        if (task) {
-          inProgressPlaceholder.classList.add("hide");
-        }
-        inProgress.innerHTML += templateTaskCard(task);
-        break;
-      case "done":
-        if (task) {
-          donePlaceholder.classList.add("hide");
-        }
-        done.innerHTML += templateTaskCard(task);
-        break;
-    }
+function insertTodoTask(task) {
+  if (!task) {
+    toDo.innerHTML = toDoPlaceholderTemplate();
+  }
+  todoPlacehoder.classList.add("hide");
+  toDo.innerHTML += templateTaskCard(task);
 }
 
+function insertAwaitReviewTask(task) {
+  if (!task) {
+    awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
+  }
+  awaitReviewPlaceholder.classList.add("hide");
+  awaitReview.innerHTML += templateTaskCard(task);
+}
+
+function insertDoneTask(task) {
+  if (!task) {
+    done.innerHTML = donePlaceholderTemplate();
+    donePlaceholder.classList.add("show");
+  }
+  donePlaceholder.classList.add("hide");
+  done.innerHTML += templateTaskCard(task);
+}
+
+function insertInProgressTask(task) {
+  if (!task) {
+    inProgress.innerHTML = inProgressPlaceholderTemplate();
+  }
+  inProgressPlaceholder.classList.add("hide");
+  inProgress.innerHTML += templateTaskCard(task);
+}
 
 /**
  * Retrieves the current user's name from localStorage and updates the DOM element
@@ -264,101 +278,46 @@ function switchedRange2(task){
  * Depends on a function `getAbbreviation` to generate initials from the username.
  * Updates the element with id 'initial-user'.
  */
-function callUserData(){
+function callUserData() {
   let actualUser = localStorage.getItem("userName");
-  if (actualUser && actualUser !== 'null') {
-    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  if (actualUser && actualUser !== "null") {
+    document.getElementById("initial-user").textContent =
+      getAbbreviation(actualUser);
   } else {
-    document.getElementById('initial-user').textContent = 'G';
+    document.getElementById("initial-user").textContent = "G";
   }
 }
-
 
 /**
  * Sets the 'active' class on the board navigation item and removes it from other navigation items.
  * This function highlights the board section in the navigation bar.
  */
-function activeNavItem(){
-  document.getElementById('board').classList.add('active');
-  document.getElementById('contacts').classList.remove('active');
-  document.getElementById('addtask').classList.remove('active');
-  document.getElementById('summary').classList.remove('active');
+function activeNavItem() {
+  document.getElementById("board").classList.add("active");
+  document.getElementById("contacts").classList.remove("active");
+  document.getElementById("addtask").classList.remove("active");
+  document.getElementById("summary").classList.remove("active");
 }
 
-
-/**
- * Moves the currently dragged task to a specified category.
- *
- * Finds the task in the global `tasks` array by its `id` (using `currentDraggedTask`),
- * updates its `category` property, and reloads the tasks display.
- * If the task is not found, logs a warning to the console.
- *
- * @param {string} range - The target category to move the task to.
- */
-
-// async function moveTo(range) {
-//   const taskID = currentDraggedTask;
-//   const rangeId  = `${range}Task`;
-//   console.log(rangeId)
-//   try {
-//     const response = await fetch(`${dataBaseURL}/${querys}/${taskID}.json`);
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch task with ID ${taskID}`);
-//     }
-//     const task = await response.json();
-//     await updateRangeTask(task, range)
-//     loadTasks()
-//     getAllTasks();
-//     removeHighlight(rangeId);
-//     initiateBoard();// Refresh board
-//   } catch (error) {
-//     console.error("Error moving task:", error);
-//   } finally {
-//     currentDraggedTask = null;
-//   }
-// }
-
-// async function updateRangeTask(task, range) {
-//   if (!task) {
-//       console.warn("Task not found for ID:", task.id);
-//       return;
-//   }
-//   task.range = range;
-//   const updateResponse = await fetch(`${dataBaseURL}/${querys}/${task.id}.json`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(task),
-//   });
-//   if (!updateResponse.ok) {
-//     throw new Error(`Failed to update task with ID ${task.id}`);
-//   }
-// }
-
-
-async function moveTo(range){
+async function moveTo(range) {
   const taskID = currentDraggedTask;
-  const rangeId  = `${range}Task`;
+  const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
-  try{
-    await update(taskRef, {range: range});
+  try {
+    await update(taskRef, { range: range });
     loadTasks();
     removeHighlight(rangeId);
     initiateBoard();
-    location.reload();
-    }catch(error){
-      console.warn("Error modifying task range:", error);
-    }
+  } catch (error) {
+    console.warn("Error modifying task range:", error);
+  }
 }
-
 
 function initiateBoard() {
   activeNavItem();
-  callUserData()
+  callUserData();
   getAllTasks();
 }
-
 
 export {
   initiateBoard,
@@ -372,7 +331,6 @@ export {
   searchParticularTask,
   moveTo,
 };
-
 
 window.initiateBoard = initiateBoard;
 window.findTasksByCategory = findTasksByCategory;

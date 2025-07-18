@@ -73,7 +73,48 @@ function templateTaskCardDetail(task){
   `;
 }
 
-export { templateTaskCard, templateTaskCardDetail};
+
+function toDoPlaceholderTemplate(){
+  return `
+
+    <div id="toDoTaskPlaceholder" class="placeholder show">
+      No tasks To do
+      </div>
+  
+  `;
+}
+
+
+function inProgressPlaceholderTemplate(){
+  return `
+    <div id="inProgressTaskPlaceholder" class="placeholder show">
+      no tasks in progress
+    </div>
+  `;
+}
+
+function awaitReviewPlaceholderTemplate(){
+  return `
+    <div id="awaitReviewTaskPlaceholder" class="placeholder show">
+      no tasks awaiting feedback
+    </div>
+  `;
+}
+
+function donePlaceholderTemplate(){
+  return `
+    <div id="doneTaskPlaceholder" class="placeholder show">
+      No Task Done
+    </div>
+  `;
+}
+
+
+export { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate };
 
 window.templateTaskCard = templateTaskCard ;
 window.templateTaskCardDetail = templateTaskCardDetail ;
+window.toDoPlaceholderTemplate = toDoPlaceholderTemplate ;
+window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
+window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
+window.donePlaceholderTemplate = donePlaceholderTemplate ;

@@ -2,7 +2,6 @@
   max-width: calc(1920px - 232px);
   margin-left: 250px;
   margin-top: 70px;
-  margin-bottom: 40px;
   padding: 10px 0 10px 20px;
 }
 
@@ -147,9 +146,9 @@
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 8px;
-  width: 100%;
-  min-width: 252px;
-  max-width: 252px;
+  min-width: 280px;
+  max-width: 280px;
+  padding: 10px;
 }
 
 .taskCard-header {
@@ -243,18 +242,18 @@ progress{
 }
 
 .tasks-container {
-  max-height: calc(100vh - 200px);
-  overflow-y: scroll;
+  max-height: calc(100vh - 15px);
+  overflow-y: auto;
   padding-right: 1px;
 }
 
 .tasks-container::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
+  width: 0;
+  background-color: #f6f7f8;
 }
 
 .tasks-container::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: #f6f7f8;
   border-radius: 4px;
 }
 
