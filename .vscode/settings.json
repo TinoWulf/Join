@@ -1,3 +1,4 @@
 {
-    "editor.tabCompletion": "off"
+    "editor.tabCompletion": "off",
+    "liveServer.settings.port": 5501
 }

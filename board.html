@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/board.css" />
     <link rel="stylesheet" href="./styles/show-task.css" />
     <link rel="stylesheet" href="./styles/responsive.css" />
+    <link rel="stylesheet" href="./styles/edit-task.css">
     <link
       rel="shortcut icon"
       href="./assets/img/logo.png"
@@ -21,7 +22,70 @@
     <header id="navbar">
       
     </header>
-    <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
+    <div class="taskCardParent" id="taskCardParent" onclick="closePopUp(event)">
+        <div class="editTaskPopup" onclick="preventEvent(event)">
+          <label for="title" class="label-title">
+              Title
+              <input type="text" name="title" id="taskTitle" value="Select contacts to assign">
+          </label>
+          <label for="description">
+              Description
+              <textarea name="description" id="taskDescription" cols="10" rows="4">Select contacts to assign</textarea>
+          </label>
+          <label for="date" class="label-date">
+              Due date
+              <input type="date" name="date" id="dueDate" value="2026-03-01">
+          </label>
+          <label for="" class="label-priority">
+              Priority
+              <div class="add-task-priority">
+                  <button class="priority-button">
+                  Urgent<img src="./assets/icons/urgent.png" alt="" />
+                  </button>
+                  <button class="priority-button" >
+                  Medium <img src="./assets/icons/medium.png" alt="" />
+                  </button>
+                  <button class="priority-button">
+                  Low <img src="./assets/icons/low.png" alt="" />
+                  </button>
+              </div>
+          </label>
+          <label for="assigned" id="assigned-to" class="label-assign">
+              Assigned to
+              <div class="drop-down-input">
+                <input name="assigned" id="assigned" value="Select contacts to assign" readonly/>
+                <span><img src="./assets/icons/drop-down.png" alt=""></span>
+              </div>
+              <div name="assigned" id="assigned" class="hide">
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask1" name="subtask1"/>
+                </div>
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask2" name="subtask1"/>
+                </div>
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask3" name="subtask1"/>
+                </div>
+                
+              </div>
+          </label>
+          <label for="subtask" class="label-subtask">
+              Substaks
+              <div class="drop-down-input">
+                <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
+                <span><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+              </div>
+              <div id="subtaskListEdit">
+
+              </div>
+          </label>
+          <div class="edit-button">
+            <button class="btn-submit-change">Ok <img src="./assets/icons/check.png" alt=""></button>
+          </div>
+      </div>
       
     </div>
     <main id="main" class="main-board" onload="initiateBoard()">
