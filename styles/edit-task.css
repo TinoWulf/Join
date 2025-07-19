@@ -3,7 +3,6 @@
   max-width: 525px;
   max-height: 98vh;
   background-color: var(--white);
-  margin-top: 30px;
   padding: 48px 40px;
   font-family: "Inter";
   gap: 24px;
@@ -133,14 +132,36 @@ option{
 .urgent {
   background-color: rgb(255, 61, 0) !important;
   color: white;
+  img{
+    background-image: url('../assets/icons/urgentwhite.png');
+    background-size: 100%;
+    background-position: center;
+    object-fit: cover;
+    opacity: 2;
+  }
 }
 
 .medium {
   background-color: rgb(255, 168, 0) !important;
   color: white;
+  img{
+    
+    background-image: url('../assets/icons/mediumwhite.png');
+    background-size: 100%;
+    background-position: center;
+    object-fit: cover;
+    opacity: 2;
+  }
 }
 
 .low {
   background-color: rgb(122, 226, 41) !important;
   color: white;
+  img{
+    background-image: url('../assets/icons/lowwhite.png');
+    background-size: 100%;
+    background-position: center;
+    object-fit: cover;
+    opacity: 2;
+  }
 }

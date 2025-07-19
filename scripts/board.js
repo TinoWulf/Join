@@ -1,65 +1,18 @@
-import {
-  database,
-  app,
-  ref,
-  set,
-  onValue,
-  update,
-  push,
-  remove,
-  get,
-  query,
-} from "./connection.js";
+import {database,app,ref,set,onValue,update,push,remove,get,query, } from "./connection.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
+
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
 let done = document.getElementById("doneTask");
 let todoPlacehoder = document.getElementById("toDoTaskPlaceholder");
-let awaitReviewPlaceholder = document.getElementById(
-  "awaitReviewTaskPlaceholder"
-);
-let inProgressPlaceholder = document.getElementById(
-  "inProgressTaskPlaceholder"
-);
+let awaitReviewPlaceholder = document.getElementById("awaitReviewTaskPlaceholder");
+let inProgressPlaceholder = document.getElementById("inProgressTaskPlaceholder");
 let donePlaceholder = document.getElementById("doneTaskPlaceholder");
 let tasksList = [];
 
-const letterColors = {
-  A: "#e57373",
-  B: "#f06292",
-  C: "#ba68c8",
-  D: "#9575cd",
-  E: "#7986cb",
-  F: "#64b5f6",
-  G: "#4fc3f7",
-  H: "#4dd0e1",
-  I: "#4db6ac",
-  J: "#81c784",
-  K: "#aed581",
-  L: "#dce775",
-  M: "#fff176",
-  N: "#ffd54f",
-  O: "#ffb74d",
-  P: "#ff8a65",
-  Q: "#a1887f",
-  R: "#e67e22",
-  S: "#8e44ad",
-  T: "#34495e",
-  U: "#16a085",
-  V: "#27ae60",
-  W: "#2980b9",
-  X: "#8e44ad",
-  Y: "#f39c12",
-  Z: "#c0392b",
-};
+const letterColors = { A: "#e57373", B: "#f06292", C: "#ba68c8", D: "#9575cd", E: "#7986cb", F: "#64b5f6", G: "#4fc3f7", H: "#4dd0e1", I: "#4db6ac", J: "#81c784", K: "#aed581", L: "#dce775", M: "#fff176", N: "#ffd54f", O: "#ffb74d", P: "#ff8a65", Q: "#a1887f", R: "#e67e22", S: "#8e44ad", T: "#34495e", U: "#16a085", V: "#27ae60", W: "#2980b9", X: "#8e44ad", Y: "#f39c12", Z: "#c0392b"};
 
-/**
- * Initializes the board by loading all tasks and applying assigned-to colors.
- */
-function getElementById(id) {
-  return document.getElementById(id);
-}
 
 /**
  * Counts the total number of subtasks for a given task.
@@ -69,6 +22,14 @@ function getElementById(id) {
 function countSubtasks(task) {
   return task.subtasks ? task.subtasks.length : 0;
 }
+
+function getPriority(range){
+  let priority = range;
+  console.log(priority);
+  return priority;
+
+}
+
 
 /**
  * Counts the number of completed subtasks for a given task.
@@ -82,12 +43,14 @@ function countSubtasksDone(task) {
   return task.subtasks.filter((subtask) => subtask.checked).length;
 }
 
+
 function getAbbreviation(str) {
   return str
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase())
     .join("");
 }
+
 
 function applyAssignedToColors() {
   document.querySelectorAll(".asigned-to span").forEach((spantask) => {
@@ -106,6 +69,7 @@ function applyAssignedToColors() {
     spancategory.style.backgroundColor = color;
   });
 }
+
 
 async function getAllTasks() {
   const tasksRef = ref(database, "tasks");
@@ -129,6 +93,7 @@ async function getAllTasks() {
   }
 }
 
+
 function openTaskDetail(taskId) {
   let taskCardParent = document.getElementById("taskCardParent");
   taskCardParent.innerHTML = "";
@@ -137,6 +102,50 @@ function openTaskDetail(taskId) {
   applyAssignedToColors();
   taskCardParent.classList.toggle("hide");
 }
+
+function openEditTask(taskId){
+  let taskCardParentEdit = document.getElementById("taskCardParent");
+  taskCardParentEdit.innerHTML = "";
+  const task = tasksList.find((task) => task.id === taskId);
+  taskCardParentEdit.innerHTML = templateEditTask(task);
+  applyAssignedToColors();
+}
+
+
+async function getEditedTask(taskId){
+  const taskTitle = getElementById('taskTitle');
+  const taskDescription = getElementById('taskDescription');
+  const dueDate = getElementById('dueDate');
+  const priority = getPriority(this);
+  const assigned = getElementById('assignedTo');
+  let assignedToList = [];
+  let subtaskList = [];
+
+  const task = {
+    id: taskId,
+    title: taskTitle.value,
+    description: taskDescription.value,
+    dueDate: dueDate.value,
+    priority: priority,
+    assignedTo: assignedToList,
+    subtasks: subtaskList
+  }
+  try{
+    editTask(task);
+  }
+  catch(error){
+    console.error("Error editing task:", error);
+  }
+}
+
+
+async function editTask(task){
+  const taskRef = ref(database, "tasks/" + task.id);
+  await update(taskRef, task);
+  console.log("Task edited successfully");
+  initiateBoard();
+}
+
 
 /**
  * Searches a list of tasks by title, description, and category
@@ -154,6 +163,7 @@ function searchTasks(tasks, keyword) {
     return inTitle || inDescription || inCategory;
   });
 }
+
 
 function searchParticularTask() {
   let searchInput = document.getElementById("searchValue").value;
@@ -174,6 +184,7 @@ function searchParticularTask() {
   }
 }
 
+
 /**
  * Loads all tasks, finds unique categories, renders tasks by category,
  * and applies color styling to assigned user initials.
@@ -188,7 +199,8 @@ function loadTasks() {
   applyAssignedToColors();
 }
 
-function clearAllColums(category) {
+
+function clearAllColums() {
   toDo.innerHTML = "";
   toDo.innerHTML = toDoPlaceholderTemplate();
   awaitReview.innerHTML = "";
@@ -198,6 +210,11 @@ function clearAllColums(category) {
   done.innerHTML = "";
   done.innerHTML = donePlaceholderTemplate();
 }
+
+function getElementById(id){
+  return document.getElementById(id);
+}
+
 
 /**
  * Finds and renders all tasks for a given category name.
@@ -213,6 +230,7 @@ function findTasksByCategory(categoryName) {
     switchedRange(task);
   }
 }
+
 
 /**
  * Moves a task to the appropriate section on the board based on its range property.
@@ -238,6 +256,7 @@ function switchedRange(task) {
   }
 }
 
+
 function insertTodoTask(task) {
   if (!task) {
     toDo.innerHTML = toDoPlaceholderTemplate();
@@ -246,6 +265,7 @@ function insertTodoTask(task) {
   toDo.innerHTML += templateTaskCard(task);
 }
 
+
 function insertAwaitReviewTask(task) {
   if (!task) {
     awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
@@ -253,6 +273,7 @@ function insertAwaitReviewTask(task) {
   awaitReviewPlaceholder.classList.add("hide");
   awaitReview.innerHTML += templateTaskCard(task);
 }
+
 
 function insertDoneTask(task) {
   if (!task) {
@@ -263,6 +284,7 @@ function insertDoneTask(task) {
   done.innerHTML += templateTaskCard(task);
 }
 
+
 function insertInProgressTask(task) {
   if (!task) {
     inProgress.innerHTML = inProgressPlaceholderTemplate();
@@ -270,6 +292,7 @@ function insertInProgressTask(task) {
   inProgressPlaceholder.classList.add("hide");
   inProgress.innerHTML += templateTaskCard(task);
 }
+
 
 /**
  * Retrieves the current user's name from localStorage and updates the DOM element
@@ -288,6 +311,7 @@ function callUserData() {
   }
 }
 
+
 /**
  * Sets the 'active' class on the board navigation item and removes it from other navigation items.
  * This function highlights the board section in the navigation bar.
@@ -298,6 +322,7 @@ function activeNavItem() {
   document.getElementById("addtask").classList.remove("active");
   document.getElementById("summary").classList.remove("active");
 }
+
 
 async function moveTo(range) {
   const taskID = currentDraggedTask;
@@ -319,18 +344,8 @@ function initiateBoard() {
   getAllTasks();
 }
 
-export {
-  initiateBoard,
-  findTasksByCategory,
-  getAbbreviation,
-  countSubtasks,
-  countSubtasksDone,
-  applyAssignedToColors,
-  callUserData,
-  openTaskDetail,
-  searchParticularTask,
-  moveTo,
-};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority};
+
 
 window.initiateBoard = initiateBoard;
 window.findTasksByCategory = findTasksByCategory;
@@ -343,3 +358,5 @@ window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.searchParticularTask = searchParticularTask;
 window.moveTo = moveTo;
+window.getPriority = getPriority;
+window.openEditTask = openEditTask;

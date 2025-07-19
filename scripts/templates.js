@@ -66,7 +66,7 @@ function templateTaskCardDetail(task){
             </div>
             <div class="taskPopupFooter">
               <p onclick = "deleteTask(${task.id}, event)"><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
-              <p><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
+              <p onclick="openEditTask(${task.id})"><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
             </div>
           </div>
   
@@ -110,10 +110,80 @@ function donePlaceholderTemplate(){
 }
 
 
-export { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate };
+function templateEditTask(task){
+  return `
+     <div class="editTaskPopup" onclick="preventEvent(event)">
+          <label for="title" class="label-title">
+              Title
+              <input type="text" name="title" id="taskTitle" value="${task.title}" required>
+          </label>
+          <label for="description">
+              Description
+              <textarea name="description" id="taskDescription" cols="10" rows="4">${task.description}</textarea>
+          </label>
+          <label for="date" class="label-date">
+              Due date
+              <input type="date" name="date" id="dueDate" value="${task.dueDate}" required>
+          </label>
+          <label for="" class="label-priority">
+              Priority
+              <div class="add-task-priority">
+                  <button class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " onclick="getPriority('urgent')" id="priorityButtonUrgent">
+                  Urgent<img src="./assets/icons/urgent.png" alt="" />
+                  </button>
+                  <button class="priority-button ${task.priority === 'medium' ? 'medium': '' }"  onclick="getPriority('medium')" id="priorityButtonMedium">
+                  Medium <img src="./assets/icons/medium.png" alt="" />
+                  </button>
+                  <button class="priority-button ${task.priority === 'low' ? 'low': '' }" onclick="getPriority('low')" id="priorityButtonLow">
+                  Low <img src="./assets/icons/low.png" alt="" />
+                  </button>
+              </div>
+          </label>
+          <label for="assigned" id="assigned-to" class="label-assign">
+              Assigned to
+              <div class="drop-down-input">
+                <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
+                <span><img src="./assets/icons/drop-down.png" alt=""></span>
+              </div>
+              <div name="assigned" id="assigned" class="hide">
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask1" name="subtask1"/>
+                </div>
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask2" name="subtask1"/>
+                </div>
+                <div class="option">
+                  <label for="subtask1">Join Doe</label>
+                  <input type="checkbox" id="subtask3" name="subtask1"/>
+                </div>
+                
+              </div>
+          </label>
+          <label for="subtask" class="label-subtask">
+              Substaks
+              <div class="drop-down-input">
+                <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
+                <span><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+              </div>
+              <div id="subtaskListEdit">
+
+              </div>
+          </label>
+          <div class="edit-button">
+            <button class="btn-submit-change">Ok <img src="./assets/icons/check.png" alt=""></button>
+          </div>
+      </div>
+  `;
+}
+
+
+export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate };
 
 window.templateTaskCard = templateTaskCard ;
 window.templateTaskCardDetail = templateTaskCardDetail ;
+window.templateEditTask = templateEditTask ;
 window.toDoPlaceholderTemplate = toDoPlaceholderTemplate ;
 window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
 window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
