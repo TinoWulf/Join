@@ -1,4 +1,4 @@
-import{app, database,ref, set, update, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from './connection.js'
+import{database,ref, set, auth, createUserWithEmailAndPassword} from './connection.js'
 
 const nameRef = document.getElementById("sign-up-name");
 const emailRef = document.getElementById("sign-up-email");
@@ -13,6 +13,8 @@ const signUpBtn = document.getElementById("signUpBtn");
 let emailError = document.getElementById('emailError');
 let signUpError = document.getElementById('sign-up-error');
 let passwordError = document.getElementById('error-passord');
+let passwordOutlineError = document.querySelector(".password");
+let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
 
 
 /**
@@ -63,6 +65,8 @@ function catchError(error){
       emailError.innerText="Invalid email address.";
     } else if (error.code === 'auth/weak-password') {
       signUpError.innerText="Password is too weak. Please choose a stronger password.";
+      passwordOutlineError.classList.add("password-error");
+      passwordOutlineErrorConfirm.classList.add("password-error");
     } else {
       signUpError.innerText="An error occurred. Please try again.";
     }
@@ -93,7 +97,9 @@ function setupSignUp() {
     const confirmPassword = confirmPasswordRef.value;
     const acceptedPolicy = acceptPolicyRef;
     if (password !== confirmPassword) {
-      passwordError.innerText = "Passwörter stimmen nicht überein!";
+      passwordError.innerText = "Your passwords don't match. Please try again.";
+      passwordOutlineError.classList.add("password-error");
+      passwordOutlineErrorConfirm.classList.add("password-error");
       return;
     }
     verifyPolicy(acceptedPolicy);
@@ -125,5 +131,33 @@ function verifyPolicy(acceptedPolicy){
         signUpBtn.removeAttribute("disabled");
     }
 }
+
+function togglePassword() {
+  const passwordField = document.getElementById("sign-up-password");
+  const toggleIcon = document.getElementById("eyePassword");
+
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    toggleIcon.innerHTML = `<img src="./assets/icons/visibility.png" alt="lock">`; 
+  } else {
+    passwordField.type = "password";
+    toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">` ;
+  }
+}
+function togglePasswordConfirm() {
+  const passwordField = document.getElementById("confirmPassword");
+  const toggleIcon = document.getElementById("eyePassword2");
+
+  if (passwordField.type === "password") {
+    passwordField.type = "text";
+    toggleIcon.innerHTML = `<img src="./assets/icons/visibility.png" alt="lock">`; 
+  } else {
+    passwordField.type = "password";
+    toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">` ;
+  }
+}
+
+window.togglePassword = togglePassword;
+window.togglePasswordConfirm = togglePasswordConfirm;
 
 setupSignUp();

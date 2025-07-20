@@ -34,14 +34,13 @@
                     <span><img src="./assets/icons/mail.png" alt="email"></span>
                 </label>
                 <p class="error" id="emailError"></p>
-                <label for="password" class="form-input">
+                <label for="password" class="form-input password">
                     <input type="password" name="password" id="sign-up-password" placeholder="Password" required>
-                    <span><img src="./assets/icons/lock.png" alt="person"></span>
+                    <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
                 </label>
-                <label for="password2" class="form-input password">
+                <label for="password2" class="form-input password-confirm">
                     <input type="password" name="password2" id="confirmPassword" placeholder="Confirm password" required>
-                    <span><img src="./assets/icons/visibility.png" alt="lock" class="eye"></span>
-                    <span><img src="./assets/icons/lock.png" alt="lock" class="lock"></span>
+                    <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.png" alt="lock"></span>
                 </label>
                 <p id="error-passord" class="error"></p>
                 <label for="privacy" class="label-privacy">
