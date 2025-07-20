@@ -15,7 +15,7 @@
 .popup-header{
   position: absolute;
   border-radius: 20px 0 20px 20px;
-  top: 60px;
+  top: 96px;
   right: 30px;
   background-color: #2A3647;
   width: 150px;
@@ -68,8 +68,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0 16px 0;
-  height: 60px;
+  padding: 20px 40 20px 348px;
+  height: 96px;
   background-color: var(--white);
   position: fixed;
   top: 0;
@@ -105,12 +105,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  width: 56px;
+  height: 56px;
   border: 3px solid var(--primary-color);
   color: var(--blue) !important;
   border-radius: 50%;
   text-align: center;
+  font-weight: 700;
+  font-size: 24px;
   line-height: 24px;
 }
 

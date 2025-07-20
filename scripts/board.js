@@ -278,7 +278,6 @@ function insertAwaitReviewTask(task) {
 function insertDoneTask(task) {
   if (!task) {
     done.innerHTML = donePlaceholderTemplate();
-    donePlaceholder.classList.add("show");
   }
   donePlaceholder.classList.add("hide");
   done.innerHTML += templateTaskCard(task);
@@ -328,6 +327,7 @@ async function moveTo(range) {
   const taskID = currentDraggedTask;
   const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
+  highlight(rangeId);
   try {
     await update(taskRef, { range: range });
     loadTasks();
@@ -337,6 +337,7 @@ async function moveTo(range) {
     console.warn("Error modifying task range:", error);
   }
 }
+
 
 function initiateBoard() {
   activeNavItem();

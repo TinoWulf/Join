@@ -127,12 +127,12 @@
               ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
             /></span>
           </nav>
-          <div
+          <div class="draggable-section"
             id="toDoTask"
             class="tasks-container board-scroll-wrapper"
             ondrop="moveTo('toDo')"
             ondragleave="removeHighlight('toDoTask')"
-            ondragover="allowDrop(event); highlight('toDoTask')"
+            ondragover="allowDrop(event);"
           >
             <div id="toDoTaskPlaceholder" class="placeholder show">
               No tasks To do
@@ -146,12 +146,12 @@
               ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
             /></span>
           </nav>
-          <div
+          <div class="draggable-section"
             id="inProgressTask"
             class="tasks-container board-scroll-wrapper"
             ondrop="moveTo('inProgress')"
             ondragleave="removeHighlight('inProgressTask')"
-            ondragover="allowDrop(event); highlight('inProgressTask')"
+            ondragover="allowDrop(event);"
           >
             <div id="inProgressTaskPlaceholder" class="placeholder show">
               no tasks in progress
@@ -165,37 +165,37 @@
               ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
             /></span>
           </nav>
-          <section class="tasks">
-            <div
+          
+            <div class="draggable-section"
               id="awaitReviewTask"
               class="tasks-container board-scroll-wrapper"
               ondrop="moveTo('awaitReview')"
               ondragleave="removeHighlight('awaitReviewTask')"
-              ondragover="allowDrop(event); highlight('awaitReviewTask')"
+              ondragover="allowDrop(event);"
             >
               <div id="awaitReviewTaskPlaceholder" class="placeholder show">
                 no tasks awaiting feedback
               </div>
             </div>
-          </section>
+          
         </section>
         <section class="done">
           <nav class="board-nav-tasks">
             <h3>Done</h3>
           </nav>
-          <section class="tasks">
-            <div
+          
+            <div class="draggable-section"
               id="doneTask"
               class="tasks-container board-scroll-wrapper"
               ondrop="moveTo('done')"
               ondragleave="removeHighlight('doneTask')"
-              ondragover="allowDrop(event); highlight('doneTask')"
+              ondragover="allowDrop(event);"
             >
               <div id="doneTaskPlaceholder" class="placeholder show">
                 No Task Done
               </div>
             </div>
-          </section>
+          
         </section>
       </div>
     </main>

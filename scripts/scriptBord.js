@@ -66,16 +66,22 @@ function allowDrop(event) {
  * @param {string} id - The ID of the drop area element.
  */
 function highlight(id) {
-  document.getElementById(id).classList.add("add-height");
-  document.getElementById(id).classList.add("drag-area-highlight");
+  document.getElementById(id).innerHTML += showPlaceholderTask();
 }
 
+
+function showPlaceholderTask(){
+  return `
+    <div class="placeholderTask">
+              
+    </div>
+  `;
+}
 
 /**
  * Removes the highlight from a drop area by removing a CSS class.
  * @param {string} id - The ID of the drop area element.
  */
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("add-height");
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
