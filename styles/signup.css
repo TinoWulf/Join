@@ -101,6 +101,7 @@
     outline: none;
     border: none;
     border-radius: 20px;
+    font-size: 20px;
 }
 
 .form-input span{
@@ -121,12 +122,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
     width: 400px;
     padding:12px 21px;
     gap: 10px;
 }
 
 .privacy-link{
+    font-size: 16px;
     text-decoration: none;
     color: var(--blue);
 }
@@ -140,20 +143,9 @@
     border-radius: 8px;
 }
 
-.eye{
-    display: none;
-}
-
-.password input:focus{
-    
-    .eye{
-        display: block;
-    }
-
-    .lock{
-        display: none;
-    }
-
+.signup-button:hover{
+    background-color: var(--blue);
+    border: unset;
 }
 
 .signup-footer{
@@ -166,6 +158,8 @@
 
 .signup-footer a{
     padding: 8px;
+    font-size: 16px;
+    color: var( --text-color);
 
 }
 
