@@ -4,7 +4,7 @@
   --secondary-color: #34495e;
   --white: #ffffff;
   --black: #000000;
-  --blue: #3498db;
+  --blue: #29abe2;
   --hover-color: #1a252f;
   --light-grey-color: #f6f7f8;
   --text-color: #2c3e50;
@@ -71,5 +71,9 @@ h1 {
 
 .hide {
   display: none !important;
+}
+
+.dFlex{
+  display: flex;
 }
 

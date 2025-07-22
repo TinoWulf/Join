@@ -68,6 +68,11 @@ function applyAssignedToColors() {
     const color = letterColors[firstLetter] || "#000";
     spancategory.style.backgroundColor = color;
   });
+  document.querySelectorAll(".already-assigned span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
 }
 
 

@@ -7,6 +7,7 @@
   font-family: "Inter";
   gap: 24px;
   opacity: 2;
+  overflow-y: auto;
   border-radius: 30px;
   position: absolute;
 }
@@ -118,7 +119,6 @@ option{
 .btn-submit-change{
     color: var(--white);
     font-weight: 600;
-    position: fixed;
     margin-top: 30px;
     border: unset;
     border-radius: 10px;
@@ -164,4 +164,30 @@ option{
     object-fit: cover;
     opacity: 2;
   }
+}
+
+.container-contact{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px 30px;
+}
+
+.container-contact::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.container-contact::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.option{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--primary-color);
 }

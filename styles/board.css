@@ -204,14 +204,14 @@ progress{
   justify-content: space-between;
   align-items: center;
 }
-.asigned-to {
+.asigned-to, .already-assigned {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
 }
 
-.asigned-to span, .taskCardPopup ul li span {
+.asigned-to span, .taskCardPopup ul li span, .already-assigned span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,12 +227,16 @@ progress{
   border: 2px solid var(--white);
 }
 
-.asigned-to span:first-child {
+.asigned-to span:first-child , .already-assigned span:first-child{
   margin-left: 0;
 }
 
 .asigned-to span::not-first-child{
   margin-left: 5px;
+}
+
+.already-assigned span:not(:first-child){
+  margin-left: 0px;
 }
 
 .drag-area-highlight {
