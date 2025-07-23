@@ -159,14 +159,14 @@ let isVisible = false;
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
-passwordField.addEventListener('focus', function(){
+passwordField.addEventListener('input', function(){
   toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 })
 
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
-passwordField2.addEventListener('focus', function(){
+passwordField2.addEventListener('input', function(){
   toggleIcon2.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 })
 

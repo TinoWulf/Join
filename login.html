@@ -15,7 +15,7 @@
 </head>
 <body>
     
-
+    
     <main class="main-login hide" id="main-login">
         <header class="header" id="header-login">
             <div class="head">
@@ -33,32 +33,40 @@
             <div class="login-div">
                 <div class="log-in-div">
                     <h1>Log in</h1>
+                    <hr class="hr-login">
                 </div>
                 <form class="login-form" id="loginform">
                     <p class="error" id="loginErrorCredential"></p>
-                    <input class="login" id="email" type="email" placeholder="Email" required>
+                    <label for="email" class="form-input" id="label-email">
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <span><img src="./assets/icons/mail.png" alt="person"></span>
+                    </label>
                     <p id="error-email" class="error"></p>
-                    <input class="login" id="password" type="password" placeholder="Password" required>
+                    <label for="password" class="form-input password" id="label-password">
+                        <input type="text" name="password" id="password" placeholder="Password" required>
+                        <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
+                    </label>
                     <p id="error-message" class="error"></p>
                     <div class="button-overlay">
-                    <button type="submit" class="log-in-and-guest-log-in white-color-text " id="login-button">Log in</button>
-                    <a href="./board.html">
-                        <button class="guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
-                    </a>
-                </div>
+                        <button type="submit" class="log-in-and-guest-log-in white-color-text " id="login-button">Log in</button>
+                        <a href="./board.html">
+                            <button class="guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
+                        </a>
+                    </div>
                 <div id="messageLogin"> </div>
                 </form>
             </div>
-            <div class="signup-div-mobile">
-                <a>Not a Join user?</a>
-                <button class="sign-up-button">Sign up</button>
-            </div>
         </section>
+        <div class="signup-div-mobile">
+            <a>Not a Join user?</a>
+            <button class="sign-up-button">Sign up</button>
+        </div>
         <footer class="" id="login-footer">
             <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
             <a class="grey-text datenschutz">Legal notice</a>
         </footer>
     </main>
+    
     <div class="success-message" id="success-message">
         <div class="success-message-content" id="successSignUpMessage" >
             You Signed Up successfully!

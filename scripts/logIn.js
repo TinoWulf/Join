@@ -1,8 +1,10 @@
-import{app, database,ref, get, onValue, set, update, auth, signInWithEmailAndPassword} from './connection.js'
+import{database,ref, onValue, auth, signInWithEmailAndPassword} from './connection.js'
 
 let loginError = document.getElementById('error-message');
 let loginEmailRef = document.getElementById('email');
 let loginPasswordRef = document.getElementById('password');
+const inputEmail = document.getElementById('label-email');
+const inputPassword = document.getElementById('label-password');
 let userName = "";
 
 
@@ -45,14 +47,60 @@ function setupLogin() {
       await loginUser(email, password);
       loginForm.reset();
     } catch (e) {
-      if(e.code == "auth/invalid-credential"){
-        loginError.innerText="Invalid email or password.";
+      if(e.code == "auth/invalid-credential" || e.code === 'auth/user-not-found'){
+        loginError.innerText="Check your email and password. Please try again.";
+        inputPassword.classList.add('login-error');
+        inputEmail.classList.add('login-error');
       }else{
         loginError.innerText= e.message;
       }
     }
   });
 }
+
+
+
+const passwordField = document.getElementById("password");
+const toggleIcon = document.getElementById("eyePassword");
+let realValue = ""; 
+let isVisible = false;
+
+/**
+ * this listener toggles the visibility of the password icon when a user start typing in the password field
+ */
+passwordField.addEventListener('input', function(){
+  toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+})
+
+
+/**
+ * Toggles the visibility of the password input field.
+ * Updates the input value to show either the real password or masked characters,
+ * and switches the visibility icon accordingly.
+ *
+ * @function
+ * @global
+ * @returns {void}
+ */
+function togglePassword() {
+  isVisible = !isVisible;
+  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
+  toggleIcon.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+}
+
+
+/**
+ * this listener change the visibility of the password value when a user typing in the password field
+ */
+passwordField.addEventListener("input", (e) => {
+  const newValue = e.target.value;
+  if (newValue.length < realValue.length) {
+    realValue = realValue.slice(0, newValue.length);
+  } else {
+    realValue += newValue[newValue.length - 1];
+  }
+  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
+});
 
 
 /**
@@ -136,4 +184,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 window.openSummary = openSummary;
+window.togglePassword = togglePassword;
 setupLogin();
