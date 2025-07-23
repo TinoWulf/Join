@@ -1,9 +1,9 @@
 .contacts {
     position: fixed;
     width: 456px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 96px);
     opacity: 1;
-    top: 60px;
+    top: 96px;
     left: 232px;
     overflow: auto;
     display: flex;
@@ -29,6 +29,7 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    padding-bottom: 30px;
 }
 
 .render-div {

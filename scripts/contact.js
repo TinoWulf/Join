@@ -313,3 +313,7 @@ function clearInputs() {
     document.getElementById("in-email-add").value = "";
     document.getElementById("in-number-add").value = "";
 }
+
+function closeResponsivContact() {
+    document.getElementById("center").classList.remove("display-show");
+}

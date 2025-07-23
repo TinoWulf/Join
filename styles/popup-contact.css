@@ -24,6 +24,7 @@
 }
 
 .popup-banner {
+    position: relative;
     width: 467px;
     height: 594px;
     opacity: 1;
@@ -120,14 +121,8 @@
     align-items: center;
 }
 
-.popup-field-name {
-    width: 422px;
-    height: 50px;
-    opacity: 1;
-    gap: 8px;
-
-}
-
+.popup-field-name,
+.popup-field-phone,
 .popup-field-email {
     width: 422px;
     height: 50px;
@@ -136,39 +131,8 @@
 
 }
 
-.popup-field-phone {
-    width: 422px;
-    height: 51px;
-    opacity: 1;
-    gap: 8px;
-
-}
-
-.popup-field-name-input {
-    width: 382px;
-    height: 50px;
-    border-radius: 10px;
-    border-width: 1px;
-    opacity: 1;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    padding-left: 20px;
-    padding-right: 20px;
-
-}
-
-.popup-field-email-input {
-    width: 382px;
-    height: 50px;
-    border-radius: 10px;
-    border-width: 1px;
-    opacity: 1;
-    gap: 10px;
-    border: 1px solid #D1D1D1;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
+.popup-field-name-input,
+.popup-field-email-input,
 .popup-field-phone-input {
     width: 382px;
     height: 50px;
@@ -179,11 +143,11 @@
     border: 1px solid #D1D1D1;
     padding-left: 20px;
     padding-right: 20px;
+
 }
 
 .popup-field-name-input::placeholder {
     color: #D1D1D1;
-    background-image: url('./assets/icons/person.png');
 }
 
 .popup-field-email-input::placeholder {
@@ -246,7 +210,7 @@ input[type="text"] {
 .popup-input-img-person {
     position: relative;
     right: 40px;
-    top: 0px;
+    top: 5px;
 }
 
 .popup-input-img-email {

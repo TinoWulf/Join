@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="./styles/contact-buttons.css">
     <link rel="stylesheet" href="./styles/media-quarry/contact-media-quarry.css">
+    <link rel="stylesheet" href="./styles/media-quarry/contact-popup-mediaquarry.css">
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
     <script src="./scripts/contact.js"></script>
     <script src="./script.js"></script>
@@ -39,10 +40,16 @@
                 <sub class="center-head-text">Better with a team</sub>
             </div>
             <div id="center-body" class="center-body"></div>
+            <div onclick="closeResponsivContact()" class="responsive-back-btn">
+            <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
+        </div>
         </div>
         <div id="popup-add" class="popup none">
             <div class="popup-main">
                 <div class="popup-banner">
+                    <div onclick="closeContactAdd()" class="popup-close-btn-img-white">
+                        <img src="./assets/icons/close_white.png" alt="">
+                    </div>
                     <div class="popup-banner-join">
                         <img class="popup-banner-join-logo" src="./assets/img/logo.png" alt="">
                     </div>
@@ -52,10 +59,9 @@
                     </div>
                     <div class="popup-banner-vector"></div>
                 </div>
-
                 <div class="popup-close-btn-div">
                     <div onclick="closeContactAdd()" class="popup-close-btn">
-                        <img src="./assets/icons/iconoir_cancel.png" alt="">
+                        <img class="popup-close-btn-img-blue" src="./assets/icons/iconoir_cancel.png" alt="">
                     </div>
                 </div>
                 <div class="popup-contact-div">
