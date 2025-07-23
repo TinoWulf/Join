@@ -10,9 +10,9 @@
 
 </head>
 <body>
-    <div class="header-signup">
-            <img src="./assets/img/logonoir.png" alt=" logo noir">
-        </div>
+    <header class="header-signup">
+        <img src="./assets/img/logonoir.png" alt=" logo noir">
+    </header>
     <main class="main-signup">
         
         <section class="form-signup-section">
@@ -35,11 +35,11 @@
                 </label>
                 <p class="error" id="emailError"></p>
                 <label for="password" class="form-input password">
-                    <input type="password" name="password" id="sign-up-password" placeholder="Password" required>
+                    <input type="text" name="password" id="sign-up-password" placeholder="Password" required autocomplete="off">
                     <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
                 </label>
                 <label for="password2" class="form-input password-confirm">
-                    <input type="password" name="password2" id="confirmPassword" placeholder="Confirm password" required>
+                    <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" required autocomplete="off">
                     <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.png" alt="lock"></span>
                 </label>
                 <p id="error-passord" class="error"></p>
@@ -49,7 +49,7 @@
                 </label>
                 <p id="sign-up-error" class="error"></p>
                 <div class="submit-btn">
-                    <button type="submit" id="signUpBtn" class="signup-button">Sign up</button>
+                    <button type="submit" id="signUpBtn" class="signup-button" disabled>Sign up</button>
                 </div>
             </form>
         </section>
@@ -59,10 +59,13 @@
             You are Sign Up successfully!
         </div>
     </div>
-    <div class="signup-footer">
-        <a>Privacy policy</a>
-        <a>Legal notice</a>
-    </div>
+    <footer>
+        <div class="signup-footer">
+            <a href="./policy.html">Privacy policy</a>
+            <a href="./notice.html">Legal notice</a>
+        </div>
+    </footer>
+    
     <script type="module" src="./scripts/signUp.js"></script>  
 </body>
 </html>

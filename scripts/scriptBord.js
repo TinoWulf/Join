@@ -85,3 +85,15 @@ function showPlaceholderTask(){
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
+
+
+function showContainerOnBoard(){
+  let contactBoard = document.getElementById("assigned");
+  if (contactBoard.classList.contains("hide")) {
+    contactBoard.classList.remove("hide");
+    contactBoard.classList.add("dFlex");
+  } else {
+    contactBoard.classList.add("hide");
+    contactBoard.classList.remove("dFlex");
+  }
+}

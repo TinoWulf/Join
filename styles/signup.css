@@ -1,7 +1,20 @@
-.main-signup{
-    width: 100%;
+body{
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header{
+    height: 122px;
+}
+
+main{
     flex: 1;
+    padding: auto 0;
+    height: 100dvh;
+}
+
+.main-signup{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,11 +29,14 @@
 .header-signup img{
     width: 100px;
     height: 121px;
+    z-index: 1;
 }
 
 .form-signup-section{
+    position: absolute;
     width: 598px;
-    height: 630px;
+    height: 587px;
+    margin-top: 102px;
     background-color: var(--white);
     display: flex;
     flex-direction: column;
@@ -34,7 +50,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
     
@@ -73,8 +89,7 @@
 }
 
 .hover-img:hover{
-    background-color: grey;
-    /* background-color: var(--light-grey-color); */
+    background-color: var(--light-grey-color);
 }
 
 .hr-signup{
@@ -85,11 +100,14 @@
     margin: 10px 40px;
 }
 
+.bar-signup{
+    display: none;
+}
+
 .form-input{
     display: flex;
     flex-direction: row;
     width: 400px;
-    /* padding:12px 21px; */
     gap: 10px;
     border: 1px solid var(--light-grey-color);
     border-radius: 10px;
@@ -101,6 +119,7 @@
     outline: none;
     border: none;
     border-radius: 20px;
+    font-size: 20px;
 }
 
 .form-input span{
@@ -121,12 +140,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
     width: 400px;
     padding:12px 21px;
     gap: 10px;
 }
 
 .privacy-link{
+    font-size: 16px;
     text-decoration: none;
     color: var(--blue);
 }
@@ -140,20 +161,20 @@
     border-radius: 8px;
 }
 
-.eye{
-    display: none;
+.signup-button:hover{
+    background-color: var(--blue);
+    border: unset;
 }
 
-.password input:focus{
-    
-    .eye{
-        display: block;
-    }
 
-    .lock{
-        display: none;
-    }
 
+footer{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    height: 40px;
 }
 
 .signup-footer{
@@ -165,7 +186,10 @@
 }
 
 .signup-footer a{
+    text-decoration: none;
     padding: 8px;
+    font-size: 16px;
+    color: var(--text-color);
 
 }
 
@@ -181,3 +205,113 @@
 .password-error{
     border: 1px solid #FF8190;
 }
+
+
+@media (max-width: 876px) {
+    .header-signup{
+        top: 15px;
+        left: 15px;
+    }
+    .header-signup img{
+        width: 90px;
+        height: 101px;
+    }
+    .form-signup-section{
+        width: 498px;
+        height: 530px;
+    }
+
+    .form-header{
+        margin-bottom: 0;
+    }
+    .form-header h2{
+        font-size: 42px;
+        padding-right: 0px;
+    }
+
+    .span-link{
+        padding-right: 100px;
+        margin-right: 0px;
+    }
+
+    .bar-signup{
+        display: block;
+        margin-right: 50px;
+    }
+}
+
+@media (max-width: 600px){
+    .form-header{
+        margin-bottom: 10px;
+    }
+    .form-signup-section{
+        width: 450px;
+        height: 500px;
+        padding:24px;
+    }
+    .form-header h2{
+        font-size: 30px;
+    }
+
+}
+
+@media (max-width: 450px){
+    .main-signup{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin-top: 122px; */
+    }
+    .form-signup-section{
+        width: 380px;
+        height: 480px;
+        padding: 20px;
+    }
+
+    .form-input{
+        width: 290px;
+    }
+
+    .form-input input{
+        font-size: 16px;
+        padding: 12px 10px;
+        width: 240px;
+    }
+
+    .form-input span{
+        padding: 12px 6px;
+    }
+    .signup-button{
+        padding: 10px 40px;
+    }
+
+    .label-privacy{
+        width: 300px;
+    }
+
+    .hr-signup{
+        margin: 10px 20px;
+    }
+
+}
+
+@media (max-width:400px) {
+    .form-signup-section{
+        width: 310px;
+        padding: 10px;
+    }
+
+    .form-input{
+        width: 300px;
+    }
+
+    .form-input input{
+        width: 270px;
+    }
+
+    .label-privacy{
+        width: 250px;
+    }
+    
+}
+

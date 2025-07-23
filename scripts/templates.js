@@ -141,11 +141,11 @@ function templateEditTask(task){
           </label>
           <label for="assigned" id="assigned-to" class="label-assign">
               Assigned to
-              <div class="drop-down-input">
+              <div class="drop-down-input" onclick="showContainerOnBoard()">
                 <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
-                <span><img src="./assets/icons/drop-down.png" alt=""></span>
+                <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
               </div>
-              <div name="assigned" id="assigned" class="hide">
+              <div name="assigned" id="assigned" class="hide container-contact">
                 <div class="option">
                   <label for="subtask1">Join Doe</label>
                   <input type="checkbox" id="subtask1" name="subtask1"/>
@@ -160,6 +160,10 @@ function templateEditTask(task){
                 </div>
                 
               </div>
+              <div class="already-assigned" id="alreadyAssigned">
+                ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
+              </div>
+
           </label>
           <label for="subtask" class="label-subtask">
               Substaks

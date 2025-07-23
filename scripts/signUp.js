@@ -96,12 +96,7 @@ function setupSignUp() {
     const password = passwordRef.value;
     const confirmPassword = confirmPasswordRef.value;
     const acceptedPolicy = acceptPolicyRef;
-    if (password !== confirmPassword) {
-      passwordError.innerText = "Your passwords don't match. Please try again.";
-      passwordOutlineError.classList.add("password-error");
-      passwordOutlineErrorConfirm.classList.add("password-error");
-      return;
-    }
+    verifyPassword(password, confirmPassword);
     verifyPolicy(acceptedPolicy);
     try {
       await signUpUser(email, password, name, acceptedPolicy);
@@ -113,6 +108,10 @@ function setupSignUp() {
     }
   });
 }
+
+acceptPolicyRef.addEventListener("change", function () {
+  signUpBtn.disabled = !acceptPolicyRef.checked;
+});
 
 
 /**
@@ -132,29 +131,99 @@ function verifyPolicy(acceptedPolicy){
     }
 }
 
-function togglePassword() {
-  const passwordField = document.getElementById("sign-up-password");
-  const toggleIcon = document.getElementById("eyePassword");
 
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    toggleIcon.innerHTML = `<img src="./assets/icons/visibility.png" alt="lock">`; 
-  } else {
-    passwordField.type = "password";
-    toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">` ;
+/**
+ * this function verifies if the password and confirm password fields match
+ * if they do not match, it displays an error message
+ * @param {string} password  the user's password
+ * @param {string} confirmPassword  the user's confirm password
+ * @returns 
+ */
+function verifyPassword(password, confirmPassword) {
+  if (password !== confirmPassword) {
+    passwordError.innerText = "Your passwords don't match. Please try again.";
+    passwordOutlineError.classList.add("password-error");
+    passwordOutlineErrorConfirm.classList.add("password-error");
+    return;
   }
 }
-function togglePasswordConfirm() {
-  const passwordField = document.getElementById("confirmPassword");
-  const toggleIcon = document.getElementById("eyePassword2");
 
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    toggleIcon.innerHTML = `<img src="./assets/icons/visibility.png" alt="lock">`; 
+
+const passwordField = document.getElementById("sign-up-password");
+const toggleIcon = document.getElementById("eyePassword");
+const passwordField2 = document.getElementById("confirmPassword");
+const toggleIcon2 = document.getElementById("eyePassword2");
+let realValue = ""; 
+let isVisible = false;
+
+/**
+ * this listener toggles the visibility of the password icon when a user start typing in the password field
+ */
+passwordField.addEventListener('focus', function(){
+  toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+})
+
+/**
+ * this listener toggles the visibility of the password icon when a user start typing in the password field
+ */
+passwordField2.addEventListener('focus', function(){
+  toggleIcon2.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+})
+
+/**
+ * this listener change the visibility of the password value when a user typing in the password field
+ */
+passwordField.addEventListener("input", (e) => {
+  const newValue = e.target.value;
+  if (newValue.length < realValue.length) {
+    realValue = realValue.slice(0, newValue.length);
   } else {
-    passwordField.type = "password";
-    toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">` ;
+    realValue += newValue[newValue.length - 1];
   }
+  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
+});
+
+
+passwordField2.addEventListener("input", (e) => {
+  const newValue = e.target.value;
+  if (newValue.length < realValue.length) {
+    realValue = realValue.slice(0, newValue.length);
+  } else {
+    realValue += newValue[newValue.length - 1];
+  }
+  passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
+});
+
+
+/**
+ * Toggles the visibility of the password input field.
+ * Updates the input value to show either the real password or masked characters,
+ * and switches the visibility icon accordingly.
+ *
+ * @function
+ * @global
+ * @returns {void}
+ */
+function togglePassword() {
+  isVisible = !isVisible;
+  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
+  toggleIcon.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+}
+
+
+/**
+ * Toggles the visibility of the password input field.
+ * Updates the input value to show either the real password or masked characters,
+ * and switches the visibility icon accordingly.
+ *
+ * @function
+ * @global
+ * @returns {void}
+ */
+function togglePasswordConfirm() {
+  isVisible = !isVisible;
+  passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
+  toggleIcon2.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 }
 
 window.togglePassword = togglePassword;
