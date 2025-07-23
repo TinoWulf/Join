@@ -31,11 +31,6 @@
     margin-bottom: 10px;
 }
 
-option{
-    display: flex;
-    width: 100%;
-}
-
 .editTaskPopup textarea,.editTaskPopup .label-title input, .editTaskPopup .label-date input{
     border-radius: 10px;
     padding: 12px 10px;
@@ -93,6 +88,7 @@ option{
 .drop-down-input input{
     border: none;
     outline: none;
+    width: 92%;
 }
 
 .drop-down-input span{
@@ -190,4 +186,12 @@ option{
   justify-content: space-between;
   align-items: center;
   color: var(--primary-color);
+}
+
+.option label{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
 }

@@ -146,18 +146,7 @@ function templateEditTask(task){
                 <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
               </div>
               <div name="assigned" id="assigned" class="hide container-contact">
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask1" name="subtask1"/>
-                </div>
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask2" name="subtask1"/>
-                </div>
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask3" name="subtask1"/>
-                </div>
+                
                 
               </div>
               <div class="already-assigned" id="alreadyAssigned">
@@ -183,7 +172,19 @@ function templateEditTask(task){
 }
 
 
-export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate };
+
+function templateRenderContactOnBord(contact){
+  return `
+    <div class="option">
+      <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
+      <input type="checkbox" id="${contact.id}" name="${contact.id}"/>
+    </div>
+  `;
+
+}
+
+
+export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord };
 
 window.templateTaskCard = templateTaskCard ;
 window.templateTaskCardDetail = templateTaskCardDetail ;
@@ -192,3 +193,4 @@ window.toDoPlaceholderTemplate = toDoPlaceholderTemplate ;
 window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
 window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
 window.donePlaceholderTemplate = donePlaceholderTemplate ;
+window.templateRenderContactOnBord = templateRenderContactOnBord ;

@@ -73,6 +73,20 @@ function applyAssignedToColors() {
     const color = letterColors[firstLetter] || "#000";
     alreadyAssigned.style.backgroundColor = color;
   });
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+}
+
+
+function applyAssignedToColorSpan(){
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
 }
 
 
@@ -366,3 +380,4 @@ window.searchParticularTask = searchParticularTask;
 window.moveTo = moveTo;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
+window.applyAssignedToColorSpan = applyAssignedToColorSpan;

@@ -2,6 +2,9 @@ const dataBaseURL =
   "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let query = "tasks";
 
+let contactList = [];
+let contactBoard = document.getElementById("assigned");
+
 
 /**
  * Sets the ID of the currently dragged task.
@@ -10,6 +13,28 @@ let query = "tasks";
 function startDragging(id) {
   currentDraggedTask = id;
 }
+
+
+async function getUser(){
+  let contactBoard = document.getElementById("assigned");
+  try{ 
+    const response = await fetch(dataBaseURL + "/.json"); 
+    const contactData = await response.json(); 
+    const contactIdList = Object.keys(contactData.contacts);
+    contactList = [];
+    for(let index=0; index <contactIdList.length; index++){
+      let contactID = contactIdList[index];
+      let contact = contactData.contacts[contactID];
+      contactList.push(contact);
+      contactBoard.innerHTML += templateRenderContactOnBord(contact);
+      applyAssignedToColorSpan();
+    }
+  }
+  catch(error){
+    throw new Error("Failled to connect to the database"+ error);
+  }
+}
+
 
 
 async function deleteTask(taskId, event) {
@@ -92,8 +117,12 @@ function showContainerOnBoard(){
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
     contactBoard.classList.add("dFlex");
+    getUser();
   } else {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
   }
 }
+
+
+

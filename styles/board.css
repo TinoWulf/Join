@@ -211,7 +211,7 @@ progress{
   justify-content: start;
 }
 
-.asigned-to span, .taskCardPopup ul li span, .already-assigned span {
+.asigned-to span, .taskCardPopup ul li span, .already-assigned span, .option span{
   display: flex;
   align-items: center;
   justify-content: center;
