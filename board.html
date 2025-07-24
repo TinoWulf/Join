@@ -23,70 +23,7 @@
       
     </header>
     <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
-        <!-- <div class="editTaskPopup" onclick="preventEvent(event)">
-          <label for="title" class="label-title">
-              Title
-              <input type="text" name="title" id="taskTitle" value="Select contacts to assign" required>
-          </label>
-          <label for="description">
-              Description
-              <textarea name="description" id="taskDescription" cols="10" rows="4">Select contacts to assign</textarea>
-          </label>
-          <label for="date" class="label-date">
-              Due date
-              <input type="date" name="date" id="dueDate" value="2026-03-01" required>
-          </label>
-          <label for="" class="label-priority">
-              Priority
-              <div class="add-task-priority">
-                  <button class="priority-button" onclick="getPriority('urgent')" id="priorityButtonUrgent">
-                  Urgent<img src="./assets/icons/urgent.png" alt="" />
-                  </button>
-                  <button class="priority-button"  onclick="getPriority('medium')" id="priorityButtonMedium">
-                  Medium <img src="./assets/icons/medium.png" alt="" />
-                  </button>
-                  <button class="priority-button" onclick="getPriority('low')" id="priorityButtonLow">
-                  Low <img src="./assets/icons/low.png" alt="" />
-                  </button>
-              </div>
-          </label>
-          <label for="assigned" id="assigned-to" class="label-assign">
-              Assigned to
-              <div class="drop-down-input">
-                <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
-                <span><img src="./assets/icons/drop-down.png" alt=""></span>
-              </div>
-              <div name="assigned" id="assigned" class="hide ">
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask1" name="subtask1"/>
-                </div>
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask2" name="subtask1"/>
-                </div>
-                <div class="option">
-                  <label for="subtask1">Join Doe</label>
-                  <input type="checkbox" id="subtask3" name="subtask1"/>
-                </div>
-                
-              </div>
-          </label>
-          <label for="subtask" class="label-subtask">
-              Substaks
-              <div class="drop-down-input">
-                <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
-                <span><img src="./assets/icons/plusbtngrey.png" alt=""></span>
-              </div>
-              <div id="subtaskListEdit">
 
-              </div>
-          </label>
-          <div class="edit-button">
-            <button class="btn-submit-change">Ok <img src="./assets/icons/check.png" alt=""></button>
-          </div>
-      </div> -->
-      
     </div>
     <main id="main" class="main-board" onload="initiateBoard()">
 
@@ -127,12 +64,12 @@
               ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
             /></span>
           </nav>
-          <div class="draggable-section"
+          <div
             id="toDoTask"
-            class="tasks-container board-scroll-wrapper"
-            ondrop="moveTo('toDo')"
+            class="tasks-container board-scroll-wrapper draggable-section"
+            ondrop=" moveToHover(true, 'toDoTask'), moveTo('toDo')"
             ondragleave="removeHighlight('toDoTask')"
-            ondragover="allowDrop(event);"
+            ondragover="allowDrop(event)"
           >
             <div id="toDoTaskPlaceholder" class="placeholder show">
               No tasks To do
@@ -146,15 +83,15 @@
               ><img src="./assets/icons/plusbtngrey.png" alt="add in todo"
             /></span>
           </nav>
-          <div class="draggable-section"
+          <div
             id="inProgressTask"
-            class="tasks-container board-scroll-wrapper"
-            ondrop="moveTo('inProgress')"
+            class="tasks-container board-scroll-wrapper draggable-section"
+            ondrop="moveToHover(true, 'inProgressTask'), moveTo('inProgress') "
             ondragleave="removeHighlight('inProgressTask')"
-            ondragover="allowDrop(event);"
+            ondragover="allowDrop(event)"
           >
             <div id="inProgressTaskPlaceholder" class="placeholder show">
-              no tasks in progress
+              No tasks in progress
             </div>
           </div>
         </section>
@@ -166,15 +103,15 @@
             /></span>
           </nav>
           
-            <div class="draggable-section"
+            <div
               id="awaitReviewTask"
-              class="tasks-container board-scroll-wrapper"
-              ondrop="moveTo('awaitReview')"
+              class="tasks-container board-scroll-wrapper draggable-section"
+              ondrop=" moveToHover(true, 'awaitReviewTask'), moveTo('awaitReview') "
               ondragleave="removeHighlight('awaitReviewTask')"
-              ondragover="allowDrop(event);"
+              ondragover="allowDrop(event)"
             >
               <div id="awaitReviewTaskPlaceholder" class="placeholder show">
-                no tasks awaiting feedback
+                No tasks awaiting feedback
               </div>
             </div>
           
@@ -184,12 +121,12 @@
             <h3>Done</h3>
           </nav>
           
-            <div class="draggable-section"
+            <div
               id="doneTask"
-              class="tasks-container board-scroll-wrapper"
-              ondrop="moveTo('done')"
+              class="tasks-container board-scroll-wrapper draggable-section"
+              ondrop=" moveToHover(true, 'doneTask'), moveTo('done')"
               ondragleave="removeHighlight('doneTask')"
-              ondragover="allowDrop(event);"
+              ondragover="allowDrop(event)"
             >
               <div id="doneTaskPlaceholder" class="placeholder show">
                 No Task Done

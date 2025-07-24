@@ -48,14 +48,32 @@ function setupLogin() {
       loginForm.reset();
     } catch (e) {
       if(e.code == "auth/invalid-credential" || e.code === 'auth/user-not-found'){
-        loginError.innerText="Check your email and password. Please try again.";
-        inputPassword.classList.add('login-error');
-        inputEmail.classList.add('login-error');
+        showErrorLogin(loginError, inputPassword,inputEmail );
       }else{
         loginError.innerText= e.message;
       }
     }
   });
+}
+
+
+/**
+ * Displays a login error message and highlights the email and password input fields.
+ * The error message and highlighting are removed after 2 seconds.
+ *
+ * @param {HTMLElement} loginError - The element where the error message will be displayed.
+ * @param {HTMLElement} inputPassword - The password input element to highlight on error.
+ * @param {HTMLElement} inputEmail - The email input element to highlight on error.
+ */
+function showErrorLogin(loginError,inputPassword,inputEmail){
+    loginError.innerText="Check your email and password. Please try again.";
+    inputPassword.classList.add('login-error');
+    inputEmail.classList.add('login-error');
+    setTimeout(()=>{
+      loginError.innerText="";
+      inputPassword.classList.remove('login-error');
+      inputEmail.classList.remove('login-error');
+    }, 2000);
 }
 
 

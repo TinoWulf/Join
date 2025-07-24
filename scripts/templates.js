@@ -128,13 +128,14 @@ function templateEditTask(task){
           <label for="" class="label-priority">
               Priority
               <div class="add-task-priority">
-                  <button class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " onclick="getPriority('urgent')" id="priorityButtonUrgent">
+              <input type="hidden" name="priority" id="priorityInput" value="" />
+                  <button type="submit" class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " data-priority="urgent"  id="priorityButtonUrgent">
                   Urgent<img src="./assets/icons/urgent.png" alt="" />
                   </button>
-                  <button class="priority-button ${task.priority === 'medium' ? 'medium': '' }"  onclick="getPriority('medium')" id="priorityButtonMedium">
+                  <button type="submit" class="priority-button ${task.priority === 'medium' ? 'medium': '' }" data-priority="medium"  id="priorityButtonMedium">
                   Medium <img src="./assets/icons/medium.png" alt="" />
                   </button>
-                  <button class="priority-button ${task.priority === 'low' ? 'low': '' }" onclick="getPriority('low')" id="priorityButtonLow">
+                  <button type="submit" class="priority-button ${task.priority === 'low' ? 'low': '' }" data-priority="low"  id="priorityButtonLow">
                   Low <img src="./assets/icons/low.png" alt="" />
                   </button>
               </div>
@@ -145,10 +146,10 @@ function templateEditTask(task){
                 <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
                 <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
               </div>
-              <div name="assigned" id="assigned" class="hide container-contact">
+              <form name="assigned" id="assigned" class="hide container-contact">
                 
                 
-              </div>
+              </form>
               <div class="already-assigned" id="alreadyAssigned">
                 ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
               </div>
@@ -165,7 +166,7 @@ function templateEditTask(task){
               </div>
           </label>
           <div class="edit-button">
-            <button class="btn-submit-change">Ok <img src="./assets/icons/check.png" alt=""></button>
+            <button class="btn-submit-change" onclick="getEditedTask(${task.id})">Ok <img src="./assets/icons/check.png" alt=""></button>
           </div>
       </div>
   `;
@@ -177,7 +178,7 @@ function templateRenderContactOnBord(contact){
   return `
     <div class="option">
       <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
-      <input type="checkbox" id="${contact.id}" name="${contact.id}"/>
+      <input type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}"/>
     </div>
   `;
 

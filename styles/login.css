@@ -227,7 +227,7 @@ h1 {
     flex-direction: row;
     width: 400px;
     gap: 10px;
-    border: 1px solid var(--light-grey-color);
+    border: 1px solid var(--primary-color);
     border-radius: 10px;
 }
 

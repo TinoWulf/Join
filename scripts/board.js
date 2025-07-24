@@ -25,9 +25,7 @@ function countSubtasks(task) {
 
 function getPriority(range){
   let priority = range;
-  console.log(priority);
   return priority;
-
 }
 
 
@@ -129,17 +127,33 @@ function openEditTask(taskId){
   taskCardParentEdit.innerHTML = templateEditTask(task);
   applyAssignedToColors();
 }
+let priorityTask = 'medium'
+function getPriorityTask(){
+   let selectedPriority = null;
+    const buttons = document.querySelectorAll('.priority-button');
+    const hiddenInput = document.getElementById('priorityInput');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        selectedPriority = this.dataset.priority;
+        hiddenInput.value = selectedPriority;
+        priorityTask = hiddenInput.value
+        console.log(priorityTask);
+        return priorityTask;
+      });
+    });
+}
+
+
 
 
 async function getEditedTask(taskId){
   const taskTitle = getElementById('taskTitle');
   const taskDescription = getElementById('taskDescription');
   const dueDate = getElementById('dueDate');
-  const priority = getPriority(this);
+  const priority = getPriorityTask();
   const assigned = getElementById('assignedTo');
   let assignedToList = [];
   let subtaskList = [];
-
   const task = {
     id: taskId,
     title: taskTitle.value,
@@ -150,7 +164,8 @@ async function getEditedTask(taskId){
     subtasks: subtaskList
   }
   try{
-    editTask(task);
+    console.log(task);
+    // editTask(task);
   }
   catch(error){
     console.error("Error editing task:", error);
@@ -346,7 +361,9 @@ async function moveTo(range) {
   const taskID = currentDraggedTask;
   const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
-  highlight(rangeId);
+  // let startDragged = true;
+  // moveToHover(startDragged, rangeId);
+  // startDragged = false;
   try {
     await update(taskRef, { range: range });
     loadTasks();
@@ -381,3 +398,5 @@ window.moveTo = moveTo;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
 window.applyAssignedToColorSpan = applyAssignedToColorSpan;
+window.getEditedTask = getEditedTask;
+window.getPriorityTask = getPriorityTask;

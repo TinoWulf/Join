@@ -272,7 +272,7 @@ progress{
 
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
   .todo, .done, .in-progress, .await-feedback {
     width: 100%;
   }
@@ -291,6 +291,8 @@ progress{
   }
 
   .board-scroll-wrapper {
+    width: 100%;
+    height: 100%;
     display: inline-flex;
     gap: 5px;
     overflow-x: auto;
