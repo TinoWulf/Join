@@ -9,3 +9,16 @@
     color: var(--blue) !important;
     transform: scale(1.1);
 }
+
+@media (max-width: 876px) {
+    .policy-body {
+        padding-left: 60px;
+        padding-top: 100px;
+        padding-right: 60px;
+        padding-bottom: 100px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+}
