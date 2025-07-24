@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./menu-bar.css">
+    <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./styles/add-task.css">
+    <link rel="icon" type="./img/png" href="./assets/img/logonoir.png">
+    <title>Add Task</title>
+</head>
+<body>
+        <nav class="navbar">
+        <h4>Kanban Project Management Tool</h4>
+        <ul>
+           <li><a href=""><img src="./assets/icons/help.png" alt="help icon"></a></li>
+            <li><span>RT</span></li>
+        </ul>
+    </nav>
+    <div class="menu">
+        <div class="menu-header">
+            <a href="index.html"><img src="./assets/img/logo.png" alt=""></a>
+        </div>
+        <div class="menu-body">
+            <a href="summary.html"><div class="menu-btn">
+                <img src="./assets/icons/summary.png" alt="">
+                <p class="menu-p">Summary</p>
+            </div></a>
+            <a href="addtask.html"><div class="menu-btn">
+                <img src="./assets/icons/add-task.png" alt="">
+                <p class="menu-p">Add Task</p>
+            </div></a>
+            <a href="board.html"><div class="menu-btn">
+                <img src="./assets/icons/board.png" alt="">
+                <p class="menu-p">Board</p>
+            </div></a>
+            <a href="contacts.html"><div class="menu-btn">
+                <img src="./assets/icons/contact.png" alt="">
+                <p class="menu-p">Contacts</p>
+            </div></a>
+        </div>
+        <div class="menu-footer">
+            <a href="policy.html"><p class="menu-p">Privacy Policy</p></a>
+            <a href="notice.html"><p class="menu-p">Legal notice</p></a>
+        </div>
+    </div>
+
+
+
+    <div class="add-task-overlay-div">
+        <header>
+            <h1 class="add-task-header">Add Task</h1>
+        </header>
+        <div>
+            <form id="add-task-form">
+                <div class="entire-add-task-content">
+
+                    <div class="input-wrapper">
+                        <label for="title">Title</label>
+                        <div class="input-container">
+                            <input id="required" class="outline" type="text" name="title" placeholder="Enter a title" required>
+                            <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                        </div>
+                    </div>
+
+
+                    <label for="myInput">Description</label>
+                    <textarea id="required" onclick="requiredColorIfFilled()" class="required outline" class="description-area" id="description" rows="2" cols="20" placeholder="Enter a Description" required></textarea>
+                    
+                    <div class="input-wrapper">
+                        <label for="myInput">Due date</label>
+                        <div class="input-container">
+                            <input item onclick="requiredColorIfFilled()" class="required outline" type="date" id="date" name="dd/mm/yyyy" required>
+                            <div class="due-date-img-div" onclick="dueDateImage()">
+                                <img class="due-date-img" id="dateimg" src="./assets/icons/event.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border"></div>
+                <div class="add-left-side">
+
+                    
+                    <label for="myInput">Priority</label>
+                        <div class="button-priority-overlay">
+                            <button type="click" class="button-priority button-priority-margin" id="button-priority-urgent" data-value="Urgent">
+                                Urgent
+                                <img class="priority-img img-priority-urgent" src="./assets/icons/urgent.png">
+                            </button>
+                            <button type="click" class="button-priority button-priority-margin" id="button-priority-medium" data-value="Medium">
+                                Medium
+                                <img class="priority-medium-img" src="./assets/icons/medium.png">
+                            </button>
+                            <button type="click" class="button-priority" id="button-priority-low" data-value="low">
+                                low
+                                <img class="priority-img" src="./assets/icons/low.png">
+                            </button>
+                        </div>
+                    <div class="add-task-right-side">
+
+                        <div class="input-wrapper">
+                            <label for="myInput">Assigned to</label>
+                            <div class="input-container">
+                                <select class="required outline" type="title"  id="assign" placeholder="Select contact to assign" required>
+                                    <option>Rucel T</option>
+                                    <option>Tino Wulf</option>
+                                    <option>Jeremy Nánási</option>
+                                </select>
+                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                            </div>
+                        </div>
+                        
+                        <div class="input-wrapper">
+                        <label for="myInput">Category</label>
+                            <div class="input-container">
+                                <button onclick="openCategory()" id="category-button">
+                                    <div class="category-div">
+                                    <div>Select contacts to assign</div>
+                                    <img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png">
+                                    </div>
+                                </button>
+                                    <div id="category" class="category">
+
+                                    </div>
+                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <label for="myInput">Subtasks</label>
+                                <select class="required outline" type="title" id="subtasks" placeholder="Add new subtask" required>
+                                    <a><img src="./assets/icons/add-task.png"></a>
+                                    <option>Contact Form</option>
+                                </select>
+                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                        </div>
+                        
+                        <div class="button-div">
+                            <button type="reset" class="Cancel-button outline">
+                                <span class="display">Cancel
+                                    <img class="button-img" src="./assets/icons/iconoir_cancel.png">
+                                </span>
+                            </button>
+                            <button type="submit" class="create-task-button">
+                                <span>
+                                    Create Task
+                                    <img class="button-img" src="./assets/icons/check.png">
+                                </span>
+                            </button>
+                        </div>
+                        <div>
+                        <div id="tasks">
+
+                        </div>
+                    </div>
+                </div>
+            
+            </form>
+
+            <span class="this-list-is-for-test"></span>
+        <div>
+    </div>
+
+    <script type="module" src="./scripts/addtaskfirebase.js"></script>
+    <script src="./scripts/addtask.js"></script>
+</body>
+</html>

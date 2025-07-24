@@ -96,3 +96,10 @@ function setupLogin() {
 
 setupSignUp();
 setupLogin();
+
+
+
+// Aufgabe 
+  // css keyframe das join mit schwarzen hintergrund mit figma kann ich abspielen
+  // in summary
+  // find heraus wie ich das video schauen kann

@@ -1,0 +1,36 @@
+
+.text {
+    margin-left: 300px;
+    margin-top: 220px;
+    padding-right: 50px;
+    color: #000000;
+}
+
+h2 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-weight: 700;
+}
+
+h3 {
+    padding-top: 16px;
+    font-weight: 600;
+}
+
+a {
+    color: #29ABE2
+}
+
+.arrow-left-line {
+    position: sticky;
+    top: 20%;
+    left: 94%;
+    height: 25px;
+    width: 25px;
+    /* transform: transform .9s ease; */
+    overflow: hidden;
+}
+
+.arrow-left-line:hover {
+    transform: scale(1.20);
+}
