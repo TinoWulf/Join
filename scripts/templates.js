@@ -88,7 +88,7 @@ function toDoPlaceholderTemplate(){
 function inProgressPlaceholderTemplate(){
   return `
     <div id="inProgressTaskPlaceholder" class="placeholder show">
-      no tasks in progress
+      No tasks in progress
     </div>
   `;
 }
@@ -96,7 +96,7 @@ function inProgressPlaceholderTemplate(){
 function awaitReviewPlaceholderTemplate(){
   return `
     <div id="awaitReviewTaskPlaceholder" class="placeholder show">
-      no tasks awaiting feedback
+      No tasks awaiting feedback
     </div>
   `;
 }
