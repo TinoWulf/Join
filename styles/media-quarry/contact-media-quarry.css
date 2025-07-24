@@ -1,0 +1,467 @@
+@media (max-width:1400px) {
+    .contacts {
+        width: 350px;
+    }
+
+    .center-head {
+        left: 650px;
+    }
+
+    .center-body {
+        left: 650px;
+    }
+
+    .render-div {
+        width: auto;
+        gap: 20px;
+        padding-left: 10px;
+    }
+
+    .render-letter-splitter {
+        width: 300px;
+    }
+
+    .render-div-splitter {
+        width: 320px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .contact-info {
+        width: 220px;
+        height: 48px;
+        opacity: 1;
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width:1250px) {
+
+    .popup-main {
+        width: 1000px;
+    }
+
+    .popup-banner {
+        width: 300px;
+        padding-left: 15px;
+    }
+
+    .popup-banner-sub1 {
+        font-size: 47px;
+    }
+
+    .popup-banner-sub2 {
+        font-size: 20px;
+    }
+
+    .popup-buttons {
+        position: relative;
+        width: 364px;
+        height: 57px;
+        top: -200px;
+        left: 558px;
+        opacity: 1;
+        gap: 24px;
+        display: flex;
+    }
+
+    .contacts {
+        width: 275px;
+    }
+
+    .center-head {
+        left: 500px;
+        width: 380px;
+        gap: 10px;
+    }
+
+    .center-body {
+        left: 520px;
+        width: 360px;
+    }
+
+    .center-top {
+        gap: 20px;
+        width: auto;
+    }
+
+    .render-div {
+        width: 240px;
+        gap: 10px;
+        height: auto;
+    }
+
+    .render-initals {
+        height: 42px;
+        width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .render-letter-splitter {
+        width: 250px;
+    }
+
+    .render-div-splitter {
+        width: 250px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .contact-info {
+        width: 200px;
+        height: 48px;
+        opacity: 1;
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .contact-name {
+        font-size: 16px;
+    }
+
+    .contact-btn {
+        padding: 6px 15px;
+    }
+
+    .contact-btn-text {
+        font-size: 16px;
+
+    }
+
+    .contact-mail {
+        font-size: 12px;
+    }
+
+    .center-headline-text {
+        font-size: 41px;
+    }
+
+    .center-head-text {
+        font-size: 17px;
+    }
+
+    .center-top-name {
+        font-size: 37px;
+    }
+
+    .center-top-inital-div {
+        width: 80px;
+        height: 80px;
+    }
+
+    .center-top-inital-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .center-top-inital {
+        font-size: 37px;
+    }
+}
+
+@media (max-width: 1030px) {
+
+    .popup-main {
+        width: 800px;
+    }
+
+    .popup-buttons {
+        position: relative;
+        width: 364px;
+        height: 57px;
+        top: -150px;
+        left: 400px;
+        opacity: 1;
+        gap: 24px;
+        display: flex;
+    }
+
+    .popup-close-btn-div {
+        left: 430px;
+    }
+
+    .popup-contact-div {
+        width: 100px;
+        height: 100px;
+        left: 0;
+    }
+
+    .popup-field {
+        width: 322px;
+        left: 40px;
+    }
+
+    .popup-field-name-input,
+    .popup-field-email-input,
+    .popup-field-phone-input {
+        width: 300px;
+    }
+
+    .popup-field-name,
+    .popup-field-email,
+    .popup-field-phone {
+        width: 300px;
+    }
+
+    .popup-input-img-person,
+    .popup-input-img-email,
+    .popup-input-img-phone {
+        position: relative;
+        left: 270px;
+        top: -35px;
+    }
+}
+
+@media (max-width: 876px) {
+    .contacts {
+        width: 100%;
+        left: 0;
+        flex-direction: column;
+        box-shadow: 2px 0 5px -2px black;
+        padding-bottom: 20px;
+        height: calc(100vh - 160px);
+    }
+
+    .contact-render {
+        gap: 15px;
+    }
+
+    .contact-header {
+        position: absolute;
+        right: 30px;
+        bottom: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+    }
+
+    .contact-btn {
+        opacity: 1;
+        gap: 10px;
+        border-radius: 46px;
+        border-width: 1px;
+        padding: 12px;
+        background-color: #2A3647;
+        border: 1px solid #2A3647;
+    }
+
+    .contact-btn-text {
+        display: none;
+    }
+
+    .render-div {
+        width: 450px;
+        height: 78px;
+        opacity: 1;
+        border-radius: 10px;
+        padding-top: 15px;
+        padding-right: 24px;
+        padding-bottom: 15px;
+        padding-left: 24px;
+        gap: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .render-letter-splitter {
+        width: 500px;
+    }
+
+    .center {
+        background-color: #F6F7F8;
+        height: calc(100vh - 80px);
+        width: 100%;
+        z-index: 10;
+        transform: translateX(-100%);
+        transition: 500ms;
+    }
+
+    .center-head {
+        position: relative;
+        width: 213px;
+        height: 104px;
+        opacity: 1;
+        top: 128px;
+        left: 50px;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .center-head-splitter {
+        position: absolute;
+        top: 105px;
+        left: 0;
+        height: 0px;
+        width: 90px;
+        opacity: 1;
+        border-width: 3px;
+        border: 3px solid #29ABE2;
+    }
+
+    .center-headline-text {
+        font-size: 47px;
+    }
+
+    .center-head-text {
+        font-size: 20px;
+    }
+
+    .center-body {
+        position: relative;
+        top: 200px;
+        left: 50px;
+        width: 452px;
+        height: 364px;
+        opacity: 1;
+        gap: 21px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .display-show {
+        transform: translateX(0);
+        transition: 500ms;
+    }
+
+    .responsive-back-btn {
+        position: absolute;
+        height: 45px;
+        width: 45px;
+        top: 150px;
+        right: 25px;
+        display: flex;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-width: 2px;
+    }
+
+    .responsive-back-img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .responsive-back-btn:hover {
+        cursor: pointer;
+        border-style: solid;
+    }
+
+    .render-div-hover {
+        background-color: #F6F7F8;
+        color: #1e2327;
+    }
+}
+
+@media (max-width: 550px) {
+    .render-div {
+        width: 280px;
+        height: 78px;
+        padding-right: 8px;
+        padding-left: 8px;
+        gap: 10px;
+    }
+
+    .render-letter-splitter {
+        width: 100%;
+    }
+
+    .render-div-splitter {
+        width: 290px;
+    }
+
+    .contact-name {
+        font-size: 18px;
+    }
+
+    .render-div-initals {
+        height: 30px;
+        width: 30px;
+    }
+
+    .center-headline-text {
+        font-size: 31px;
+    }
+
+    .center-head-text {
+        font-size: 17px;
+    }
+
+    .center-head {
+        position: relative;
+        width: 213px;
+        height: 104px;
+        opacity: 1;
+        top: 128px;
+        left: 16px;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .center-body {
+        position: relative;
+        top: 200px;
+        left: 16px;
+        width: 452px;
+        height: 364px;
+        opacity: 1;
+        gap: 21px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .center-top {
+        width: 452px;
+        height: 120px;
+        gap: 10px;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .center-top-inital-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .center-top-inital-div {
+        width: 60px;
+        height: 60px;
+    }
+
+    .center-top-inital {
+        font-size: 20px;
+    }
+
+    .center-top-name {
+        font-weight: 500;
+        font-style: Medium;
+        font-size: 25px;
+        line-height: 120%;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+}

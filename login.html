@@ -7,54 +7,74 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./styles/assets.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./styles/login.css">
     <title>Join Log In</title>
 </head>
 <body>
-    <header>
-        <div class="head">
-            <img class="logo" src="./assets/img/logonoir.png" alt="Join Logo">
+    
+    
+    <main class="main-login hide" id="main-login">
+        <header class="header" id="header-login">
+            <div class="head">
+                <img class="logo" src="./assets/img/logonoir.png" alt="Join Logo">
 
-            <div class="signup-div">
-                <a>Not a Join user?</a>
-                <a href="./sign-up.html">
-                    <button class="sign-up-button">Sign up</button>
-                </a>
+                <div class="signup-div">
+                    <a>Not a Join user?</a>
+                    <a href="./signup.html">
+                        <button class="sign-up-button">Sign up</button>
+                    </a>
+                </div>
             </div>
+        </header>
+        <section class="login-section" id="login-section">
+            <div class="login-div">
+                <div class="log-in-div">
+                    <h1>Log in</h1>
+                    <hr class="hr-login">
+                </div>
+                <form class="login-form" id="loginform">
+                    <p class="error" id="loginErrorCredential"></p>
+                    <label for="email" class="form-input" id="label-email">
+                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <span><img src="./assets/icons/mail.png" alt="person"></span>
+                    </label>
+                    <p id="error-email" class="error"></p>
+                    <label for="password" class="form-input password" id="label-password">
+                        <input type="text" name="password" id="password" placeholder="Password" required>
+                        <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
+                    </label>
+                    <p id="error-message" class="error"></p>
+                    <div class="button-overlay">
+                        <button type="submit" class="log-in-and-guest-log-in white-color-text " id="login-button">Log in</button>
+                        <a href="./board.html">
+                            <button class="guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
+                        </a>
+                    </div>
+                <div id="messageLogin"> </div>
+                </form>
+            </div>
+        </section>
+        <div class="signup-div-mobile">
+            <a>Not a Join user?</a>
+            <button class="sign-up-button">Sign up</button>
         </div>
-    </header>
-    <section class="login-section">
-        <div class="login-div">
-            <div class="log-in-div">
-                <h1>Log in</h1>
-                <div class="border-line"></div>
-            </div>
-
-
-
-            <form class="login-form" id="loginform">
-                <input class="login" id="email" type="email" placeholder="Email" required>
-                <input class="login" id="password" type="password" placeholder="Password" required>
-                <div class="button-overlay">
-                <button type="submit" class="log-in-and-guest-log-in white-color-text">Log in</button>
-                <a href="./board.html">
-                    <button class="Guest-login-button log-in-and-guest-log-in">Guest Log in</button>
-                </a>
-            </div>
-            <div id="messageLogin"></div>
-            </form>
+        <footer class="" id="login-footer">
+            <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
+            <a class="grey-text datenschutz">Legal notice</a>
+        </footer>
+    </main>
+    
+    <div class="success-message" id="success-message">
+        <div class="success-message-content" id="successSignUpMessage" >
+            You Signed Up successfully!
         </div>
-            <div class="signup-div-mobile">
-                <a>Not a Join user?</a>
-                <button class="sign-up-button">Sign up</button>
-            </div>
-    </section>
-    <footer>
-        <a class="grey-text datenschutz padding-privacy-policy">Privacy Policy</a>
-        <a class="grey-text datenschutz">Lega notice</a>
-    </footer>
-
-    <script type="module" src="./scripts/log.js"></script>
+    </div>
+    <div id="overlay" class="">
+        <img src="./assets/img/logonoir.png" alt="Logo" id="animatedLogo" class="animate">
+    </div>
+    <script type="module" src="./scripts/logIn.js"></script>
 </body>
 </html>

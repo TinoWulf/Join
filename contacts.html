@@ -4,87 +4,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="contacts.css">
+    <title>Contacts | Join</title>
+    <link rel="stylesheet" href="./styles/contacts.css">
+    <link rel="stylesheet" href="./styles/menu-bar.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
+    <link rel="stylesheet" href="./styles/popup-contact.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <script src="contact.js"></script>
-    <script type="module"></script>
+    <link rel="stylesheet" href="./styles/contact-buttons.css">
+    <link rel="stylesheet" href="./styles/media-quarry/contact-media-quarry.css">
+    <link rel="stylesheet" href="./styles/media-quarry/contact-popup-mediaquarry.css">
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
+    <script src="./scripts/contact.js"></script>
+    <script src="./script.js"></script>
 
 </head>
 
-<body onload="fetchData()">
+<body onload="fetchData(), callUserData()">
+    <header id="navbar">
 
-    <div class="menu">
-        <div class="menu-header">
-            <a href="index.html"><img src="./assets/img/logo.png" alt=""></a>
-        </div>
-        <div class="menu-body">
-            <a href="summary.html">
-                <div class="menu-btn">
-                    <img src="./assets/icons/summary.png" alt="">
-                    <p class="menu-p">Summary</p>
-                </div>
-            </a>
-            <a href="addtask.html">
-                <div class="menu-btn">
-                    <img src="./assets/icons/add-task.png" alt="">
-                    <p class="menu-p">Add Task</p>
-                </div>
-            </a>
-            <a href="board.html">
-                <div class="menu-btn">
-                    <img src="./assets/icons/bord.png" alt="">
-                    <p class="menu-p">Board</p>
-                </div>
-            </a>
-            <a href="contacts.html">
-                <div class="menu-btn menu-aktive">
-                    <img src="./assets/icons/contact-white.png" alt="">
-                    <p class="menu-p">Contacts</p>
-                </div>
-            </a>
-        </div>
-        <div class="menu-footer">
-            <a href="policy.html">
-                <p class="menu-p">Privacy Policy</p>
-            </a>
-            <a href="notice.html">
-                <p class="menu-p">Legal notice</p>
-            </a>
-        </div>
-    </div>
-    <header>
-        <div class="header-text">
-            <p>Kanban Project Management Tool</p>
-        </div>
-        <div class="header-box">
-            <a href=""><img src="./assets/icons/help.png" alt=""></a>
-            <div class="header-box-div">
-                <sub class="header-box-sub">SM</sub>
+    </header>
+    <main class="main-contact">
+        <div class="contacts">
+            <div class="contact-header">
+                <button onclick="openContactAdd()" class="contact-btn"><sub class="contact-btn-text">Add new
+                        contact</sub><img src="./assets/icons/person_add.png" alt=""></button>
+            </div>
+            <div id="contact-render" class="contact-render">
             </div>
         </div>
-    </header>
-    <div class="contacts">
-        <div class="contact-header">
-            <button class="contact-btn"><sub class="contact-btn-text">Add new contact</sub><img
-                    src="./assets/icons/person_add.png" alt=""></button>
+        <div id="center" class="center">
+            <div id="center-head" class="center-head">
+                <sub class="center-headline-text">Contacts</sub>
+                <div class="center-head-splitter"></div>
+                <sub class="center-head-text">Better with a team</sub>
+            </div>
+            <div id="center-body" class="center-body"></div>
+            <div onclick="closeResponsivContact()" class="responsive-back-btn">
+            <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
         </div>
-        <div id="contact-render" class="contact-render">
+        </div>
+        <div id="popup-add" class="popup none">
+            <div class="popup-main">
+                <div class="popup-banner">
+                    <div onclick="closeContactAdd()" class="popup-close-btn-img-white">
+                        <img src="./assets/icons/close_white.png" alt="">
+                    </div>
+                    <div class="popup-banner-join">
+                        <img class="popup-banner-join-logo" src="./assets/img/logo.png" alt="">
+                    </div>
+                    <div class="popup-banner-join-text">
+                        <sub class="popup-banner-sub1">Add contact</sub>
+                        <sub class="popup-banner-sub2">Tasks are better with a team!</sub>
+                    </div>
+                    <div class="popup-banner-vector"></div>
+                </div>
+                <div class="popup-close-btn-div">
+                    <div onclick="closeContactAdd()" class="popup-close-btn">
+                        <img class="popup-close-btn-img-blue" src="./assets/icons/iconoir_cancel.png" alt="">
+                    </div>
+                </div>
+                <div class="popup-contact-div">
+                    <img src="./assets/icons/person.png" alt="">
+                </div>
+                <div class="popup-field">
+                    <div class="popup-field-name">
+                        <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-add">
+                        <img class="popup-input-img-person" src="./assets/icons/person-input.png" alt="">
+                    </div>
+                    <div class="popup-field-email">
+                        <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-add">
+                        <img class="popup-input-img-email" src="./assets/icons/mail.png" alt="">
+                    </div>
+                    <div class="popup-field-phone">
+                        <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-add">
+                        <img class="popup-input-img-phone" src="./assets/icons/call.png" alt="">
+                    </div>
+                </div>
+                <div class="popup-buttons">
+                    <button onclick="closeContactAdd()" class="popup-btn-cancel">Cancel <img
+                            src="./assets/icons/iconoir_cancel.png" alt=""></button>
+                    <button onclick="addContact()" class="popup-btn-create">Create contact <img
+                            src="./assets/icons/check.png" alt=""></button>
+                </div>
+            </div>
+        </div>
+        <div id="popup-edit" class="popup none"></div>
+        <div id="alert" class="alert alert-close"></div>
+    </main>
 
-        </div>
-    </div>
-    <div class="center-head">
-        <sub class="center-headline-text">Contacts</sub>
-        <div class="center-head-splitter"></div>
-        <sub class="center-head-text">Better with a team</sub>
-    </div>
-    <div id="center-body" class="center-body">
-        
-    </div>
+
 
 
 </body>

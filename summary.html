@@ -6,10 +6,11 @@
     <title>Summary|Join</title>
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./styles/summary.css" />
+    <link rel="stylesheet" href="./styles/responsive.css" />
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
     <script src="./script.js"></script>
-    <script defer src="./connection.js" type="module"></script>
+    <script defer src="./scripts/connection.js" type="module"></script>
     <script defer src="./scripts/summary.js" type="module"></script>
   </head>
 <body>
@@ -20,6 +21,7 @@
         <nav class="nav-summary">
             <h1>Join 479</h1>
             <span>Key Metrics at a Glance</span>
+            <hr class="hr-join">
         </nav>
         <div class="container-summary">
             <div class="board-summary">
@@ -41,7 +43,7 @@
                         <p><span class="task-number" id="urgentTasks">1</span> <span class="task-category">Urgent</span></p>
                     </section>
                     <div class="bar"></div>
-                    <section class="urgent-summary-deadline"><p>August 01, 2025</p> <span>Upcoming Deadline</span></section>
+                    <section class="urgent-summary-deadline"><p id="upComingDeadline">August 21, 2025</p> <span>Upcoming Deadline</span></section>
                 </div>
                 <div class="tasks-summary">
                     <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="totalTasks">5</span>  <span class="task-category">Tasks in <br> Board</span></section>
@@ -50,8 +52,8 @@
                 </div>
             </div>
             <div class="great-user">
-                <p>Good morning,</p>
-                <h2>Join Team</h2>
+                <p id="greetMessage"></p>
+                <h2 id="userName"></h2>
             </div>
         </div>
     </main>

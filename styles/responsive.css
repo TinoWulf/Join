@@ -1,0 +1,324 @@
+@media (max-width: 876px) {
+  .popupshow {
+    top: 60px;
+    right: -250px;
+    position: fixed;
+    animation: slideFromRight 1.2s ease-in-out forwards; 
+  }
+
+  @keyframes slideFromRight {
+    from {
+      right: -250px;
+    }
+    to {
+      right: 10px;
+    }
+  }
+
+  .back {
+    display: none;
+    top: 60px;
+    right: -250px;
+    position: fixed;
+    animation: slideFromLeft 2s ease-in-out forwards; 
+  }
+
+  @keyframes slideFromLeft {
+    from {
+      right: 10px;
+      display: block;
+    }
+    to {
+      right: -250px;
+      display: none;
+    }
+  }
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 0px);
+    margin-left: 0;
+  }
+
+  .main-board,
+  .main-summary {
+    margin-left: 0;
+    width: calc(100% - 0px);
+    height: 100dvh;
+    flex: 1;
+  }
+  .main-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 0;
+    padding-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+  .nav-summary{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .board-summary {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+  .container-summary {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .great-user {
+    display: none;
+  }
+
+  .menu {
+    padding: 0;
+  }
+
+  .menu-mobile {
+    height: 75px;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .logo-mobile {
+    display: block;
+    margin: 30px;
+    height: 40px;
+    width: 40px;
+  }
+
+  .help-pc {
+    display: none;
+  }
+
+  .menu-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    gap: 2px;
+  }
+
+  .board-nav {
+    display: none;
+  }
+
+  .board-nav-mobile {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .board-nav-links-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .add-task {
+    margin-right: 20px;
+  }
+
+  .search-box {
+    border-radius: 8px;
+    padding-left: 20px;
+    font-size: 14px;
+    width: 95%;
+  }
+
+  .search-box input {
+    width: 90%;
+  }
+  .help-mobile {
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  .board-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px !important;
+    width: 396px;
+    height: 384px;
+  }
+  .todo-summary,
+  .urgent-summary,
+  .tasks-summary {
+    width: 396px;
+    height: 110px;
+  }
+  .todo-summary-section,
+  .done-summary-section {
+    width: 186px;
+    height: 100%;
+  }
+  .image-summary {
+    width: 35px;
+    height: 35px;
+  }
+  .urgent-summary {
+    width: 396px;
+    height: 110px;
+    gap: 20px;
+  }
+  .todo-summary-section p,
+  .done-summary-section p,
+  .tasks-sum-section,
+  .urgent-summary-section p {
+    font-size: 16px;
+  }
+  .task-number {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .task-category {
+    font-weight: 200 !important;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+  }
+  .tasks-sum-section {
+    width: 116px;
+    height: 116px;
+    border-radius: 30px;
+  }
+  .nav-summary {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 40px;
+    margin-bottom: 0;
+    padding: 0;
+    height: 104px;
+    width: 223px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 16px;
+  }
+
+  .nav-summary span {
+    font-size: 16px;
+    font-weight: 400;
+    height: 40px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0px;
+    border-left: none;
+  }
+
+  .hr-join{
+    display: block;
+    width: 70px;
+    border: 2px solid var(--blue);
+  }
+
+}
+@media (max-height: 500px) {
+  .logo{
+    height: 80px;
+    padding-bottom: 30px;
+    transform: scale(2);
+  }
+  
+}
+@media (max-width: 450px) {
+  .container-summary{
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+  }
+  .board-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px !important;
+    width: 320px;
+    height: 384px;
+  }
+  .todo-summary,
+  .urgent-summary,
+  .tasks-summary {
+    width: 320px;
+    height: 110px;
+  }
+  .todo-summary-section,
+  .done-summary-section {
+    width: 186px;
+    height: 100%;
+  }
+  .image-summary {
+    width: 35px;
+    height: 35px;
+  }
+  .urgent-summary {
+    width: 320px;
+    height: 110px;
+    gap: 20px;
+  }
+  .urgent-summary-deadline span, .urgent-summary-deadline p{
+    font-size: 16px;
+  }
+  .todo-summary-section p,
+  .done-summary-section p,
+  .tasks-sum-section,
+  .urgent-summary-section p {
+    font-size: 16px;
+  }
+  .task-number {
+    font-size: 30px;
+    font-weight: 600;
+  }
+  .task-category {
+    font-weight: 200 !important;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+  }
+  .tasks-sum-section {
+    width: 116px;
+    height: 116px;
+    border-radius: 30px;
+  }
+
+  .menu-btn {
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 5px;
+    border-radius: 15px;
+    gap: 2px;
+  }
+  .menu-btn img {
+    width: 30px;
+    height: 30px;
+  }
+}

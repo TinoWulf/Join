@@ -1,10 +1,8 @@
 .main-board{
-  max-width: calc(100% - 232px);
+  max-width: calc(1920px - 232px);
   margin-left: 250px;
-  margin-top: 70px;
-  position: absolute;
+  margin-top: 80px;
   padding: 10px 0 10px 20px;
-  margin-bottom: 150px;
 }
 
 .board-nav {
@@ -16,6 +14,10 @@
 
 }
 
+.board-nav-mobile{
+  display: none;
+}
+
 .board-nav-links {
   display: flex;
   flex-direction: row;
@@ -24,7 +26,6 @@
 }
 
 .search-box {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +76,8 @@
 .container-board {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 5px;
   margin-bottom: 50px;
 }
@@ -89,6 +91,11 @@
   justify-content: start;
   padding: 10px;
   width: 300px;
+}
+
+.draggable-section{
+  width: 300px;
+  height: 100%;
 }
 
 .board-nav-tasks {
@@ -129,8 +136,9 @@
   width: 100%;
   height: 60px;
   border: 2px dashed var(--border-color);
+  background-color: #e7e7e7e7;
   border-radius: 10px;
-  background-color: var(--grey-color);
+  color: #a8a8a8;
   justify-content: center;
   align-items: center;
 }
@@ -140,8 +148,9 @@
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 8px;
-  width: 100%;
-  max-width: 350px;
+  min-width: 280px;
+  max-width: 280px;
+  padding: 10px;
 }
 
 .taskCard-header {
@@ -195,15 +204,14 @@ progress{
   justify-content: space-between;
   align-items: center;
 }
-.asigned-to {
+.asigned-to, .already-assigned {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
-  position: relative;
 }
 
-.asigned-to span {
+.asigned-to span, .taskCardPopup ul li span, .already-assigned span, .option span{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,12 +225,18 @@ progress{
   border-radius: 50px;
   margin-left: -5px;
   border: 2px solid var(--white);
-  z-index: 1;
 }
 
-.asigned-to span:first-child {
+.asigned-to span:first-child , .already-assigned span:first-child{
   margin-left: 0;
-  z-index: 2;
+}
+
+.asigned-to span::not-first-child{
+  margin-left: 5px;
+}
+
+.already-assigned span:not(:first-child){
+  margin-left: 0px;
 }
 
 .drag-area-highlight {
@@ -234,24 +248,36 @@ progress{
 }
 
 .tasks-container {
-  max-height: calc(100vh - 200px);
-  overflow-y: scroll;
+  max-height: calc(100vh - 15px);
+  overflow-y: auto;
   padding-right: 1px;
 }
 
 .tasks-container::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
+  width: 0;
+  background-color: #f6f7f8;
 }
 
 .tasks-container::-webkit-scrollbar-thumb {
-  background-color: transparent;
+  background-color: #f6f7f8;
   border-radius: 4px;
 }
 
-@media (max-width: 1200px) {
+.placeholderTask{
+  width: 100%;
+  height: 250px;
+  border: 2px dashed grey;
+  border-radius: 20px;
+}
+
+
+
+@media (max-width: 1500px) {
   .todo, .done, .in-progress, .await-feedback {
     width: 100%;
+  }
+  .placeholder{
+    width: 250px;
   }
 
   .container-board{
@@ -265,24 +291,26 @@ progress{
   }
 
   .board-scroll-wrapper {
-    display: flex;
-    gap: 4px;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    gap: 5px;
     overflow-x: auto;
     scroll-behavior: smooth;
+    background: transparent;
   }
 
   .board-scroll-wrapper::-webkit-scrollbar {
     height: 8px;
+    background-color: transparent;
   }
 
   .board-scroll-wrapper::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
+    background: transparent;
   }
 
-  .main-board{
-    position: relative;
-  }
 }
 
 @media (max-width: 760px) {

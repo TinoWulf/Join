@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp | Join</title>
+    <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles/standard.css">
+    <link rel="stylesheet" href="./styles/signup.css">
+
+</head>
+<body>
+    <header class="header-signup">
+        <img src="./assets/img/logonoir.png" alt=" logo noir">
+    </header>
+    <main class="main-signup">
+        
+        <section class="form-signup-section">
+            <div class="form-header">
+                <a href="./login.html" class="span-link"><span class="hover-img"><img src="./assets/icons/back.png" alt=" back"></span></a>
+                <h2>Sign up
+                    <hr class="hr-signup">
+                </h2>
+                <span class="bar-signup"></span>
+            </div>
+            <form class="form-signup" id="signupForm">
+                <label for="name" class="form-input">
+                    <input type="text" name="name" id="sign-up-name" placeholder="Name" required>
+                    <span><img src="./assets/icons/persongrey.png" alt="person"></span>
+                    
+                </label>
+                <label for="email" class="form-input">
+                    <input type="text" name="email" id="sign-up-email" placeholder="Email" required>
+                    <span><img src="./assets/icons/mail.png" alt="email"></span>
+                </label>
+                <p class="error" id="emailError"></p>
+                <label for="password" class="form-input password">
+                    <input type="text" name="password" id="sign-up-password" placeholder="Password" required autocomplete="off">
+                    <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
+                </label>
+                <label for="password2" class="form-input password-confirm">
+                    <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" required autocomplete="off">
+                    <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.png" alt="lock"></span>
+                </label>
+                <p id="error-passord" class="error"></p>
+                <label for="privacy" class="label-privacy">
+                    <input type="checkbox" name="privacy" id="acceptPolicy">
+                    <p>I accept <a href="" class="privacy-link">privacy policy</a></p>
+                </label>
+                <p id="sign-up-error" class="error"></p>
+                <div class="submit-btn">
+                    <button type="submit" id="signUpBtn" class="signup-button" disabled>Sign up</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <div class="success-message hide" id="success-message">
+        <div class="success-message-content" >
+            You are Sign Up successfully!
+        </div>
+    </div>
+    <footer>
+        <div class="signup-footer">
+            <a href="./policy.html">Privacy policy</a>
+            <a href="./notice.html">Legal notice</a>
+        </div>
+    </footer>
+    
+    <script type="module" src="./scripts/signUp.js"></script>  
+</body>
+</html>

@@ -1,0 +1,226 @@
+.popup {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.none {
+    display: none;
+}
+
+.popup-main {
+    width: 1212px;
+    height: 592px;
+    opacity: 1;
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup-banner {
+    position: relative;
+    width: 467px;
+    height: 594px;
+    opacity: 1;
+    padding-top: 66px;
+    padding-right: 48px;
+    padding-bottom: 66px;
+    padding-left: 48px;
+    gap: 12px;
+    background-color: #2A3647;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.popup-banner-join {
+    width: 55.6px;
+    height: 66.4px;
+    opacity: 1;
+    top: 154px;
+    left: 46.9px;
+}
+
+.popup-banner-join-logo {
+    width: 55.6px;
+    height: 66.4px;
+}
+
+.popup-banner-join-text {
+    width: 371px;
+    height: 113px;
+    opacity: 1;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-banner-sub1 {
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 61px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.popup-banner-sub2 {
+    font-family: Inter;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 27px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+}
+
+.popup-banner-vector {
+    width: 90px;
+    height: 0px;
+    opacity: 1;
+    border-width: 3px;
+    border: 3px solid #29ABE2
+}
+
+.popup-contact-div {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    top: 204px;
+    left: 43px;
+    border-radius: 70px;
+    border-width: 3px;
+    opacity: 1;
+    background-color: #D1D1D1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-field {
+    position: relative;
+    width: 422px;
+    height: 215px;
+    top: 137px;
+    left: 100px;
+    opacity: 1;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-field-name,
+.popup-field-phone,
+.popup-field-email {
+    width: 422px;
+    height: 50px;
+    opacity: 1;
+    gap: 8px;
+
+}
+
+.popup-field-name-input,
+.popup-field-email-input,
+.popup-field-phone-input {
+    width: 382px;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 1px;
+    opacity: 1;
+    gap: 10px;
+    border: 1px solid #D1D1D1;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+.popup-field-name-input::placeholder {
+    color: #D1D1D1;
+}
+
+.popup-field-email-input::placeholder {
+    color: #D1D1D1;
+}
+
+.popup-field-phone-input::placeholder {
+    color: #D1D1D1;
+}
+
+input[type="name"] {
+    font-size: 20px;
+}
+
+input[type="email"] {
+    font-size: 20px;
+}
+
+input[type="text"] {
+    font-size: 20px;
+}
+
+.popup-btn-save:hover {
+    cursor: pointer;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #FFFFFF;
+}
+
+.alert {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 426px;
+    height: 74px;
+    opacity: 1;
+    border-radius: 20px;
+    color: #FFFFFF;
+    background-color: #2A3647;
+    box-shadow: 0px 0px 4px 0px #00000026;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 500ms;
+}
+
+.alert-text {
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.alert-close {
+    transform: translateY(-300%);
+}
+
+.popup-input-img-person {
+    position: relative;
+    right: 40px;
+    top: 5px;
+}
+
+.popup-input-img-email {
+    position: relative;
+    right: 40px;
+    top: 5px;
+}
+
+.popup-input-img-phone {
+    position: relative;
+    right: 40px;
+    top: 5px;
+}

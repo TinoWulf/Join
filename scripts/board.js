@@ -1,87 +1,18 @@
-import {
-  database,
-  app,
-  ref,
-  set,
-  onValue,
-  update,
-  push,
-  remove,
-  get,
-  child,
-  query,
-} from "../connection.js";
-import { templateTaskCard } from "./templates.js";
-
-/**
- * Loads all tasks and renders them into their respective category columns on the board.
- *
- * - Extracts unique categories from the global `tasks` array.
- * - For each category, finds and displays tasks belonging to that category using `findTasksByCategory`.
- * - Applies color styling to assigned user initials via `applyAssignedToColors`.
- *
- * @function
- */
+import {database,app,ref,set,onValue,update,push,remove,get,query, } from "./connection.js";
+import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
 let done = document.getElementById("doneTask");
 let todoPlacehoder = document.getElementById("toDoTaskPlaceholder");
-let awaitReviewPlaceholder = document.getElementById(
-  "awaitReviewTaskPlaceholder"
-);
-let inProgressPlaceholder = document.getElementById(
-  "inProgressTaskPlaceholder"
-);
+let awaitReviewPlaceholder = document.getElementById("awaitReviewTaskPlaceholder");
+let inProgressPlaceholder = document.getElementById("inProgressTaskPlaceholder");
 let donePlaceholder = document.getElementById("doneTaskPlaceholder");
 let tasksList = [];
-const categoryMap = {
-    toDo: { container: toDo, placeholder: todoPlacehoder },
-    awaitReview: {
-      container: awaitReview,
-      placeholder: awaitReviewPlaceholder,
-    },
-    inProgress: { container: inProgress, placeholder: inProgressPlaceholder },
-    done: { container: done, placeholder: donePlaceholder },
-  };
 
-const letterColors = {
-  A: "#e57373",
-  B: "#f06292",
-  C: "#ba68c8",
-  D: "#9575cd",
-  E: "#7986cb",
-  F: "#64b5f6",
-  G: "#4fc3f7",
-  H: "#4dd0e1",
-  I: "#4db6ac",
-  J: "#81c784",
-  K: "#aed581",
-  L: "#dce775",
-  M: "#fff176",
-  N: "#ffd54f",
-  O: "#ffb74d",
-  P: "#ff8a65",
-  Q: "#a1887f",
-  R: "#e67e22",
-  S: "#8e44ad",
-  T: "#34495e",
-  U: "#16a085",
-  V: "#27ae60",
-  W: "#2980b9",
-  X: "#8e44ad",
-  Y: "#f39c12",
-  Z: "#c0392b",
-};
+const letterColors = { A: "#e57373", B: "#f06292", C: "#ba68c8", D: "#9575cd", E: "#7986cb", F: "#64b5f6", G: "#4fc3f7", H: "#4dd0e1", I: "#4db6ac", J: "#81c784", K: "#aed581", L: "#dce775", M: "#fff176", N: "#ffd54f", O: "#ffb74d", P: "#ff8a65", Q: "#a1887f", R: "#e67e22", S: "#8e44ad", T: "#34495e", U: "#16a085", V: "#27ae60", W: "#2980b9", X: "#8e44ad", Y: "#f39c12", Z: "#c0392b"};
 
-/**
- * Initializes the board by loading all tasks and applying assigned-to colors.
- */
-
-function getElementById(id) {
-  return document.getElementById(id);
-}
 
 /**
  * Counts the total number of subtasks for a given task.
@@ -91,6 +22,12 @@ function getElementById(id) {
 function countSubtasks(task) {
   return task.subtasks ? task.subtasks.length : 0;
 }
+
+function getPriority(range){
+  let priority = range;
+  return priority;
+}
+
 
 /**
  * Counts the number of completed subtasks for a given task.
@@ -104,6 +41,7 @@ function countSubtasksDone(task) {
   return task.subtasks.filter((subtask) => subtask.checked).length;
 }
 
+
 function getAbbreviation(str) {
   return str
     .split(" ")
@@ -111,16 +49,41 @@ function getAbbreviation(str) {
     .join("");
 }
 
+
 function applyAssignedToColors() {
-  document.querySelectorAll(".asigned-to span").forEach((span) => {
-    const firstLetter = span.textContent.trim().charAt(0).toUpperCase();
+  document.querySelectorAll(".asigned-to span").forEach((spantask) => {
+    const firstLetter = spantask.textContent.trim().charAt(0).toUpperCase();
     const color = letterColors[firstLetter] || "#000";
-    span.style.backgroundColor = color;
+    spantask.style.backgroundColor = color;
   });
-  document.querySelectorAll(".taskCard-header span").forEach((span) => {
-    const firstLetter = span.textContent.trim().charAt(0).toUpperCase();
+  document.querySelectorAll(".taskCardPopup ul li span").forEach((spanuser) => {
+    const firstLetterUser = spanuser.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetterUser] || "#000";
+    spanuser.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".taskCard-header span").forEach((spancategory) => {
+    const firstLetter = spancategory.textContent.trim().charAt(0).toUpperCase();
     const color = letterColors[firstLetter] || "#000";
-    span.style.backgroundColor = color;
+    spancategory.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".already-assigned span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+}
+
+
+function applyAssignedToColorSpan(){
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
   });
 }
 
@@ -129,26 +92,139 @@ async function getAllTasks() {
   const tasksRef = ref(database, "tasks");
   try {
     const snapshot = await get(tasksRef);
-    if (!snapshot.exists()) return null;
-    const tasks = snapshot.val();
-    tasksList = [];
-    for (let id in tasks) {
-      const task = tasks[id];
-      tasksList.push(task);
-      templateTaskCard(task);
+    if (snapshot.exists()) {
+      tasksList = [];
+      const tasks = snapshot.val();
+      for (let taskId in tasks) {
+        const task = tasks[taskId];
+        tasksList.push(task);
+        loadTasks();
+        templateTaskCard(task);
+      }
+      return tasksList;
+    } else {
+      return null;
     }
-    loadTasks();
-    return tasksList;
   } catch (error) {
     console.error("Error retrieving tasks:", error);
   }
 }
+
+
+function openTaskDetail(taskId) {
+  let taskCardParent = document.getElementById("taskCardParent");
+  taskCardParent.innerHTML = "";
+  const task = tasksList.find((task) => task.id === taskId);
+  taskCardParent.innerHTML = templateTaskCardDetail(task);
+  applyAssignedToColors();
+  taskCardParent.classList.toggle("hide");
+}
+
+function openEditTask(taskId){
+  let taskCardParentEdit = document.getElementById("taskCardParent");
+  taskCardParentEdit.innerHTML = "";
+  const task = tasksList.find((task) => task.id === taskId);
+  taskCardParentEdit.innerHTML = templateEditTask(task);
+  applyAssignedToColors();
+}
+let priorityTask = 'medium'
+function getPriorityTask(){
+   let selectedPriority = null;
+    const buttons = document.querySelectorAll('.priority-button');
+    const hiddenInput = document.getElementById('priorityInput');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        selectedPriority = this.dataset.priority;
+        hiddenInput.value = selectedPriority;
+        priorityTask = hiddenInput.value
+        console.log(priorityTask);
+        return priorityTask;
+      });
+    });
+}
+
+
+
+
+async function getEditedTask(taskId){
+  const taskTitle = getElementById('taskTitle');
+  const taskDescription = getElementById('taskDescription');
+  const dueDate = getElementById('dueDate');
+  const priority = getPriorityTask();
+  const assigned = getElementById('assignedTo');
+  let assignedToList = [];
+  let subtaskList = [];
+  const task = {
+    id: taskId,
+    title: taskTitle.value,
+    description: taskDescription.value,
+    dueDate: dueDate.value,
+    priority: priority,
+    assignedTo: assignedToList,
+    subtasks: subtaskList
+  }
+  try{
+    console.log(task);
+    // editTask(task);
+  }
+  catch(error){
+    console.error("Error editing task:", error);
+  }
+}
+
+
+async function editTask(task){
+  const taskRef = ref(database, "tasks/" + task.id);
+  await update(taskRef, task);
+  console.log("Task edited successfully");
+  initiateBoard();
+}
+
+
+/**
+ * Searches a list of tasks by title, description, and category
+ * @param {Array} tasks - Array of task objects
+ * @param {string} keyword - The keyword to search for
+ * @returns {Array} - Filtered list of tasks matching the keyword
+ */
+function searchTasks(tasks, keyword) {
+  if (!keyword) return tasks;
+  const lowerKeyword = keyword.trim().toLowerCase();
+  return tasks.filter((task) => {
+    const inTitle = task.title.toLowerCase().includes(lowerKeyword);
+    const inDescription = task.description.toLowerCase().includes(lowerKeyword);
+    const inCategory = task.category.toLowerCase().includes(lowerKeyword);
+    return inTitle || inDescription || inCategory;
+  });
+}
+
+
+function searchParticularTask() {
+  let searchInput = document.getElementById("searchValue").value;
+  let showSearchResult = document.getElementById("containerBoard");
+  let resultSearch = searchTasks(tasksList, searchInput);
+  tasksList = [];
+  showSearchResult.innerHTML = "";
+  for (let taskindex in resultSearch) {
+    const task = resultSearch[taskindex];
+    if (showSearchResult) {
+      showSearchResult.innerHTML += templateTaskCard(task);
+      applyAssignedToColors();
+      initiateBoard();
+    } else {
+      showSearchResult.innerHTML =
+        "The Problem occur during the search result or the search result is empty";
+    }
+  }
+}
+
 
 /**
  * Loads all tasks, finds unique categories, renders tasks by category,
  * and applies color styling to assigned user initials.
  */
 function loadTasks() {
+  clearAllColums();
   let categories = [...new Set(tasksList.map((t) => t.range))];
   for (let i = 0; i < categories.length; i++) {
     let category = categories[i];
@@ -157,16 +233,22 @@ function loadTasks() {
   applyAssignedToColors();
 }
 
-function schwichtPlaceholderVisibility(task) {
-  const range = task.range;
-  if (categoryMap[range]) {
-    const { container, placeholder } = categoryMap[range];
-    if (task) placeholder.classList.add("hide");
-    container.innerHTML += templateTaskCard(task);
-  } else {
-    console.warn(`Unknown category: ${task.range}`);
-  }
+
+function clearAllColums() {
+  toDo.innerHTML = "";
+  toDo.innerHTML = toDoPlaceholderTemplate();
+  awaitReview.innerHTML = "";
+  awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
+  inProgress.innerHTML = "";
+  inProgress.innerHTML = inProgressPlaceholderTemplate();
+  done.innerHTML = "";
+  done.innerHTML = donePlaceholderTemplate();
 }
+
+function getElementById(id){
+  return document.getElementById(id);
+}
+
 
 /**
  * Finds and renders all tasks for a given category name.
@@ -179,26 +261,128 @@ function findTasksByCategory(categoryName) {
   getElementById(categoryTask).innerHTML = "";
   for (let i = 0; i < taskForThisCat.length; i++) {
     let task = taskForThisCat[i];
-    schwichtPlaceholderVisibility(task);
+    switchedRange(task);
   }
 }
 
 
+/**
+ * Moves a task to the appropriate section on the board based on its range property.
+ * Updates the DOM by hiding the relevant placeholder and appending the task card.
+ *
+ * @param {Object} task - The task object to be moved.
+ * @param {string} task.range - The target range for the task ('toDo' or 'awaitReview' or 'inProgress' or 'done').
+ */
+function switchedRange(task) {
+  switch (task.range) {
+    case "toDo":
+      insertTodoTask(task);
+      break;
+    case "awaitReview":
+      insertAwaitReviewTask(task);
+      break;
+    case "inProgress":
+      insertInProgressTask(task);
+      break;
+    case "done":
+      insertDoneTask(task);
+      break;
+  }
+}
+
+
+function insertTodoTask(task) {
+  if (!task) {
+    toDo.innerHTML = toDoPlaceholderTemplate();
+  }
+  todoPlacehoder.classList.add("hide");
+  toDo.innerHTML += templateTaskCard(task);
+}
+
+
+function insertAwaitReviewTask(task) {
+  if (!task) {
+    awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
+  }
+  awaitReviewPlaceholder.classList.add("hide");
+  awaitReview.innerHTML += templateTaskCard(task);
+}
+
+
+function insertDoneTask(task) {
+  if (!task) {
+    done.innerHTML = donePlaceholderTemplate();
+  }
+  donePlaceholder.classList.add("hide");
+  done.innerHTML += templateTaskCard(task);
+}
+
+
+function insertInProgressTask(task) {
+  if (!task) {
+    inProgress.innerHTML = inProgressPlaceholderTemplate();
+  }
+  inProgressPlaceholder.classList.add("hide");
+  inProgress.innerHTML += templateTaskCard(task);
+}
+
+
+/**
+ * Retrieves the current user's name from localStorage and updates the DOM element
+ * with the user's initials. If no user is found, sets a default initial 'G'.
+ *
+ * Depends on a function `getAbbreviation` to generate initials from the username.
+ * Updates the element with id 'initial-user'.
+ */
+function callUserData() {
+  let actualUser = localStorage.getItem("userName");
+  if (actualUser && actualUser !== "null") {
+    document.getElementById("initial-user").textContent =
+      getAbbreviation(actualUser);
+  } else {
+    document.getElementById("initial-user").textContent = "G";
+  }
+}
+
+
+/**
+ * Sets the 'active' class on the board navigation item and removes it from other navigation items.
+ * This function highlights the board section in the navigation bar.
+ */
+function activeNavItem() {
+  document.getElementById("board").classList.add("active");
+  document.getElementById("contacts").classList.remove("active");
+  document.getElementById("addtask").classList.remove("active");
+  document.getElementById("summary").classList.remove("active");
+}
+
+
+async function moveTo(range) {
+  const taskID = currentDraggedTask;
+  const rangeId = `${range}Task`;
+  const taskRef = ref(database, "tasks/" + taskID);
+  // let startDragged = true;
+  // moveToHover(startDragged, rangeId);
+  // startDragged = false;
+  try {
+    await update(taskRef, { range: range });
+    loadTasks();
+    removeHighlight(rangeId);
+    initiateBoard();
+  } catch (error) {
+    console.warn("Error modifying task range:", error);
+  }
+}
+
 
 function initiateBoard() {
+  activeNavItem();
+  callUserData();
   getAllTasks();
 }
 
-export {
-  initiateBoard,
-  findTasksByCategory,
-  getAbbreviation,
-  countSubtasks,
-  countSubtasksDone,
-  applyAssignedToColors,
-  tasksList,
-  getAllTasks
-};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority};
+
 
 window.initiateBoard = initiateBoard;
 window.findTasksByCategory = findTasksByCategory;
@@ -207,3 +391,12 @@ window.countSubtasks = countSubtasks;
 window.countSubtasksDone = countSubtasksDone;
 window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
+window.callUserData = callUserData;
+window.openTaskDetail = openTaskDetail;
+window.searchParticularTask = searchParticularTask;
+window.moveTo = moveTo;
+window.getPriority = getPriority;
+window.openEditTask = openEditTask;
+window.applyAssignedToColorSpan = applyAssignedToColorSpan;
+window.getEditedTask = getEditedTask;
+window.getPriorityTask = getPriorityTask;

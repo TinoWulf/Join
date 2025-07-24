@@ -1,0 +1,210 @@
+@media (max-width: 876px) {
+    .popup-main {
+        flex-direction: column;
+        width: 80%;
+        height: 95vh;
+        border-radius: 20px;
+    }
+
+    .popup-banner {
+        width: 100%;
+        height: 42.5vh;
+        padding: 24px;
+        border-radius: 20px 20px 0 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: center;
+        gap: 8px;
+        z-index: 1;
+    }
+
+    .popup-close-btn-div {
+        display: none;
+    }
+
+    .popup-close-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-close-btn-img-white {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        width: 100%;
+        height: 10vh;
+    }
+
+    .popup-close-btn-img-blue {
+        display: none;
+    }
+
+    .popup-banner-join-text {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .popup-banner-join {
+        display: none;
+    }
+
+    .popup-banner-sub1 {
+        font-size: 47px;
+    }
+
+    .popup-banner-sub2 {
+        font-size: 20px;
+    }
+
+    .popup-contact-div {
+        position: relative;
+        top: -80px;
+        left: 40%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        z-index: 1000;
+        border-style: solid;
+        border-color: white;
+    }
+
+    .popup-field-email-input:focus,
+    .popup-field-name-input:focus,
+    .popup-field-phone-input:focus {
+        border-width: 1px;
+        border-style: solid;
+        border-color: #29ABE2;
+        outline: none;
+    }
+
+    .popup-field {
+        width: 100%;
+        position: relative;
+        top: -50px;
+        left: 0;
+        padding: 16px;
+    }
+
+    .popup-field-name,
+    .popup-field-email,
+    .popup-field-phone {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-field-name-input,
+    .popup-field-email-input,
+    .popup-field-phone-input {
+        width: 70vw;
+    }
+
+    .popup-input-img-person,
+    .popup-input-img-email,
+    .popup-input-img-phone {
+        position: relative;
+        right: 50px;
+        top: 0;
+    }
+
+    .popup-buttons {
+        position: relative;
+        width: 202px;
+        margin: 20px;
+        top: 700px;
+        left: -57vw;
+        z-index: 1000;
+    }
+
+    .popup-btn-create,
+    .popup-btn-cancel {
+        flex: 1 1 48%;
+    }
+
+    .alert {
+        width: 90%;
+        left: 5%;
+        z-index: 1000;
+    }
+
+    .popup-btn-cancel {
+        display: none;
+    }
+
+    .popup-btn-create {
+        font-size: 16px;
+    }
+
+    .popup-input-img-person,
+    .popup-input-img-email,
+    .popup-input-img-phone {
+        position: relative;
+        left: -40px;
+        top: 0px;
+    }
+}
+
+@media (max-width: 620px) {
+
+    input[type="name"],
+    input[type="text"],
+    input[type="email"] {
+        font-size: 16px;
+    }
+
+    .popup-field-name-input,
+    .popup-field-email-input,
+    .popup-field-phone-input {
+        width: 60vw;
+    }
+
+    .popup-contact-div {
+        left: 35%;
+    }
+
+    .popup-buttons {
+        left: -62vw;
+        width: 160px;
+        height: 40px;
+
+    }
+
+    .popup-buttons {
+        position: relative;
+        width: 202px;
+        margin: 20px;
+        top: -20px;
+        left: 15vw;
+        z-index: 1000;
+    }
+
+    .popup-btn-save {
+        width: 211px;
+    }
+}
+
+@media (max-width: 470px) {
+
+    .popup-buttons {
+        left: 12vw;
+        right: 10vw;
+        width: 40vw;
+    }
+
+    .popup-contact-div {
+        left: 30%;
+    }
+
+    .popup-banner-sub1 {
+        font-size: 30px;
+    }
+
+    .popup-banner-sub2 {
+        font-size: 12px;
+    }
+
+    .popup-banner-join-text {
+        height: 70px;
+    }
+}

@@ -1,6 +1,11 @@
 const dataBaseURL =
   "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let query = "tasks";
+
+let contactList = [];
+let contactBoard = document.getElementById("assigned");
+
+
 /**
  * Sets the ID of the currently dragged task.
  * @param {number} id - The ID of the task being dragged.
@@ -9,39 +14,66 @@ function startDragging(id) {
   currentDraggedTask = id;
 }
 
-/**
- * Moves the currently dragged task to a specified category.
- *
- * Finds the task in the global `tasks` array by its `id` (using `currentDraggedTask`),
- * updates its `category` property, and reloads the tasks display.
- * If the task is not found, logs a warning to the console.
- *
- * @param {string} range - The target category to move the task to.
- */
 
-function moveTo(range) {
-  const taskID = currentDraggedTask;
-  fetch(`${dataBaseURL}/${query}/${taskID}.json`)
-    .then((response) => response.json())
-    .then((task) => {
-      if (task) {
-        task.range = range;
-        fetch(`${dataBaseURL}/${query}/${taskID}.json`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...task, range: range }),
-        })
-          .then(() => {
-            initiateBoard();
-          })
-          .catch((error) => console.error("Error updating task:", error));
-      } else {
-        console.warn("Task not found for ID:", taskID);
-      }
-    });
-  currentDraggedTask = null;
+async function getUser(){
+  let contactBoard = document.getElementById("assigned");
+  try{ 
+    const response = await fetch(dataBaseURL + "/.json"); 
+    const contactData = await response.json(); 
+    const contactIdList = Object.keys(contactData.contacts);
+    contactList = [];
+    for(let index=0; index <contactIdList.length; index++){
+      let contactID = contactIdList[index];
+      let contact = contactData.contacts[contactID];
+      contactList.push(contact);
+      contactBoard.innerHTML += templateRenderContactOnBord(contact);
+      applyAssignedToColorSpan();
+    }
+  }
+  catch(error){
+    throw new Error("Failled to connect to the database"+ error);
+  }
+}
+
+
+
+async function deleteTask(taskId, event) {
+  try {
+    // const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
+    //   method: "DELETE",
+    // });
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    console.log(" Task deleted");
+    initiateBoard(); // Refresh
+  } catch (error) {
+    console.error("Delete task error:", error);
+    alert("Error deleting this task");
+  }
+  closePopUp(event);
+}
+
+
+/**
+ * Handles the closing of a popup by toggling the 'hide' class on the element
+ * with the ID 'taskCardParent'. Prevents the event from propagating further.
+ *
+ * @param {Event} event - The event object associated with the popup close action.
+ */
+function closePopUp(event) {
+  document.getElementById("taskCardParent").classList.toggle("hide");
+  event.stopPropagation();
+}
+
+
+/**
+ * Prevents the event from propagating (bubbling) up the DOM tree.
+ *
+ * @param {Event} event - The event object to stop propagation for.
+ */
+function preventEvent(event) {
+  event.stopPropagation();
 }
 
 
@@ -53,13 +85,30 @@ function allowDrop(event) {
   event.preventDefault();
 }
 
+
 /**
  * Highlights a drop area by adding a CSS class.
  * @param {string} id - The ID of the drop area element.
  */
 function highlight(id) {
-  document.getElementById(id).classList.add("add-height");
-  document.getElementById(id).classList.add("drag-area-highlight");
+  document.getElementById(id).innerHTML += showPlaceholderTask();
+}
+
+
+function moveToHover(startDragged, id){
+  if(startDragged){
+    highlight(id);
+    startDragged = false;
+  }
+}
+
+
+function showPlaceholderTask(){
+  return `
+    <div class="placeholderTask">
+              
+    </div>
+  `;
 }
 
 /**
@@ -67,6 +116,34 @@ function highlight(id) {
  * @param {string} id - The ID of the drop area element.
  */
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("add-height");
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
+
+
+function showContainerOnBoard(){
+  let contactBoard = document.getElementById("assigned");
+  if (contactBoard.classList.contains("hide")) {
+    contactBoard.classList.remove("hide");
+    contactBoard.classList.add("dFlex");
+    getUser();
+  } else {
+    contactBoard.classList.add("hide");
+    contactBoard.classList.remove("dFlex");
+  }
+}
+
+function getPriorityTask(){
+   let selectedPriority = null;
+    const buttons = document.querySelectorAll('.priority-button');
+    const hiddenInput = document.getElementById('priorityInput');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        buttons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedPriority = this.dataset.priority;
+        hiddenInput.value = selectedPriority;
+        console.log(hiddenInput.value);
+      });
+    });
+}
+   

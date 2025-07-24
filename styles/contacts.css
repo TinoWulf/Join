@@ -1,127 +1,9 @@
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.menu {
-    height: calc(100vh - 128px);
-    width: 232px;
-    position: fixed;
-    background-color: #2A3647;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 64px;
-    padding-bottom: 64px;
-}
-
-.menu-header {
-    height: auto;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.menu-body {
-    height: auto;
-    width: 100%;
-}
-
-.menu-btn {
-    display: flex;
-    align-items: center;
-    padding: 8px 56px;
-    gap: 8px;
-}
-
-.menu-aktive {
-    background-color: #091931;
-}
-
-a {
-    text-decoration: none;
-}
-
-.menu-btn:hover {
-    background-color: #091931;
-    cursor: pointer;
-}
-
-.menu-footer {
-    height: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-}
-
-.menu-p {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-    color: #A8A8A8;
-}
-
-header {
-    max-width: 1960px;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 300px;
-    padding-right: 20px;
-    box-shadow: 0px 0px 10px black;
-}
-
-.header-text {
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.header-box {
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-direction: row;
-}
-
-.header-box-div {
-    border-radius: 50%;
-    border-style: solid;
-    height: 45px;
-    width: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.header-box-sub {
-    font-size: 18px;
-    color: #29ABE2;
-    font-weight: 600;
-}
-
 .contacts {
     position: fixed;
     width: 456px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 96px);
     opacity: 1;
-    top: 80px;
+    top: 96px;
     left: 232px;
     overflow: auto;
     display: flex;
@@ -139,30 +21,6 @@ header {
     align-items: center;
 }
 
-.contact-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 352;
-    height: 56;
-    opacity: 1;
-    border-radius: 10px;
-    border-width: 1px;
-    padding: 12px 56px;
-    gap: 16px;
-    background-color: #091931;
-
-}
-
-.contact-btn-text {
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 21px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    color: white;
-}
-
 .contact-render {
     width: 100%;
     height: 100%;
@@ -171,6 +29,7 @@ header {
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    padding-bottom: 30px;
 }
 
 .render-div {
@@ -186,6 +45,11 @@ header {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+}
+
+.render-div-hover {
+    background-color: #2A3647;
+    color: #FFFFFF;
 }
 
 .render-div:hover {
@@ -226,7 +90,6 @@ header {
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .contact-mail {
@@ -256,6 +119,7 @@ header {
 
 .render-letter {
     font-size: 20px;
+    padding-left: 12px;
 }
 
 .render-letter-splitter {
@@ -281,12 +145,10 @@ header {
 }
 
 .center-headline-text {
-    font-family: Inter;
     font-weight: 700;
     font-style: Bold;
     font-size: 61px;
     line-height: 120%;
-    letter-spacing: 0%;
 }
 
 .center-head-splitter {
@@ -298,12 +160,8 @@ header {
 }
 
 .center-head-text {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
     font-size: 27px;
     line-height: 120%;
-    letter-spacing: 0%;
 }
 
 .center-body {
@@ -370,12 +228,10 @@ header {
 }
 
 .center-top-inital {
-    font-family: Inter;
     font-weight: 500;
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
-    letter-spacing: 0%;
     text-align: center;
     vertical-align: middle;
 }
@@ -390,12 +246,10 @@ header {
 }
 
 .center-top-name {
-    font-family: Inter;
     font-weight: 500;
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
     white-space: nowrap;
 }
@@ -408,61 +262,9 @@ header {
     gap: 12px;
 }
 
-.edit {
-    width: 62px;
-    height: 24px;
-    opacity: 1;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-    animation-timing-function: ease-in-out;
-    animation-duration: 200ms;
-}
-
-.edit:hover {
-    cursor: pointer;
-}
-
-.edit-sub {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-}
-
-.delete {
-    width: 62px;
-    height: 24px;
-    opacity: 1;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-}
-
-.delete:hover {
-    cursor: pointer;
-}
-
-.delete-sub {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 120%;
-    letter-spacing: 0%;
-    vertical-align: middle;
-}
-
 .center-middle-text {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
     font-size: 20px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
 }
 
@@ -494,45 +296,30 @@ header {
 }
 
 .center-bottom-mail-text {
-    font-family: Inter;
     font-weight: 700;
     font-style: Bold;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .center-bottom-mail-name {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
     color: #007CEE;
 }
 
 .center-bottom-phone-text {
-    font-family: Inter;
     font-weight: 700;
     font-style: Bold;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }
 
 .center-bottom-phone-number {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
     font-size: 16px;
     line-height: 120%;
-    letter-spacing: 0%;
     vertical-align: middle;
-
 }
