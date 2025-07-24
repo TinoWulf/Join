@@ -18,16 +18,16 @@ select {
 }
 
 option {
-    width: 200px;           /* feste oder % Breite */
-    max-width: 100%;        /* optional */
-    overflow: hidden;       /* verhindert Überlauf */
-    text-overflow: ellipsis;/* ... bei zu langem Text */
-    white-space: nowrap;    /* keine Zeilenumbrüche */
+    width: 200px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     border: none;
 }
 
 option:hover {
-    background-color: #d88e5d; /* funktioniet nicht, da sich chrome(google) dachte "scheiß auf den style vom kunden wir machen denen das leben schwer und die idionten dürfen nun mit javascript ihren eigen scheiß bauen, wenn sie es nötig haben" */
+    background-color: #d88e5d;
 }
 
 .add-task-overlay-div {
@@ -190,4 +190,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 #category-button {
     width: 100%;
+}
+
+@media (max-width: 876px) {
+.add-task-header {
+    margin-top: 98px;
+    font-size: 16px;
+}
+.entire-add-task-content {
+    width: 100%;
+}
+.add-left-side {
+    width: 100%;
+}
+.add-task-overlay-div {
+    padding: 0;
+}
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+}
+
+@media (max-height: 600px) {
+.button-div {
+    position: absolute;
+    bottom: 14%;
+    right: 10px;
+}
 }
