@@ -112,7 +112,12 @@ function donePlaceholderTemplate(){
 
 function templateEditTask(task){
   return `
-     <div class="editTaskPopup" onclick="preventEvent(event)">
+  <script type="module" src="./scripts/edittask.js"></script>
+     <div class="editTaskPopup">
+            <div class="taskCard-header">
+              <spa class="taskType"></spa>
+              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/>
+            </div>
           <label for="title" class="label-title">
               Title
               <input type="text" name="title" id="taskTitle" value="${task.title}" required>
@@ -159,7 +164,7 @@ function templateEditTask(task){
               Substaks
               <div class="drop-down-input">
                 <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
-                <span><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                <span onclick="addSubstask(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
 
@@ -176,12 +181,11 @@ function templateEditTask(task){
 
 function templateRenderContactOnBord(contact){
   return `
-    <div class="option">
+    <div class="option" onclick="getAssignedContactById(${contact.id})">
       <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
-      <input type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}"/>
+      <input onclick="getAssignedContactById(${contact.id})" type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}" data-id = "${contact.id} "/>
     </div>
   `;
-
 }
 
 

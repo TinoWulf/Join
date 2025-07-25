@@ -1,4 +1,5 @@
 import {database,app,ref,set,onValue,update,push,remove,get,query, } from "./connection.js";
+import {setupPriorityButtons } from "./edittask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -125,25 +126,9 @@ function openEditTask(taskId){
   taskCardParentEdit.innerHTML = "";
   const task = tasksList.find((task) => task.id === taskId);
   taskCardParentEdit.innerHTML = templateEditTask(task);
+  setupPriorityButtons(task.priority);
   applyAssignedToColors();
 }
-let priorityTask = 'medium'
-function getPriorityTask(){
-   let selectedPriority = null;
-    const buttons = document.querySelectorAll('.priority-button');
-    const hiddenInput = document.getElementById('priorityInput');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        selectedPriority = this.dataset.priority;
-        hiddenInput.value = selectedPriority;
-        priorityTask = hiddenInput.value
-        console.log(priorityTask);
-        return priorityTask;
-      });
-    });
-}
-
-
 
 
 async function getEditedTask(taskId){
@@ -398,5 +383,4 @@ window.moveTo = moveTo;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
 window.applyAssignedToColorSpan = applyAssignedToColorSpan;
-window.getEditedTask = getEditedTask;
-window.getPriorityTask = getPriorityTask;
+// window.getEditedTask = getEditedTask;

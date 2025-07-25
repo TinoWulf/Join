@@ -131,19 +131,3 @@ function showContainerOnBoard(){
     contactBoard.classList.remove("dFlex");
   }
 }
-
-function getPriorityTask(){
-   let selectedPriority = null;
-    const buttons = document.querySelectorAll('.priority-button');
-    const hiddenInput = document.getElementById('priorityInput');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        buttons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        selectedPriority = this.dataset.priority;
-        hiddenInput.value = selectedPriority;
-        console.log(hiddenInput.value);
-      });
-    });
-}
-   
