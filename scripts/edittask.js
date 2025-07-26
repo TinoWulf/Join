@@ -89,7 +89,8 @@ function getAssignedContactById(id){
 
 function addSubstask(){
     let SubtasklistContainer =  document.getElementById('subtaskListEdit');
-    let newSubtask = document.getElementById('subtask-input').value.trim();
+    let newSubtaskRef = document.getElementById('subtask-input');
+    let newSubtask = newSubtaskRef.value.trim();
     if(newSubtask){
         const subtask = {
             title: newSubtask,
@@ -97,13 +98,10 @@ function addSubstask(){
         }
         subtasks.push(subtask);
         console.log(subtask);
-        for(let i = 0; i < subtasks.length; i++){
-            let newSubtaskElement = subtasks[i];
-            console.log(newSubtaskElement);
-            SubtasklistContainer.innerHTML+= `<li class="subtask">${newSubtaskElement.title}<button class="delete-subtask">Delete</button></li>`;
-        }
+        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}<button class="delete-subtask">Delete</button></li>`;
+        
     }else{
-        alert('Please enter a new subtask');
+        SubtasklistContainer.innerHTML+=""
     }
 }
 

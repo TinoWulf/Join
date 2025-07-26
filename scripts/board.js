@@ -342,13 +342,24 @@ function activeNavItem() {
 }
 
 
+function moveToHover(startDragged, range){
+  const rangeId = `${range}Task`;
+  if(startDragged){
+    highlight(rangeId);
+    try{
+      moveTo(range);
+    }catch(error){
+      console.log(error);
+    }
+    startDragged = false;
+  }
+}
+
+
 async function moveTo(range) {
   const taskID = currentDraggedTask;
   const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
-  // let startDragged = true;
-  // moveToHover(startDragged, rangeId);
-  // startDragged = false;
   try {
     await update(taskRef, { range: range });
     loadTasks();
@@ -380,6 +391,7 @@ window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.searchParticularTask = searchParticularTask;
 window.moveTo = moveTo;
+window.moveToHover = moveToHover;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
 window.applyAssignedToColorSpan = applyAssignedToColorSpan;

@@ -160,11 +160,11 @@ function templateEditTask(task){
               </div>
 
           </label>
-          <label for="subtask" class="label-subtask">
+          <label for="subtasks" class="label-subtask" onclick="preventEvent(event)">
               Substaks
               <div class="drop-down-input">
-                <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
-                <span onclick="addSubstask(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
+                <span onclick="addSubstask()",onclick="preventEvent(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
 
