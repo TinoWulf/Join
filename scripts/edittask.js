@@ -1,3 +1,4 @@
+import { initiateBoard } from "./board.js";
 import {ref, update, database} from "./connection.js";
 
 let assignedToList = [];
@@ -97,36 +98,10 @@ function addSubstask(){
             checked: false,
         }
         subtasks.push(subtask);
-        console.log(subtask);
-        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}<button class="delete-subtask">Delete</button></li>`;
-        
+        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}<button class="delete-subtask">Delete</button></li>`; 
+        newSubtaskRef.value = '';
     }else{
-        SubtasklistContainer.innerHTML+=""
-    }
-}
-
-
-/**
- * Extracts subtasks from the UI.
- * Assumes subtasks are dynamically added to #subtaskListEdit,
- * each with a text input and possibly a checkbox for status.
- *
- * @returns {Array<{text: string, completed: boolean}>} An array of subtask objects.
- */
-function getSubtasksFromUI() {
-    const subtaskListEdit = document.getElementById('subtaskListEdit');
-    if (subtaskListEdit) {
-        const subtaskItems = subtaskListEdit.querySelectorAll('.subtask-item');
-        subtaskItems.forEach(item => {
-            const textInput = item.querySelector('.subtask-text');
-            const completedCheckbox = item.querySelector('.subtask-status');
-            if (textInput) {
-                subtasks.push({
-                    text: textInput.value.trim(),
-                    completed: completedCheckbox ? completedCheckbox.checked : false 
-                });
-            }
-        });
+        SubtasklistContainer.innerHTML+="";
     }
     return subtasks;
 }
@@ -136,7 +111,7 @@ function getSubtasksFromUI() {
  * Gets all edited task data from the form and updates it in Firebase.
  * @param {string} taskId The unique ID of the task to be updated.
  */
-async function getEditedTask(taskId) {
+async function getEditedTask(taskId, event) {
     const taskTitleInput = document.getElementById('taskTitle');
     const taskDescriptionInput = document.getElementById('taskDescription');
     const dueDateInput = document.getElementById('dueDate');
@@ -146,7 +121,7 @@ async function getEditedTask(taskId) {
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     const newAssignedTo = getAssignedUsersFromUI();
-    const newSubtasks = getSubtasksFromUI();
+    const newSubtasks = addSubstask();
     const updatedTaskData = {
         title: newTitle,
         description: newDescription,
@@ -158,6 +133,8 @@ async function getEditedTask(taskId) {
     console.log(updatedTaskData);
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
+        await update(taskRef, updatedTaskData);
+        closePopUp(event)
         console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {
         console.error("Error updating task:", error);

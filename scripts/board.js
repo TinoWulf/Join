@@ -121,6 +121,7 @@ function openTaskDetail(taskId) {
   taskCardParent.classList.toggle("hide");
 }
 
+
 function openEditTask(taskId){
   let taskCardParentEdit = document.getElementById("taskCardParent");
   taskCardParentEdit.innerHTML = "";
@@ -128,41 +129,6 @@ function openEditTask(taskId){
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
   applyAssignedToColors();
-}
-
-
-async function getEditedTask(taskId){
-  const taskTitle = getElementById('taskTitle');
-  const taskDescription = getElementById('taskDescription');
-  const dueDate = getElementById('dueDate');
-  const priority = getPriorityTask();
-  const assigned = getElementById('assignedTo');
-  let assignedToList = [];
-  let subtaskList = [];
-  const task = {
-    id: taskId,
-    title: taskTitle.value,
-    description: taskDescription.value,
-    dueDate: dueDate.value,
-    priority: priority,
-    assignedTo: assignedToList,
-    subtasks: subtaskList
-  }
-  try{
-    console.log(task);
-    // editTask(task);
-  }
-  catch(error){
-    console.error("Error editing task:", error);
-  }
-}
-
-
-async function editTask(task){
-  const taskRef = ref(database, "tasks/" + task.id);
-  await update(taskRef, task);
-  console.log("Task edited successfully");
-  initiateBoard();
 }
 
 

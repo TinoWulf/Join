@@ -171,7 +171,7 @@ function templateEditTask(task){
               </div>
           </label>
           <div class="edit-button">
-            <button class="btn-submit-change" onclick="getEditedTask(${task.id})">Ok <img src="./assets/icons/check.png" alt=""></button>
+            <button class="btn-submit-change" onclick="getEditedTask(${task.id}, event)">Ok <img src="./assets/icons/check.png" alt=""></button>
           </div>
       </div>
   `;
