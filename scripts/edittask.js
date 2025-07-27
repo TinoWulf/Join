@@ -1,4 +1,3 @@
-import { initiateBoard } from "./board.js";
 import {ref, update, database} from "./connection.js";
 
 let assignedToList = [];
@@ -35,40 +34,6 @@ function setupPriorityButtons(initialPriority) {
     });
 }
 
-/**
- * Extracts the currently assigned users from the UI.
- * This is a placeholder; you'll need to adapt it based on your
- * specific "Assigned to" selection implementation.
- * For now, it reads from the 'alreadyAssigned' div,
- * but for true editing, you'd likely have checkboxes/selects.
- *
- * @returns {Array<{name: string, id?: string}>} An array of assigned user objects.
- */
-function getAssignedUsersFromUI() {
-    const alreadyAssignedContainer = document.getElementById('alreadyAssigned');
-    const assignedContact = document.getElementById('assigned');
-    const contactListes = assignedContact.querySelectorAll('.option span');
-        contactListes.forEach(contact => {
-            contact.addEventListener('click', () => {
-                const name = contact.textContent.trim();
-                if (!assignedToList.some(item => item.name === name)) {
-                    assignedToList.push({ name });
-                    console.log('Added:', name, assignedToList);
-                }
-            });
-            
-        });
-
-    // if (alreadyAssignedContainer) {
-    //     const userSpans = alreadyAssignedContainer.querySelectorAll('span');
-    //     userSpans.forEach(span => {
-    //         assignedToList.push({ name: span.textContent.trim() });
-    //     });
-    // }
-    console.table(assignedToList);
-    return assignedToList;
-}
-
 
 function getAssignedContactById(id){
     let contactRef = document.getElementById(id);
@@ -85,6 +50,8 @@ function getAssignedContactById(id){
             assignedToList.splice(index, 1);
         }
     })
+
+    return assignedToList;
 }
 
 
@@ -120,8 +87,8 @@ async function getEditedTask(taskId, event) {
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
-    const newAssignedTo = getAssignedUsersFromUI();
-    const newSubtasks = addSubstask();
+    const newAssignedTo = getAssignedContactById(taskId) ? getAssignedContactById(taskId) : [];
+    const newSubtasks = addSubstask() ? addSubstask() : [];
     const updatedTaskData = {
         title: newTitle,
         description: newDescription,
@@ -130,10 +97,10 @@ async function getEditedTask(taskId, event) {
         assignedTo: newAssignedTo,
         subtasks: newSubtasks
     };
-    console.log(updatedTaskData);
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
         await update(taskRef, updatedTaskData);
+        console.log(updatedTaskData);
         closePopUp(event)
         console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {

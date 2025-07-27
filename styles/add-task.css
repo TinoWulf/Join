@@ -222,3 +222,54 @@ form {
     right: 10px;
 }
 }
+
+
+.container-contact{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px 30px;
+}
+
+.container-contact::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.container-contact::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+
+.urgent {
+  background-color: rgb(255, 61, 0) !important;
+  color: white;
+  img{
+    background-image: url('../assets/icons/urgentwhite.png');
+    background-size: 100%;
+    background-position: center;
+  }
+}
+
+.medium {
+  background-color: rgb(255, 168, 0) !important;
+  color: white;
+  img{
+    
+    background-image: url('../assets/icons/mediumwhite.png');
+    background-size: 100%;
+    background-position: center;
+  }
+}
+
+.low {
+  background-color: rgb(122, 226, 41) !important;
+  color: white;
+  img{
+    background-image: url('../assets/icons/lowwhite.png');
+    background-size: 100%;
+    background-position: center;
+  }
+}

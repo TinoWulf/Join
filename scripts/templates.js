@@ -133,7 +133,7 @@ function templateEditTask(task){
           <label for="" class="label-priority">
               Priority
               <div class="add-task-priority">
-              <input type="hidden" name="priority" id="priorityInput" value="" />
+                  <input type="hidden" name="priority" id="priorityInput" value="" />
                   <button type="submit" class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " data-priority="urgent"  id="priorityButtonUrgent">
                   Urgent<img src="./assets/icons/urgent.png" alt="" />
                   </button>

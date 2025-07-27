@@ -17,28 +17,26 @@
     <div class="add-task-overlay-div">
             <h1 class="add-task-header">Add Task</h1>
         <div>
-            <form id="add-task-form">
+            <div id="add-task-form" >
                 <div class="entire-add-task-content">
 
                     <div class="input-wrapper">
                         <label for="title">Title</label>
                         <div class="input-container">
-                            <input id="required" class="outline" type="text" name="title" placeholder="Enter a title" required>
-                            <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                            <input id="taskTitle" class="outline" type="text" name="title" placeholder="Enter a title" required>
+
                         </div>
                     </div>
 
 
                     <label for="myInput">Description</label>
-                    <textarea id="required" onclick="requiredColorIfFilled()" class="required outline" class="description-area" id="description" rows="2" cols="20" placeholder="Enter a Description" required></textarea>
+                    <textarea id="taskDescription" class="required outline" class="description-area" id="description" rows="2" cols="20" placeholder="Enter a Description" required></textarea>
                     
                     <div class="input-wrapper">
-                        <label for="myInput">Due date</label>
+                        <label for="date">Due date</label>
                         <div class="input-container">
-                            <input item onclick="requiredColorIfFilled()" class="required outline" type="date" id="date" name="dd/mm/yyyy" required>
-                            <div class="due-date-img-div" onclick="dueDateImage()">
-                                <img class="due-date-img" id="dateimg" src="./assets/icons/event.png">
-                            </div>
+                            <input   class="required outline" type="date" id="dueDate" name="date" required />
+                            
                         </div>
                     </div>
                 </div>
@@ -47,38 +45,42 @@
 
                     
                     <label for="myInput">Priority</label>
-                        <div class="button-priority-overlay">
-                            <button type="click" class="button-priority button-priority-margin" id="button-priority-urgent" data-value="Urgent">
+                        <div class="button-priority-overlay" id="">
+                            <input type="hidden" name="priority" id="priorityInput" value="" />
+                            <button type="submit"  class="priority-button" id="priorityButtonUrgent" data-priority="urgent">
                                 Urgent
                                 <img class="priority-img img-priority-urgent" src="./assets/icons/urgent.png">
                             </button>
-                            <button type="click" class="button-priority button-priority-margin" id="button-priority-medium" data-value="Medium">
+                            <button type="submit" class="priority-button medium" id="priorityButtonMedium" data-priority="medium">
                                 Medium
                                 <img class="priority-medium-img" src="./assets/icons/medium.png">
                             </button>
-                            <button type="click" class="button-priority" id="button-priority-low" data-value="low">
+                            <button type="submit"  class="priority-button" id="priorityButtonLow" data-priority="low">
                                 low
                                 <img class="priority-img" src="./assets/icons/low.png">
                             </button>
                         </div>
                     <div class="add-task-right-side">
 
-                        <div class="input-wrapper">
+                        <div class="input-wrapper" id="assigned-to">
                             <label for="myInput">Assigned to</label>
-                            <div class="input-container">
-                                <select class="required outline" type="title"  id="assign" placeholder="Select contact to assign" required>
-                                    <option>Rucel T</option>
-                                    <option>Tino Wulf</option>
-                                    <option>Jeremy Nánási</option>
-                                </select>
-                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                             <div class="drop-down-input" onclick="showContainerOnBoard()">
+                                <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
+                                <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
+                            </div>
+                            <form name="assigned" id="assigned" class="hide container-contact">
+                                
+                                
+                            </form>
+                            <div class="already-assigned" id="alreadyAssigned">
+                               
                             </div>
                         </div>
                         
                         <div class="input-wrapper">
                         <label for="myInput">Category</label>
                             <div class="input-container">
-                                <button onclick="openCategory()" id="category-button">
+                                <button onclick="" id="category-button">
                                     <div class="category-div">
                                     <div>Select contacts to assign</div>
                                     <img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png">
@@ -87,17 +89,19 @@
                                     <div id="category" class="category">
 
                                     </div>
-                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                                <button onclick="" class="input-button"></button>
                             </div>
                         </div>
 
                         <div class="input-wrapper">
                             <label for="myInput">Subtasks</label>
-                                <select class="required outline" type="title" id="subtasks" placeholder="Add new subtask" required>
-                                    <a><img src="./assets/icons/add-task.png"></a>
-                                    <option>Contact Form</option>
-                                </select>
-                                <button onclick="requiredColorIfFilled()" class="input-button"></button>
+                            <div class="drop-down-input">
+                                <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
+                                <span onclick="addSubstask()"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                            </div>
+                            <div id="subtaskListEdit">
+
+                            </div>
                         </div>
                         
                         <div class="button-div">
@@ -106,7 +110,7 @@
                                     <img class="button-img" src="./assets/icons/iconoir_cancel.png">
                                 </span>
                             </button>
-                            <button type="submit" class="create-task-button">
+                            <button type="submit" class="create-task-button" onclick="getAddTask()">
                                 <span>
                                     Create Task
                                     <img class="button-img" src="./assets/icons/check.png">
@@ -126,7 +130,6 @@
         <div>
     </div>
 
-    <script type="module" src="./scripts/addtaskfirebase.js"></script>
-    <script src="./scripts/addtask.js"></script>
+    <script type="module" src="./scripts/addtask.js"></script>
 </body>
 </html>
