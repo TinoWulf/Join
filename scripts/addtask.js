@@ -1,6 +1,7 @@
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let contactList = [];
 document.addEventListener('DOMContentLoaded', function() {
+    
   function activeNavItem(){
     document.getElementById('board').classList.remove('active');
     document.getElementById('contacts').classList.remove('active');
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   activeNavItem();
   setupPriorityButtons('medium');
+  
 });
 
 
@@ -17,6 +19,14 @@ import {templateRenderContactOnBord } from "./templates.js";
 
 let assignedToList = [];
 let subtasks = [];
+
+
+const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
+const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
+const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
+activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
+activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
+activeButtonLow.src =  '../assets/icons/lowwhite.png';
 
 
 /**
@@ -36,7 +46,6 @@ function setupPriorityButtons(initialPriority) {
             activeButton.classList.add(priority); 
             priorityInput.value = priority; 
         }
-        
     };
     if (initialPriority) {
         setActivePriority(initialPriority);
