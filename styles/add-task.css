@@ -11,6 +11,7 @@ input {
     border-style: solid;
     border-radius: 4px;
     width: 100%;
+    height: 100%;
 }
 
 select {
@@ -90,7 +91,6 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 150px;
     padding: 10px;
 
 }
@@ -215,10 +215,48 @@ form {
 }
 }
 
-@media (max-height: 600px) {
+@media (max-width: 876px) {
 .button-div {
     position: absolute;
-    bottom: 14%;
+    bottom: 100px;
     right: 10px;
 }
+}
+
+
+
+
+/* max height */
+@media (min-width: 1440px) {
+    section {
+        max-width: 1440px;
+        margin: 0 auto;
+        width: 100vw;
+    }
+    .button-div {
+        max-width: 1440px;
+        margin: 0 auto;
+        width: 100vw; 
+    }
+    .button-priority, label {
+        font-size: 24px;
+    }
+    .priority-img {
+    width: 24px;
+    }
+    .priority-medium-img {
+    width: 40px;
+    }
+    .add-task-header {
+    font-size: 56px;
+    }
+    input {
+    font-size: 21px;
+    }
+    .input-container {
+        height: 35px;
+    }
+    textarea {
+        height: 72px;
+    }
 }
