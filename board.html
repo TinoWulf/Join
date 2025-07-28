@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./styles/board.css" />
     <link rel="stylesheet" href="./styles/show-task.css" />
     <link rel="stylesheet" href="./styles/responsive.css" />
-    <link rel="stylesheet" href="./styles/edit-task.css">
+    <link rel="stylesheet" href="./styles/edit-task.css"/>
     <link
       rel="shortcut icon"
       href="./assets/img/logo.png"
@@ -22,7 +22,8 @@
     <header id="navbar">
       
     </header>
-    <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
+    <div class="taskCardParent hide" id="taskCardParent" >
+      <!-- onclick="closePopUp(event)"  -->
 
     </div>
     <main id="main" class="main-board" onload="initiateBoard()">
@@ -67,7 +68,7 @@
           <div
             id="toDoTask"
             class="tasks-container board-scroll-wrapper draggable-section"
-            ondrop=" moveToHover(true, 'toDoTask'), moveTo('toDo')"
+            ondrop=" moveToHover(true, 'toDo')"
             ondragleave="removeHighlight('toDoTask')"
             ondragover="allowDrop(event)"
           >
@@ -86,7 +87,7 @@
           <div
             id="inProgressTask"
             class="tasks-container board-scroll-wrapper draggable-section"
-            ondrop="moveToHover(true, 'inProgressTask'), moveTo('inProgress') "
+            ondrop="moveToHover(true, 'inProgress') "
             ondragleave="removeHighlight('inProgressTask')"
             ondragover="allowDrop(event)"
           >
@@ -106,7 +107,7 @@
             <div
               id="awaitReviewTask"
               class="tasks-container board-scroll-wrapper draggable-section"
-              ondrop=" moveToHover(true, 'awaitReviewTask'), moveTo('awaitReview') "
+              ondrop=" moveToHover(true, 'awaitReview')"
               ondragleave="removeHighlight('awaitReviewTask')"
               ondragover="allowDrop(event)"
             >
@@ -124,7 +125,7 @@
             <div
               id="doneTask"
               class="tasks-container board-scroll-wrapper draggable-section"
-              ondrop=" moveToHover(true, 'doneTask'), moveTo('done')"
+              ondrop=" moveToHover(true, 'done')"
               ondragleave="removeHighlight('doneTask')"
               ondragover="allowDrop(event)"
             >

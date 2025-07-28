@@ -112,7 +112,12 @@ function donePlaceholderTemplate(){
 
 function templateEditTask(task){
   return `
-     <div class="editTaskPopup" onclick="preventEvent(event)">
+  <script type="module" src="./scripts/edittask.js"></script>
+     <div class="editTaskPopup">
+            <div class="taskCard-header">
+              <spa class="taskType"></spa>
+              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/>
+            </div>
           <label for="title" class="label-title">
               Title
               <input type="text" name="title" id="taskTitle" value="${task.title}" required>
@@ -128,7 +133,7 @@ function templateEditTask(task){
           <label for="" class="label-priority">
               Priority
               <div class="add-task-priority">
-              <input type="hidden" name="priority" id="priorityInput" value="" />
+                  <input type="hidden" name="priority" id="priorityInput" value="" />
                   <button type="submit" class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " data-priority="urgent"  id="priorityButtonUrgent">
                   Urgent<img src="./assets/icons/urgent.png" alt="" />
                   </button>
@@ -155,18 +160,18 @@ function templateEditTask(task){
               </div>
 
           </label>
-          <label for="subtask" class="label-subtask">
+          <label for="subtasks" class="label-subtask" onclick="preventEvent(event)">
               Substaks
               <div class="drop-down-input">
-                <input type="text" name="subtask" id="subtask-input" placeholder="Add new Subtask">
-                <span><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
+                <span onclick="addSubstask()",onclick="preventEvent(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
 
               </div>
           </label>
           <div class="edit-button">
-            <button class="btn-submit-change" onclick="getEditedTask(${task.id})">Ok <img src="./assets/icons/check.png" alt=""></button>
+            <button class="btn-submit-change" onclick="getEditedTask(${task.id}, event)">Ok <img src="./assets/icons/check.png" alt=""></button>
           </div>
       </div>
   `;
@@ -176,12 +181,11 @@ function templateEditTask(task){
 
 function templateRenderContactOnBord(contact){
   return `
-    <div class="option">
+    <div class="option" onclick="getAssignedContactById(${contact.id})">
       <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
-      <input type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}"/>
+      <input onclick="getAssignedContactById(${contact.id})" type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}" data-id = "${contact.id} "/>
     </div>
   `;
-
 }
 
 

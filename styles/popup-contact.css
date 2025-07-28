@@ -3,14 +3,26 @@
     top: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 1000ms;
+}
+
+.popup-background {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .none {
     display: none;
+}
+
+.transform {
+    transform: translateX(100%);
 }
 
 .popup-main {

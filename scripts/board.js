@@ -1,4 +1,5 @@
 import {database,app,ref,set,onValue,update,push,remove,get,query, } from "./connection.js";
+import {setupPriorityButtons } from "./edittask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -120,64 +121,14 @@ function openTaskDetail(taskId) {
   taskCardParent.classList.toggle("hide");
 }
 
+
 function openEditTask(taskId){
   let taskCardParentEdit = document.getElementById("taskCardParent");
   taskCardParentEdit.innerHTML = "";
   const task = tasksList.find((task) => task.id === taskId);
   taskCardParentEdit.innerHTML = templateEditTask(task);
+  setupPriorityButtons(task.priority);
   applyAssignedToColors();
-}
-let priorityTask = 'medium'
-function getPriorityTask(){
-   let selectedPriority = null;
-    const buttons = document.querySelectorAll('.priority-button');
-    const hiddenInput = document.getElementById('priorityInput');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', function () {
-        selectedPriority = this.dataset.priority;
-        hiddenInput.value = selectedPriority;
-        priorityTask = hiddenInput.value
-        console.log(priorityTask);
-        return priorityTask;
-      });
-    });
-}
-
-
-
-
-async function getEditedTask(taskId){
-  const taskTitle = getElementById('taskTitle');
-  const taskDescription = getElementById('taskDescription');
-  const dueDate = getElementById('dueDate');
-  const priority = getPriorityTask();
-  const assigned = getElementById('assignedTo');
-  let assignedToList = [];
-  let subtaskList = [];
-  const task = {
-    id: taskId,
-    title: taskTitle.value,
-    description: taskDescription.value,
-    dueDate: dueDate.value,
-    priority: priority,
-    assignedTo: assignedToList,
-    subtasks: subtaskList
-  }
-  try{
-    console.log(task);
-    // editTask(task);
-  }
-  catch(error){
-    console.error("Error editing task:", error);
-  }
-}
-
-
-async function editTask(task){
-  const taskRef = ref(database, "tasks/" + task.id);
-  await update(taskRef, task);
-  console.log("Task edited successfully");
-  initiateBoard();
 }
 
 
@@ -357,13 +308,24 @@ function activeNavItem() {
 }
 
 
+function moveToHover(startDragged, range){
+  const rangeId = `${range}Task`;
+  if(startDragged){
+    highlight(rangeId);
+    try{
+      moveTo(range);
+    }catch(error){
+      console.log(error);
+    }
+    startDragged = false;
+  }
+}
+
+
 async function moveTo(range) {
   const taskID = currentDraggedTask;
   const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
-  // let startDragged = true;
-  // moveToHover(startDragged, rangeId);
-  // startDragged = false;
   try {
     await update(taskRef, { range: range });
     loadTasks();
@@ -395,8 +357,8 @@ window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.searchParticularTask = searchParticularTask;
 window.moveTo = moveTo;
+window.moveToHover = moveToHover;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
 window.applyAssignedToColorSpan = applyAssignedToColorSpan;
-window.getEditedTask = getEditedTask;
-window.getPriorityTask = getPriorityTask;
+// window.getEditedTask = getEditedTask;

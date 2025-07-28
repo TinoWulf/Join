@@ -1,5 +1,5 @@
 .editTaskPopup {
-    align-content: center;
+  align-content: center;
   max-width: 525px;
   max-height: 98vh;
   background-color: var(--white);
@@ -10,6 +10,7 @@
   overflow-y: auto;
   border-radius: 30px;
   position: absolute;
+  z-index: 1000;
 }
 
 .editTaskPopup::-webkit-scrollbar {
@@ -132,8 +133,6 @@
     background-image: url('../assets/icons/urgentwhite.png');
     background-size: 100%;
     background-position: center;
-    object-fit: cover;
-    opacity: 2;
   }
 }
 
@@ -145,8 +144,6 @@
     background-image: url('../assets/icons/mediumwhite.png');
     background-size: 100%;
     background-position: center;
-    object-fit: cover;
-    opacity: 2;
   }
 }
 
@@ -157,8 +154,6 @@
     background-image: url('../assets/icons/lowwhite.png');
     background-size: 100%;
     background-position: center;
-    object-fit: cover;
-    opacity: 2;
   }
 }
 

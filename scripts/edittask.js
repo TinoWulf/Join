@@ -1,19 +1,4 @@
-const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
-let contactList = [];
-document.addEventListener('DOMContentLoaded', function() {
-  function activeNavItem(){
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.remove('active');
-    document.getElementById('addtask').classList.add('active');
-    document.getElementById('summary').classList.remove('active');
-  }
-  activeNavItem();
-  setupPriorityButtons('medium');
-});
-
-
-import {set, ref, database} from "./connection.js";
-import {templateRenderContactOnBord } from "./templates.js";
+import {ref, update, database} from "./connection.js";
 
 let assignedToList = [];
 let subtasks = [];
@@ -36,7 +21,6 @@ function setupPriorityButtons(initialPriority) {
             activeButton.classList.add(priority); 
             priorityInput.value = priority; 
         }
-        
     };
     if (initialPriority) {
         setActivePriority(initialPriority);
@@ -94,77 +78,40 @@ function addSubstask(){
  * Gets all edited task data from the form and updates it in Firebase.
  * @param {string} taskId The unique ID of the task to be updated.
  */
-async function getAddTask(event) {
+async function getEditedTask(taskId, event) {
     const taskTitleInput = document.getElementById('taskTitle');
     const taskDescriptionInput = document.getElementById('taskDescription');
     const dueDateInput = document.getElementById('dueDate');
     const priorityInput = document.getElementById('priorityInput');
-    let category  = "User Test"
     const newTitle = taskTitleInput ? taskTitleInput.value.trim() : '';
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
-    const newAssignedTo = assignedToList ? assignedToList: [];
-    const newSubtasks = subtasks ? subtasks : [];
-    const taskData = {
-        id: Date.now(),
+    const newAssignedTo = getAssignedContactById(taskId) ? getAssignedContactById(taskId) : [];
+    const newSubtasks = addSubstask() ? addSubstask() : [];
+    const updatedTaskData = {
         title: newTitle,
         description: newDescription,
         dueDate: newDueDate,
-        category: category,
-        range: "toDo",
         priority: newPriority,
         assignedTo: newAssignedTo,
         subtasks: newSubtasks
     };
-    const taskRef = ref(database, `tasks/${taskData.id}`);
+    const taskRef = ref(database, `tasks/${taskId}`);
     try {
-        await set(taskRef, taskData);
-        openBoard();
-        console.log(`Task with ID ${taskData.id} updated successfully!`);
+        await update(taskRef, updatedTaskData);
+        console.log(updatedTaskData);
+        closePopUp(event)
+        console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {
-        console.error("Error creating task:", error);
+        console.error("Error updating task:", error);
     }
 }
 
-
-function showContainerOnBoard(){
-  let contactBoard = document.getElementById("assigned");
-  if (contactBoard.classList.contains("hide")) {
-    contactBoard.classList.remove("hide");
-    contactBoard.classList.add("dFlex");
-    getUser();
-  } else {
-    contactBoard.classList.add("hide");
-    contactBoard.classList.remove("dFlex");
-  }
-}
-
-async function getUser(){
-  let contactBoard = document.getElementById("assigned");
-  try{ 
-    const response = await fetch(dataBaseURL + "/.json"); 
-    const contactData = await response.json(); 
-    const contactIdList = Object.keys(contactData.contacts);
-    contactList = [];
-    for(let index=0; index <contactIdList.length; index++){
-      let contactID = contactIdList[index];
-      let contact = contactData.contacts[contactID];
-      contactList.push(contact);
-      contactBoard.innerHTML += templateRenderContactOnBord(contact);
-      applyAssignedToColorSpan();
-    }
-  }
-  catch(error){
-    throw new Error("Failled to connect to the database"+ error);
-  }
-}
 
 export{setupPriorityButtons };
 
-window.getAddTask = getAddTask;
-window.setupPriorityButtons = setupPriorityButtons;
+window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
-window.showContainerOnBoard = showContainerOnBoard;
 

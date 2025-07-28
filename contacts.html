@@ -20,7 +20,7 @@
 
 </head>
 
-<body onload="fetchData(), callUserData()">
+<body onload="fetchData(), callUserData(), activeNavItem()">
     <header id="navbar">
 
     </header>
@@ -41,10 +41,11 @@
             </div>
             <div id="center-body" class="center-body"></div>
             <div onclick="closeResponsivContact()" class="responsive-back-btn">
-            <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
+                <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
+            </div>
         </div>
-        </div>
-        <div id="popup-add" class="popup none">
+        <div id="popup-background" class="popup-background none"></div>
+        <div id="popup-add" class="popup transform">
             <div class="popup-main">
                 <div class="popup-banner">
                     <div onclick="closeContactAdd()" class="popup-close-btn-img-white">
@@ -81,11 +82,13 @@
                         <img class="popup-input-img-phone" src="./assets/icons/call.png" alt="">
                     </div>
                 </div>
-                <div class="popup-buttons">
-                    <button onclick="closeContactAdd()" class="popup-btn-cancel">Cancel <img
-                            src="./assets/icons/iconoir_cancel.png" alt=""></button>
-                    <button onclick="addContact()" class="popup-btn-create">Create contact <img
-                            src="./assets/icons/check.png" alt=""></button>
+                <div class="popup-buttons-quarry-container">
+                    <div class="popup-buttons">
+                        <button onclick="closeContactAdd()" class="popup-btn-cancel">Cancel <img
+                                src="./assets/icons/iconoir_cancel.png" alt=""></button>
+                        <button onclick="addContact()" class="popup-btn-create">Create contact <img
+                                src="./assets/icons/check.png" alt=""></button>
+                    </div>
                 </div>
             </div>
         </div>
