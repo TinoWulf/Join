@@ -60,11 +60,13 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
 }
 
 function openContactAdd() { // Show add contact popup
-    document.getElementById("popup-add").classList.remove("none");
+    document.getElementById("popup-background").classList.remove("none");
+    document.getElementById("popup-add").classList.remove("transform");
 }
 
 function closeContactAdd() { // Close add contact popup
-    document.getElementById("popup-add").classList.add("none");
+    document.getElementById("popup-add").classList.add("transform");
+    document.getElementById("popup-background").classList.add("none");
     document.getElementById("in-name-add").value = "";
     document.getElementById("in-email-add").value = "";
     document.getElementById("in-number-add").value = "";
@@ -283,7 +285,8 @@ async function finishSaveContact(result, userID) {
 async function finishAddContact(result, userID) {
     await pushContact(result.name, result.email, result.number, userID); // Push to Firebase
     await fetchData(); // Refresh
-    document.getElementById("popup-add").classList.add("none");
+    document.getElementById("popup-add").classList.add("transform");
+    document.getElementById("popup-background").classList.add("none");
     setTimeout(showAlert, 3000);
     document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully created</sub>';
     document.getElementById('alert').classList.toggle('alert-close');
@@ -316,4 +319,11 @@ function clearInputs() {
 
 function closeResponsivContact() {
     document.getElementById("center").classList.remove("display-show");
+}
+
+function activeNavItem(){
+  document.getElementById('board').classList.remove('active');
+  document.getElementById('contacts').classList.add('active');
+  document.getElementById('addtask').classList.remove('active');
+  document.getElementById('summary').classList.remove('active');
 }
