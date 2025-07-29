@@ -21,9 +21,10 @@
             <div class="add-left-side">
                 <label for="title" class="label-title">
                     <p>Title <span class="star">*</span></p>
-                    <div class="input-title">
+                    <div class="input-title" id="titleContain">
                         <input id="taskTitle" class="outline" type="text" name="title" placeholder="Enter a title" required>
                     </div>
+                    <p class="error-message hide" id="errorTitle">This field is required</p>
                 </label>
                 <label for="description" class="label-textarea">
                     Description
@@ -33,9 +34,10 @@
                 </label>
                 <label for="date" class="label-date">
                     <p>Due date <span class="star">*</span></p>
-                    <div class="input-date">
+                    <div class="input-date" id="dateContain">
                         <input   class="required outline" type="date" id="dueDate" name="date" required placeholder="dd/mm/yyyy" /> 
                     </div>
+                    <p class="error-message hide" id="errorDate">This field is required</p>
                 </label>
             </div>
             <div class="separator"></div>
@@ -60,9 +62,9 @@
                 </label>
                 <label for="myInput" id="assigned-to" class="label-assignto">
                     Assigned to
-                    <div class="drop-down-input" onclick="showContainerOnBoard()">
+                    <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)">
                         <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
-                        <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
+                        <span><img src="./assets/icons/drop-down.png" alt=""></span>
                     </div>
                     <form name="assigned" id="assigned" class="hide container-contact">
                         
@@ -73,14 +75,18 @@
                     </div>
                 </label>
                 
-                <label for="myInput" class="label-category">
+                <label for="myInput" class="label-category" id="labelCategory">
                     <p>Category <span class="star">*</span></p>
-                    <div class="drop-down-input">
-                        <input type="text" value="Select task category" readonly>
-                        <span><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
+                    <div class="drop-down-input" onclick="showCategory()" id="categoryContain">
+                        <input type="text" placeholder="Select task category" readonly id="categoryInput">
+                        <span onclick="showCategory()"><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
                     </div>
+                    <p class="error-message hide" id="errorCat">This field is required</p>
                     <div id="category" class="category">
-
+                        <option value="User Story" onclick="showCategory()">User Story</option>
+                        <option value="Technical Task" onclick="showCategory()">Technical Task</option>
+                        <option value="Development" onclick="showCategory()">Developement</option>
+                        <option value="Maketing" onclick="showCategory()">Maketing</option>
                     </div>
                 </label>
                 <label for="myInput" class="label-subtask">Subtasks
@@ -97,10 +103,10 @@
         <div class="add-task-form-footer">
             <p><span class="star">*</span> This field is required</p>
             <div class="button-footer-container">
-                <button type="reset" class="cancel-button">Cancel
+                <button type="reset" class="cancel-button" id="resetButton">Cancel
                         <img class="button-img" src="./assets/icons/iconoir_cancel.png">
                 </button>
-                <button type="submit" class="create-task-button" onclick="getAddTask()">
+                <button type="submit" class="create-task-button" onclick="getTaskData()" id="addTask">
                     Create Task
                     <img class="button-img" src="./assets/icons/check.png">
                 </button>

@@ -10,17 +10,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   activeNavItem();
   setupPriorityButtons('medium');
-  
+  getCategory()
+        
 });
 
 
 import {set, ref, database} from "./connection.js";
 import {templateRenderContactOnBord } from "./templates.js";
 
+const taskTitleInput = document.getElementById('taskTitle');
+const taskDescriptionInput = document.getElementById('taskDescription');
+const dueDateInput = document.getElementById('dueDate');
+const priorityInput = document.getElementById('priorityInput');
+let categoryInput  = document.getElementById('categoryInput');
+let errorTitle  = document.getElementById('errorTitle');
+let errorDate  = document.getElementById('errorDate');
+let errorCat  = document.getElementById('errorCat');
+let resetButton  = document.getElementById('resetButton');
 let assignedToList = [];
 let subtasks = [];
-
-
 const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
 const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
 const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
@@ -58,6 +66,17 @@ function setupPriorityButtons(initialPriority) {
         });
     });
 }
+
+
+resetButton.addEventListener('click', function(){
+    categoryInput.value ='';
+    taskTitleInput.value ='';
+    taskDescriptionInput.value = '';
+    dueDateInput.value = ''; 
+    priorityInput.value = '';
+    let subtaskListEdit = document.getElementById('subtaskListEdit');
+    subtaskListEdit.innerHTML = '';
+})
 
 
 function getAssignedContactById(id){
@@ -99,20 +118,12 @@ function addSubstask(){
 }
 
 
-/**
- * Gets all edited task data from the form and updates it in Firebase.
- * @param {string} taskId The unique ID of the task to be updated.
- */
-async function getAddTask(event) {
-    const taskTitleInput = document.getElementById('taskTitle');
-    const taskDescriptionInput = document.getElementById('taskDescription');
-    const dueDateInput = document.getElementById('dueDate');
-    const priorityInput = document.getElementById('priorityInput');
-    let category  = "User Test"
-    const newTitle = taskTitleInput ? taskTitleInput.value.trim() : '';
-    const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
-    const newDueDate = dueDateInput ? dueDateInput.value : ''; 
-    const newPriority = priorityInput ? priorityInput.value : 'medium';
+function getTaskData(){
+    let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
+    const newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
+    const newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
+    const newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
+    const newPriority = priorityInput.value ? priorityInput.value : 'medium';
     const newAssignedTo = assignedToList ? assignedToList: [];
     const newSubtasks = subtasks ? subtasks : [];
     const taskData = {
@@ -126,27 +137,105 @@ async function getAddTask(event) {
         assignedTo: newAssignedTo,
         subtasks: newSubtasks
     };
+    getAddTask(taskData) 
+}
+
+
+
+function renderError() {
+    let hasError = false;
+    if (!taskTitleInput.value.trim()) {
+        taskTitleInput.classList.add('field-error');
+        errorTitle.classList.remove('hide');
+        hasError = true;
+    }
+
+    if (!dueDateInput.value.trim()) {
+        dueDateInput.classList.add('field-error');
+        errorDate.classList.remove("hide");
+        hasError = true;
+    }
+
+    if (!categoryInput.value.trim()) {
+        categoryContain.classList.add('field-error');
+        errorCat.classList.remove('hide');
+        hasError = true;
+    }
+    removeError();
+    return !hasError;
+}
+
+function removeError(){
+    setTimeout(()=>{
+        taskTitleInput.classList.remove('field-error');
+        dueDateInput.classList.remove('field-error');
+        categoryContain.classList.remove('field-error');
+        errorTitle.classList.add('hide');
+        errorDate.classList.add("hide");
+        errorCat.classList.add('hide');
+    }, 3000);
+}
+
+
+/**
+ * Gets all edited task data from the form and updates it in Firebase.
+ * @param {string} taskId The unique ID of the task to be updated.
+ */
+async function getAddTask(taskData) {
     const taskRef = ref(database, `tasks/${taskData.id}`);
+
     try {
-        await set(taskRef, taskData);
-        openBoard();
+        if(renderError()){
+           await set(taskRef, taskData);
+            console.log(taskData);
+            openBoard(); 
         console.log(`Task with ID ${taskData.id} updated successfully!`);
+        }else{
+            console.log("you got a probleme during add task")
+        }
     } catch (error) {
         console.error("Error creating task:", error);
     }
 }
 
 
-function showContainerOnBoard(){
+function showContainerOnBoardAddTask(event){
   let contactBoard = document.getElementById("assigned");
+  let AssignToLabel = document.getElementById("assigned-to");
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
     contactBoard.classList.add("dFlex");
+    AssignToLabel.classList.add('addheigth');
     getUser();
   } else {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
+    AssignToLabel.classList.remove('addheigth');
   }
+  event.stopPropagation();
+}
+
+function getCategory(){
+    let categoryInput  = document.getElementById('categoryInput');
+    let options = document.querySelectorAll(".category option");
+    options.forEach(category=>{
+        category.addEventListener('click', function(){
+            categoryInput.value = category.value;
+        })
+    })
+    showCategory()
+}
+
+function showCategory(){
+    let labelCategory  = document.getElementById('labelCategory');
+    let categoryList  = document.getElementById('category');
+    if(categoryList.classList.contains('hide')){
+        categoryList.classList.remove('hide')
+        labelCategory.classList.add('addheigth');
+    }else{
+        labelCategory.classList.remove('addheigth');
+        categoryList.classList.add('hide');
+    }
 }
 
 async function getUser(){
@@ -171,9 +260,11 @@ async function getUser(){
 
 export{setupPriorityButtons };
 
-window.getAddTask = getAddTask;
+window.getTaskData = getTaskData;
 window.setupPriorityButtons = setupPriorityButtons;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
-window.showContainerOnBoard = showContainerOnBoard;
+window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
+window.showCategory = showCategory;
+window.getCategory = getCategory;
 

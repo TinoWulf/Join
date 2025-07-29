@@ -13,7 +13,7 @@
 }
 
 .popup-header{
-  position: absolute;
+  position: fixed;
   border-radius: 20px 0 20px 20px;
   top: 96px;
   right: 30px;
