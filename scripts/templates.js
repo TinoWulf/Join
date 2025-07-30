@@ -13,13 +13,19 @@ function templateTaskCard(task) {
       </div>
       <h4>${task.title}</h4>
       <p class="taskCard-body">${task.description}</p>
-      <div class="progress">
-        <progress id="subtask" value="${(countSubtasksDone(task) / countSubtasks(task)) * 100}" max="100"> % </progress>
-        <label for="subtask">${countSubtasksDone(task)}/${countSubtasks(task)}Subtasks</label>
-      </div>
+      ${task.subtasks?.length>0 ? 
+        `
+          <div class="progress">
+            <progress id="subtask" value="${(countSubtasksDone(task) / countSubtasks(task)) * 100}" max="100"> % </progress>
+            <label for="subtask">${countSubtasksDone(task)}/${countSubtasks(task)}Subtasks</label>
+          </div>
+        `
+        : ''
+    }
+      
       <div class="taskCard-footer">
         <div class="asigned-to">
-            ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
+            ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): ''}
         </div><img src="./assets/icons/${task.priority}.png" alt="" class="taskGrade">
       </div>  
     </div>
@@ -46,14 +52,18 @@ function templateTaskCardDetail(task){
             <p class="taskCard-body priority">
               <span>Priority: </span> <span class="priority-img">${capitalizeName(task.priority)} <img src="./assets/icons/${task.priority}.png" alt="" /></span>
             </p>
-            <p class="asigned-to">Assigned To</p>
+            ${task.assignedTo?.length > 0 ?
+                `<p class="asigned-to">Assigned To</p>`
+                : ''}
             <ul class="asigned-to-list">
-              ${task.assignedTo.map((user) => `<li><span>${getAbbreviation(user.name)}</span>${capitalizeName(user.name)}</li>`).join("")}
+              ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<li><span>${getAbbreviation(user.name)}</span>${capitalizeName(user.name)}</li>`).join(""): ''}
             </ul>
             <div class="subtasks">
-              <h5>Subtasks</h5>
+              ${task.subtasks?.length > 0 ?
+                `<h5>Subtasks</h5>`
+                : ''}
               <section class="form-subtask" id="subtask-form">
-              ${task.subtasks.map((subtask, index) => 
+              ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
                 
                 `
                 <div class="form-check">
@@ -62,6 +72,7 @@ function templateTaskCardDetail(task){
                 </div>
 
                 `).join("")
+                : ''
                 }
               </section>
             </div>
@@ -157,7 +168,7 @@ function templateEditTask(task){
                 
               </form>
               <div class="already-assigned" id="alreadyAssigned">
-                ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
+                ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): '' }
               </div>
 
           </label>
@@ -177,7 +188,6 @@ function templateEditTask(task){
       </div>
   `;
 }
-
 
 
 function templateRenderContactOnBord(contact){
@@ -200,20 +210,3 @@ window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
 window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
 window.donePlaceholderTemplate = donePlaceholderTemplate ;
 window.templateRenderContactOnBord = templateRenderContactOnBord ;
-
-// function subtaskForm(task){
-//   let subtaskForm = document.getElementById("subtask-form")
-//   if(!task.subtasks){
-//     return 
-//   }else{
-//     for(let i = 0; i < task.subtasks.length; i++){
-//       const subtask = task.subtasks[i];
-//       subtaskForm.innerHTML+= `
-//         <div class="form-check">
-//           <input type="checkbox" id="subtask${i}" name="subtask" ${subtask.checked ? "checked" : ""}/>
-//           <label for="subtask1">${subtask.title}</label>
-//         </div>
-//       `;
-//     }
-//   }
-// }
