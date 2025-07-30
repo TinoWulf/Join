@@ -27,6 +27,7 @@ function templateTaskCard(task) {
 }
 
 
+
 function templateTaskCardDetail(task){
   return `
   
@@ -51,13 +52,13 @@ function templateTaskCardDetail(task){
             </ul>
             <div class="subtasks">
               <h5>Subtasks</h5>
-              <section class="form-subtask">
-              ${task.subtasks.map((subtask) => 
+              <section class="form-subtask" id="subtask-form">
+              ${task.subtasks.map((subtask, index) => 
                 
                 `
                 <div class="form-check">
-                  <input type="checkbox" id="subtask" name="subtask" ${subtask.checked ? "checked" : ""}/>
-                  <label for="subtask1">${subtask.title}</label>
+                  <input type="checkbox" name="subtask${index}" value="${subtask.title}" data-index ="${index}"  ${subtask.checked ? "checked" : ""}/>
+                  <label for="subtask${index}">${subtask.title}</label>
                 </div>
 
                 `).join("")
@@ -199,3 +200,20 @@ window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
 window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
 window.donePlaceholderTemplate = donePlaceholderTemplate ;
 window.templateRenderContactOnBord = templateRenderContactOnBord ;
+
+// function subtaskForm(task){
+//   let subtaskForm = document.getElementById("subtask-form")
+//   if(!task.subtasks){
+//     return 
+//   }else{
+//     for(let i = 0; i < task.subtasks.length; i++){
+//       const subtask = task.subtasks[i];
+//       subtaskForm.innerHTML+= `
+//         <div class="form-check">
+//           <input type="checkbox" id="subtask${i}" name="subtask" ${subtask.checked ? "checked" : ""}/>
+//           <label for="subtask1">${subtask.title}</label>
+//         </div>
+//       `;
+//     }
+//   }
+// }

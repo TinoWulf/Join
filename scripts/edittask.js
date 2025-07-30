@@ -1,4 +1,4 @@
-import {ref, update, database} from "./connection.js";
+import {ref, update,get,  database} from "./connection.js";
 
 let assignedToList = [];
 let subtasks = [];
@@ -32,6 +32,26 @@ function setupPriorityButtons(initialPriority) {
             setActivePriority(priority);
         });
     });
+}
+
+async function getAlreadySubtask(taskId){
+    const subtaskListRef = ref(database, `tasks/${taskId}`);
+    try{
+        const data = await get(subtaskListRef);
+        if(data.exists()){
+            let subtasklistItem = [];
+            const subtasks =  data.val().subtasks;
+            for( let i in subtasks){
+                subtasklistItem.push(subtasks[i]);
+            }
+            console.table(subtasklistItem);
+            return subtasklistItem;
+        }
+    }catch(error){
+        console.log("can't fetch this data", error);
+    }
+    
+    
 }
 
 
@@ -109,7 +129,7 @@ async function getEditedTask(taskId, event) {
 }
 
 
-export{setupPriorityButtons };
+export{setupPriorityButtons, getAlreadySubtask };
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;

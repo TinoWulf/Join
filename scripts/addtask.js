@@ -120,12 +120,12 @@ function addSubstask(){
 
 function getTaskData(){
     let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
-    const newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
-    const newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
-    const newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
-    const newPriority = priorityInput.value ? priorityInput.value : 'medium';
-    const newAssignedTo = assignedToList ? assignedToList: [];
-    const newSubtasks = subtasks ? subtasks : [];
+    let newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
+    let newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
+    let newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
+    let newPriority = priorityInput.value ? priorityInput.value : 'medium';
+    let newAssignedTo = assignedToList ? assignedToList: [];
+    let newSubtasks = subtasks ? subtasks : [];
     const taskData = {
         id: Date.now(),
         title: newTitle,
@@ -183,12 +183,11 @@ function removeError(){
  */
 async function getAddTask(taskData) {
     const taskRef = ref(database, `tasks/${taskData.id}`);
-
     try {
         if(renderError()){
            await set(taskRef, taskData);
             console.log(taskData);
-            openBoard(); 
+            showSucessMessage() 
         console.log(`Task with ID ${taskData.id} updated successfully!`);
         }else{
             console.log("you got a probleme during add task")
@@ -225,6 +224,17 @@ function getCategory(){
     })
     showCategory()
 }
+
+function showSucessMessage() {
+    let successMessage = document.getElementById("success-message");
+    successMessage.classList.remove("hide");
+    setTimeout(() => {
+        successMessage.classList.add("hide");
+        openBoard(); 
+    }, 1000);
+}
+
+
 
 function showCategory(){
     let labelCategory  = document.getElementById('labelCategory');
