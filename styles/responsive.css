@@ -1,6 +1,6 @@
 @media (max-width: 876px) {
   .popupshow {
-    top: 60px;
+    top: 96px;
     right: -250px;
     position: fixed;
     animation: slideFromRight 1.2s ease-in-out forwards; 
@@ -17,7 +17,7 @@
 
   .back {
     display: none;
-    top: 60px;
+    top: 96px;
     right: -250px;
     position: fixed;
     animation: slideFromLeft 2s ease-in-out forwards; 
@@ -46,6 +46,15 @@
     width: calc(100% - 0px);
     height: 100dvh;
     flex: 1;
+  }
+
+  .add-task-form-footer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 50px;
+    width: calc(100% - 0px);
   }
 
   .main-addtask{
@@ -252,6 +261,12 @@
     padding-bottom: 30px;
     transform: scale(2);
   }
+
+  .add-task-form-footer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
   
 }
 @media (max-width: 450px) {
@@ -312,6 +327,19 @@
     width: 116px;
     height: 116px;
     border-radius: 30px;
+  }
+
+  .priority-button{
+    background-color: var(--white);
+    font-size: 16px;
+    padding: 12px 10px;
+    width: 100px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 10px;
   }
 
   .menu-btn {

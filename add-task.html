@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/add-task.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="icon" type="image/x-icon" href="./assets/img/logo.png">
     <title>Add Task</title>
     <script src="./script.js"></script>
@@ -42,7 +43,7 @@
             </div>
             <div class="separator"></div>
             <div class="add-right-side">
-                <label for="myInput" class="label-priority">
+                <label for="priority" class="label-priority">
                     Priority
                     <div class="button-priority-container" id="">
                         <input type="hidden" name="priority" id="priorityInput" value="" />
@@ -60,7 +61,7 @@
                         </button>
                     </div>
                 </label>
-                <label for="myInput" id="assigned-to" class="label-assignto">
+                <label for="assigned" id="assigned-to" class="label-assignto">
                     Assigned to
                     <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)">
                         <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
@@ -75,7 +76,7 @@
                     </div>
                 </label>
                 
-                <label for="myInput" class="label-category" id="labelCategory">
+                <label for="category" class="label-category" id="labelCategory">
                     <p>Category <span class="star">*</span></p>
                     <div class="drop-down-input" onclick="showCategory()" id="categoryContain">
                         <input type="text" placeholder="Select task category" readonly id="categoryInput">
@@ -89,7 +90,7 @@
                         <option value="Maketing" onclick="showCategory()">Maketing</option>
                     </div>
                 </label>
-                <label for="myInput" class="label-subtask">Subtasks
+                <label for="subtasks" class="label-subtask">Subtasks
                     <div class="drop-down-input">
                         <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
                         <span onclick="addSubstask()"><img src="./assets/icons/plusbtngrey.png" alt=""></span>

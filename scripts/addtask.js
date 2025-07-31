@@ -32,10 +32,19 @@ let subtasks = [];
 const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
 const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
 const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
-activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
-activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
-activeButtonLow.src =  '../assets/icons/lowwhite.png';
 
+
+function showPriorityButton(priority) {
+    if(priority === 'urgent'){
+        activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
+    }
+    else if(priority === 'medium'){
+        activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
+    }
+    else if(priority === 'low'){
+            activeButtonLow.src =  '../assets/icons/lowwhite.png';
+    }
+}
 
 /**
  * Manages the active state of priority buttons and updates the hidden input.
@@ -51,6 +60,7 @@ function setupPriorityButtons(initialPriority) {
         });
         const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
         if (activeButton) {
+            showPriorityButton(priority);
             activeButton.classList.add(priority); 
             priorityInput.value = priority; 
         }
