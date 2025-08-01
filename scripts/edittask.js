@@ -1,6 +1,8 @@
+import { initiateBoard } from "./board.js";
 import {ref, update,get,  database} from "./connection.js";
 
 let assignedToList = [];
+let subtasklistItem = [];
 let subtasks = [];
 
 
@@ -39,19 +41,16 @@ async function getAlreadySubtask(taskId){
     try{
         const data = await get(subtaskListRef);
         if(data.exists()){
-            let subtasklistItem = [];
+            subtasklistItem = [];
             const subtasks =  data.val().subtasks;
             for( let i in subtasks){
                 subtasklistItem.push(subtasks[i]);
             }
-            console.table(subtasklistItem);
             return subtasklistItem;
         }
     }catch(error){
         console.log("can't fetch this data", error);
-    }
-    
-    
+    } 
 }
 
 
@@ -85,7 +84,7 @@ function addSubstask(){
             checked: false,
         }
         subtasks.push(subtask);
-        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}<button class="delete-subtask">Delete</button></li>`; 
+        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}</li>`; 
         newSubtaskRef.value = '';
     }else{
         SubtasklistContainer.innerHTML+="";
@@ -107,6 +106,7 @@ async function getEditedTask(taskId, event) {
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
+    subtasklistItem = await getAlreadySubtask(taskId);
     const newAssignedTo = getAssignedContactById(taskId) ? getAssignedContactById(taskId) : [];
     const newSubtasks = addSubstask() ? addSubstask() : [];
     const updatedTaskData = {
@@ -115,13 +115,14 @@ async function getEditedTask(taskId, event) {
         dueDate: newDueDate,
         priority: newPriority,
         assignedTo: newAssignedTo,
-        subtasks: newSubtasks
+        subtasks: newSubtasks.concat(subtasklistItem)
     };
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
         await update(taskRef, updatedTaskData);
         console.log(updatedTaskData);
-        closePopUp(event)
+        initiateBoard();
+        closePopUp(event);
         console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {
         console.error("Error updating task:", error);
@@ -129,9 +130,54 @@ async function getEditedTask(taskId, event) {
 }
 
 
+
+function getEditedSubtask(taskId){
+    const subsTasks = document.querySelectorAll('#subtaskListEdit li');
+    subsTasks.forEach((subtask) => {
+        subtask.addEventListener('click', function(){
+            if(subtask.querySelector('input')){
+                return
+            }
+            const subtaskContent = subtask.textContent;
+            subtask.innerHTML = "";
+            subtask.innerHTML = `
+            <label class="label-subtask-edit">
+                <input type="text" value="${subtaskContent}" focus />
+                <span class="img-edit"> <img onclick="deleteSubtaskInEdited(${taskId})" src="./assets/icons/delete.png"/> <img onclick='modifySubtaskInEdited("${subtaskContent}")' src="./assets/icons/edit.png"/> </span>
+            </label>
+            `;
+        })
+    })
+}
+
+function modifySubtaskInEdited(subtaskContent){
+    if (!Array.isArray(subtasklistItem) || !Array.isArray(subtasks)) {
+        console.error("One or both arrays are not defined or not arrays");
+        return;
+    }
+    const found =
+    subtasklistItem.find(item => item.title === subtaskContent) || subtasks.find(subtask => subtask.title === subtaskContent);
+    if (!found) {
+        return
+    }else{
+        console.log(true);
+
+    }
+
+
+}
+
+function deleteSubtaskInEdited(taskId,index){
+    console.log("delete", taskId, index);
+}
+
+
 export{setupPriorityButtons, getAlreadySubtask };
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;
+window.getEditedSubtask = getEditedSubtask;
 window.getAssignedContactById = getAssignedContactById;
+window.modifySubtaskInEdited = modifySubtaskInEdited;
+window.deleteSubtaskInEdited = deleteSubtaskInEdited;
 

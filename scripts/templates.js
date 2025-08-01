@@ -33,7 +33,6 @@ function templateTaskCard(task) {
 }
 
 
-
 function templateTaskCardDetail(task){
   return `
   
@@ -78,7 +77,7 @@ function templateTaskCardDetail(task){
             </div>
             <div class="taskPopupFooter">
               <p onclick = "deleteTask(${task.id}, event)"><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
-              <p onclick="openEditTask(${task.id})"><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
+              <p onclick="openEditTask(${task.id}); getEditedSubtask(${task.id})"><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
             </div>
           </div>
   
@@ -179,6 +178,12 @@ function templateEditTask(task){
                 <span onclick="addSubstask()",onclick="preventEvent(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
+              ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
+                `
+                  <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
+                `).join("")
+                : ''
+                }
 
               </div>
           </label>
