@@ -35,16 +35,19 @@ async function getUser(){
   }
 }
 
+function openAddTask(){
+  document.location.href ="add-task.html";
+}
 
 
 async function deleteTask(taskId, event) {
   try {
-    // const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
-    //   method: "DELETE",
-    // });
-    // if (!response.ok) {
-    //   throw new Error(`HTTP error! status: ${response.status}`);
-    // }
+    const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     console.log(" Task deleted");
     initiateBoard(); // Refresh
   } catch (error) {

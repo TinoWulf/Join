@@ -2,6 +2,7 @@ import { initiateBoard } from "./board.js";
 import {ref, update,get,  database} from "./connection.js";
 
 let assignedToList = [];
+let alreadyAssigned = [];
 let subtasklistItem = [];
 let subtasks = [];
 
@@ -35,6 +36,21 @@ function setupPriorityButtons(initialPriority) {
         });
     });
 }
+
+
+async function getAlreadyAssigned(taskId){
+    const assignedRef = ref(database, `tasks/${taskId}`);
+    try{
+        const data = await get(assignedRef);
+        if(data.exists()){
+            alreadyAssigned = data.val().assignedTo;
+            return alreadyAssigned;
+        }
+    }catch(error){
+        console.log(error);
+    }
+}
+
 
 async function getAlreadySubtask(taskId){
     const subtaskListRef = ref(database, `tasks/${taskId}`);
@@ -107,6 +123,7 @@ async function getEditedTask(taskId, event) {
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     subtasklistItem = await getAlreadySubtask(taskId);
+    alreadyAssigned = await getAlreadyAssigned(taskId);
     const newAssignedTo = getAssignedContactById(taskId) ? getAssignedContactById(taskId) : [];
     const newSubtasks = addSubstask() ? addSubstask() : [];
     const updatedTaskData = {
@@ -114,8 +131,8 @@ async function getEditedTask(taskId, event) {
         description: newDescription,
         dueDate: newDueDate,
         priority: newPriority,
-        assignedTo: newAssignedTo,
-        subtasks: newSubtasks.concat(subtasklistItem)
+        assignedTo: alreadyAssigned.concat(newAssignedTo),
+        subtasks: subtasklistItem.concat(newSubtasks)
     };
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
@@ -127,6 +144,8 @@ async function getEditedTask(taskId, event) {
     } catch (error) {
         console.error("Error updating task:", error);
     }
+    subtasklistItem = [];
+    alreadyAssigned = [];
 }
 
 
@@ -172,7 +191,7 @@ function deleteSubtaskInEdited(taskId,index){
 }
 
 
-export{setupPriorityButtons, getAlreadySubtask };
+export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned };
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;

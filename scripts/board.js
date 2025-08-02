@@ -1,5 +1,5 @@
 import {database,ref,update,get } from "./connection.js";
-import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
+import {setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned } from "./edittask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -130,6 +130,7 @@ function openEditTask(taskId){
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
   getAlreadySubtask(task.id);
+  getAlreadyAssigned(task.id);
   applyAssignedToColors();
 }
 
