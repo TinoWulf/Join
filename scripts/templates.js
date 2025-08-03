@@ -13,13 +13,19 @@ function templateTaskCard(task) {
       </div>
       <h4>${task.title}</h4>
       <p class="taskCard-body">${task.description}</p>
-      <div class="progress">
-        <progress id="subtask" value="${(countSubtasksDone(task) / countSubtasks(task)) * 100}" max="100"> % </progress>
-        <label for="subtask">${countSubtasksDone(task)}/${countSubtasks(task)}Subtasks</label>
-      </div>
+      ${task.subtasks?.length>0 ? 
+        `
+          <div class="progress">
+            <progress id="subtask" value="${(countSubtasksDone(task) / countSubtasks(task)) * 100}" max="100"> % </progress>
+            <label for="subtask">${countSubtasksDone(task)}/${countSubtasks(task)}Subtasks</label>
+          </div>
+        `
+        : ''
+    }
+      
       <div class="taskCard-footer">
         <div class="asigned-to">
-            ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
+            ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): ''}
         </div><img src="./assets/icons/${task.priority}.png" alt="" class="taskGrade">
       </div>  
     </div>
@@ -45,28 +51,33 @@ function templateTaskCardDetail(task){
             <p class="taskCard-body priority">
               <span>Priority: </span> <span class="priority-img">${capitalizeName(task.priority)} <img src="./assets/icons/${task.priority}.png" alt="" /></span>
             </p>
-            <p class="asigned-to">Assigned To</p>
+            ${task.assignedTo?.length > 0 ?
+                `<p class="asigned-to">Assigned To</p>`
+                : ''}
             <ul class="asigned-to-list">
-              ${task.assignedTo.map((user) => `<li><span>${getAbbreviation(user.name)}</span>${capitalizeName(user.name)}</li>`).join("")}
+              ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<li><span>${getAbbreviation(user.name)}</span>${capitalizeName(user.name)}</li>`).join(""): ''}
             </ul>
             <div class="subtasks">
-              <h5>Subtasks</h5>
-              <section class="form-subtask">
-              ${task.subtasks.map((subtask) => 
+              ${task.subtasks?.length > 0 ?
+                `<h5>Subtasks</h5>`
+                : ''}
+              <section class="form-subtask" id="subtask-form">
+              ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
                 
                 `
                 <div class="form-check">
-                  <input type="checkbox" id="subtask" name="subtask" ${subtask.checked ? "checked" : ""}/>
-                  <label for="subtask1">${subtask.title}</label>
+                  <input type="checkbox" name="subtask${index}" value="${subtask.title}" data-index ="${index}"  ${subtask.checked ? "checked" : ""}/>
+                  <label for="subtask${index}">${subtask.title}</label>
                 </div>
 
                 `).join("")
+                : ''
                 }
               </section>
             </div>
             <div class="taskPopupFooter">
               <p onclick = "deleteTask(${task.id}, event)"><img src="./assets/icons/delete.png" alt="delete" /><span>delete</span></p>
-              <p onclick="openEditTask(${task.id})"><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
+              <p onclick="openEditTask(${task.id}); getEditedSubtask(${task.id})"><img src="./assets/icons/edit.png" alt="edit" /><span>edit</span></p>
             </div>
           </div>
   
@@ -156,7 +167,7 @@ function templateEditTask(task){
                 
               </form>
               <div class="already-assigned" id="alreadyAssigned">
-                ${task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join("")}
+                ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): '' }
               </div>
 
           </label>
@@ -167,6 +178,12 @@ function templateEditTask(task){
                 <span onclick="addSubstask()",onclick="preventEvent(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
+              ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
+                `
+                  <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
+                `).join("")
+                : ''
+                }
 
               </div>
           </label>
@@ -176,7 +193,6 @@ function templateEditTask(task){
       </div>
   `;
 }
-
 
 
 function templateRenderContactOnBord(contact){

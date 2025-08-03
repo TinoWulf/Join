@@ -1,5 +1,5 @@
-import {database,app,ref,set,onValue,update,push,remove,get,query, } from "./connection.js";
-import {setupPriorityButtons } from "./edittask.js";
+import {database,ref,update,get } from "./connection.js";
+import {setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned } from "./edittask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -118,6 +118,7 @@ function openTaskDetail(taskId) {
   const task = tasksList.find((task) => task.id === taskId);
   taskCardParent.innerHTML = templateTaskCardDetail(task);
   applyAssignedToColors();
+  submitCheckedSubtask(taskId);
   taskCardParent.classList.toggle("hide");
 }
 
@@ -128,8 +129,13 @@ function openEditTask(taskId){
   const task = tasksList.find((task) => task.id === taskId);
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
+  getAlreadySubtask(task.id);
+  getAlreadyAssigned(task.id);
   applyAssignedToColors();
 }
+
+
+
 
 
 /**
@@ -267,6 +273,27 @@ function insertDoneTask(task) {
   donePlaceholder.classList.add("hide");
   done.innerHTML += templateTaskCard(task);
 }
+
+function submitCheckedSubtask(taskId){
+  let inputSubtask = document.querySelectorAll('.form-check input');
+  inputSubtask.forEach((input)=>{
+    input.addEventListener('click', function(){
+      const subtaskIndex = this.dataset.index; 
+      const pathToUpdate = `tasks/${taskId}/subtasks/${subtaskIndex}/checked`;
+      const updates = {
+        [pathToUpdate]: this.checked 
+      };
+      update(ref(database), updates)
+        .then(() => {
+          initiateBoard();
+        })
+        .catch((error) => {
+          console.error("Oh no! Error updating subtask for Task ID:", taskId, error);
+        });
+    })
+  })
+}
+
 
 
 function insertInProgressTask(task) {

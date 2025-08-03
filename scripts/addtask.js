@@ -32,10 +32,19 @@ let subtasks = [];
 const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
 const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
 const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
-activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
-activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
-activeButtonLow.src =  '../assets/icons/lowwhite.png';
 
+
+function showPriorityButton(priority) {
+    if(priority === 'urgent'){
+        activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
+    }
+    else if(priority === 'medium'){
+        activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
+    }
+    else if(priority === 'low'){
+            activeButtonLow.src =  '../assets/icons/lowwhite.png';
+    }
+}
 
 /**
  * Manages the active state of priority buttons and updates the hidden input.
@@ -51,6 +60,7 @@ function setupPriorityButtons(initialPriority) {
         });
         const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
         if (activeButton) {
+            showPriorityButton(priority);
             activeButton.classList.add(priority); 
             priorityInput.value = priority; 
         }
@@ -120,12 +130,12 @@ function addSubstask(){
 
 function getTaskData(){
     let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
-    const newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
-    const newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
-    const newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
-    const newPriority = priorityInput.value ? priorityInput.value : 'medium';
-    const newAssignedTo = assignedToList ? assignedToList: [];
-    const newSubtasks = subtasks ? subtasks : [];
+    let newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
+    let newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
+    let newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
+    let newPriority = priorityInput.value ? priorityInput.value : 'medium';
+    let newAssignedTo = assignedToList ? assignedToList: [];
+    let newSubtasks = subtasks ? subtasks : [];
     const taskData = {
         id: Date.now(),
         title: newTitle,
@@ -183,12 +193,11 @@ function removeError(){
  */
 async function getAddTask(taskData) {
     const taskRef = ref(database, `tasks/${taskData.id}`);
-
     try {
         if(renderError()){
            await set(taskRef, taskData);
             console.log(taskData);
-            openBoard(); 
+            showSucessMessage() 
         console.log(`Task with ID ${taskData.id} updated successfully!`);
         }else{
             console.log("you got a probleme during add task")
@@ -225,6 +234,17 @@ function getCategory(){
     })
     showCategory()
 }
+
+function showSucessMessage() {
+    let successMessage = document.getElementById("success-message");
+    successMessage.classList.remove("hide");
+    setTimeout(() => {
+        successMessage.classList.add("hide");
+        openBoard(); 
+    }, 1000);
+}
+
+
 
 function showCategory(){
     let labelCategory  = document.getElementById('labelCategory');
