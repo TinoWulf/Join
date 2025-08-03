@@ -14,122 +14,108 @@
 
     </header>
     
-    <section>
-    <div class="add-task-overlay-div">
-            <h1 class="add-task-header">Add Task</h1>
-        <div>
-            <div id="add-task-form" >
-                <div class="entire-add-task-content">
-
-                    <div class="input-wrapper">
-                        <label for="title">Title</label>
-                        <div class="input-container">
-                            <input id="taskTitle" class="outline" type="text" name="title" placeholder="Enter a title" required>
-
-                        </div>
+    <section class="main-addtask">
+        <h1 class="add-task-header">Add Task</h1>
+    
+        <div id="add-task-form" class="add-task-form">
+            <div class="add-left-side">
+                <label for="title" class="label-title">
+                    <p>Title <span class="star">*</span></p>
+                    <div class="input-title" id="titleContain">
+                        <input id="taskTitle" class="outline" type="text" name="title" placeholder="Enter a title" required>
                     </div>
-
-
-                    <label for="myInput">Description</label>
-                    <textarea id="taskDescription" class="required outline" class="description-area" id="description" rows="2" cols="20" placeholder="Enter a Description" required></textarea>
-                    
-                    <div class="input-wrapper">
-                        <label for="date">Due date</label>
-                        <div class="input-container">
-                            <input   class="required outline" type="date" id="dueDate" name="date" required />
-                            
-                        </div>
+                    <p class="error-message hide" id="errorTitle">This field is required</p>
+                </label>
+                <label for="description" class="label-textarea">
+                    Description
+                    <div class="input-textarea">
+                        <textarea id="taskDescription" name="description" class="textarea" class="description-area" id="description" rows="5" cols="100" placeholder="Enter a Description"></textarea>
                     </div>
-                </div>
-                <div class="border"></div>
-                <div class="add-left-side">
-
-                    
-                    <label for="myInput">Priority</label>
-                        <div class="button-priority-overlay" id="">
-                            <input type="hidden" name="priority" id="priorityInput" value="" />
-                            <button type="submit"  class="priority-button" id="priorityButtonUrgent" data-priority="urgent">
-                                Urgent
-                                <img class="priority-img img-priority-urgent" src="./assets/icons/urgent.png">
-                            </button>
-                            <button type="submit" class="priority-button medium" id="priorityButtonMedium" data-priority="medium">
-                                Medium
-                                <img class="priority-medium-img" src="./assets/icons/medium.png">
-                            </button>
-                            <button type="submit"  class="priority-button" id="priorityButtonLow" data-priority="low">
-                                low
-                                <img class="priority-img" src="./assets/icons/low.png">
-                            </button>
-                        </div>
-                    <div class="add-task-right-side">
-
-                        <div class="input-wrapper" id="assigned-to">
-                            <label for="myInput">Assigned to</label>
-                             <div class="drop-down-input" onclick="showContainerOnBoard()">
-                                <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
-                                <span onclick="showContainerOnBoard()"><img src="./assets/icons/drop-down.png" alt=""></span>
-                            </div>
-                            <form name="assigned" id="assigned" class="hide container-contact">
-                                
-                                
-                            </form>
-                            <div class="already-assigned" id="alreadyAssigned">
-                               
-                            </div>
-                        </div>
+                </label>
+                <label for="date" class="label-date">
+                    <p>Due date <span class="star">*</span></p>
+                    <div class="input-date" id="dateContain">
+                        <input   class="required outline" type="date" id="dueDate" name="date" required placeholder="dd/mm/yyyy" /> 
+                    </div>
+                    <p class="error-message hide" id="errorDate">This field is required</p>
+                </label>
+            </div>
+            <div class="separator"></div>
+            <div class="add-right-side">
+                <label for="myInput" class="label-priority">
+                    Priority
+                    <div class="button-priority-container" id="">
+                        <input type="hidden" name="priority" id="priorityInput" value="" />
+                        <button type="submit"  class="priority-button" id="priorityButtonUrgent" data-priority="urgent">
+                            Urgent
+                            <img class="priority-img" src="./assets/icons/urgent.png" id="imgUrgent">
+                        </button>
+                        <button type="submit" class="priority-button" id="priorityButtonMedium" data-priority="medium">
+                            Medium
+                            <img class="priority-img" src="./assets/icons/medium.png" id="imgMedium">
+                        </button>
+                        <button type="submit"  class="priority-button" id="priorityButtonLow" data-priority="low">
+                            low
+                            <img class="priority-img" src="./assets/icons/low.png" id="imgLow">
+                        </button>
+                    </div>
+                </label>
+                <label for="myInput" id="assigned-to" class="label-assignto">
+                    Assigned to
+                    <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)">
+                        <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
+                        <span><img src="./assets/icons/drop-down.png" alt=""></span>
+                    </div>
+                    <form name="assigned" id="assigned" class="hide container-contact">
                         
-                        <div class="input-wrapper">
-                        <label for="myInput">Category</label>
-                            <div class="input-container">
-                                <button onclick="" id="category-button">
-                                    <div class="category-div">
-                                    <div>Select contacts to assign</div>
-                                    <img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png">
-                                    </div>
-                                </button>
-                                    <div id="category" class="category">
-
-                                    </div>
-                                <button onclick="" class="input-button"></button>
-                            </div>
-                        </div>
-
-                        <div class="input-wrapper">
-                            <label for="myInput">Subtasks</label>
-                            <div class="drop-down-input">
-                                <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
-                                <span onclick="addSubstask()"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
-                            </div>
-                            <div id="subtaskListEdit">
-
-                            </div>
-                        </div>
                         
-                        <div class="button-div">
-                            <button type="reset" class="Cancel-button outline">
-                                <span class="display">Cancel
-                                    <img class="button-img" src="./assets/icons/iconoir_cancel.png">
-                                </span>
-                            </button>
-                            <button type="submit" class="create-task-button" onclick="getAddTask()">
-                                <span>
-                                    Create Task
-                                    <img class="button-img" src="./assets/icons/check.png">
-                                </span>
-                            </button>
-                        </div>
-                        <div>
-                        <div id="tasks">
-
-                        </div>
+                    </form>
+                    <div class="already-assigned" id="alreadyAssigned">
+                    
                     </div>
-                </div>
-            
-            </form>
+                </label>
+                
+                <label for="myInput" class="label-category" id="labelCategory">
+                    <p>Category <span class="star">*</span></p>
+                    <div class="drop-down-input" onclick="showCategory()" id="categoryContain">
+                        <input type="text" placeholder="Select task category" readonly id="categoryInput">
+                        <span onclick="showCategory()"><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
+                    </div>
+                    <p class="error-message hide" id="errorCat">This field is required</p>
+                    <div id="category" class="category">
+                        <option value="User Story" onclick="showCategory()">User Story</option>
+                        <option value="Technical Task" onclick="showCategory()">Technical Task</option>
+                        <option value="Development" onclick="showCategory()">Developement</option>
+                        <option value="Maketing" onclick="showCategory()">Maketing</option>
+                    </div>
+                </label>
+                <label for="myInput" class="label-subtask">Subtasks
+                    <div class="drop-down-input">
+                        <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
+                        <span onclick="addSubstask()"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                    </div>
+                    <div id="subtaskListEdit">
 
-            <span class="this-list-is-for-test"></span>
-        <div>
-    </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="add-task-form-footer">
+            <p><span class="star">*</span> This field is required</p>
+            <div class="button-footer-container">
+                <button type="reset" class="cancel-button" id="resetButton">Cancel
+                        <img class="button-img" src="./assets/icons/iconoir_cancel.png">
+                </button>
+                <button type="submit" class="create-task-button" onclick="getTaskData()" id="addTask">
+                    Create Task
+                    <img class="button-img" src="./assets/icons/check.png">
+                </button>
+            </div>
+        </div>
+        <div id="taskMessage">
+
+        </div>
+        <span class="this-list-is-for-test"></span>
     </section>
 
     <script type="module" src="./scripts/addtask.js"></script>

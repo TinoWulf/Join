@@ -41,11 +41,15 @@
   }
 
   .main-board,
-  .main-summary {
+  .main-summary, .main-addtask {
     margin-left: 0;
     width: calc(100% - 0px);
     height: 100dvh;
     flex: 1;
+  }
+
+  .main-addtask{
+    margin-bottom: 100px;
   }
   .main-summary {
     display: flex;
