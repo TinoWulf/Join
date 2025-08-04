@@ -134,9 +134,6 @@ function openEditTask(taskId){
 }
 
 
-
-
-
 /**
  * Searches a list of tasks by title, description, and category
  * @param {Array} tasks - Array of task objects
