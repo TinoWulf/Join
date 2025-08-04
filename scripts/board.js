@@ -1,5 +1,5 @@
 import {database,ref,update,get } from "./connection.js";
-import {setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned } from "./edittask.js";
+import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -130,7 +130,6 @@ function openEditTask(taskId){
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
   getAlreadySubtask(task.id);
-  getAlreadyAssigned(task.id);
   applyAssignedToColors();
 }
 
@@ -157,17 +156,20 @@ function searchTasks(tasks, keyword) {
 
 
 function searchParticularTask() {
-  let searchInput = document.getElementById("searchValue").value;
+  let searchInput; // Variable außerhalb deklarieren
+  if (window.innerWidth < 878) {
+    searchInput = document.getElementById("searchValueMobile").value;
+  } else {
+    searchInput = document.getElementById("searchValue").value;
+  }
   let showSearchResult = document.getElementById("containerBoard");
   let resultSearch = searchTasks(tasksList, searchInput);
-  tasksList = [];
   showSearchResult.innerHTML = "";
   for (let taskindex in resultSearch) {
     const task = resultSearch[taskindex];
     if (showSearchResult) {
       showSearchResult.innerHTML += templateTaskCard(task);
       applyAssignedToColors();
-      initiateBoard();
     } else {
       showSearchResult.innerHTML =
         "The Problem occur during the search result or the search result is empty";
