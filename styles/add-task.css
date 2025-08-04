@@ -4,7 +4,7 @@
   margin-top: 90px;
   padding: 10px 0 10px 20px;
   font-size: 20px;
-  background-color: #f6f7f8;
+  /* background-color: #f6f7f8; */
 }
 
 button{
@@ -178,9 +178,16 @@ label, .label-date{
   border: 2px solid var(--white);
 }
 
-.category{
-  padding: 0px 30px;
+.category option{
+  width: 100%;
+    padding: 3px 30px;
 }
+
+.category option:hover{
+  background-color: var(--light-grey-color);
+  border-radius: 10px;
+}
+
 .field-error{
   border: 2px solid #FF8190 !important;
 }

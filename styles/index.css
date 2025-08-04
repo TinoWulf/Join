@@ -1,0 +1,112 @@
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light-grey-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  animation: fadeOutOverlay 1.5s ease-in-out forwards;
+}
+
+#animatedLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 50vh;
+  object-fit: contain;
+  object-position: center;
+  z-index: 1000;
+  animation: logoAnimation 1.5s ease-in-out 0.5s forwards;
+}
+
+#headerLogo {
+  animation: headerLogoFadeIn 1.5s forwards;
+}
+
+@keyframes logoAnimation {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 50vw;
+    height: 50vh;
+  }
+
+  100% {
+    top: 20px;
+    left: 20px;
+    transform: translate(0, 0) scale(1);
+    width: 100px;
+    height: 120px;
+  }
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes headerLogoFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #overlay {
+    background: #2a3647;
+  }
+
+  #animatedLogo {
+    content: url("../assets/img//logo.png");
+  }
+}
+
+@media screen and (max-width: 680px) {
+  #animatedLogo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    object-fit: contain;
+    object-position: center;
+    z-index: 1000;
+    animation: logoAnimationSmallScreen 1.5s ease-in-out 0.5s forwards;
+  }
+}
+
+@keyframes logoAnimationSmallScreen {
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 50vw;
+    height: 50vh;
+  }
+
+  100% {
+    top: 37px;
+    left: 38px;
+    transform: translate(0, 0) scale(1);
+    width: 64px;
+    height: 78px;
+  }
+}
