@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/menu-bar.css">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/responsive.css">
+    <script defer src="./scripts/legacyPolicy.js"></script>
 </head>
 <body>
     <div class="popup-header back" id="popup">
@@ -21,16 +22,16 @@
     <nav class="navbar">
         <img src="./assets/img/logonoir.png" alt="logo mobile" class="logo-mobile">
         <h4 class="help-pc">Kanban Project Management Tool</h4>
-        <ul>
+        <ul id="navLinks">
            <li class="help-pc"><a href="help.html"><img src="./assets/icons/help.png" alt="help icon"></a></li>
             <li><span id="initial-user" onclick="showLogout()">G</span></li>
         </ul>
     </nav>
-    <div class="menu menu-mobile">
+    <div class="menu menu-mobile" >
         <div class="menu-header help-pc">
             <a><img src="./assets/img/logo.png" alt="logo" class="logo"></a>
         </div>
-        <div class="menu-body">
+        <div class="menu-body" id="menuSide">
             <a href="summary.html"><div class="menu-btn" id="summary">
                 <img src="./assets/icons/summary.png" alt="">
                 <p class="menu-p">Summary</p>
@@ -49,11 +50,10 @@
             </div></a>
         </div>
         <div class="menu-footer help-pc">
-            <a href="policy.html"><p class="menu-p on-policy">Privacy Policy</p></a>
-            <a href="notice.html"><p class="menu-p on-notice">Legal notice</p></a>
+            <a href="policy.html" id="privacy"><p class="menu-p on-policy">Privacy Policy</p></a>
+            <a href="notice.html" id="legacy"><p class="menu-p on-notice">Legal notice</p></a>
         </div>
     </div>
-
-
+    
 </body>
 </html>

@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="./styles/notice.css">
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
     <script src="./script.js"></script>
+    <script defer src="./scripts/legacyPolicy.js"></script>
 
 </head>
 
-<body>
+<body onload="callUserData(),notUser()">
     <header id="navbar"></header>
     <div class="policy-body">
         <h1>Terms & Conditions</h1>

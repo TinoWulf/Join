@@ -40,9 +40,11 @@ function getAbbreviation(str) {
  */
 function callUserData(){
   let actualUser = localStorage.getItem("userName");
-  if (actualUser && actualUser !== 'null') {
+  if (actualUser && actualUser !== 'nouser') {
     document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
-  } else {
+  } else if(actualUser=='nouser') {
+    document.getElementById('initial-user').classList.add("hide");
+  }else{
     document.getElementById('initial-user').textContent = 'G';
   }
 }
