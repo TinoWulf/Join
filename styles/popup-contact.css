@@ -236,3 +236,14 @@ input[type="text"] {
     right: 40px;
     top: 5px;
 }
+
+.popup-field-invalid-sub {
+    padding-left: 10px;
+    font-size: 14px;
+    color: rgba(255, 0, 0, 0.546);
+    display: none;
+}
+
+.input-invalid {
+    border: 1px solid rgba(255, 0, 0, 0.546) !important;
+}

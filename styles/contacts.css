@@ -58,9 +58,7 @@ body {
 
 .render-div:hover {
     cursor: pointer;
-    border-style: solid;
-    padding-bottom: 12px;
-    padding-top: 12px;
+    background-color: rgba(0, 0, 0, 0.091) ;
 }
 
 .render-div-initals {
@@ -133,6 +131,21 @@ body {
     border-radius: 3px;
     border-width: 1px;
     border: 1px solid #D1D1D1;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+    animation: slideInRight 0.5s ease-out forwards;
 }
 
 .center-head {
@@ -238,6 +251,7 @@ body {
     line-height: 120%;
     text-align: center;
     vertical-align: middle;
+    color: #FFFFFF;
 }
 
 .center-top-second-div {

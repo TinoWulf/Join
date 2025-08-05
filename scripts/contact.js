@@ -10,40 +10,45 @@ async function fetchData() { // Loads and displays contacts from Firebase
     counter = 0; // Reset color counter
     let contactDiv = document.getElementById("contact-render"); // Get container for rendering contacts
     contactDiv.innerHTML = ""; // Clear old content
+
     try {
         const response = await fetch(baseUrl + "/.json"); // Fetch all data from Firebase
         const contactData = await response.json(); // Parse JSON response
         const usersCode = Object.keys(contactData.contacts); // Get list of contact IDs
-
         for (let index = 0; index < alphabetArray.length; index++) { // Loop through A-Z
-            contactDiv.innerHTML += renderLetterHeader(alphabetArray[index]); // Render letter header
-
-            for (let i = 0; i < usersCode.length; i++) { // Loop through all contacts
-                let userID = usersCode[i]; // Get ID
-                contactArray.push(userID); // Add to array
-                let user = contactData.contacts[userID]; // Get user data
-
-                if (user.name[0] == alphabetArray[index]) { // If name starts with current letter
-                    let parts = user.name.split(" "); // Split name into words
-                    let initials = "";
-                    if (parts.length >= 2) { // If full name exists
-                        initials = parts[0][0].toUpperCase() + parts[1][0].toUpperCase(); // Create initials
+            let currentLetter = alphabetArray[index]; // Get current letter
+            let letterHasMatch = false; // Flag to track if a contact matches this letter
+            let tempHTML = ""; // Temporary container for rendered contacts
+            for (let i = 0; i < usersCode.length; i++) { // Loop through contacts
+                let userID = usersCode[i]; // Get contact ID
+                let user = contactData.contacts[userID]; // Get contact data
+                if (user.name[0].toUpperCase() === currentLetter) { // Check if contact starts with current letter
+                    contactArray.push(userID); // Add to contact array
+                    let parts = user.name.split(" "); // Split name into parts
+                    let initials = ""; // Initialize initials
+                    if (parts.length >= 2) { // If full name is available
+                        initials = parts[0][0].toUpperCase() + parts[1][0].toUpperCase(); // Create initials from first letters of first and last name
                     }
-                    contactDiv.innerHTML += renderContactDiv(initials, colors[counter], user, userID, i); // Render contact div
-                    triggerCounter(); // Update color counter
+                    tempHTML += renderContactDiv(initials, colors[counter], user, userID, i); // Build contact HTML
+                    triggerCounter(); // Increment color counter
+                    letterHasMatch = true; // Set flag if a contact matched
                 }
             }
+            if (letterHasMatch) { // If there are contacts for this letter
+                contactDiv.innerHTML += renderLetterHeader(currentLetter); // Only render letter header if match
+                contactDiv.innerHTML += tempHTML; // Append contacts for this letter
+            }
         }
-        console.log(contactArray); // Debug contact array
     } catch (error) {
         console.error(error); // Log fetch error
     }
 }
 
+
 function triggerCounter() { // Increments color counter
     counter++;
     if (counter == 10) { // Reset after 10
-        counter = 0;
+        counter = 0; // Reset color counter
     }
 }
 
@@ -57,6 +62,9 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
     document.getElementById("center").classList.add("display-show");
     let centerBody = document.getElementById("center-body"); // Get display area
     centerBody.innerHTML = renderContactInfo(initials, color, user, email, phone, userID); // Render contact info
+    centerBody.classList.remove("slide-in"); // Set back slide-in animation
+    void centerBody.offsetWidth; // Force reflow 
+    centerBody.classList.add("slide-in"); // Add class again
 }
 
 function openContactAdd() { // Show add contact popup
@@ -70,6 +78,12 @@ function closeContactAdd() { // Close add contact popup
     document.getElementById("in-name-add").value = "";
     document.getElementById("in-email-add").value = "";
     document.getElementById("in-number-add").value = "";
+    document.getElementById("invalid-name").style.display = "none"; // Hide error messages
+    document.getElementById("invalid-email").style.display = "none";
+    document.getElementById("invalid-phone").style.display = "none";
+    document.getElementById("in-name-add").classList.remove("input-invalid"); // Remove invalid input styles
+    document.getElementById("in-email-add").classList.remove("input-invalid");
+    document.getElementById("in-number-add").classList.remove("input-invalid");
 }
 
 function openEdit(initials, color, user, email, phone, userID) { // Open edit popup
@@ -107,39 +121,79 @@ async function addContact() { // Add new contact
     let userID = Date.now() + getRandomID(100000); // Generate unique ID
 
     if (result) {
-        await finishAddContact(result, userID);
+        await finishAddContact(result, userID); // Save contact
+        clearInputs(); // Clear input fields
     }
-    clearInputs();
 }
 
-function checkInput(nameInput, emailInput, phoneInput) { // Validate input fields
-    const nameParts = nameInput.trim().split(" "); // Split full name
-    const digitsOnly = phoneInput.replace(/\D/g, ""); // Extract digits only
-    if (nameParts.length < 2) {
-        showAlertCheck("Please enter a full first and last name, with a blank line in between.");
-        return null;
+function checkInput(nameInput, emailInput, phoneInput) {
+    const nameParts = nameInput.trim().split(" "); // Split name into parts
+    const digitsOnly = phoneInput.replace(/\D/g, ""); // Remove non-digit characters from phone
+    const nameField = document.getElementById("in-name-add"); // Get input fields
+    const emailField = document.getElementById("in-email-add");
+    const phoneField = document.getElementById("in-number-add");
+    const nameError = document.getElementById("invalid-name"); // Get error elements
+    const emailError = document.getElementById("invalid-email");
+    const phoneError = document.getElementById("invalid-phone");
+    let valid = true; // Flag to track validation
+    if (!validateName(nameParts, nameField, nameError)) valid = false; // Validate name
+if (!validateEmail(emailInput, emailField, emailError)) valid = false; // Validate email
+    if (!validatePhone(digitsOnly, phoneField, phoneError)) valid = false; // Validate phone number
+    if (!valid) return null; // If any validation failed, return null
+    const formattedName = nameParts // Format name to have first letter uppercase and rest lowercase
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()) // Capitalize each part of the name
+        .join(" "); // Join parts back into a full name
+    const formattedPhone = digitsOnly.startsWith("0") // Format phone number to start with +49
+        ? "+49" + digitsOnly.slice(1) // Remove leading zero if present
+        : "+49" + digitsOnly; // Add +49 prefix to phone number
+    return { // Return validated and formatted contact data
+        name: formattedName,
+        email: emailInput,
+        number: formattedPhone
+    };
+}
+
+function validateName(nameParts, inputField, errorElement) {
+    if (nameParts.length < 2) { // Check if name has at least first and last name
+        errorElement.style.display = "block";
+        inputField.classList.add("input-invalid");
+        return false;
+    } else {
+        errorElement.style.display = "none";
+        inputField.classList.remove("input-invalid");
+        return true;
     }
-    if (!emailInput.includes("@")) {
-        showAlertCheck("Please enter a valid email address with @.");
-        return null;
+}
+
+function validateEmail(email, inputField, errorElement) {
+    if (!email.includes("@") || !email.includes(".") || email.length < 6) { // Check if email is valid
+        errorElement.style.display = "block";
+        inputField.classList.add("input-invalid");
+        return false;
+    } else {
+        errorElement.style.display = "none";
+        inputField.classList.remove("input-invalid");
+        return true;
     }
-    if (digitsOnly.length < 8 || digitsOnly.length > 13) {
-        showAlertCheck("The phone number must contain between 8 and 13 digits.");
-        return null;
+}
+
+function validatePhone(phoneDigits, inputField, errorElement) {
+    if (phoneDigits.length < 8 || phoneDigits.length > 13) { // Check if phone number has valid length
+        errorElement.style.display = "block";
+        inputField.classList.add("input-invalid");
+        return false;
+    } else {
+        errorElement.style.display = "none";
+        inputField.classList.remove("input-invalid");
+        return true;
     }
-    const formattedName = nameParts.map(part =>
-        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" "); // Format name
-    const formattedPhone = digitsOnly.startsWith("0")
-        ? "+49" + digitsOnly.slice(1)
-        : "+49" + digitsOnly; // Format phone
-    return { name: formattedName, email: emailInput, number: formattedPhone }; // Return validated data
 }
 
 function getRandomID(max) { // Generate a random unique ID
     let randomID;
     do {
-        randomID = Math.floor(Math.random() * max);
-    } while (contactArray.includes(randomID));
+        randomID = Math.floor(Math.random() * max); // Generate random number
+    } while (contactArray.includes(randomID)); // Ensure it's not already in contactArray
     return randomID;
 }
 
@@ -285,13 +339,13 @@ async function finishSaveContact(result, userID) {
 async function finishAddContact(result, userID) {
     await pushContact(result.name, result.email, result.number, userID); // Push to Firebase
     await fetchData(); // Refresh
-    document.getElementById("popup-add").classList.add("transform");
-    document.getElementById("popup-background").classList.add("none");
+    closeContactAdd(); // Close add popup
     setTimeout(showAlert, 3000);
     document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully created</sub>';
     document.getElementById('alert').classList.toggle('alert-close');
     let centerBody = document.getElementById("center-body");
     centerBody.innerHTML = "";
+
 }
 
 function finishDelete() {
@@ -321,9 +375,9 @@ function closeResponsivContact() {
     document.getElementById("center").classList.remove("display-show");
 }
 
-function activeNavItem(){
-  document.getElementById('board').classList.remove('active');
-  document.getElementById('contacts').classList.add('active');
-  document.getElementById('addtask').classList.remove('active');
-  document.getElementById('summary').classList.remove('active');
+function activeNavItem() {
+    document.getElementById('board').classList.remove('active');
+    document.getElementById('contacts').classList.add('active');
+    document.getElementById('addtask').classList.remove('active');
+    document.getElementById('summary').classList.remove('active');
 }
