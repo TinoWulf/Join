@@ -179,10 +179,12 @@ function templateEditTask(task){
               </div>
               <div id="subtaskListEdit">
               ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
-                `
-                  <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
+                `<div class="subtask-item">
+                    <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
+                  </div>
                 `).join("")
                 : ''
+                
                 }
 
               </div>

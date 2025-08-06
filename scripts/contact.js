@@ -400,3 +400,16 @@ function activeNavItem() {
     document.getElementById('addtask').classList.remove('active');
     document.getElementById('summary').classList.remove('active');
 }
+
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser == 'nouser' ) {
+  window.location.href = `login.html`;
+} else if( actualUser && actualUser !== 'null') {
+  document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  document.getElementById('greetMessage').textContent = getUserExits(currentHour);
+  document.getElementById('userName').textContent = actualUser;
+}else{
+  document.getElementById('initial-user').textContent = 'G';
+  document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
+}

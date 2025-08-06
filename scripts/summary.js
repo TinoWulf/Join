@@ -149,11 +149,13 @@ if (currentUserName && currentUserName.trim() !== '') {
 }
 
 let actualUser = localStorage.getItem("userName");
-if (actualUser && actualUser !== 'null') {
+if (actualUser == 'nouser' ) {
+  window.location.href = `login.html`;
+} else if( actualUser && actualUser !== 'null') {
   document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
   document.getElementById('greetMessage').textContent = getUserExits(currentHour);
   document.getElementById('userName').textContent = actualUser;
-} else {
+}else{
   document.getElementById('initial-user').textContent = 'G';
   document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
 }

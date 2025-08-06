@@ -134,3 +134,9 @@ function showContainerOnBoard(){
     contactBoard.classList.remove("dFlex");
   }
 }
+
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser === 'nouser' ) {
+  window.location.href = `login.html`;
+}

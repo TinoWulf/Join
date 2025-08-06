@@ -151,7 +151,7 @@ async function getEditedTask(taskId, event) {
 
 
 function getEditedSubtask(taskId){
-    const subsTasks = document.querySelectorAll('#subtaskListEdit li');
+    const subsTasks = document.querySelectorAll('#subtaskListEdit subtask-item');
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
