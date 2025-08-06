@@ -16,7 +16,7 @@
 <body>
     
     
-    <main class="main-login hide" id="main-login">
+    <main class="main-login" id="main-login">
         <header class="header" id="header-login">
             <div class="head">
                 <img class="logo" src="./assets/img/logonoir.png" alt="Join Logo">
@@ -39,12 +39,12 @@
                     <p class="error" id="loginErrorCredential"></p>
                     <label for="email" class="form-input" id="label-email">
                         <input type="email" name="email" id="email" placeholder="Email" required>
-                        <span><img src="./assets/icons/mail.png" alt="person"></span>
+                        <span><img src="./assets/icons/mail.svg" alt="person"></span>
                     </label>
                     <p id="error-email" class="error"></p>
                     <label for="password" class="form-input password" id="label-password">
                         <input type="text" name="password" id="password" placeholder="Password" required>
-                        <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
+                        <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.svg" alt="person"></span>
                     </label>
                     <p id="error-message" class="error"></p>
                     <div class="button-overlay">
@@ -68,12 +68,6 @@
             <a href="./notice.html?user=nouser" class="grey-text datenschutz">Legal notice</a>
         </footer>
     </main>
-    
-    <div class="success-message" id="success-message">
-        <div class="success-message-content" id="successSignUpMessage" >
-            You Signed Up successfully!
-        </div>
-    </div>
     <script type="module" src="./scripts/logIn.js"></script>
 </body>
 </html>

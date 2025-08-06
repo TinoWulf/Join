@@ -22,6 +22,10 @@ function notUser() {
                     <p class="menu-p">Login</p>
                 </div>
             </a> 
+            <div class="dflex-row">
+                <a href="policy.html" id="privacy"><p class="menu-p on-policy">Privacy Policy</p></a>
+                <a href="notice.html" id="legacy"><p class="menu-p on-notice">Legal notice</p></a>
+            </div>
         `;
     }else{
         navLinks.classList.remove("hide");

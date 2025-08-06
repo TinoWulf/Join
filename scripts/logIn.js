@@ -180,27 +180,6 @@ function openSummary() {
 }
 
 
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    document.getElementById('overlay').classList.add('hide');
-  }, 1700); 
-  const urlParams = new URLSearchParams(window.location.search);
-  const message = urlParams.get('message');
-  const statusMessageElement = document.getElementById('successSignUpMessage');
-  if (message && statusMessageElement) {
-    setTimeout(() => {
-      statusMessageElement.innerHTML = message;
-      document.getElementById('success-message').classList.toggle('hide');
-    }, 2200); 
-    setTimeout(() => {
-      document.getElementById('main-login').classList.toggle('hide');
-    }, 2500); 
-  }else{
-    document.getElementById('main-login').classList.toggle('hide');
-    document.getElementById('success-message').classList.toggle('hide');
-  }
-});
-
 window.openSummary = openSummary;
 window.togglePassword = togglePassword;
 setupLogin();

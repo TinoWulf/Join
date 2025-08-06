@@ -7,6 +7,7 @@
   --blue: #29abe2;
   --hover-color: #1a252f;
   --light-grey-color: #f6f7f8;
+  --grey-border: #a8a8a8;
   --text-color: #2c3e50;
   --red:#FF001F;
 }
@@ -75,5 +76,9 @@ h1 {
 
 .dFlex{
   display: flex;
+}
+
+.dBlock{
+  display: block !important;
 }
 

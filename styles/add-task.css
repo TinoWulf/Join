@@ -325,8 +325,24 @@ label, .label-date{
     width: 300px;
     height: 70px;
     border-radius: 15px;
+    animation: slideTop 0.5s ease-in-out 1s both, fadeOut 0.5s ease-in-out 4s forwards;
 }
 
+@keyframes slideTop {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-100px); }
+}
 
 @media (max-width: 1000px) {
   .add-task-form{

@@ -128,6 +128,10 @@
   display: none;
 }
 
+.dflex-row{
+  display: none;
+}
+
 .menu {
     height: 100vh;
     width: 232px;

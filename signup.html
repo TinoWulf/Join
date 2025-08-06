@@ -10,15 +10,15 @@
 
 </head>
 <body>
-    <header class="header-signup">
+    <header class="header-signup" id="headerSignup">
         <img src="./assets/img/logonoir.png" alt=" logo noir">
     </header>
-    <main class="main-signup">
+    <main class="main-signup" id="mainSignup">
         
         <section class="form-signup-section">
             <div class="form-header">
                 <a href="./login.html" class="span-link"><span class="hover-img"><img src="./assets/icons/back.png" alt=" back"></span></a>
-                <h2>Sign up
+                <h2 style="text-align: center;">Sign up
                     <hr class="hr-signup">
                 </h2>
                 <span class="bar-signup"></span>
@@ -26,26 +26,25 @@
             <form class="form-signup" id="signupForm">
                 <label for="name" class="form-input">
                     <input type="text" name="name" id="sign-up-name" placeholder="Name" required>
-                    <span><img src="./assets/icons/persongrey.png" alt="person"></span>
-                    
+                    <span><img src="./assets/icons/person.svg" alt="person"></span>
                 </label>
-                <label for="email" class="form-input">
+                <label for="email" class="form-input" id="emailLabel">
                     <input type="text" name="email" id="sign-up-email" placeholder="Email" required>
-                    <span><img src="./assets/icons/mail.png" alt="email"></span>
+                    <span><img src="./assets/icons/mail.svg" alt="email"></span>
                 </label>
-                <p class="error" id="emailError"></p>
+                <p class="error hide" id="emailError"></p>
                 <label for="password" class="form-input password">
                     <input type="text" name="password" id="sign-up-password" placeholder="Password" required autocomplete="off">
-                    <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.png" alt="person"></span>
+                    <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.svg" alt="person"></span>
                 </label>
                 <label for="password2" class="form-input password-confirm">
                     <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" required autocomplete="off">
-                    <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.png" alt="lock"></span>
+                    <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.svg" alt="lock"></span>
                 </label>
-                <p id="error-passord" class="error"></p>
+                <p id="error-passord" class="error hide"></p>
                 <label for="privacy" class="label-privacy">
                     <input type="checkbox" name="privacy" id="acceptPolicy">
-                    <p>I accept <a href="" class="privacy-link">privacy policy</a></p>
+                    <p>I accept <a href="./policy.html?user=nouser" class="privacy-link">privacy policy</a></p>
                 </label>
                 <p id="sign-up-error" class="error"></p>
                 <div class="submit-btn">
@@ -61,8 +60,8 @@
     </div>
     <footer>
         <div class="signup-footer">
-            <a href="./policy.html">Privacy policy</a>
-            <a href="./notice.html">Legal notice</a>
+            <a href="./policy.html?user=nouser">Privacy policy</a>
+            <a href="./notice.html?user=nouser">Legal notice</a>
         </div>
     </footer>
     

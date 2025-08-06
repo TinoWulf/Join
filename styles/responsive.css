@@ -118,6 +118,30 @@
     display: none;
   }
 
+  .dflex-row{
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+  }
+
+  .dflex-row a {
+    padding: 30px 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dflex-row a:hover {
+    background-color: #091931;
+    cursor: pointer;
+  }
+
+  .dflex-row a p {
+    font-size: 12px;
+  }
+
   .menu-body {
     display: flex;
     flex-direction: row;

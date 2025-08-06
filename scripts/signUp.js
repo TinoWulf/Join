@@ -4,7 +4,7 @@ const nameRef = document.getElementById("sign-up-name");
 const emailRef = document.getElementById("sign-up-email");
 const passwordRef = document.getElementById("sign-up-password");
 const confirmPasswordRef = document.getElementById("confirmPassword");
-
+const emailLabel = document.getElementById("emailLabel");
 const acceptPolicyRef = document.getElementById("acceptPolicy");
 const successMessage = document.getElementById("success-message");
 const mainSignup = document.getElementById("main-signup");
@@ -41,8 +41,6 @@ async function signUpUser(email, password, name, acceptedPolicy) {
       acceptedPolicy: acceptedPolicy,
       created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),
     });
-    successMessage.style.display = "block";
-    mainSignup.style.display = "none";
     return user;
   } catch (error) {
     catchError(error);
@@ -59,9 +57,12 @@ async function signUpUser(email, password, name, acceptedPolicy) {
  * @throws Will rethrow the provided error after displaying the appropriate message.
  */
 function catchError(error){
+  emailError.classList.remove("hide");
   if (error.code === 'auth/email-already-in-use') {
       emailError.innerText="This email address is already in use.";
+      emailLabel.classList.add("password-error");
     } else if (error.code === 'auth/invalid-email') {
+      emailLabel.classList.add("password-error");
       emailError.innerText="Invalid email address.";
     } else if (error.code === 'auth/weak-password') {
       signUpError.innerText="Password is too weak. Please choose a stronger password.";
@@ -70,9 +71,21 @@ function catchError(error){
     } else {
       signUpError.innerText="An error occurred. Please try again.";
     }
+    setTimeout(() => {
+      hideErrorMessages();
+    }, 3000);
     throw error;
 }
 
+
+function hideErrorMessages() {
+  emailError.classList.add("hide");
+  emailLabel.classList.remove("password-error");
+  signUpError.classList.add("hide");
+  passwordError.classList.add("hide");
+  passwordOutlineError.classList.remove("password-error");
+  passwordOutlineErrorConfirm.classList.remove("password-error");
+}
 
 /**
  * Sets up the sign-up form submission handler.
@@ -101,13 +114,23 @@ function setupSignUp() {
     try {
       await signUpUser(email, password, name, acceptedPolicy);
       signupForm.reset();
-      const successMessage = encodeURIComponent("You Signed Up successfully!");
-      window.location.href = `login.html?message=${successMessage}`;
+      showSucessMessage()
     } catch (error) {
       catchError(error);
     }
   });
 }
+
+
+function showSucessMessage() {
+    let successMessage = document.getElementById("success-message");
+    successMessage.classList.remove("hide");
+    setTimeout(() => {
+        successMessage.classList.add("hide");
+        window.location.href = `login.html`; 
+    }, 2000);
+}
+
 
 acceptPolicyRef.addEventListener("change", function () {
   signUpBtn.disabled = !acceptPolicyRef.checked;
@@ -141,6 +164,7 @@ function verifyPolicy(acceptedPolicy){
  */
 function verifyPassword(password, confirmPassword) {
   if (password !== confirmPassword) {
+    passwordError.classList.remove("hide");
     passwordError.innerText = "Your passwords don't match. Please try again.";
     passwordOutlineError.classList.add("password-error");
     passwordOutlineErrorConfirm.classList.add("password-error");
