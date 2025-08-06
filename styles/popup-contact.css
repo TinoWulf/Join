@@ -21,8 +21,34 @@
     display: none;
 }
 
-.transform {
-    transform: translateX(100%);
+@keyframes slideInRight {
+  from {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(200%);
+    opacity: 0;
+  }
+}
+
+.slide-in {
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+.slide-out {
+    animation: slideOutRight 0.5s ease-out forwards;
 }
 
 .popup-main {

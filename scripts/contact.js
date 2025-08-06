@@ -59,7 +59,9 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
     }
     document.getElementById(`render-div${i}`).classList.add("render-div-hover"); // Highlight current
     activeContactIndex = i; // Store active index
-    document.getElementById("center").classList.add("display-show");
+    if (window.matchMedia("(max-width: 876px)").matches) {
+        showResponsivContact(); // If on mobile, show responsive contact view
+    }
     let centerBody = document.getElementById("center-body"); // Get display area
     centerBody.innerHTML = renderContactInfo(initials, color, user, email, phone, userID); // Render contact info
     centerBody.classList.remove("slide-in"); // Set back slide-in animation
@@ -68,19 +70,20 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
 }
 
 function openContactAdd() { // Show add contact popup
-    document.getElementById("popup-background").classList.remove("none");
-    document.getElementById("popup-add").classList.remove("transform");
+    document.getElementById("popup-add").classList.remove("slide-out");
+    document.getElementById("popup-background").style.display = "flex";
+    document.getElementById("popup-add").style.display = "flex";
+    document.getElementById("popup-add").classList.add("slide-in"); // Show popup with slide-in animation
 }
 
 function closeContactAdd() { // Close add contact popup
-    document.getElementById("popup-add").classList.add("transform");
-    document.getElementById("popup-background").classList.add("none");
-    document.getElementById("in-name-add").value = "";
-    document.getElementById("in-email-add").value = "";
-    document.getElementById("in-number-add").value = "";
-    document.getElementById("invalid-name").style.display = "none"; // Hide error messages
-    document.getElementById("invalid-email").style.display = "none";
-    document.getElementById("invalid-phone").style.display = "none";
+    document.getElementById("popup-add").classList.remove("slide-in");
+    document.getElementById("popup-add").classList.add("slide-out");
+    document.getElementById("popup-background").style.display = "none";
+    clearInputs(); // Clear input fields
+    document.getElementById("invalid-name-add").style.display = "none"; // Hide error messages
+    document.getElementById("invalid-email-add").style.display = "none";
+    document.getElementById("invalid-phone-add").style.display = "none";
     document.getElementById("in-name-add").classList.remove("input-invalid"); // Remove invalid input styles
     document.getElementById("in-email-add").classList.remove("input-invalid");
     document.getElementById("in-number-add").classList.remove("input-invalid");
@@ -88,15 +91,20 @@ function closeContactAdd() { // Close add contact popup
 
 function openEdit(initials, color, user, email, phone, userID) { // Open edit popup
     let popupEdit = document.getElementById("popup-edit");
-    popupEdit.innerHTML = renderOpenEdit(color, initials, userID); // Set HTML content for edit popup
-    document.getElementById("popup-edit").classList.remove("none"); // Show popup
+    popupEdit.innerHTML = renderOpenEdit(color, initials, userID);// Set HTML content for edit popup
+    document.getElementById("popup-edit").classList.remove("slide-out");
+    document.getElementById("popup-background").style.display = "flex";
+    document.getElementById("popup-edit").style.display = "flex";
+    document.getElementById("popup-edit").classList.add("slide-in");
     document.getElementById("in-name-edit").value = user; // Prefill inputs
     document.getElementById("in-email-edit").value = email;
     document.getElementById("in-number-edit").value = phone;
 }
 
 function closeEdit() { // Close edit popup
-    document.getElementById("popup-edit").classList.add("none");
+    document.getElementById("popup-edit").classList.remove("slide-in");
+    document.getElementById("popup-edit").classList.add("slide-out");
+    document.getElementById("popup-background").style.display = "none";
     document.getElementById("in-name-edit").value = ""; // Clear inputs
     document.getElementById("in-email-edit").value = "";
     document.getElementById("in-number-edit").value = "";
@@ -106,7 +114,7 @@ async function saveContact(userID) { // Save edited contact
     const name = document.getElementById("in-name-edit").value;
     const email = document.getElementById("in-email-edit").value;
     const number = document.getElementById("in-number-edit").value;
-    const result = checkInput(name, email, number); // Validate input
+    const result = checkInput(name, email, number, "edit"); // Validate input
 
     if (result) {
         await finishSaveContact(result, userID);
@@ -117,7 +125,7 @@ async function addContact() { // Add new contact
     const name = document.getElementById("in-name-add").value;
     const email = document.getElementById("in-email-add").value;
     const number = document.getElementById("in-number-add").value;
-    const result = checkInput(name, email, number); // Validate input
+    const result = checkInput(name, email, number, "add"); // Validate input
     let userID = Date.now() + getRandomID(100000); // Generate unique ID
 
     if (result) {
@@ -126,19 +134,19 @@ async function addContact() { // Add new contact
     }
 }
 
-function checkInput(nameInput, emailInput, phoneInput) {
+function checkInput(nameInput, emailInput, phoneInput, int) {
     const nameParts = nameInput.trim().split(" "); // Split name into parts
     const digitsOnly = phoneInput.replace(/\D/g, ""); // Remove non-digit characters from phone
-    const nameField = document.getElementById("in-name-add"); // Get input fields
-    const emailField = document.getElementById("in-email-add");
-    const phoneField = document.getElementById("in-number-add");
-    const nameError = document.getElementById("invalid-name"); // Get error elements
-    const emailError = document.getElementById("invalid-email");
-    const phoneError = document.getElementById("invalid-phone");
+    const nameField = document.getElementById(`in-name-${int}`); // Get input fields
+    const emailField = document.getElementById(`in-email-${int}`); // Get email input field
+    const phoneField = document.getElementById(`in-number-${int}`); // Get phone input field
+    const nameError = document.getElementById(`invalid-name-${int}`); // Get error elements
+    const emailError = document.getElementById(`invalid-email-${int}`);
+    const phoneError = document.getElementById(`invalid-phone-${int}`);
     let valid = true; // Flag to track validation
     if (!validateName(nameParts, nameField, nameError)) valid = false; // Validate name
-if (!validateEmail(emailInput, emailField, emailError)) valid = false; // Validate email
-    if (!validatePhone(digitsOnly, phoneField, phoneError)) valid = false; // Validate phone number
+    if (!validateEmail(emailInput, emailField, emailError, int)) valid = false; // Validate email
+    if (!validatePhone(digitsOnly, phoneField, phoneError, int)) valid = false; // Validate phone number
     if (!valid) return null; // If any validation failed, return null
     const formattedName = nameParts // Format name to have first letter uppercase and rest lowercase
         .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()) // Capitalize each part of the name
@@ -310,12 +318,15 @@ function renderOpenEdit(color, initials, userID) {
             <div class="popup-field">
                 <div class="popup-field-name">
                     <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-name-edit"> Invalid name, please enter a full first and last name.</sub>
                 </div>
                 <div class="popup-field-email">
                     <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-email-edit"> Please enter a valid email address.</sub>
                 </div>
                 <div class="popup-field-phone">
                     <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-phone-edit"> The phone number must contain between 8 and 13 digits.</sub>
                 </div>
             </div>
             <div class="popup-buttons">
@@ -328,7 +339,7 @@ function renderOpenEdit(color, initials, userID) {
 async function finishSaveContact(result, userID) {
     await pushContact(result.name, result.email, result.number, userID); // Save to Firebase
     await fetchData(); // Refresh contact list
-    document.getElementById("popup-edit").classList.add("none"); // Close popup
+    closeEdit(); // Close edit popup
     setTimeout(showAlert, 3000); // Show success alert and set timeout for 3 sekonds
     document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully saved</sub>';
     document.getElementById('alert').classList.toggle('alert-close');
@@ -372,7 +383,15 @@ function clearInputs() {
 }
 
 function closeResponsivContact() {
-    document.getElementById("center").classList.remove("display-show");
+    let popup = document.getElementById("center");
+    popup.classList.remove("center"); // Remove slide-in animation
+    popup.classList.add("center-out"); // Add slide-out animation
+}
+
+function showResponsivContact() {
+    document.getElementById("center").classList.remove("center-out"); // Remove slide-out animation
+    document.getElementById("center").classList.add("center");
+    document.getElementById("center").style.display = "block";
 }
 
 function activeNavItem() {

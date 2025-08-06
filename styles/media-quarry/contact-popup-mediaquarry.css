@@ -1,10 +1,17 @@
 @media (max-width: 876px) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     .popup-main {
+        position: fixed;
         flex-direction: column;
         width: 80%;
         height: 95vh;
         border-radius: 20px;
         flex-wrap: nowrap;
+        z-index: 9999;
     }
 
     .popup-banner {
@@ -20,7 +27,9 @@
     }
 
     .popup-close-btn-div {
-        display: none;
+        z-index: 1000;
+        position: relative;
+        top: 0;
     }
 
     .popup-close-btn {
@@ -92,6 +101,9 @@
     .popup-field-email,
     .popup-field-phone {
         width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .popup-field-name-input,
@@ -111,10 +123,15 @@
     }
 
     .popup-buttons {
-        position:static;
-        width: 202px;
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
         margin: 20px;
         z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .popup-btn-cancel {
@@ -161,16 +178,6 @@
 
     .popup-contact-div {
         left: 35%;
-    }
-
-    .popup-buttons {
-        left: -62vw;
-        width: 160px;
-        height: 40px;
-    }
-
-    .popup-btn-save {
-        width: 211px;
     }
 }
 

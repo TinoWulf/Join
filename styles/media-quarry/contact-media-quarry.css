@@ -223,6 +223,18 @@
 }
 
 @media (max-width: 876px) {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     .contacts {
         width: 100%;
         left: 0;
@@ -280,13 +292,50 @@
         width: 500px;
     }
 
+    @keyframes slideInRight {
+        from {
+            transform: translateX(200%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        to {
+            transform: translateX(200%);
+            opacity: 0;
+        }
+    }
+
     .center {
+        animation: slideInRight 0.5s ease-out forwards;
         background-color: #F6F7F8;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 176px);
         width: 100%;
         z-index: 10;
-        transform: translateX(-100%);
-        transition: 500ms;
+        position: relative;
+        top: 96px;
+        display: none;
+    }
+
+    .center-out {
+        animation: slideOutRight 0.5s ease-out forwards;
+        background-color: #F6F7F8;
+        height: calc(100vh - 176px);
+        width: 100%;
+        z-index: 10;
+        position: relative;
+        top: 96px;
+        display: none;
     }
 
     .center-head {
@@ -294,7 +343,7 @@
         width: 213px;
         height: 104px;
         opacity: 1;
-        top: 128px;
+        top: 0;
         left: 50px;
         gap: 8px;
         display: flex;
@@ -324,30 +373,23 @@
 
     .center-body {
         position: relative;
-        top: 200px;
+        top: 80px;
         left: 50px;
-        width: 452px;
+        width: 100%;
+        max-width: 452px;
         height: 364px;
         opacity: 1;
         gap: 21px;
         display: flex;
         flex-direction: column;
-    }
-
-    body {
-        overflow-x: hidden;
-    }
-
-    .display-show {
-        transform: translateX(0);
-        transition: 500ms;
+        animation: none;
     }
 
     .responsive-back-btn {
         position: absolute;
         height: 45px;
         width: 45px;
-        top: 150px;
+        top: 30px;
         right: 25px;
         display: flex;
         border-radius: 50%;
@@ -412,7 +454,6 @@
         width: 213px;
         height: 104px;
         opacity: 1;
-        top: 128px;
         left: 16px;
         gap: 8px;
         display: flex;
@@ -423,7 +464,6 @@
 
     .center-body {
         position: relative;
-        top: 200px;
         left: 16px;
         width: 452px;
         height: 364px;
