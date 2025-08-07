@@ -14,32 +14,56 @@ function startDragging(id) {
   currentDraggedTask = id;
 }
 
-
+/**
+ * @async
+ * Renders a contact list for the task board.
+ */
 async function getUser(){
-  let contactBoard = document.getElementById("assigned");
   try{ 
-    const response = await fetch(dataBaseURL + "/.json"); 
-    const contactData = await response.json(); 
-    const contactIdList = Object.keys(contactData.contacts);
-    contactList = [];
-    for(let index=0; index <contactIdList.length; index++){
-      let contactID = contactIdList[index];
-      let contact = contactData.contacts[contactID];
-      contactList.push(contact);
-      contactBoard.innerHTML += templateRenderContactOnBord(contact);
-      applyAssignedToColorSpan();
-    }
+    await fetchContacts();
   }
   catch(error){
-    throw new Error("Failled to connect to the database"+ error);
+    openErrorPage();
   }
 }
 
+/**
+ * Fetches contacts from the database, updates the contact list, 
+ * renders each contact on the board, and applies color styling to assigned elements.
+ * 
+ * @async
+ * @function fetchContacts
+ * @returns {Promise<void>} Resolves when contacts are fetched and rendered.
+ */
+async function fetchContacts() {
+  let contactBoard = document.getElementById("assigned");
+  const response = await fetch(dataBaseURL + "/.json"); 
+  const contactData = await response.json(); 
+  const contactIdList = Object.keys(contactData.contacts);
+  contactList = [];
+  for(let index=0; index <contactIdList.length; index++){
+    let contactID = contactIdList[index];
+    let contact = contactData.contacts[contactID];
+    contactList.push(contact);
+    contactBoard.innerHTML += templateRenderContactOnBord(contact);
+    applyAssignedToColorSpan();
+  }
+}
+
+
+/**
+ * open the Board page with location.href
+ */
 function openAddTask(){
   document.location.href ="add-task.html";
 }
 
 
+/**
+ * finds the Task by Id and delete the task from the database.
+ * @param {number} taskId task ID to be deleted
+ * @param {Event} event The event object associated with the click event.
+ */
 async function deleteTask(taskId, event) {
   try {
     const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
@@ -48,11 +72,9 @@ async function deleteTask(taskId, event) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log(" Task deleted");
     initiateBoard(); // Refresh
   } catch (error) {
-    console.error("Delete task error:", error);
-    alert("Error deleting this task");
+    openErrorPage();
   }
   closePopUp(event);
 }
@@ -98,6 +120,11 @@ function highlight(id) {
 }
 
 
+/**
+ * 
+ * @param {boolean} startDragged 
+ * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where is being dragged.
+ */
 function moveToHover(startDragged, id){
   if(startDragged){
     highlight(id);
@@ -106,6 +133,10 @@ function moveToHover(startDragged, id){
 }
 
 
+/**
+ * 
+ * @returns {string} A string representing a placeholder task element.
+ */
 function showPlaceholderTask(){
   return `
     <div class="placeholderTask">
@@ -113,6 +144,7 @@ function showPlaceholderTask(){
     </div>
   `;
 }
+
 
 /**
  * Removes the highlight from a drop area by removing a CSS class.
@@ -123,6 +155,10 @@ function removeHighlight(id) {
 }
 
 
+/**
+ * open the contaier of the assigned contacts input to show this in the board for editing or adding tasks.
+ * Toggles the visibility of the assigned contacts container by adding or removing classes.
+ */
 function showContainerOnBoard(){
   let contactBoard = document.getElementById("assigned");
   if (contactBoard.classList.contains("hide")) {

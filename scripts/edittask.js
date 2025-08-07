@@ -134,15 +134,18 @@ async function getEditedTask(taskId, event) {
         assignedTo: alreadyAssigned.concat(newAssignedTo),
         subtasks: subtasklistItem.concat(newSubtasks)
     };
+    await updateTaskInDatabase(updatedTaskData, taskId);
+    closePopUp(event);
+}
+
+
+async function updateTaskInDatabase(updatedTaskData, taskId) {
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
         await update(taskRef, updatedTaskData);
-        console.log(updatedTaskData);
         initiateBoard();
-        closePopUp(event);
-        console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {
-        console.error("Error updating task:", error);
+        openErrorPage();
     }
     subtasklistItem = [];
     alreadyAssigned = [];
@@ -160,10 +163,14 @@ function getEditedSubtask(taskId){
             const subtaskContent = subtask.textContent;
             subtask.innerHTML = "";
             subtask.innerHTML = `
-            <label class="label-subtask-edit">
-                <input type="text" value="${subtaskContent}" focus />
-                <span class="img-edit"> <img onclick="deleteSubtaskInEdited(${taskId})" src="./assets/icons/delete.png"/> <img onclick='modifySubtaskInEdited("${subtaskContent}")' src="./assets/icons/edit.png"/> </span>
-            </label>
+            <div class="subtask-item">
+                <input type="text" placeholder="Find Task" id="searchValue" />
+                <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${subtask.dataset.index})">
+                    <img src="./img/search.png" alt="search icon" />
+                <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskContent}')">
+                    <img src="./img/search.png" alt="search icon" />
+                </span>
+            </div>
             `;
         })
     })
@@ -182,8 +189,6 @@ function modifySubtaskInEdited(subtaskContent){
         console.log(true);
 
     }
-
-
 }
 
 function deleteSubtaskInEdited(taskId,index){

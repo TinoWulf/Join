@@ -40,10 +40,10 @@ function getAbbreviation(str) {
  */
 function callUserData(){
   let actualUser = localStorage.getItem("userName");
-  if (actualUser && actualUser !== 'nouser') {
-    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
-  } else if(actualUser=='nouser') {
+  if (actualUser === 'nouser') {
     document.getElementById('initial-user').classList.add("hide");
+  } else if( actualUser && actualUser !== 'null') {
+    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
   }else{
     document.getElementById('initial-user').textContent = 'G';
   }
@@ -51,9 +51,16 @@ function callUserData(){
 
 
 /**
+ * open the Error page with location.href
+ */
+function openErrorPage() {
+  window.location.href = "error.html";
+}
+
+
+/**
  * open the Board page with location.href
  */
-
 function openBoard() {
   window.location.href = "board.html";
 }

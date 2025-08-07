@@ -1,25 +1,33 @@
-import{database,ref, onValue, auth, signInWithEmailAndPassword} from './connection.js'
-
+import{database,ref, get, auth, signInWithEmailAndPassword} from './connection.js'
 let loginError = document.getElementById('error-message');
 let loginEmailRef = document.getElementById('email');
 let loginPasswordRef = document.getElementById('password');
 const inputEmail = document.getElementById('label-email');
 const inputPassword = document.getElementById('label-password');
+const passwordField = document.getElementById("password");
+const toggleIcon = document.getElementById("eyePassword");
+let realValue = ""; 
+let isVisible = false;
 let userName = "";
 
 
+/**
+ * signs in a user with the provided email and password. Using Firebase Authentication,
+ * @async
+ * @param {string} email  user email adress
+ * @param {*string} password user password
+ */
 async function loginUser(email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    findUserWithId(user.uid)
+    findUserWithId(user.uid);
   } catch (error) {
-    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-      loginError.innerText = "Invalid email or password.";
+    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+      showErrorLogin(loginError, inputPassword,inputEmail );
     } else {
-      console.error("Error logging in:", error.message);
+      openErrorPage();
     }
-    throw error;
   }
 }
 
@@ -27,14 +35,8 @@ async function loginUser(email, password) {
 /**
  * Sets up the login form submission handler.
  * Prevents default form submission, retrieves user credentials,
- * attempts to log in the user, and handles errors by displaying
- * appropriate messages.
- *
- * Assumes the existence of:
- * - loginEmailRef: Reference to the email input element.
- * - loginPasswordRef: Reference to the password input element.
- * - loginUser(email: string, password: string): Promise<void> function for authentication.
- * - loginError: Element to display error messages.
+ * and attempts to log in the user.
+ * If an error occurs, it opens the error page.
  */
 function setupLogin() {
   const loginForm = document.getElementById("loginform");
@@ -45,13 +47,8 @@ function setupLogin() {
     const password = loginPasswordRef.value;
     try {
       await loginUser(email, password);
-      loginForm.reset();
     } catch (e) {
-      if(e.code == "auth/invalid-credential" || e.code === 'auth/user-not-found'){
-        showErrorLogin(loginError, inputPassword,inputEmail );
-      }else{
-        loginError.innerText= e.message;
-      }
+     openErrorPage();
     }
   });
 }
@@ -76,12 +73,6 @@ function showErrorLogin(loginError,inputPassword,inputEmail){
     }, 2000);
 }
 
-
-
-const passwordField = document.getElementById("password");
-const toggleIcon = document.getElementById("eyePassword");
-let realValue = ""; 
-let isVisible = false;
 
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
@@ -132,22 +123,21 @@ passwordField.addEventListener("input", (e) => {
  * @description
  * Listens for changes to the user data at the specified user ID path in the database.
  * If the user exists, extracts the user's name and calls `openSummaryPara` with it.
- * Logs an error message if the user is not found or if there is an error retrieving the user.
  */
 async function findUserWithId(userId){
-  const usersRef = ref(database, "users/" + userId);
-  onValue(usersRef, (snapshot) => {
+  const userRef = ref(database, "users/" + userId);
+ try {
+    const snapshot = await get(userRef);
     if (snapshot.exists()) {
-      const user = snapshot.val();
-      userName = user.name;
-      openSummaryPara(userName)
+      const user = snapshot.val(); 
+      userName= user.name; 
+      openSummaryPara(userName); 
     } else {
-      console.log("No user found with ID:", userId);
+      return null; 
     }
-  }, (error) => {
-    console.error("Error retrieving user:", error);
+  } catch (error) {
+    openErrorPage();
   }
-  );
 }
 
 
@@ -159,6 +149,7 @@ async function findUserWithId(userId){
 function openSummaryPara(name) {
   window.location.href = `summary.html?name=${name} `;
 }
+
 
 /**
  * Redirects the user to the summary page after handling localStorage.
@@ -177,6 +168,14 @@ function openSummary() {
     localStorage.clear();
     return window.location.href = "summary.html";
   }
+}
+
+
+/**
+ * open the Error page with location.href
+ */
+function openErrorPage() {
+  window.location.href = "error.html";
 }
 
 

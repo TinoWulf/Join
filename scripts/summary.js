@@ -7,10 +7,11 @@ import { getAbbreviation} from "./board.js";
 
 /**
  * Stores the list of tasks retrieved from the database.
- * @type {Array}
+ * @type {Array} Stores the list of tasks retrieved from the database.
+ * @type {Object} Stores the number of tasks retrieved from the database in different categories.
  */
 let tasksList = [];
-
+let allNummer = {};
 
 /**
  * Fetches all tasks from the Firebase database, updates the global tasksList,
@@ -29,18 +30,24 @@ async function getAllTasksSummary() {
     const tasks = snapshot.val();
     tasksList = Object.values(tasks); 
     getNearestTask(tasksList);
-    const {
-      tasksNumber,doneTasksNumber,inProgressTasksNumber,toDoTasksNumber,awaitReviewTasksNumber
-    } = getAllNumber(tasksList);
-    document.getElementById("totalTasks").innerText = tasksNumber;
-    document.getElementById("doneTasks").innerText = doneTasksNumber;
-    document.getElementById("tasksInProgress").innerText = inProgressTasksNumber;
-    document.getElementById("toDoTasks").innerText = toDoTasksNumber;
-    document.getElementById("tasksAwaitFeedbacks").innerText = awaitReviewTasksNumber;
+    allNummer = getAllNumber(tasksList);
+    getNumberInSummary(allNummer);
     document.getElementById("urgentTasks").innerText = tasksList.filter(task => task.priority == "urgent").length;
   } catch (error) {
-    console.error("Error retrieving tasks:", error);
+    openErrorPage();
   }
+}
+/**
+ * This function updates the inner text of various elements in the summary section and updates the DOM elements with the respective counts.
+ * @param {Object} allNummer An object containing the total number of tasks and the count for each category.
+ */
+
+function getNumberInSummary(allNummer){
+  document.getElementById("totalTasks").innerText = allNummer.tasksNumber;
+  document.getElementById("doneTasks").innerText = allNummer.doneTasksNumber;
+  document.getElementById("tasksInProgress").innerText = allNummer.inProgressTasksNumber;
+  document.getElementById("toDoTasks").innerText = allNummer.toDoTasksNumber;
+  document.getElementById("tasksAwaitFeedbacks").innerText = allNummer.awaitReviewTasksNumber;
 }
 
 
@@ -178,3 +185,9 @@ function activeNavItem(){
  */
 getAllTasksSummary();
 activeNavItem();
+
+export{capitalizeName, getUserExits, getGuestUser, activeNavItem};
+
+window.getGuestUser = getGuestUser;
+window.getUserExits = getUserExits;
+window.activeNavItem = activeNavItem;

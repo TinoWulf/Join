@@ -311,13 +311,14 @@ function insertInProgressTask(task) {
  * Depends on a function `getAbbreviation` to generate initials from the username.
  * Updates the element with id 'initial-user'.
  */
-function callUserData() {
+function callUserData(){
   let actualUser = localStorage.getItem("userName");
-  if (actualUser && actualUser !== "null") {
-    document.getElementById("initial-user").textContent =
-      getAbbreviation(actualUser);
-  } else {
-    document.getElementById("initial-user").textContent = "G";
+  if (actualUser === 'nouser') {
+    document.getElementById('initial-user').classList.add("hide");
+  } else if( actualUser && actualUser !== 'null') {
+    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  }else{
+    document.getElementById('initial-user').textContent = 'G';
   }
 }
 
