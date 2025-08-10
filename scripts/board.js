@@ -127,6 +127,7 @@ function openEditTask(taskId){
   let taskCardParentEdit = document.getElementById("taskCardParent");
   taskCardParentEdit.innerHTML = "";
   const task = tasksList.find((task) => task.id === taskId);
+  fetchContacts(taskId);
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
   getAlreadySubtask(task.id);

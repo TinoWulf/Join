@@ -14,42 +14,6 @@ function startDragging(id) {
   currentDraggedTask = id;
 }
 
-/**
- * @async
- * Renders a contact list for the task board.
- */
-async function getUser(){
-  try{ 
-    await fetchContacts();
-  }
-  catch(error){
-    openErrorPage();
-  }
-}
-
-/**
- * Fetches contacts from the database, updates the contact list, 
- * renders each contact on the board, and applies color styling to assigned elements.
- * 
- * @async
- * @function fetchContacts
- * @returns {Promise<void>} Resolves when contacts are fetched and rendered.
- */
-async function fetchContacts() {
-  let contactBoard = document.getElementById("assigned");
-  const response = await fetch(dataBaseURL + "/.json"); 
-  const contactData = await response.json(); 
-  const contactIdList = Object.keys(contactData.contacts);
-  contactList = [];
-  for(let index=0; index <contactIdList.length; index++){
-    let contactID = contactIdList[index];
-    let contact = contactData.contacts[contactID];
-    contactList.push(contact);
-    contactBoard.innerHTML += templateRenderContactOnBord(contact);
-    applyAssignedToColorSpan();
-  }
-}
-
 
 /**
  * open the Board page with location.href
@@ -159,12 +123,12 @@ function removeHighlight(id) {
  * open the contaier of the assigned contacts input to show this in the board for editing or adding tasks.
  * Toggles the visibility of the assigned contacts container by adding or removing classes.
  */
-function showContainerOnBoard(){
+function showContainerOnBoard(taskId) {
   let contactBoard = document.getElementById("assigned");
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
     contactBoard.classList.add("dFlex");
-    getUser();
+    getUser(taskId);
   } else {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");

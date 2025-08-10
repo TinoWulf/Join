@@ -159,13 +159,11 @@ function renderError() {
         errorTitle.classList.remove('hide');
         hasError = true;
     }
-
     if (!dueDateInput.value.trim()) {
         dueDateInput.classList.add('field-error');
         errorDate.classList.remove("hide");
         hasError = true;
     }
-
     if (!categoryInput.value.trim()) {
         categoryContain.classList.add('field-error');
         errorCat.classList.remove('hide');
@@ -196,9 +194,7 @@ async function getAddTask(taskData) {
     try {
         if(renderError()){
            await set(taskRef, taskData);
-            console.log(taskData);
             showSucessMessage() 
-        console.log(`Task with ID ${taskData.id} updated successfully!`);
         }else{
             console.log("you got a probleme during add task")
         }
@@ -236,7 +232,7 @@ function getCategory(){
 }
 
 function showSucessMessage() {
-    let successMessage = document.getElementById("success-message");
+    let successMessage = document.getElementById("successMessageTask");
     successMessage.classList.remove("hide");
     setTimeout(() => {
         successMessage.classList.add("hide");
