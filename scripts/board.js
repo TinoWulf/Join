@@ -86,6 +86,11 @@ function applyAssignedToColorSpan(){
     const color = letterColors[firstLetter] || "#000";
     alreadyAssigned.style.backgroundColor = color;
   });
+  document.querySelectorAll(".assigned-contact span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
 }
 
 
@@ -371,7 +376,7 @@ function initiateBoard() {
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority, applyAssignedToColorSpan};
 
 
 window.initiateBoard = initiateBoard;

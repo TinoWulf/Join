@@ -143,10 +143,10 @@ function renderAssignedUsers() {
     alreadyAssignedContainer.innerHTML = '';
     for(let i=0; i<alreadyAssigned.length; i++) {
         const assignedTo = alreadyAssigned[i];
-        alreadyAssignedContainer.innerHTML += 
-           `<span>${getAbbreviation(assignedTo.name)}</span>`;        
+        alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;        
     }
 }
+
 
 
 function addSubstask(){
@@ -255,7 +255,7 @@ function deleteSubtaskInEdited(taskId,index){
 }
 
 
-export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned };
+export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers };
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;

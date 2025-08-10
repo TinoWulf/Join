@@ -123,7 +123,7 @@ function donePlaceholderTemplate(){
 
 function templateEditTask(task){
   return `
-     <div class="editTaskPopup">
+     <div class="editTaskPopup" onclick="preventEvent(event)">
             <div class="taskCard-header">
               <spa class="taskType"></spa>
               <img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/>
@@ -157,9 +157,9 @@ function templateEditTask(task){
           </label>
           <label for="assigned" id="assigned-to" class="label-assign">
               Assigned to
-              <div class="drop-down-input" onclick="showContainerOnBoard(${task.id})">
+              <div class="drop-down-input" onclick="showContainerOnBoard(${task.id}, event)">
                 <input name="assigned" id="assignedTo" value="Select contacts to assign" readonly/>
-                <span onclick="showContainerOnBoard(${task.id})"><img src="./assets/icons/drop-down.png" alt=""></span>
+                <span onclick="showContainerOnBoard(${task.id}, event)"><img src="./assets/icons/drop-down.png" alt=""></span>
               </div>
               <form name="assigned" id="assigned" class="hide container-contact">
                 

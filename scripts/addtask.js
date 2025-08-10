@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 import {set, ref, database} from "./connection.js";
+import {applyAssignedToColorSpan, getAbbreviation} from "./board.js";
 import {templateRenderContactOnBord } from "./templates.js";
+let alreadyAssignedContainer = document.getElementById("assignedContact");
 
 const taskTitleInput = document.getElementById('taskTitle');
 const taskDescriptionInput = document.getElementById('taskDescription');
@@ -103,9 +105,19 @@ function getAssignedContactById(id){
             const index = assignedToList.indexOf(newContact);
             assignedToList.splice(index, 1);
         }
+        renderAssignedUsers();
     })
-
     return assignedToList;
+}
+
+
+function renderAssignedUsers() {
+    alreadyAssignedContainer.innerHTML = '';
+    for(let i=0; i<assignedToList.length; i++) {
+        const assignedTo = assignedToList[i];
+        alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;        
+    }
+    applyAssignedToColorSpan();
 }
 
 

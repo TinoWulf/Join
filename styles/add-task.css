@@ -90,13 +90,13 @@ label, .label-date{
 }
 
 .label-date input[type="date"]::-webkit-calendar-picker-indicator{
-    background-image: url('../assets/icons/event.png');
-    transform: scale(1.5);
+  background-image: url('../assets/icons/event.png');
+  transform: scale(1.5);
 }
 
 .separator{
-    height: 424px;
-    border: 1px solid var(--primary-color);
+  height: 424px;
+  border: 1px solid var(--primary-color);
 }
 
 
@@ -180,7 +180,7 @@ label, .label-date{
 
 .category option{
   width: 100%;
-    padding: 3px 30px;
+  padding: 3px 30px;
 }
 
 .category option:hover{
@@ -240,6 +240,36 @@ label, .label-date{
 .star{
   color: rgb(255, 61, 0);
 }
+
+.assigned-contact{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 40px;
+  max-height: auto;
+}
+
+.assigned-contact span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--white);
+  background-color: var(--blue);
+  padding: 5px 10px;
+  border-radius: 50px;
+  margin-left: -5px;
+  border: 2px solid var(--white);
+}
+
 .urgent {
   background-color: rgb(255, 61, 0) !important;
   color: white;
@@ -307,25 +337,26 @@ label, .label-date{
 .success-message{
   position: fixed;
   background: rgba(24, 30, 63, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
 }
 
 .success-message-content{
-    position: absolute ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: var(--light-grey-color);
-    width: 300px;
-    height: 70px;
-    border-radius: 15px;
-    animation: slideTop 0.5s ease-in-out 1s both, fadeOut 0.5s ease-in-out 4s forwards;
+  position: absolute ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--light-grey-color);
+  width: 300px;
+  height: 70px;
+  scale: 1.5;
+  border-radius: 15px;
+  animation: slideTop 0.1s ease-in-out 0.2s both, fadeOut 2s ease-in-out 2s forwards;
 }
 
 @keyframes slideTop {

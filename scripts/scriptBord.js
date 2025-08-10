@@ -123,7 +123,7 @@ function removeHighlight(id) {
  * open the contaier of the assigned contacts input to show this in the board for editing or adding tasks.
  * Toggles the visibility of the assigned contacts container by adding or removing classes.
  */
-function showContainerOnBoard(taskId) {
+function showContainerOnBoard(taskId, event) {
   let contactBoard = document.getElementById("assigned");
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
@@ -133,6 +133,7 @@ function showContainerOnBoard(taskId) {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
   }
+  event.stopPropagation();
 }
 
 

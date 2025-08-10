@@ -12,7 +12,7 @@
 }
 
 .taskCardPopup {
-  max-width: 525px;
+  width: 600px;
   max-height: 98vh;
   background-color: var(--white);
   padding: 48px 40px;
@@ -154,20 +154,21 @@
   overflow-y: auto;
 }
 
-@media (max-width: 600px) {
-     .taskCardPopup {
-        min-width: 300px;
-        max-height: 98vh;
-        padding: 32px 24px;
-    }
-    .taskCardPopup h4 {
-        font-size: 36px;
-    }
+@media (max-width: 768px) {
+  .taskCardPopup {
+    width: 95vw;
+    max-height: 98vh;
+    padding: 32px 24px;
+  }
 
-    .taskCardPopup .taskCard-body,
-    .taskCardPopup .asigned-to,
-    .taskCardPopup h5 {
-        font-size: 16px;
-    }
+  .taskCardPopup h4 {
+    font-size: 36px;
+  }
+
+  .taskCardPopup .taskCard-body,
+  .taskCardPopup .asigned-to,
+  .taskCardPopup h5 {
+    font-size: 16px;
+  }
 
 }
