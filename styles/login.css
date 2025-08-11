@@ -79,6 +79,7 @@ h1 {
     width: 100px;
     height: 120px;
     transform: scale(1);
+    z-index: 1000;
 }
 
 .log-in-div {
@@ -199,14 +200,19 @@ footer {
   align-items: center;
 }
 
-.padding-privacy-policy {
+footer a {
+  color: var(--grey-text);
+  text-decoration: none;
+  font-weight: 500;
   padding: 20px;
-  cursor: pointer;
+  font-size: 16px;
 }
 
-.datenschutz {
+footer a:hover {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
   font-size: 16px;
-  cursor: pointer;
 }
 
 .error {
@@ -232,14 +238,17 @@ footer {
     margin-bottom: 0;
     margin-top: 100px;
   }
+
   .button-overlay {
     flex-direction: column;
     gap: 10px;
   }
+
   .log-in-and-guest-log-in {
     width: 120px;
     margin: 8px;
   }
+
   .signup-div-mobile {
     font-size: 20px;
     font-weight: 400;
@@ -247,6 +256,7 @@ footer {
     display: flex;
     margin-top: 100px;
   }
+
   .border-line::after {
     top: 28%;
   }
@@ -286,7 +296,7 @@ footer {
 }
 
 @media (max-width: 425px){
-   .login-div {
+  .login-div {
     width: 95%;
     height: 475px;
     padding: 32px 0;

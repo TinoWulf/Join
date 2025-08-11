@@ -400,3 +400,9 @@ function activeNavItem() {
     document.getElementById('addtask').classList.remove('active');
     document.getElementById('summary').classList.remove('active');
 }
+
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser == 'nouser' ) {
+  window.location.href = `login.html`;
+} 

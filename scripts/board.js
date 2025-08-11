@@ -86,6 +86,11 @@ function applyAssignedToColorSpan(){
     const color = letterColors[firstLetter] || "#000";
     alreadyAssigned.style.backgroundColor = color;
   });
+  document.querySelectorAll(".assigned-contact span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
 }
 
 
@@ -127,6 +132,7 @@ function openEditTask(taskId){
   let taskCardParentEdit = document.getElementById("taskCardParent");
   taskCardParentEdit.innerHTML = "";
   const task = tasksList.find((task) => task.id === taskId);
+  fetchContacts(taskId);
   taskCardParentEdit.innerHTML = templateEditTask(task);
   setupPriorityButtons(task.priority);
   getAlreadySubtask(task.id);
@@ -311,13 +317,14 @@ function insertInProgressTask(task) {
  * Depends on a function `getAbbreviation` to generate initials from the username.
  * Updates the element with id 'initial-user'.
  */
-function callUserData() {
+function callUserData(){
   let actualUser = localStorage.getItem("userName");
-  if (actualUser && actualUser !== "null") {
-    document.getElementById("initial-user").textContent =
-      getAbbreviation(actualUser);
-  } else {
-    document.getElementById("initial-user").textContent = "G";
+  if (actualUser === 'nouser') {
+    document.getElementById('initial-user').classList.add("hide");
+  } else if( actualUser && actualUser !== 'null') {
+    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
+  }else{
+    document.getElementById('initial-user').textContent = 'G';
   }
 }
 
@@ -369,7 +376,7 @@ function initiateBoard() {
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority, applyAssignedToColorSpan};
 
 
 window.initiateBoard = initiateBoard;

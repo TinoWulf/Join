@@ -138,8 +138,15 @@
     cursor: pointer;
   }
 
+  .dflex-row a.actived {
+    background-color: #091931;
+    cursor: pointer;
+  }
+
   .dflex-row a p {
-    font-size: 12px;
+    font-size: 13px;
+    color: var( --grey-border) !important;
+    font-weight: 400;
   }
 
   .menu-body {

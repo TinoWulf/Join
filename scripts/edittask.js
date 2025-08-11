@@ -1,10 +1,74 @@
 import { initiateBoard } from "./board.js";
 import {ref, update,get,  database} from "./connection.js";
-
+const dataBaseURL =
+  "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let assignedToList = [];
 let alreadyAssigned = [];
 let subtasklistItem = [];
 let subtasks = [];
+let contactListGlobal = [];
+let contactIdList = [];
+let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
+
+
+async function getAlreadyAssigned(taskId) {
+    try {
+        const assignedRef = ref(database, `tasks/${taskId}`);
+        const snapshot = await get(assignedRef);
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            alreadyAssigned = data.assignedTo;
+        } else {
+            alreadyAssigned = [];
+        }
+        // return alreadyAssigned;
+    } catch (error) {
+        console.error("Error fetching assigned users:", error);
+    }
+}
+
+
+
+/**
+ * Fetches contacts from the database, updates the contact list, 
+ * renders each contact on the board, and applies color styling to assigned elements.
+ * 
+ * @async
+ * @function fetchContacts
+ * @returns {Promise<void>} Resolves when contacts are fetched and rendered.
+ */
+async function fetchContacts(taskId) {
+    await getAlreadyAssigned(taskId);
+    let contactBoard = document.getElementById("assigned");
+    contactBoard.innerHTML = ""; 
+  const response = await fetch(dataBaseURL + "/.json"); 
+  const contactData = await response.json(); 
+  contactIdList = Object.keys(contactData.contacts);
+  contactListGlobal = [];
+  for(let index=0; index <contactIdList.length; index++){
+    let contactID = contactIdList[index];
+    let contact = contactData.contacts[contactID];
+    const contactIsAssignedToTask = !!alreadyAssigned?.find(t => t.name == contact.name);
+    contactListGlobal.push(contact);
+    contactBoard.innerHTML += templateRenderContactOnBord(contact, contactIsAssignedToTask);
+    applyAssignedToColorSpan();
+  }
+}
+
+
+/**
+ * @async
+ * Renders a contact list for the task board.
+ */
+async function getUser(taskId) {
+  try{ 
+    await fetchContacts(taskId);
+  }
+  catch(error){
+    console.error("Error fetching contacts:", error);
+    // openErrorPage();
+  }
+}
 
 
 /**
@@ -38,20 +102,6 @@ function setupPriorityButtons(initialPriority) {
 }
 
 
-async function getAlreadyAssigned(taskId){
-    const assignedRef = ref(database, `tasks/${taskId}`);
-    try{
-        const data = await get(assignedRef);
-        if(data.exists()){
-            alreadyAssigned = data.val().assignedTo;
-            return alreadyAssigned;
-        }
-    }catch(error){
-        console.log(error);
-    }
-}
-
-
 async function getAlreadySubtask(taskId){
     const subtaskListRef = ref(database, `tasks/${taskId}`);
     try{
@@ -78,16 +128,25 @@ function getAssignedContactById(id){
             name: name,
             checked: true
         }
-        if(!assignedToList.find(item => item.name === newContact.name)){
-            assignedToList.push(newContact);
+        if(!alreadyAssigned.find(item => item.name === newContact.name)){
+            alreadyAssigned.push(newContact);
         }else{
-            const index = assignedToList.indexOf(newContact);
-            assignedToList.splice(index, 1);
+            const index = alreadyAssigned.indexOf(newContact);
+            alreadyAssigned.splice(index, 1);
         }
     })
-
-    return assignedToList;
+    return alreadyAssigned;
 }
+
+
+function renderAssignedUsers() {
+    alreadyAssignedContainer.innerHTML = '';
+    for(let i=0; i<alreadyAssigned.length; i++) {
+        const assignedTo = alreadyAssigned[i];
+        alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;        
+    }
+}
+
 
 
 function addSubstask(){
@@ -123,26 +182,29 @@ async function getEditedTask(taskId, event) {
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     subtasklistItem = await getAlreadySubtask(taskId);
-    alreadyAssigned = await getAlreadyAssigned(taskId);
-    const newAssignedTo = getAssignedContactById(taskId) ? getAssignedContactById(taskId) : [];
+    // alreadyAssigned = await getAlreadyAssigned(taskId);
+    const newAssignedTo = alreadyAssigned ? alreadyAssigned : [];
     const newSubtasks = addSubstask() ? addSubstask() : [];
     const updatedTaskData = {
         title: newTitle,
         description: newDescription,
         dueDate: newDueDate,
         priority: newPriority,
-        assignedTo: alreadyAssigned.concat(newAssignedTo),
+        assignedTo: newAssignedTo,
         subtasks: subtasklistItem.concat(newSubtasks)
     };
+    await updateTaskInDatabase(updatedTaskData, taskId);
+    closePopUp(event);
+}
+
+
+async function updateTaskInDatabase(updatedTaskData, taskId) {
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
         await update(taskRef, updatedTaskData);
-        console.log(updatedTaskData);
         initiateBoard();
-        closePopUp(event);
-        console.log(`Task with ID ${taskId} updated successfully!`);
     } catch (error) {
-        console.error("Error updating task:", error);
+        openErrorPage();
     }
     subtasklistItem = [];
     alreadyAssigned = [];
@@ -151,7 +213,7 @@ async function getEditedTask(taskId, event) {
 
 
 function getEditedSubtask(taskId){
-    const subsTasks = document.querySelectorAll('#subtaskListEdit li');
+    const subsTasks = document.querySelectorAll('#subtaskListEdit subtask-item');
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
@@ -160,10 +222,14 @@ function getEditedSubtask(taskId){
             const subtaskContent = subtask.textContent;
             subtask.innerHTML = "";
             subtask.innerHTML = `
-            <label class="label-subtask-edit">
-                <input type="text" value="${subtaskContent}" focus />
-                <span class="img-edit"> <img onclick="deleteSubtaskInEdited(${taskId})" src="./assets/icons/delete.png"/> <img onclick='modifySubtaskInEdited("${subtaskContent}")' src="./assets/icons/edit.png"/> </span>
-            </label>
+            <div class="subtask-item">
+                <input type="text" placeholder="Find Task" id="searchValue" />
+                <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${subtask.dataset.index})">
+                    <img src="./img/search.png" alt="search icon" />
+                <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskContent}')">
+                    <img src="./img/search.png" alt="search icon" />
+                </span>
+            </div>
             `;
         })
     })
@@ -182,8 +248,6 @@ function modifySubtaskInEdited(subtaskContent){
         console.log(true);
 
     }
-
-
 }
 
 function deleteSubtaskInEdited(taskId,index){
@@ -191,7 +255,7 @@ function deleteSubtaskInEdited(taskId,index){
 }
 
 
-export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned };
+export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers };
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;
@@ -199,4 +263,6 @@ window.getEditedSubtask = getEditedSubtask;
 window.getAssignedContactById = getAssignedContactById;
 window.modifySubtaskInEdited = modifySubtaskInEdited;
 window.deleteSubtaskInEdited = deleteSubtaskInEdited;
+window.getUser = getUser;
+window.fetchContacts = fetchContacts;
 

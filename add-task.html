@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./styles/responsive.css">
     <link rel="icon" type="image/x-icon" href="./assets/img/logo.png">
     <title>Add Task</title>
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
 </head>
-<body onload="callUserData(), activeNavItem()">
+<body onload="callUserData()">
     <header id="navbar">
 
     </header>
@@ -71,8 +71,8 @@
                         
                         
                     </form>
-                    <div class="already-assigned" id="alreadyAssigned">
-                    
+                    <div class="assigned-contact" id="assignedContact">
+
                     </div>
                 </label>
                 
@@ -118,7 +118,7 @@
         </div>
         <span class="this-list-is-for-test"></span>
     </section>
-    <div class="success-message hide" id="success-message">
+    <div class="success-message hide" id="successMessageTask">
         <div class="success-message-content" id="sucessCreateTask" >
             Task added to Board
         </div>

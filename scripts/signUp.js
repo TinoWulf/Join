@@ -6,8 +6,6 @@ const passwordRef = document.getElementById("sign-up-password");
 const confirmPasswordRef = document.getElementById("confirmPassword");
 const emailLabel = document.getElementById("emailLabel");
 const acceptPolicyRef = document.getElementById("acceptPolicy");
-const successMessage = document.getElementById("success-message");
-const mainSignup = document.getElementById("main-signup");
 const signUpBtn = document.getElementById("signUpBtn");
 
 let emailError = document.getElementById('emailError');
@@ -77,7 +75,9 @@ function catchError(error){
     throw error;
 }
 
-
+/**
+ * Hides error messages by adding the "hide" class to the relevant elements after a delay.
+ */
 function hideErrorMessages() {
   emailError.classList.add("hide");
   emailLabel.classList.remove("password-error");
@@ -116,12 +116,16 @@ function setupSignUp() {
       signupForm.reset();
       showSucessMessage()
     } catch (error) {
-      catchError(error);
+      openErrorPage();
     }
   });
 }
 
 
+/**
+ * Displays the success message by removing the "hide" class from the element with ID "success-message".
+ * After 2 seconds, hides the message and redirects the user to the login page.
+ */
 function showSucessMessage() {
     let successMessage = document.getElementById("success-message");
     successMessage.classList.remove("hide");
@@ -234,6 +238,14 @@ function togglePassword() {
   toggleIcon.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 }
 
+
+/**
+ * open the Error page with location.href
+ */
+
+function openErrorPage() {
+  window.location.href = "error.html";
+}
 
 /**
  * Toggles the visibility of the password input field.

@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 import {set, ref, database} from "./connection.js";
+import {applyAssignedToColorSpan, getAbbreviation} from "./board.js";
 import {templateRenderContactOnBord } from "./templates.js";
+let alreadyAssignedContainer = document.getElementById("assignedContact");
 
 const taskTitleInput = document.getElementById('taskTitle');
 const taskDescriptionInput = document.getElementById('taskDescription');
@@ -103,9 +105,19 @@ function getAssignedContactById(id){
             const index = assignedToList.indexOf(newContact);
             assignedToList.splice(index, 1);
         }
+        renderAssignedUsers();
     })
-
     return assignedToList;
+}
+
+
+function renderAssignedUsers() {
+    alreadyAssignedContainer.innerHTML = '';
+    for(let i=0; i<assignedToList.length; i++) {
+        const assignedTo = assignedToList[i];
+        alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;        
+    }
+    applyAssignedToColorSpan();
 }
 
 
@@ -159,13 +171,11 @@ function renderError() {
         errorTitle.classList.remove('hide');
         hasError = true;
     }
-
     if (!dueDateInput.value.trim()) {
         dueDateInput.classList.add('field-error');
         errorDate.classList.remove("hide");
         hasError = true;
     }
-
     if (!categoryInput.value.trim()) {
         categoryContain.classList.add('field-error');
         errorCat.classList.remove('hide');
@@ -196,9 +206,7 @@ async function getAddTask(taskData) {
     try {
         if(renderError()){
            await set(taskRef, taskData);
-            console.log(taskData);
             showSucessMessage() 
-        console.log(`Task with ID ${taskData.id} updated successfully!`);
         }else{
             console.log("you got a probleme during add task")
         }
@@ -236,7 +244,7 @@ function getCategory(){
 }
 
 function showSucessMessage() {
-    let successMessage = document.getElementById("success-message");
+    let successMessage = document.getElementById("successMessageTask");
     successMessage.classList.remove("hide");
     setTimeout(() => {
         successMessage.classList.add("hide");
@@ -276,6 +284,12 @@ async function getUser(){
   catch(error){
     throw new Error("Failled to connect to the database"+ error);
   }
+}
+
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser === 'nouser' ) {
+  window.location.href = `login.html`;
 }
 
 export{setupPriorityButtons };

@@ -15,31 +15,19 @@ function startDragging(id) {
 }
 
 
-async function getUser(){
-  let contactBoard = document.getElementById("assigned");
-  try{ 
-    const response = await fetch(dataBaseURL + "/.json"); 
-    const contactData = await response.json(); 
-    const contactIdList = Object.keys(contactData.contacts);
-    contactList = [];
-    for(let index=0; index <contactIdList.length; index++){
-      let contactID = contactIdList[index];
-      let contact = contactData.contacts[contactID];
-      contactList.push(contact);
-      contactBoard.innerHTML += templateRenderContactOnBord(contact);
-      applyAssignedToColorSpan();
-    }
-  }
-  catch(error){
-    throw new Error("Failled to connect to the database"+ error);
-  }
-}
-
+/**
+ * open the Board page with location.href
+ */
 function openAddTask(){
   document.location.href ="add-task.html";
 }
 
 
+/**
+ * finds the Task by Id and delete the task from the database.
+ * @param {number} taskId task ID to be deleted
+ * @param {Event} event The event object associated with the click event.
+ */
 async function deleteTask(taskId, event) {
   try {
     const response = await fetch(`${dataBaseURL}/${query}/${taskId}.json`, {
@@ -48,11 +36,9 @@ async function deleteTask(taskId, event) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log(" Task deleted");
     initiateBoard(); // Refresh
   } catch (error) {
-    console.error("Delete task error:", error);
-    alert("Error deleting this task");
+    openErrorPage();
   }
   closePopUp(event);
 }
@@ -98,6 +84,11 @@ function highlight(id) {
 }
 
 
+/**
+ * 
+ * @param {boolean} startDragged 
+ * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where is being dragged.
+ */
 function moveToHover(startDragged, id){
   if(startDragged){
     highlight(id);
@@ -106,6 +97,10 @@ function moveToHover(startDragged, id){
 }
 
 
+/**
+ * 
+ * @returns {string} A string representing a placeholder task element.
+ */
 function showPlaceholderTask(){
   return `
     <div class="placeholderTask">
@@ -113,6 +108,7 @@ function showPlaceholderTask(){
     </div>
   `;
 }
+
 
 /**
  * Removes the highlight from a drop area by removing a CSS class.
@@ -123,14 +119,25 @@ function removeHighlight(id) {
 }
 
 
-function showContainerOnBoard(){
+/**
+ * open the contaier of the assigned contacts input to show this in the board for editing or adding tasks.
+ * Toggles the visibility of the assigned contacts container by adding or removing classes.
+ */
+function showContainerOnBoard(taskId, event) {
   let contactBoard = document.getElementById("assigned");
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
     contactBoard.classList.add("dFlex");
-    getUser();
+    getUser(taskId);
   } else {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
   }
+  event.stopPropagation();
+}
+
+
+let actualUser = localStorage.getItem("userName");
+if (actualUser === 'nouser' ) {
+  window.location.href = `login.html`;
 }

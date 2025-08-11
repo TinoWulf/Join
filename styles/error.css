@@ -1,0 +1,74 @@
+.main-error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.header{
+    position: absolute;
+    top: 30px;
+    left: 25px;
+}
+
+.header .logo{
+    width: 100px;
+    height: 121px;
+    z-index: 1000;
+}
+
+
+
+.error-section{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin-top: 98px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 48px 20px;
+    gap: 32px;
+
+}
+
+.error-image {
+  width: 200px;
+  height: auto;
+  animation: spin 3s linear 0s infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.error-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.error-div button{
+    padding: 15px 24px;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--white);
+    border-radius: 8px;
+    border: none;
+}
+
+.error-div button:hover{
+    transform: scale(1.1);
+    background-color: var(--blue);
+    animation: all 0.3s ease-in-out;
+}
