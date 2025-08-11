@@ -122,7 +122,7 @@ function renderAssignedUsers() {
 
 
 function addSubstask(){
-    let SubtasklistContainer =  document.getElementById('subtaskListEdit');
+    let subtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
     if(newSubtask){
@@ -131,14 +131,46 @@ function addSubstask(){
             checked: false,
         }
         subtasks.push(subtask);
-        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}<button class="delete-subtask">Delete</button></li>`; 
+       showSubTask();
         newSubtaskRef.value = '';
     }else{
-        SubtasklistContainer.innerHTML+="";
+        subtasklistContainer.innerHTML+="";
     }
     return subtasks;
 }
 
+
+function showSubTask(){
+    let subtasklistContainer =  document.getElementById('subtaskListEdit');
+    subtasklistContainer.innerHTML = '';
+    for(let i=0; i<subtasks.length; i++) {
+        const subtask = subtasks[i];
+        subtasklistContainer.innerHTML += `<div class="subtask" id="subTaskElement"><li class="">${subtask.title}</li><div class="img-icons"><span><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="modifySubtaskInEdited(${i}, '${subtask.title}')"><img src="./assets/icons/edit.png" alt="edit" /></span></div></div>`;
+    }
+}
+
+
+function modifySubtaskInEdited(index, subtaskContent) {
+    let subtasklists =  document.querySelectorAll('#subtaskListEdit .subtask');
+    subtasklists.forEach((subtask, index) => {
+        subtask.addEventListener('click', function() {
+            if(subtask.querySelector('input')){
+                return
+            }
+            subtask.innerHTML = "";
+            subtask.innerHTML = `
+            
+            <input type="text" value="${subtaskContent}" />
+            <div class="img-icons">
+            <span><img src="./assets/icons/delete.png" alt="delete" /></span>
+            <span><img src="./assets/icons/edit.png" alt="edit" /></span>
+            </div>
+          
+            `;
+           
+        });
+    })
+}
 
 function getTaskData(){
     let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
@@ -301,4 +333,4 @@ window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
 window.showCategory = showCategory;
 window.getCategory = getCategory;
-
+window.modifySubtaskInEdited = modifySubtaskInEdited;

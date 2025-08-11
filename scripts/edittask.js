@@ -213,7 +213,7 @@ async function updateTaskInDatabase(updatedTaskData, taskId) {
 
 
 function getEditedSubtask(taskId){
-    const subsTasks = document.querySelectorAll('#subtaskListEdit subtask-item');
+    const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask-item');
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
@@ -223,11 +223,11 @@ function getEditedSubtask(taskId){
             subtask.innerHTML = "";
             subtask.innerHTML = `
             <div class="subtask-item">
-                <input type="text" placeholder="Find Task" id="searchValue" />
+                <input type="text" value="${subtaskContent}" />
                 <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${subtask.dataset.index})">
-                    <img src="./img/search.png" alt="search icon" />
+                    <img src="./assets/icons/delete.png"alt="search icon" />
                 <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskContent}')">
-                    <img src="./img/search.png" alt="search icon" />
+                    <img src="./assets/icons/checkbold.png" alt="search icon" />
                 </span>
             </div>
             `;
