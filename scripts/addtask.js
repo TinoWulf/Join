@@ -1,16 +1,23 @@
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let contactList = [];
+
+
 document.addEventListener('DOMContentLoaded', function() {
+    /**
+     * Sets the navigation state by activating the 'addtask' nav item and deactivating
+     * 'board', 'contacts', and 'summary' nav items. This function manipulates the
+     * 'active' CSS class on the corresponding elements.
+     */
+    function activeNavItem(){
+        document.getElementById('board').classList.remove('active');
+        document.getElementById('contacts').classList.remove('active');
+        document.getElementById('addtask').classList.add('active');
+        document.getElementById('summary').classList.remove('active');
+    }
     
-  function activeNavItem(){
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.remove('active');
-    document.getElementById('addtask').classList.add('active');
-    document.getElementById('summary').classList.remove('active');
-  }
-  activeNavItem();
-  setupPriorityButtons('medium');
-  getCategory()
+    activeNavItem();
+    setupPriorityButtons('medium');
+    getCategory()
         
 });
 
@@ -36,7 +43,14 @@ const activeButtonMedium = document.querySelector(`.priority-button[data-priorit
 const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
 
 
+/**
+ * Updates button images so only the active priority has its white version.
+ * @param {string} priority - The currently selected priority.
+ */
 function showPriorityButton(priority) {
+    activeButtonUrgent.src = '../assets/icons/urgent.png';
+    activeButtonMedium.src = '../assets/icons/medium.png';
+    activeButtonLow.src = '../assets/icons/low.png';
     if(priority === 'urgent'){
         activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
     }
@@ -48,35 +62,50 @@ function showPriorityButton(priority) {
     }
 }
 
+
 /**
- * Manages the active state of priority buttons and updates the hidden input.
- * Call this once on load and attach to button click events.
- * @param {string} initialPriority The priority to initially set as active (e.g., 'urgent', 'medium', 'low')
+ * Updates the UI for the active priority button and sets the input value.
+ * @param {string} priority - The priority to activate.
+ * @param {NodeList} buttons - The collection of priority button elements.
+ * @param {HTMLInputElement} input - The input element to store the selected priority.
+ */
+function activatePriority(priority, buttons, input) {
+    buttons.forEach(button => button.classList.remove('urgent', 'medium', 'low'));
+    const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
+    if (activeButton) {
+        showPriorityButton(priority);
+        activeButton.classList.add(priority);
+        input.value = priority;
+    }
+}
+
+
+/**
+ * Binds click events to priority buttons.
+ * @param {NodeList} buttons - The collection of priority button elements.
+ * @param {HTMLInputElement} input - The input element to store the selected priority.
+ */
+function bindPriorityEvents(buttons, input) {
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            activatePriority(button.dataset.priority, buttons, input);
+        });
+    });
+}
+
+
+/**
+ * Initializes the priority button system with an optional initial value.
+ * @param {string} [initialPriority] - The priority to pre-select on initialization.
  */
 function setupPriorityButtons(initialPriority) {
     const priorityButtons = document.querySelectorAll('.priority-button');
     const priorityInput = document.getElementById('priorityInput');
-    const setActivePriority = (priority) => {
-        priorityButtons.forEach(button => {
-            button.classList.remove('urgent', 'medium', 'low');
-        });
-        const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
-        if (activeButton) {
-            showPriorityButton(priority);
-            activeButton.classList.add(priority); 
-            priorityInput.value = priority; 
-        }
-    };
     if (initialPriority) {
-        setActivePriority(initialPriority);
+        activatePriority(initialPriority, priorityButtons, priorityInput);
     }
-    priorityButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            const priority = button.dataset.priority;
-            setActivePriority(priority);
-        });
-    });
+    bindPriorityEvents(priorityButtons, priorityInput);
 }
 
 
@@ -91,6 +120,13 @@ resetButton.addEventListener('click', function(){
 })
 
 
+/**
+ * 
+ * Retrieves the assigned contact by ID and adds an event listener to toggle its checked state.
+ * If the contact is already assigned, it will be removed from the assignedToList.
+ * @param {*} id contact ID to be assigned
+ * @returns a list of assigned contacts
+ */
 function getAssignedContactById(id){
     let contactRef = document.getElementById(id);
     contactRef.addEventListener('click', function(){
@@ -111,6 +147,11 @@ function getAssignedContactById(id){
 }
 
 
+/**
+ * Renders the list of already assigned users in the assigned container.
+ * Iterates through the assignedToList and creates a span for each user with their abbreviation.
+ * Applies the assigned color span to each user.
+ */
 function renderAssignedUsers() {
     alreadyAssignedContainer.innerHTML = '';
     for(let i=0; i<assignedToList.length; i++) {
@@ -121,6 +162,11 @@ function renderAssignedUsers() {
 }
 
 
+/**
+ * Adds a new subtask to the subtasks array and updates the display of subtasks.
+ * @returns {Array} Returns the updated subtasks array after adding a new subtask.
+ * Adds a new subtask to the subtasks array and updates the display of subtasks.
+ */
 function addSubstask(){
     let subtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
@@ -140,6 +186,10 @@ function addSubstask(){
 }
 
 
+/**
+ * Displays the list of subtasks in subtasklistcontainer.
+ * Iterates through the subtasks array and creates a list item for each subtask.
+ */
 function showSubTask(){
     let subtasklistContainer =  document.getElementById('subtaskListEdit');
     subtasklistContainer.innerHTML = '';
@@ -150,6 +200,13 @@ function showSubTask(){
 }
 
 
+/**
+ * 
+ * Modifies a subtask in the edit mode by replacing its content with an input field.
+ * This allows the user to edit the subtask content directly.
+ * @param {*} index  The index of the subtask to be modified.
+ * @param {*} subtaskContent  The current content of the subtask to be edited.
+ */
 function modifySubtaskInEdited(index, subtaskContent) {
     let subtasklists =  document.querySelectorAll('#subtaskListEdit .subtask');
     subtasklists.forEach((subtask, index) => {
@@ -159,19 +216,22 @@ function modifySubtaskInEdited(index, subtaskContent) {
             }
             subtask.innerHTML = "";
             subtask.innerHTML = `
-            
             <input type="text" value="${subtaskContent}" />
             <div class="img-icons">
             <span><img src="./assets/icons/delete.png" alt="delete" /></span>
             <span><img src="./assets/icons/edit.png" alt="edit" /></span>
             </div>
-          
             `;
-           
         });
     })
 }
 
+
+/**
+ * Retrieves all task data from the form inputs and constructs a task object.
+ * The task object includes properties like title, description, due date, category, priority, assigned contacts, and subtasks.
+ * The function then calls `getAddTask` to save the task data to Firebase.
+ */
 function getTaskData(){
     let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
     let newTitle = taskTitleInput.value ? taskTitleInput.value.trim() : '';
@@ -195,7 +255,11 @@ function getTaskData(){
 }
 
 
-
+/**
+ * Validates the form inputs for task creation.
+ * Checks if the task title, due date, and category are filled out.
+ * @returns {boolean} Returns true if there are no errors in the form, otherwise false.
+ */
 function renderError() {
     let hasError = false;
     if (!taskTitleInput.value.trim()) {
@@ -217,6 +281,11 @@ function renderError() {
     return !hasError;
 }
 
+
+/**
+ * Removes error classes and hides error messages after a delay.
+ * 
+ */
 function removeError(){
     setTimeout(()=>{
         taskTitleInput.classList.remove('field-error');
@@ -248,6 +317,11 @@ async function getAddTask(taskData) {
 }
 
 
+/**
+ * Toggles the visibility of the assigned contacts container in the Add Task form.
+ * If the container is hidden, it will be displayed and populated with contacts.
+ * @param {event} event 
+ */
 function showContainerOnBoardAddTask(event){
   let contactBoard = document.getElementById("assigned");
   let AssignToLabel = document.getElementById("assigned-to");
@@ -264,6 +338,11 @@ function showContainerOnBoardAddTask(event){
   event.stopPropagation();
 }
 
+
+/**
+ * Retrieves the selected category from the dropdown and updates the input field accordingly.
+ * This function also sets up event listeners for category options.
+ */
 function getCategory(){
     let categoryInput  = document.getElementById('categoryInput');
     let options = document.querySelectorAll(".category option");
@@ -275,6 +354,10 @@ function getCategory(){
     showCategory()
 }
 
+
+/**
+ * Displays a success message after a task is successfully added and redirects to the board.
+ */
 function showSucessMessage() {
     let successMessage = document.getElementById("successMessageTask");
     successMessage.classList.remove("hide");
@@ -285,7 +368,11 @@ function showSucessMessage() {
 }
 
 
-
+/**
+ * 
+ * Toggles the visibility of the category list and adjusts the label height accordingly.
+ * @returns {void}
+ */
 function showCategory(){
     let labelCategory  = document.getElementById('labelCategory');
     let categoryList  = document.getElementById('category');
@@ -298,12 +385,31 @@ function showCategory(){
     }
 }
 
+
+/**
+ * Fetches all contacts from the database and renders them on the assigned conntainer in Addtask form.
+ * @returns {Promise<void>}
+ * @throws {Error} If the fetch operation fails, it will open an error page.
+ */
 async function getUser(){
-  let contactBoard = document.getElementById("assigned");
   try{ 
     const response = await fetch(dataBaseURL + "/.json"); 
     const contactData = await response.json(); 
     const contactIdList = Object.keys(contactData.contacts);
+    renderContact(contactIdList, contactData);
+  }
+  catch(error){
+    openErrorPage();
+  }
+}
+
+/**
+ * render all contacts on the assigned container in Addtask form.
+ * @param {Array} contactIdList list of contact IDs to be rendered
+ * @param {*} contactData contatct data fetched from the database
+ */
+function renderContact(contactIdList, contactData) {
+    let contactBoard = document.getElementById("assigned");
     contactList = [];
     for(let index=0; index <contactIdList.length; index++){
       let contactID = contactIdList[index];
@@ -312,10 +418,6 @@ async function getUser(){
       contactBoard.innerHTML += templateRenderContactOnBord(contact);
       applyAssignedToColorSpan();
     }
-  }
-  catch(error){
-    throw new Error("Failled to connect to the database"+ error);
-  }
 }
 
 
