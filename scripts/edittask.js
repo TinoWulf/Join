@@ -222,14 +222,12 @@ function getEditedSubtask(taskId){
             const subtaskContent = subtask.textContent;
             subtask.innerHTML = "";
             subtask.innerHTML = `
-            <div class="subtask-item">
                 <input type="text" value="${subtaskContent}" />
                 <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${subtask.dataset.index})">
                     <img src="./assets/icons/delete.png"alt="search icon" />
                 <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskContent}')">
                     <img src="./assets/icons/checkbold.png" alt="search icon" />
                 </span>
-            </div>
             `;
         })
     })

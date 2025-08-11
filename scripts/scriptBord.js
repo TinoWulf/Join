@@ -85,13 +85,19 @@ function highlight(id) {
 
 
 /**
- * 
+ * start drag and show the placeholder task
  * @param {boolean} startDragged 
  * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where is being dragged.
  */
-function moveToHover(startDragged, id){
+function moveToHover(startDragged, range){
+  const rangeId = `${range}Task`;
   if(startDragged){
-    highlight(id);
+    highlight(rangeId);
+    try{
+      moveTo(range);
+    }catch(error){
+      console.log(error);
+    }
     startDragged = false;
   }
 }

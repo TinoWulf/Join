@@ -32,7 +32,11 @@ function templateTaskCard(task) {
   `;
 }
 
-
+/**
+ * render an HTML template for a task card with all informations.
+ * @param {*} task  The task object.
+ * @returns The HTML string for the task card.
+ */
 function templateTaskCardDetail(task){
   return `
   
@@ -84,7 +88,11 @@ function templateTaskCardDetail(task){
   `;
 }
 
-
+/**
+ * Generates an HTML template for the "No Task to do" placeholder.
+ *
+ * @returns {string} The HTML string for the todo task placeholder element.
+ */
 function toDoPlaceholderTemplate(){
   return `
 
@@ -96,6 +104,11 @@ function toDoPlaceholderTemplate(){
 }
 
 
+/**
+ * Generates an HTML template for the "No tasks in progress" placeholder.
+ *
+ * @returns {string} The HTML string for the in Progress task placeholder element.
+ */
 function inProgressPlaceholderTemplate(){
   return `
     <div id="inProgressTaskPlaceholder" class="placeholder show">
@@ -104,6 +117,12 @@ function inProgressPlaceholderTemplate(){
   `;
 }
 
+
+/**
+ * Generates an HTML template for the "No tasks awaiting feedback" placeholder.
+ *
+ * @returns {string} The HTML string for the await review task placeholder element.
+ */
 function awaitReviewPlaceholderTemplate(){
   return `
     <div id="awaitReviewTaskPlaceholder" class="placeholder show">
@@ -112,6 +131,12 @@ function awaitReviewPlaceholderTemplate(){
   `;
 }
 
+
+/**
+ * Generates an HTML template for the "No Task Done" placeholder.
+ *
+ * @returns {string} The HTML string for the done task placeholder element.
+ */
 function donePlaceholderTemplate(){
   return `
     <div id="doneTaskPlaceholder" class="placeholder show">
@@ -120,7 +145,11 @@ function donePlaceholderTemplate(){
   `;
 }
 
-
+/**
+ * render an HTML template of the detail of a task
+ * @param {*} task task object
+ * @returns 
+ */
 function templateEditTask(task){
   return `
      <div class="editTaskPopup" onclick="preventEvent(event)">
@@ -195,7 +224,12 @@ function templateEditTask(task){
   `;
 }
 
-
+/**
+ * render an  HTML template of the contact in the add task form or in edit task form
+ * @param {contact} contact  contact object
+ * @param {boolean} contactIsAssignedToTask  if the contact is assigned to the task
+ * @returns 
+ */
 function templateRenderContactOnBord(contact, contactIsAssignedToTask){
   return `
     <div class="option" onclick="getAssignedContactById(${contact.id})">

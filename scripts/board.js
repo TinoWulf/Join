@@ -24,6 +24,12 @@ function countSubtasks(task) {
   return task.subtasks ? task.subtasks.length : 0;
 }
 
+
+/**
+ * get the range of the task and return as priority
+ * @param {*} range  range of the task
+ * @returns 
+ */
 function getPriority(range){
   let priority = range;
   return priority;
@@ -43,6 +49,12 @@ function countSubtasksDone(task) {
 }
 
 
+/**
+ * Returns the abbreviation formed by the first letter of each word in the input string, in uppercase.
+ *
+ * @param {string} str - The input string to abbreviate.
+ * @returns {string} The abbreviation of the input string.
+ */
 function getAbbreviation(str) {
   return str
     .split(" ")
@@ -51,6 +63,12 @@ function getAbbreviation(str) {
 }
 
 
+/**
+ *  Applies background colors to span elements within elements with the classes
+ * ".option" and ".assigned-contact" based on the first letter of their text content.
+ * The color is determined by the `letterColors` mapping; if no color is found,
+ * a default color ("#000") is used.
+ */
 function applyAssignedToColors() {
   document.querySelectorAll(".asigned-to span").forEach((spantask) => {
     const firstLetter = spantask.textContent.trim().charAt(0).toUpperCase();
@@ -79,7 +97,12 @@ function applyAssignedToColors() {
   });
 }
 
-
+/**
+ *  Applies background colors to span elements within elements with the classes
+ * ".option" and ".assigned-contact" based on the first letter of their text content.
+ * The color is determined by the `letterColors` mapping; if no color is found,
+ * a default color ("#000") is used.
+ */
 function applyAssignedToColorSpan(){
   document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
     const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
@@ -94,20 +117,15 @@ function applyAssignedToColorSpan(){
 }
 
 
+/**
+ * get All Tasks from the database
+ */
 async function getAllTasks() {
   const tasksRef = ref(database, "tasks");
   try {
     const snapshot = await get(tasksRef);
     if (snapshot.exists()) {
-      tasksList = [];
-      const tasks = snapshot.val();
-      for (let taskId in tasks) {
-        const task = tasks[taskId];
-        tasksList.push(task);
-        loadTasks();
-        templateTaskCard(task);
-      }
-      return tasksList;
+      renderTaskOnBoard(snapshot);
     } else {
       return null;
     }
@@ -117,6 +135,31 @@ async function getAllTasks() {
 }
 
 
+/**
+ * Renders tasks on the board from a Firebase snapshot.
+ * Iterates over each task in the snapshot, adds it to the tasks list,
+ * loads tasks, and creates a task card template for each task.
+ *
+ * @param {Object} snapshot - The Firebase snapshot containing tasks data.
+ * @returns {Array} tasksList - An array of task objects extracted from the snapshot.
+ */
+function renderTaskOnBoard(snapshot){
+  tasksList = [];
+  const tasks = snapshot.val();
+  for (let taskId in tasks) {
+    const task = tasks[taskId];
+    tasksList.push(task);
+    loadTasks();
+    templateTaskCard(task);
+  }
+  return tasksList;
+}
+
+
+/**
+ * open the task detail page as a modal with the task details
+ * @param {*} taskId task id to be edited
+ */
 function openTaskDetail(taskId) {
   let taskCardParent = document.getElementById("taskCardParent");
   taskCardParent.innerHTML = "";
@@ -128,6 +171,10 @@ function openTaskDetail(taskId) {
 }
 
 
+/**
+ * open the task detail page as a modal in form of a form 
+ * @param {*} taskId task id to be edited
+ */
 function openEditTask(taskId){
   let taskCardParentEdit = document.getElementById("taskCardParent");
   taskCardParentEdit.innerHTML = "";
@@ -139,46 +186,6 @@ function openEditTask(taskId){
   applyAssignedToColors();
 }
 
-
-/**
- * Searches a list of tasks by title, description, and category
- * @param {Array} tasks - Array of task objects
- * @param {string} keyword - The keyword to search for
- * @returns {Array} - Filtered list of tasks matching the keyword
- */
-function searchTasks(tasks, keyword) {
-  if (!keyword) return tasks;
-  const lowerKeyword = keyword.trim().toLowerCase();
-  return tasks.filter((task) => {
-    const inTitle = task.title.toLowerCase().includes(lowerKeyword);
-    const inDescription = task.description.toLowerCase().includes(lowerKeyword);
-    const inCategory = task.category.toLowerCase().includes(lowerKeyword);
-    return inTitle || inDescription || inCategory;
-  });
-}
-
-
-function searchParticularTask() {
-  let searchInput; // Variable außerhalb deklarieren
-  if (window.innerWidth < 878) {
-    searchInput = document.getElementById("searchValueMobile").value;
-  } else {
-    searchInput = document.getElementById("searchValue").value;
-  }
-  let showSearchResult = document.getElementById("containerBoard");
-  let resultSearch = searchTasks(tasksList, searchInput);
-  showSearchResult.innerHTML = "";
-  for (let taskindex in resultSearch) {
-    const task = resultSearch[taskindex];
-    if (showSearchResult) {
-      showSearchResult.innerHTML += templateTaskCard(task);
-      applyAssignedToColors();
-    } else {
-      showSearchResult.innerHTML =
-        "The Problem occur during the search result or the search result is empty";
-    }
-  }
-}
 
 
 /**
@@ -196,6 +203,14 @@ function loadTasks() {
 }
 
 
+/**
+ * Clears the contents of all board columns and resets them to their placeholder templates.
+ * 
+ * This function empties the inner HTML of the columns: toDo, awaitReview, inProgress, and done,
+ * then sets each column's inner HTML to its respective placeholder template.
+ *
+ * @function
+ */
 function clearAllColums() {
   toDo.innerHTML = "";
   toDo.innerHTML = toDoPlaceholderTemplate();
@@ -207,6 +222,13 @@ function clearAllColums() {
   done.innerHTML = donePlaceholderTemplate();
 }
 
+
+/**
+ * Returns the DOM element with the specified ID.
+ *
+ * @param {string} id - The ID of the element to retrieve.
+ * @returns {HTMLElement|null} The element with the given ID, or null if no such element exists.
+ */
 function getElementById(id){
   return document.getElementById(id);
 }
@@ -253,6 +275,13 @@ function switchedRange(task) {
 }
 
 
+/**
+ * Inserts a task card into the "toDo" section of the board.
+ * If no task is provided, displays a placeholder template.
+ * Hides the placeholder element and appends the task card HTML.
+ *
+ * @param {Object} task - The task object to be inserted. If falsy, a placeholder is shown instead.
+ */
 function insertTodoTask(task) {
   if (!task) {
     toDo.innerHTML = toDoPlaceholderTemplate();
@@ -262,6 +291,13 @@ function insertTodoTask(task) {
 }
 
 
+/**
+ * Inserts a task card into the "Await review" section of the board.
+ * If no task is provided, displays a placeholder template.
+ * Hides the placeholder element and appends the task card HTML.
+ *
+ * @param {Object} task - The task object to be inserted. If falsy, a placeholder is shown instead.
+ */
 function insertAwaitReviewTask(task) {
   if (!task) {
     awaitReview.innerHTML = awaitReviewPlaceholderTemplate();
@@ -271,6 +307,13 @@ function insertAwaitReviewTask(task) {
 }
 
 
+/**
+ * Inserts a task card into the "Done" section of the board.
+ * If no task is provided, displays a placeholder template.
+ * Hides the placeholder element and appends the task card HTML.
+ *
+ * @param {Object} task - The task object to be inserted. If falsy, a placeholder is shown instead.
+ */
 function insertDoneTask(task) {
   if (!task) {
     done.innerHTML = donePlaceholderTemplate();
@@ -279,6 +322,27 @@ function insertDoneTask(task) {
   done.innerHTML += templateTaskCard(task);
 }
 
+
+/**
+ * Inserts a task card into the "In Progress" section of the board.
+ * If no task is provided, displays a placeholder template.
+ * Hides the placeholder element and appends the task card HTML.
+ *
+ * @param {Object} task - The task object to be inserted. If falsy, a placeholder is shown instead.
+ */
+function insertInProgressTask(task) {
+  if (!task) {
+    inProgress.innerHTML = inProgressPlaceholderTemplate();
+  }
+  inProgressPlaceholder.classList.add("hide");
+  inProgress.innerHTML += templateTaskCard(task);
+}
+
+
+/**
+ * cheked or unchecked a subtask of a task and update the task status.
+ * @param {*} taskId Task ID
+ */
 function submitCheckedSubtask(taskId){
   let inputSubtask = document.querySelectorAll('.form-check input');
   inputSubtask.forEach((input)=>{
@@ -297,16 +361,6 @@ function submitCheckedSubtask(taskId){
         });
     })
   })
-}
-
-
-
-function insertInProgressTask(task) {
-  if (!task) {
-    inProgress.innerHTML = inProgressPlaceholderTemplate();
-  }
-  inProgressPlaceholder.classList.add("hide");
-  inProgress.innerHTML += templateTaskCard(task);
 }
 
 
@@ -341,20 +395,10 @@ function activeNavItem() {
 }
 
 
-function moveToHover(startDragged, range){
-  const rangeId = `${range}Task`;
-  if(startDragged){
-    highlight(rangeId);
-    try{
-      moveTo(range);
-    }catch(error){
-      console.log(error);
-    }
-    startDragged = false;
-  }
-}
-
-
+/**
+ * change the range of the task in the database and reload the bord.
+ * @param {*} range where the task will be moved (todo, inprogress,awaitingfeedback, done)
+ */
 async function moveTo(range) {
   const taskID = currentDraggedTask;
   const rangeId = `${range}Task`;
@@ -365,18 +409,23 @@ async function moveTo(range) {
     removeHighlight(rangeId);
     initiateBoard();
   } catch (error) {
-    console.warn("Error modifying task range:", error);
+    openErrorPage();
   }
 }
 
 
+/**
+ * initiateBoard() function is called when the board is loaded or when a task is moved.
+ * Load all tasks from the database and display them on the board.
+ * 
+ */
 function initiateBoard() {
   activeNavItem();
   callUserData();
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, searchParticularTask, moveTo,getPriority, applyAssignedToColorSpan};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, moveTo,getPriority, applyAssignedToColorSpan, tasksList};
 
 
 window.initiateBoard = initiateBoard;
@@ -388,10 +437,7 @@ window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
 window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
-window.searchParticularTask = searchParticularTask;
 window.moveTo = moveTo;
-window.moveToHover = moveToHover;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
 window.applyAssignedToColorSpan = applyAssignedToColorSpan;
-// window.getEditedTask = getEditedTask;
