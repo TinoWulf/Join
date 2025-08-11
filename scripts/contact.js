@@ -92,10 +92,10 @@ function closeContactAdd() { // Close add contact popup
 function openEdit(initials, color, user, email, phone, userID) { // Open edit popup
     let popupEdit = document.getElementById("popup-edit");
     popupEdit.innerHTML = renderOpenEdit(color, initials, userID);// Set HTML content for edit popup
-    document.getElementById("popup-edit").classList.remove("slide-out");
+    popupEdit.classList.remove("slide-out");
     document.getElementById("popup-background").style.display = "flex";
-    document.getElementById("popup-edit").style.display = "flex";
-    document.getElementById("popup-edit").classList.add("slide-in");
+    popupEdit.style.display = "flex";
+    popupEdit.classList.add("slide-in");
     document.getElementById("in-name-edit").value = user; // Prefill inputs
     document.getElementById("in-email-edit").value = email;
     document.getElementById("in-number-edit").value = phone;
