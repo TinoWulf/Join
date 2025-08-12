@@ -150,8 +150,16 @@
   margin-bottom: 8px;
   min-width: 280px;
   max-width: 280px;
+  height: auto;
   padding: 10px;
 }
+
+.rotate{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(04deg);
+  z-index: 1000;
+}
+
 
 .taskCard-header {
   display: flex;
@@ -269,11 +277,6 @@ progress{
   border: 2px dashed grey;
   border-radius: 20px;
 }
-
-
-
-
-
 
 .subtask-item {
   display: flex;

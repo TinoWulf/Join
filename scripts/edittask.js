@@ -158,13 +158,13 @@ function addSubstask(){
             title: newSubtask,
             checked: false,
         }
-        subtasks.push(subtask);
+        subtasklistItem.push(subtask);
         SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}</li>`; 
         newSubtaskRef.value = '';
     }else{
         SubtasklistContainer.innerHTML+="";
     }
-    return subtasks;
+    return subtasklistItem;
 }
 
 
@@ -181,17 +181,15 @@ async function getEditedTask(taskId, event) {
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
     const newDueDate = dueDateInput ? dueDateInput.value : ''; 
     const newPriority = priorityInput ? priorityInput.value : 'medium';
-    subtasklistItem = await getAlreadySubtask(taskId);
-    // alreadyAssigned = await getAlreadyAssigned(taskId);
     const newAssignedTo = alreadyAssigned ? alreadyAssigned : [];
-    const newSubtasks = addSubstask() ? addSubstask() : [];
+    const newSubtasks = subtasklistItem ? subtasklistItem : [];
     const updatedTaskData = {
         title: newTitle,
         description: newDescription,
         dueDate: newDueDate,
         priority: newPriority,
         assignedTo: newAssignedTo,
-        subtasks: subtasklistItem.concat(newSubtasks)
+        subtasks: newSubtasks
     };
     await updateTaskInDatabase(updatedTaskData, taskId);
     closePopUp(event);
@@ -220,14 +218,21 @@ function getEditedSubtask(taskId){
                 return
             }
             const subtaskContent = subtask.textContent;
+            const subtaskTitle = subtaskContent.split('\n')[0];
+            const index = subtask.dataset.index;
             subtask.innerHTML = "";
             subtask.innerHTML = `
-                <input type="text" value="${subtaskContent}" />
-                <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${subtask.dataset.index})">
-                    <img src="./assets/icons/delete.png"alt="search icon" />
-                <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskContent}')">
-                    <img src="./assets/icons/checkbold.png" alt="search icon" />
-                </span>
+                <label>
+                    <input type="text" value="${subtaskContent} ${index}"/>
+                    <div class="img-icons">
+                        <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${index})">
+                            <img src="./assets/icons/delete.png"alt="search icon" />
+                        </span>
+                        <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskTitle}')">
+                            <img src="./assets/icons/check.png" alt="search icon" />
+                        </span>
+                    </div>
+                </label>
             `;
         })
     })

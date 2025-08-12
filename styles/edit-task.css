@@ -14,8 +14,7 @@
 }
 
 .editTaskPopup input, .editTaskPopup textarea {
-  font-size: 16px;
-  color: var(--grey-border);
+  font-size: 18px;
 }
 
 .editTaskPopup::-webkit-scrollbar {
@@ -182,11 +181,38 @@
   gap: 10px;
 }
 
-.subtask-items{
+.subtask-item{
   display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  border: unset;
+}
+
+.subtask-item label{
+  margin-right: 10px;
+  border-bottom: 1px solid var(--blue);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   align-items: center;
   flex-direction: row;
 }
+
+.subtask-item input{
+  width: 90%;
+  padding-left: 0;
+}
+
+.img-icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+
 
 @media (max-width: 768px) {
   .editTaskPopup {

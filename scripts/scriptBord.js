@@ -12,6 +12,7 @@ let contactBoard = document.getElementById("assigned");
  */
 function startDragging(id) {
   currentDraggedTask = id;
+  document.getElementById(id).classList.add('rotate');
 }
 
 
