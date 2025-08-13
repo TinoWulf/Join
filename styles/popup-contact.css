@@ -162,8 +162,7 @@
 .popup-field-name,
 .popup-field-phone,
 .popup-field-email {
-    width: 422px;
-    height: 50px;
+    width: 382px;
     opacity: 1;
     gap: 8px;
 
@@ -172,7 +171,7 @@
 .popup-field-name-input,
 .popup-field-email-input,
 .popup-field-phone-input {
-    width: 382px;
+    width: 100%;
     height: 50px;
     border-radius: 10px;
     border-width: 1px;
@@ -264,9 +263,9 @@ input[type="text"] {
 }
 
 .popup-field-invalid-sub {
-    padding-left: 10px;
     font-size: 14px;
     color: rgba(255, 0, 0, 0.546);
+    text-align: center;
     display: none;
 }
 
