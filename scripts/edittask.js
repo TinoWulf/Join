@@ -210,51 +210,78 @@ async function updateTaskInDatabase(updatedTaskData, taskId) {
 
 
 
-function getEditedSubtask(taskId){
+function escapeForInlineJS(str) {
+    return str
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")     
+        .replace(/"/g, '\\"');    
+}
+
+
+function getEditedSubtask(){
     const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask-item');
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
                 return
             }
-            const subtaskContent = subtask.textContent;
-            const subtaskTitle = subtaskContent.split('\n')[0];
-            const index = subtask.dataset.index;
+            const subtaskContent = subtask.querySelector('li').textContent.trim();
             subtask.innerHTML = "";
-            subtask.innerHTML = `
-                <label>
-                    <input type="text" value="${subtaskContent} ${index}"/>
-                    <div class="img-icons">
-                        <span class="delete-icon" onclick="deleteSubtaskInEdited(${taskId}, ${index})">
-                            <img src="./assets/icons/delete.png"alt="search icon" />
-                        </span>
-                        <span class="search-icon" onclick="modifySubtaskInEdited('${subtaskTitle}')">
-                            <img src="./assets/icons/check.png" alt="search icon" />
-                        </span>
-                    </div>
-                </label>
-            `;
+            subtask.innerHTML = templateRenderFormEditSubtask(subtaskContent);
         })
     })
 }
 
+
+
+
+function templateRenderFormEditSubtask(subtaskContent){
+    const subtaskTitle = escapeForInlineJS(subtaskContent);
+    return `
+        <label>
+            <input type="text" value="${subtaskContent}" id="subtaskEdit"/>
+            <div class="img-icons">
+                <span class="delete-icon" onclick="deleteSubtaskInEdited('${subtaskTitle}')">
+                    <img src="./assets/icons/delete.png"alt="search icon" />
+                </span>
+                <span class="check-icon" onclick="modifySubtaskInEdited('${subtaskTitle}')">
+                    <img src="./assets/icons/checkgrey.png" alt="search icon" />
+                </span>
+            </div>
+        </label>
+    `;
+}
+
+
+
 function modifySubtaskInEdited(subtaskContent){
-    if (!Array.isArray(subtasklistItem) || !Array.isArray(subtasks)) {
-        console.error("One or both arrays are not defined or not arrays");
+    if (!Array.isArray(subtasklistItem)) {
         return;
     }
-    const found =
-    subtasklistItem.find(item => item.title === subtaskContent) || subtasks.find(subtask => subtask.title === subtaskContent);
-    if (!found) {
-        return
-    }else{
-        console.log(true);
-
+    const found = subtasklistItem.findIndex(item => item.title === subtaskContent.trim());
+    if (found<0) {
+        return;
+    }else if(found>= 0){
+        const newValue = document.getElementById('subtaskEdit').value;
+        subtasklistItem[found] = {
+            title: newValue.trim(),
+            checked: false
+        };
     }
 }
 
-function deleteSubtaskInEdited(taskId,index){
-    console.log("delete", taskId, index);
+
+function deleteSubtaskInEdited(subtaskContent){
+     if (!Array.isArray(subtasklistItem)) {
+        return;
+    }
+    const found = subtasklistItem.findIndex(item => item.title === subtaskContent.trim());
+    if (found<0) {
+        return;
+    }else if(found>= 0){
+        subtasklistItem.splice(found, 1);
+        
+    }
 }
 
 
