@@ -1,4 +1,4 @@
-import { tasksList, applyAssignedToColors } from "./board.js";
+import { tasksList } from "./board.js";
 import { templateTaskCard, } from "./templates.js";
 let showSearchResult = document.getElementById("containerBoard");
 let searchInput; 
@@ -38,4 +38,61 @@ function searchParticularTask() {
 }
 
 
+/**
+ *  Applies background colors to span elements within elements with the classes
+ * ".option" and ".assigned-contact" based on the first letter of their text content.
+ * The color is determined by the `letterColors` mapping; if no color is found,
+ * a default color ("#000") is used.
+ */
+function applyAssignedToColors() {
+  document.querySelectorAll(".asigned-to span").forEach((spantask) => {
+    const firstLetter = spantask.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    spantask.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".taskCardPopup ul li span").forEach((spanuser) => {
+    const firstLetterUser = spanuser.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetterUser] || "#000";
+    spanuser.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".taskCard-header span").forEach((spancategory) => {
+    const firstLetter = spancategory.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    spancategory.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".already-assigned span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+}
+
+/**
+ *  Applies background colors to span elements within elements with the classes
+ * ".option" and ".assigned-contact" based on the first letter of their text content.
+ * The color is determined by the `letterColors` mapping; if no color is found,
+ * a default color ("#000") is used.
+ */
+function applyAssignedToColorSpan(){
+  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+  document.querySelectorAll(".assigned-contact span").forEach((alreadyAssigned) => {
+    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
+    const color = letterColors[firstLetter] || "#000";
+    alreadyAssigned.style.backgroundColor = color;
+  });
+}
+
+export{applyAssignedToColorSpan, applyAssignedToColors};
+
 window.searchParticularTask = searchParticularTask;
+window.applyAssignedToColors = applyAssignedToColors;
+window.applyAssignedToColorSpan = applyAssignedToColorSpan;

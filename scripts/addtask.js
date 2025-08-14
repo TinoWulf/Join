@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 import {set, ref, database} from "./connection.js";
-import {applyAssignedToColorSpan, getAbbreviation} from "./board.js";
+import { getAbbreviation} from "./board.js";
+import { applyAssignedToColorSpan} from "./searchtask.js";
 import {templateRenderContactOnBord } from "./templates.js";
 let alreadyAssignedContainer = document.getElementById("assignedContact");
 

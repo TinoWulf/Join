@@ -1,5 +1,6 @@
 import {database,ref,update,get } from "./connection.js";
 import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
+import {applyAssignedToColorSpan, applyAssignedToColors } from "./searchtask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
 
 let toDo = document.getElementById("toDoTask");
@@ -62,59 +63,6 @@ function getAbbreviation(str) {
     .join("");
 }
 
-
-/**
- *  Applies background colors to span elements within elements with the classes
- * ".option" and ".assigned-contact" based on the first letter of their text content.
- * The color is determined by the `letterColors` mapping; if no color is found,
- * a default color ("#000") is used.
- */
-function applyAssignedToColors() {
-  document.querySelectorAll(".asigned-to span").forEach((spantask) => {
-    const firstLetter = spantask.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    spantask.style.backgroundColor = color;
-  });
-  document.querySelectorAll(".taskCardPopup ul li span").forEach((spanuser) => {
-    const firstLetterUser = spanuser.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetterUser] || "#000";
-    spanuser.style.backgroundColor = color;
-  });
-  document.querySelectorAll(".taskCard-header span").forEach((spancategory) => {
-    const firstLetter = spancategory.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    spancategory.style.backgroundColor = color;
-  });
-  document.querySelectorAll(".already-assigned span").forEach((alreadyAssigned) => {
-    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    alreadyAssigned.style.backgroundColor = color;
-  });
-  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
-    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    alreadyAssigned.style.backgroundColor = color;
-  });
-}
-
-/**
- *  Applies background colors to span elements within elements with the classes
- * ".option" and ".assigned-contact" based on the first letter of their text content.
- * The color is determined by the `letterColors` mapping; if no color is found,
- * a default color ("#000") is used.
- */
-function applyAssignedToColorSpan(){
-  document.querySelectorAll(".option span").forEach((alreadyAssigned) => {
-    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    alreadyAssigned.style.backgroundColor = color;
-  });
-  document.querySelectorAll(".assigned-contact span").forEach((alreadyAssigned) => {
-    const firstLetter = alreadyAssigned.textContent.trim().charAt(0).toUpperCase();
-    const color = letterColors[firstLetter] || "#000";
-    alreadyAssigned.style.backgroundColor = color;
-  });
-}
 
 
 /**
@@ -425,7 +373,7 @@ function initiateBoard() {
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, applyAssignedToColors, callUserData, openTaskDetail, moveTo,getPriority, applyAssignedToColorSpan, tasksList};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, callUserData, openTaskDetail, moveTo,getPriority, tasksList};
 
 
 window.initiateBoard = initiateBoard;
@@ -433,11 +381,10 @@ window.findTasksByCategory = findTasksByCategory;
 window.getAbbreviation = getAbbreviation;
 window.countSubtasks = countSubtasks;
 window.countSubtasksDone = countSubtasksDone;
-window.applyAssignedToColors = applyAssignedToColors;
 window.loadTasks = loadTasks;
 window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.moveTo = moveTo;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
-window.applyAssignedToColorSpan = applyAssignedToColorSpan;
+

@@ -2,10 +2,8 @@ import { initiateBoard } from "./board.js";
 import {ref, update,get,  database} from "./connection.js";
 const dataBaseURL =
   "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
-let assignedToList = [];
 let alreadyAssigned = [];
 let subtasklistItem = [];
-let subtasks = [];
 let contactListGlobal = [];
 let contactIdList = [];
 let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
