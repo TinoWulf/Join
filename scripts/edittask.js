@@ -278,7 +278,6 @@ function deleteSubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         subtasklistItem.splice(found, 1);
-        
     }
 }
 

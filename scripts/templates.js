@@ -32,6 +32,7 @@ function templateTaskCard(task) {
   `;
 }
 
+
 /**
  * render an HTML template for a task card with all informations.
  * @param {*} task  The task object.
@@ -87,6 +88,7 @@ function templateTaskCardDetail(task){
   
   `;
 }
+
 
 /**
  * Generates an HTML template for the "No Task to do" placeholder.
@@ -144,6 +146,7 @@ function donePlaceholderTemplate(){
     </div>
   `;
 }
+
 
 /**
  * render an HTML template of the detail of a task
@@ -223,6 +226,7 @@ function templateEditTask(task){
     <script type="module" defer src="./scripts/edittask.js"></script>
   `;
 }
+
 
 /**
  * render an  HTML template of the contact in the add task form or in edit task form

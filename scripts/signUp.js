@@ -7,6 +7,7 @@ const confirmPasswordRef = document.getElementById("confirmPassword");
 const emailLabel = document.getElementById("emailLabel");
 const acceptPolicyRef = document.getElementById("acceptPolicy");
 const signUpBtn = document.getElementById("signUpBtn");
+const signupForm = document.getElementById("signupForm");
 
 let emailError = document.getElementById('emailError');
 let signUpError = document.getElementById('sign-up-error');
@@ -17,7 +18,6 @@ let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
 
 /**
  * Registers a new user with the provided email, password, and name, and stores their profile in the database.
- *
  * @async
  * @function
  * @param {string} email - The user's email address.
@@ -32,16 +32,29 @@ async function signUpUser(email, password, name, acceptedPolicy) {
     const user = userCredential.user;
     const userId = user.uid;
     const userProfileRef = ref(database, 'users/' + userId);
-    await set(userProfileRef, {
-      id: userId,
-      name: name,
-      email: email, 
-      acceptedPolicy: acceptedPolicy,
-      created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),
-    });
+    await set(userProfileRef, {id: userId, name: name, email: email, acceptedPolicy: acceptedPolicy,created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),});
     return user;
   } catch (error) {
     catchError(error);
+  }
+}
+
+
+/**
+ * 
+ * this function is used to create a contact in the database by signup.
+ * @param {string} name user name
+ * @param {string} email user email
+ */
+async function createContactBySignUp(name, email) {
+  const contactId = Date.now()
+  const contactRef = ref(database, `contacts/${contactId}`);
+  try{
+    const contact = {id: contactId, name: name, email: email, phone: ''};
+    await set(contactRef, contact);
+  }
+  catch(error){
+    openErrorPage();
   }
 }
 
@@ -75,6 +88,7 @@ function catchError(error){
     throw error;
 }
 
+
 /**
  * Hides error messages by adding the "hide" class to the relevant elements after a delay.
  */
@@ -86,6 +100,7 @@ function hideErrorMessages() {
   passwordOutlineError.classList.remove("password-error");
   passwordOutlineErrorConfirm.classList.remove("password-error");
 }
+
 
 /**
  * Sets up the sign-up form submission handler.
@@ -100,8 +115,6 @@ function hideErrorMessages() {
  * - catchError(error)
  */
 function setupSignUp() {
-  const signupForm = document.getElementById("signupForm");
-  if (!signupForm) return;
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = nameRef.value;
@@ -113,6 +126,7 @@ function setupSignUp() {
     verifyPolicy(acceptedPolicy);
     try {
       await signUpUser(email, password, name, acceptedPolicy);
+      await createContactBySignUp(name, email);
       signupForm.reset();
       showSucessMessage()
     } catch (error) {
@@ -184,6 +198,7 @@ const toggleIcon2 = document.getElementById("eyePassword2");
 let realValue = ""; 
 let isVisible = false;
 
+
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
@@ -191,12 +206,14 @@ passwordField.addEventListener('input', function(){
   toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 })
 
+
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
 passwordField2.addEventListener('input', function(){
   toggleIcon2.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 })
+
 
 /**
  * this listener change the visibility of the password value when a user typing in the password field
@@ -227,7 +244,6 @@ passwordField2.addEventListener("input", (e) => {
  * Toggles the visibility of the password input field.
  * Updates the input value to show either the real password or masked characters,
  * and switches the visibility icon accordingly.
- *
  * @function
  * @global
  * @returns {void}
@@ -246,6 +262,7 @@ function togglePassword() {
 function openErrorPage() {
   window.location.href = "error.html";
 }
+
 
 /**
  * Toggles the visibility of the password input field.

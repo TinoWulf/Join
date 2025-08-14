@@ -8,6 +8,7 @@ if (nameUser && nameUser.trim() !== '') {
   localStorage.setItem("userName", nameUserTrimmed);
 }
 
+
 /**
  * checks the userName in localStorage and if it is 'nouser' load the templateNoUser function 
  * else load the templateHeader function.
@@ -61,6 +62,7 @@ function templateHeaderNoUser(){
             </div>
         `;
 }
+
 
 /**
  * 

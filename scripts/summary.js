@@ -13,6 +13,7 @@ import { getAbbreviation} from "./board.js";
 let tasksList = [];
 let allNummer = {};
 
+
 /**
  * Fetches all tasks from the Firebase database, updates the global tasksList,
  * calculates summary statistics, and updates the corresponding DOM elements.
@@ -37,6 +38,8 @@ async function getAllTasksSummary() {
     openErrorPage();
   }
 }
+
+
 /**
  * This function updates the inner text of various elements in the summary section and updates the DOM elements with the respective counts.
  * @param {Object} allNummer An object containing the total number of tasks and the count for each category.
@@ -91,6 +94,7 @@ function capitalizeName(name) {
 
 const currentDate = new Date();
 const currentHour = currentDate.getHours();
+
 
 /**
  * Finds the nearest upcoming task from a list of tasks based on their due dates,
@@ -155,6 +159,7 @@ if (currentUserName && currentUserName.trim() !== '') {
   localStorage.setItem("userName", loggedUser);
 }
 
+
 let actualUser = localStorage.getItem("userName");
 if (actualUser == 'nouser' ) {
   window.location.href = `login.html`;
@@ -167,6 +172,7 @@ if (actualUser == 'nouser' ) {
   document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
 }
 
+
 /**
  * Sets the 'active' class on the summary navigation item and removes it from other navigation items.
  * This function highlights the summary section in the navigation bar.
@@ -177,7 +183,6 @@ function activeNavItem(){
   document.getElementById('addtask').classList.remove('active');
   document.getElementById('summary').classList.add('active');
 }
-
 
 
 /**

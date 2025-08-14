@@ -1,8 +1,7 @@
 import {database,ref,update,get } from "./connection.js";
 import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
-import {applyAssignedToColorSpan, applyAssignedToColors } from "./searchtask.js";
+import {applyAssignedToColors } from "./searchtask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
-
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
@@ -12,8 +11,6 @@ let awaitReviewPlaceholder = document.getElementById("awaitReviewTaskPlaceholder
 let inProgressPlaceholder = document.getElementById("inProgressTaskPlaceholder");
 let donePlaceholder = document.getElementById("doneTaskPlaceholder");
 let tasksList = [];
-
-const letterColors = { A: "#e57373", B: "#f06292", C: "#ba68c8", D: "#9575cd", E: "#7986cb", F: "#64b5f6", G: "#4fc3f7", H: "#4dd0e1", I: "#4db6ac", J: "#81c784", K: "#aed581", L: "#dce775", M: "#fff176", N: "#ffd54f", O: "#ffb74d", P: "#ff8a65", Q: "#a1887f", R: "#e67e22", S: "#8e44ad", T: "#34495e", U: "#16a085", V: "#27ae60", W: "#2980b9", X: "#8e44ad", Y: "#f39c12", Z: "#c0392b"};
 
 
 /**
@@ -78,7 +75,7 @@ async function getAllTasks() {
       return null;
     }
   } catch (error) {
-    console.error("Error retrieving tasks:", error);
+    openErrorPage();
   }
 }
 
@@ -305,7 +302,7 @@ function submitCheckedSubtask(taskId){
           initiateBoard();
         })
         .catch((error) => {
-          console.error("Oh no! Error updating subtask for Task ID:", taskId, error);
+          openErrorPage();
         });
     })
   })

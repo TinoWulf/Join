@@ -310,10 +310,10 @@ async function getAddTask(taskData) {
            await set(taskRef, taskData);
             showSucessMessage() 
         }else{
-            console.log("you got a probleme during add task")
+            return;
         }
     } catch (error) {
-        console.error("Error creating task:", error);
+        openErrorPage();
     }
 }
 
