@@ -241,17 +241,7 @@ function getTaskData(){
     let newPriority = priorityInput.value ? priorityInput.value : 'medium';
     let newAssignedTo = assignedToList ? assignedToList: [];
     let newSubtasks = subtasks ? subtasks : [];
-    const taskData = {
-        id: Date.now(),
-        title: newTitle,
-        description: newDescription,
-        dueDate: newDueDate,
-        category: category,
-        range: "toDo",
-        priority: newPriority,
-        assignedTo: newAssignedTo,
-        subtasks: newSubtasks
-    };
+    const taskData = {id: Date.now(), title: newTitle,  description: newDescription,  dueDate: newDueDate, category: category, range: "toDo", priority: newPriority, assignedTo: newAssignedTo,  subtasks: newSubtasks};
     getAddTask(taskData) 
 }
 

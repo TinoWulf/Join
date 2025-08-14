@@ -162,6 +162,34 @@ label, .label-date{
 }
 
 
+.option{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 15px;
+  align-items: center;
+  color: var(--primary-color);
+  border-radius: 10px;
+}
+
+.option label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.option:hover{
+  background-color: var(--light-grey-color);
+}
+
+.option:has(input[type="checkbox"]:checked){
+  color: var(--white);
+  background-color: var(--primary-color);
+}
+
 .option span{
   display: flex;
   align-items: center;
@@ -247,11 +275,10 @@ label, .label-date{
   align-items: center;
   justify-content: start;
   gap: 8px;
-  padding: 10px 16px;
+  padding: 5px 10px;
   flex-wrap: wrap;
   width: 100%;
-  min-height: 40px;
-  max-height: auto;
+  height: auto;
 }
 
 .assigned-contact span{

@@ -9,6 +9,12 @@ let contactIdList = [];
 let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
 
 
+
+/**
+ * get all contacts from database, already asigned for this task.
+ * if there are no contacts, the functioin create a empty array.
+ * @param {number} taskId task id
+ */
 async function getAlreadyAssigned(taskId) {
     try {
         const assignedRef = ref(database, `tasks/${taskId}`);
@@ -19,9 +25,8 @@ async function getAlreadyAssigned(taskId) {
         } else {
             alreadyAssigned = [];
         }
-        // return alreadyAssigned;
     } catch (error) {
-        console.error("Error fetching assigned users:", error);
+        openErrorPage();
     }
 }
 
@@ -119,6 +124,7 @@ async function getAlreadySubtask(taskId){
 
 
 function getAssignedContactById(id){
+    alreadyAssigned = !alreadyAssigned ? [] : alreadyAssigned;
     let contactRef = document.getElementById(id);
     contactRef.addEventListener('click', function(){
         const name = contactRef.value.trim();
@@ -152,10 +158,7 @@ function addSubstask(){
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
     if(newSubtask){
-        const subtask = {
-            title: newSubtask,
-            checked: false,
-        }
+        const subtask = {title: newSubtask,checked: false,}
         subtasklistItem.push(subtask);
         SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}</li>`; 
         newSubtaskRef.value = '';
@@ -181,14 +184,7 @@ async function getEditedTask(taskId, event) {
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     const newAssignedTo = alreadyAssigned ? alreadyAssigned : [];
     const newSubtasks = subtasklistItem ? subtasklistItem : [];
-    const updatedTaskData = {
-        title: newTitle,
-        description: newDescription,
-        dueDate: newDueDate,
-        priority: newPriority,
-        assignedTo: newAssignedTo,
-        subtasks: newSubtasks
-    };
+    const updatedTaskData = { title: newTitle, description: newDescription, dueDate: newDueDate, priority: newPriority, assignedTo: newAssignedTo, subtasks: newSubtasks};
     await updateTaskInDatabase(updatedTaskData, taskId);
     closePopUp(event);
 }
