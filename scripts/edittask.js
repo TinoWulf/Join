@@ -7,6 +7,7 @@ let subtasklistItem = [];
 let contactListGlobal = [];
 let contactIdList = [];
 let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
+let subtaskListEdit = document.getElementById("subtaskListEdit");
 
 
 
@@ -29,7 +30,6 @@ async function getAlreadyAssigned(taskId) {
         openErrorPage();
     }
 }
-
 
 
 /**
@@ -249,6 +249,7 @@ function templateRenderFormEditSubtask(subtaskContent){
 
 
 function modifySubtaskInEdited(subtaskContent){
+    const input = document.getElementById('subtaskEdit');
     if (!Array.isArray(subtasklistItem)) {
         return;
     }
@@ -256,16 +257,21 @@ function modifySubtaskInEdited(subtaskContent){
     if (found<0) {
         return;
     }else if(found>= 0){
-        const newValue = document.getElementById('subtaskEdit').value;
+        const newValue = input.value;
         subtasklistItem[found] = {
             title: newValue.trim(),
             checked: false
         };
+        input.value = '';
+        const contain = input.closest(".subtask-item");
+        contain.outerHTML = `<li>${newValue}</li>`;
+        initiateBoard();
     }
 }
 
 
 function deleteSubtaskInEdited(subtaskContent){
+    const input = document.getElementById('subtaskEdit');
      if (!Array.isArray(subtasklistItem)) {
         return;
     }
@@ -274,6 +280,9 @@ function deleteSubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         subtasklistItem.splice(found, 1);
+        const contain = input.closest(".subtask-item");
+        contain.outerHTML = '';
+        initiateBoard();
     }
 }
 

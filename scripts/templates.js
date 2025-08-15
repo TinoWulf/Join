@@ -42,9 +42,9 @@ function templateTaskCardDetail(task){
   return `
   
           <div class="taskCardPopup" onclick="preventEvent(event)">
-            <div class="taskCard-header">
+            <div class="taskCard-header close-header">
               <span class="taskType">${task.category}</span>
-              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/>
+              <span class="close-span"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
             </div>
             <h4>${task.title}</h4>
             <p class="taskCard-body description">
@@ -156,9 +156,9 @@ function donePlaceholderTemplate(){
 function templateEditTask(task){
   return `
      <div class="editTaskPopup" onclick="preventEvent(event)">
-            <div class="taskCard-header">
+            <div class="taskCard-header close-header">
               <spa class="taskType"></spa>
-              <img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/>
+              <span class="close-span"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
             </div>
           <label for="title" class="label-title">
               Title

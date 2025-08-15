@@ -13,6 +13,24 @@
   z-index: 1000;
 }
 
+
+.close-header .close-span{
+  width: 30px;
+  height: 30px;
+  background-color: unset !important;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.close-header .close-span:hover {
+  border: 2px solid var(--light-grey-color) !important;
+}
+
+
+
 .editTaskPopup input, .editTaskPopup textarea {
   font-size: 18px;
 }
