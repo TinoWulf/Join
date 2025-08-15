@@ -162,15 +162,15 @@
     .popup-input-img-email,
     .popup-input-img-phone {
         position: relative;
-        left: -40px;
-        top: 5px;
+        right: -26vw;
+        top: -42px;
         height: 20px;
     }
 
     .popup-input-img-person {
         position: relative;
-        left: -40px;
-        top: 2px;
+        right: -26vw;
+        top: -42px;
         height: 15px;
     }
 }

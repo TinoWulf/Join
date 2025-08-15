@@ -246,20 +246,20 @@ input[type="text"] {
 
 .popup-input-img-person {
     position: relative;
-    right: 40px;
-    top: 5px;
+    right: -355px;
+    top: -33px;
 }
 
 .popup-input-img-email {
     position: relative;
-    right: 40px;
-    top: 5px;
+    right: -350px;
+    top: -35px;
 }
 
 .popup-input-img-phone {
     position: relative;
-    right: 40px;
-    top: 5px;
+    right: -350px;
+    top: -35px;
 }
 
 .popup-field-invalid-sub {
