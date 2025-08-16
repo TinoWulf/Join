@@ -1,6 +1,22 @@
-const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
+import {set, ref, database} from "./connection.js";
+import { getAbbreviation} from "./board.js";
+import { applyAssignedToColorSpan} from "./searchtask.js";
+import {templateRenderContactOnBord } from "./templates.js";
+import {escapeForInlineJS, setupPriorityButtons } from "./edittask.js";
+let alreadyAssignedContainer = document.getElementById("assignedContact");
+const taskTitleInput = document.getElementById('taskTitle');
+const taskDescriptionInput = document.getElementById('taskDescription');
+const dueDateInput = document.getElementById('dueDate');
+const priorityInput = document.getElementById('priorityInput');
+let categoryInput  = document.getElementById('categoryInput');
+let errorTitle  = document.getElementById('errorTitle');
+let errorDate  = document.getElementById('errorDate');
+let errorCat  = document.getElementById('errorCat');
+let resetButton  = document.getElementById('resetButton');
+let assignedToList = [];
+let subtasks = [];
 let contactList = [];
-
+const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 
 document.addEventListener('DOMContentLoaded', function() {
     /**
@@ -21,93 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
 });
 
-
-import {set, ref, database} from "./connection.js";
-import { getAbbreviation} from "./board.js";
-import { applyAssignedToColorSpan} from "./searchtask.js";
-import {templateRenderContactOnBord } from "./templates.js";
-let alreadyAssignedContainer = document.getElementById("assignedContact");
-
-const taskTitleInput = document.getElementById('taskTitle');
-const taskDescriptionInput = document.getElementById('taskDescription');
-const dueDateInput = document.getElementById('dueDate');
-const priorityInput = document.getElementById('priorityInput');
-let categoryInput  = document.getElementById('categoryInput');
-let errorTitle  = document.getElementById('errorTitle');
-let errorDate  = document.getElementById('errorDate');
-let errorCat  = document.getElementById('errorCat');
-let resetButton  = document.getElementById('resetButton');
-let assignedToList = [];
-let subtasks = [];
-const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
-const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
-const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
-
-
-/**
- * Updates button images so only the active priority has its white version.
- * @param {string} priority - The currently selected priority.
- */
-function showPriorityButton(priority) {
-    activeButtonUrgent.src = '../assets/icons/urgent.png';
-    activeButtonMedium.src = '../assets/icons/medium.png';
-    activeButtonLow.src = '../assets/icons/low.png';
-    if(priority === 'urgent'){
-        activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
-    }
-    else if(priority === 'medium'){
-        activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
-    }
-    else if(priority === 'low'){
-            activeButtonLow.src =  '../assets/icons/lowwhite.png';
-    }
-}
-
-
-/**
- * Updates the UI for the active priority button and sets the input value.
- * @param {string} priority - The priority to activate.
- * @param {NodeList} buttons - The collection of priority button elements.
- * @param {HTMLInputElement} input - The input element to store the selected priority.
- */
-function activatePriority(priority, buttons, input) {
-    buttons.forEach(button => button.classList.remove('urgent', 'medium', 'low'));
-    const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
-    if (activeButton) {
-        showPriorityButton(priority);
-        activeButton.classList.add(priority);
-        input.value = priority;
-    }
-}
-
-
-/**
- * Binds click events to priority buttons.
- * @param {NodeList} buttons - The collection of priority button elements.
- * @param {HTMLInputElement} input - The input element to store the selected priority.
- */
-function bindPriorityEvents(buttons, input) {
-    buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            activatePriority(button.dataset.priority, buttons, input);
-        });
-    });
-}
-
-
-/**
- * Initializes the priority button system with an optional initial value.
- * @param {string} [initialPriority] - The priority to pre-select on initialization.
- */
-function setupPriorityButtons(initialPriority) {
-    const priorityButtons = document.querySelectorAll('.priority-button');
-    const priorityInput = document.getElementById('priorityInput');
-    if (initialPriority) {
-        activatePriority(initialPriority, priorityButtons, priorityInput);
-    }
-    bindPriorityEvents(priorityButtons, priorityInput);
-}
 
 
 resetButton.addEventListener('click', function(){
@@ -173,10 +102,7 @@ function addSubstask(){
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
     if(newSubtask){
-        const subtask = {
-            title: newSubtask,
-            checked: false,
-        }
+        const subtask = { title: newSubtask,checked: false,}
         subtasks.push(subtask);
        showSubTask();
         newSubtaskRef.value = '';
@@ -196,35 +122,78 @@ function showSubTask(){
     subtasklistContainer.innerHTML = '';
     for(let i=0; i<subtasks.length; i++) {
         const subtask = subtasks[i];
-        subtasklistContainer.innerHTML += `<div class="subtask" id="subTaskElement"><li class="">${subtask.title}</li><div class="img-icons"><span><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="modifySubtaskInEdited(${i}, '${subtask.title}')"><img src="./assets/icons/edit.png" alt="edit" /></span></div></div>`;
+        const subtaskTitle = escapeForInlineJS(subtask.title);
+        subtasklistContainer.innerHTML += `<div class="subtask" id="subTaskElement"><li class="">${subtask.title}</li><div class="img-icons"><span onclick="deleteSubtaskInEdited('${subtaskTitle}')"><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="getEditedSubtask()"><img src="./assets/icons/edit.png" alt="edit" /></span></div></div>`;
     }
 }
 
 
-/**
- * 
- * Modifies a subtask in the edit mode by replacing its content with an input field.
- * This allows the user to edit the subtask content directly.
- * @param {*} index  The index of the subtask to be modified.
- * @param {*} subtaskContent  The current content of the subtask to be edited.
- */
-function modifySubtaskInEdited(index, subtaskContent) {
-    let subtasklists =  document.querySelectorAll('#subtaskListEdit .subtask');
-    subtasklists.forEach((subtask, index) => {
-        subtask.addEventListener('click', function() {
+function getEditedSubtask(){
+    const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask');
+    subsTasks.forEach((subtask) => {
+        subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
                 return
             }
+            const subtaskContent = subtask.querySelector('li').textContent.trim();
             subtask.innerHTML = "";
-            subtask.innerHTML = `
-            <input type="text" value="${subtaskContent}" />
-            <div class="img-icons">
-            <span><img src="./assets/icons/delete.png" alt="delete" /></span>
-            <span><img src="./assets/icons/edit.png" alt="edit" /></span>
-            </div>
-            `;
-        });
+            subtask.innerHTML = templateRenderFormEditSubtask(subtaskContent);
+        })
     })
+}
+
+
+
+
+function templateRenderFormEditSubtask(subtaskContent){
+    const subtaskTitle = escapeForInlineJS(subtaskContent);
+    return `
+        <label>
+            <input type="text" value="${subtaskContent}" id="subtaskEdit"/>
+            <div class="img-icons">
+                <span class="delete-icon" onclick="deleteSubtaskInEdited('${subtaskTitle}')">
+                    <img src="./assets/icons/delete.png"alt="search icon" />
+                </span>
+                <span class="check-icon" onclick="modifySubtaskInEdited('${subtaskTitle}')">
+                    <img src="./assets/icons/checkgrey.png" alt="search icon" />
+                </span>
+            </div>
+        </label>
+    `;
+}
+
+
+function modifySubtaskInEdited(subtaskContent){
+    const input = document.getElementById('subtaskEdit');
+    if (!Array.isArray(subtasks)) {
+        return;
+    }
+    const found = subtasks.findIndex(item => item.title === subtaskContent.trim());
+    if (found<0) {
+        return;
+    }else if(found>= 0){
+        const newValue = input.value;
+        subtasks[found] = {
+            title: newValue.trim(),
+            checked: false
+        };
+        input.value = '';
+        showSubTask();
+    }
+}
+
+
+function deleteSubtaskInEdited(subtaskContent){
+     if (!Array.isArray(subtasks)) {
+        return;
+    }
+    const found = subtasks.findIndex(item => item.title === subtaskContent.trim());
+    if (found<0) {
+        return;
+    }else if(found>= 0){
+        subtasks.splice(found, 1);
+        showSubTask();
+    }
 }
 
 
@@ -426,4 +395,6 @@ window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
 window.showCategory = showCategory;
 window.getCategory = getCategory;
+window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;
+window.deleteSubtaskInEdited = deleteSubtaskInEdited;

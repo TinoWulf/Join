@@ -1,0 +1,133 @@
+.subtask-listes{
+    width: 100%;
+    height: auto;
+}
+
+.subtask{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  border: unset;
+}
+
+.subtask label{
+  margin-right: 10px;
+  height: 30px;
+  border-bottom: 1px solid var(--blue);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+}
+
+.subtask input{
+    background-color: transparent;
+  display: flex;
+  border: unset;
+    outline: none;
+  justify-content: flex-start;
+  width: 90%;
+  padding-left: 0;
+}
+
+.img-icons{
+  display: none;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.img-icons span{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.img-icons span:first-child{
+  border-radius: 0;
+  padding-right: 5px;
+  border-right: 1px solid var(--primary-color);
+}
+
+.subtask:hover .img-icons{
+  display: flex;
+  gap: 10px;
+}
+
+.success-message{
+  position: fixed;
+  background: rgba(24, 30, 63, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.success-message-content{
+  position: absolute ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--light-grey-color);
+  width: 300px;  
+  height: 70px;
+  scale: 1.5;
+  border-radius: 15px;
+  animation: slideTop 0.1s ease-in-out 125ms both, fadeOut 2s ease-in-out 2s forwards;
+}
+
+@keyframes slideTop {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-100px); }
+}
+
+@media (max-width: 1000px) {
+  .add-task-form{
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-bottom: 60px;
+  }
+
+  .add-left-side{
+      width: 100%;
+      height: 392px;
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      gap: 16px;
+  }
+
+  .add-right-side{
+      width: 100%;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      gap: 16px;
+  }
+
+  .separator{
+    display: none;
+  }
+}

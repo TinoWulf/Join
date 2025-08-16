@@ -74,34 +74,74 @@ async function getUser(taskId) {
 }
 
 
+
+
 /**
- * Manages the active state of priority buttons and updates the hidden input.
- * Call this once on load and attach to button click events.
- * @param {string} initialPriority The priority to initially set as active (e.g., 'urgent', 'medium', 'low')
+ * Updates button images so only the active priority has its white version.
+ * @param {string} priority - The currently selected priority.
+ */
+function showPriorityButton(priority) {
+    const activeButtonUrgent = document.querySelector(`.priority-button[data-priority="urgent"] img`);
+    const activeButtonMedium = document.querySelector(`.priority-button[data-priority="medium"] img`);
+    const activeButtonLow = document.querySelector(`.priority-button[data-priority="low"] img`);
+    activeButtonUrgent.src = '../assets/icons/urgent.png';
+    activeButtonMedium.src = '../assets/icons/medium.png';
+    activeButtonLow.src = '../assets/icons/low.png';
+    if(priority === 'urgent'){
+        activeButtonUrgent.src =  '../assets/icons/urgentwhite.png';
+    }
+    else if(priority === 'medium'){
+        activeButtonMedium.src =  '../assets/icons/mediumwhite.png';
+    }
+    else if(priority === 'low'){
+        activeButtonLow.src =  '../assets/icons/lowwhite.png';
+    }
+}
+
+
+/**
+ * Updates the UI for the active priority button and sets the input value.
+ * @param {string} priority - The priority to activate.
+ * @param {NodeList} buttons - The collection of priority button elements.
+ * @param {HTMLInputElement} input - The input element to store the selected priority.
+ */
+function activatePriority(priority, buttons, input) {
+    buttons.forEach(button => button.classList.remove('urgent', 'medium', 'low'));
+    const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
+    if (activeButton) {
+        showPriorityButton(priority);
+        activeButton.classList.add(priority);
+        input.value = priority;
+    }
+}
+
+
+/**
+ * Binds click events to priority buttons.
+ * @param {NodeList} buttons - The collection of priority button elements.
+ * @param {HTMLInputElement} input - The input element to store the selected priority.
+ */
+function bindPriorityEvents(buttons, input) {
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            activatePriority(button.dataset.priority, buttons, input);
+        });
+    });
+}
+
+
+/**
+ * Initializes the priority button system with an optional initial value.
+ * @param {string} [initialPriority] - The priority to pre-select on initialization.
  */
 function setupPriorityButtons(initialPriority) {
     const priorityButtons = document.querySelectorAll('.priority-button');
     const priorityInput = document.getElementById('priorityInput');
-    const setActivePriority = (priority) => {
-        priorityButtons.forEach(button => {
-            button.classList.remove('urgent', 'medium', 'low');
-        });
-        const activeButton = document.querySelector(`.priority-button[data-priority="${priority}"]`);
-        if (activeButton) {
-            activeButton.classList.add(priority); 
-            priorityInput.value = priority; 
-        }
-    };
     if (initialPriority) {
-        setActivePriority(initialPriority);
+        activatePriority(initialPriority, priorityButtons, priorityInput);
     }
-    priorityButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            const priority = button.dataset.priority;
-            setActivePriority(priority);
-        });
-    });
+    bindPriorityEvents(priorityButtons, priorityInput);
 }
 
 
@@ -264,7 +304,7 @@ function modifySubtaskInEdited(subtaskContent){
         };
         input.value = '';
         const contain = input.closest(".subtask-item");
-        contain.outerHTML = `<li>${newValue}</li>`;
+        contain.outerHTML = `<div class="subtask-item"><li>${newValue}</li></div>`;
         initiateBoard();
     }
 }
@@ -287,7 +327,7 @@ function deleteSubtaskInEdited(subtaskContent){
 }
 
 
-export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers };
+export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers, escapeForInlineJS, modifySubtaskInEdited, deleteSubtaskInEdited};
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;

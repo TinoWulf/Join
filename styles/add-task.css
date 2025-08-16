@@ -29,7 +29,8 @@ button{
 
 .add-right-side{
     width: 440px;
-    height: 400px;
+    min-height: 400px;
+    max-height: auto;
     display: flex;
     flex-direction: column;
     justify-items: center;
@@ -329,57 +330,6 @@ label, .label-date{
   gap: 16px;
 }
 
-.subtask-listes{
-  width: 100%;
-  min-height: 100px;
-  overflow-y: auto;
-  padding: 10px 30px;
-}
-
-.subtask-listes .subtask{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.subtask-listes .subtask .img-icons{  
-  gap: 10px;
-  font-size: 20px;
-  color: var(--primary-color);
-  /* padding: 10px 0; */
-  display: none;
-}
-
-.subtask-listes .subtask .img-icons span{
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  width: 30px;
-  height: 30px;
-  gap: 10px;
-}
-
-.subtask-listes .subtask .img-icons img{
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  margin: 0px 10px;
-}
-
-.subtask-listes .subtask .img-icons span:last-child{
-  border-left: 2px solid var(--primary-color);
-}
-
-.subtask-listes .subtask .img-icons img:hover{
-  transform: scale(1.1);
-}
-
-.subtask:hover .img-icons {
-  display: flex;
-  gap: 10px;
-}
-
 .cancel-button{
   display: flex;
   justify-content: center;
@@ -411,80 +361,3 @@ label, .label-date{
   padding: 16px;
   gap: 4px;
 }
-
-.success-message{
-  position: fixed;
-  background: rgba(24, 30, 63, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  z-index: 1000;
-}
-
-.success-message-content{
-  position: absolute ;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-color);
-  color: var(--light-grey-color);
-  width: 300px;  
-  height: 70px;
-  scale: 1.5;
-  border-radius: 15px;
-  animation: slideTop 0.1s ease-in-out 125ms both, fadeOut 2s ease-in-out 2s forwards;
-}
-
-@keyframes slideTop {
-  from {
-    transform: translateY(-100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-100px); }
-}
-
-@media (max-width: 1000px) {
-  .add-task-form{
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      margin-bottom: 60px;
-  }
-
-  .add-left-side{
-      width: 100%;
-      height: 392px;
-      display: flex;
-      flex-direction: column;
-      justify-items: center;
-      gap: 16px;
-  }
-
-  .add-right-side{
-      width: 100%;
-      height: 400px;
-      display: flex;
-      flex-direction: column;
-      justify-items: center;
-      gap: 16px;
-  }
-
-  .separator{
-    display: none;
-  }
-
-}
-
-
-

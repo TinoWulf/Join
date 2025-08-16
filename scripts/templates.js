@@ -176,13 +176,13 @@ function templateEditTask(task){
               Priority
               <div class="add-task-priority">
                   <input type="hidden" name="priority" id="priorityInput" value="" />
-                  <button type="submit" class="priority-button ${task.priority === 'urgent' ? 'urgent': '' } " data-priority="urgent"  id="priorityButtonUrgent">
+                  <button type="submit" class="priority-button"  data-priority="urgent"  id="priorityButtonUrgent">
                   Urgent<img src="./assets/icons/urgent.png" alt="" />
                   </button>
-                  <button type="submit" class="priority-button ${task.priority === 'medium' ? 'medium': '' }" data-priority="medium"  id="priorityButtonMedium">
+                  <button type="submit" class="priority-button"  data-priority="medium"  id="priorityButtonMedium">
                   Medium <img src="./assets/icons/medium.png" alt="" />
                   </button>
-                  <button type="submit" class="priority-button ${task.priority === 'low' ? 'low': '' }" data-priority="low"  id="priorityButtonLow">
+                  <button type="submit" class="priority-button"  data-priority="low"  id="priorityButtonLow">
                   Low <img src="./assets/icons/low.png" alt="" />
                   </button>
               </div>
@@ -212,6 +212,7 @@ function templateEditTask(task){
               ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
                 `<div class="subtask-item">
                     <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
+                    <div class="img-icons"><span><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="getEditedSubtask()"><img src="./assets/icons/edit.png" alt="edit" /></span></div>
                   </div>
                 `).join("")
                 : ''

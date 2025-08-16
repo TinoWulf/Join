@@ -213,7 +213,7 @@
 
 .subtask-item{
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   align-items: center;
   flex-direction: row;
@@ -238,9 +238,14 @@
 }
 
 .img-icons{
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
+}
+
+.subtask-item:hover .img-icons{
+  display: flex;
+  gap: 10px;
 }
 
 .img-icons span{
