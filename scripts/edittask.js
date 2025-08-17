@@ -268,7 +268,11 @@ function getEditedSubtask(){
 
 
 
-
+/**
+ * change the subtask list item to edit mode
+ * @param {*} subtaskContent subtask content
+ * @returns html template for edit subtask
+ */
 function templateRenderFormEditSubtask(subtaskContent){
     const subtaskTitle = escapeForInlineJS(subtaskContent);
     return `
@@ -287,7 +291,11 @@ function templateRenderFormEditSubtask(subtaskContent){
 }
 
 
-
+/**
+ * modifie the value of the subtask in the list
+ * @param {string} subtaskContent subtask value
+ * @returns 
+ */
 function modifySubtaskInEdited(subtaskContent){
     const input = document.getElementById('subtaskEdit');
     if (!Array.isArray(subtasklistItem)) {
@@ -310,6 +318,11 @@ function modifySubtaskInEdited(subtaskContent){
 }
 
 
+/**
+ * remove subtask from the list
+ * @param {string} subtaskContent subtask value
+ * @returns 
+ */
 function deleteSubtaskInEdited(subtaskContent){
     const input = document.getElementById('subtaskEdit');
      if (!Array.isArray(subtasklistItem)) {

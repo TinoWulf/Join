@@ -128,6 +128,9 @@ function showSubTask(){
 }
 
 
+/**
+ * start change subtask form <li> element to input element
+ */
 function getEditedSubtask(){
     const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask');
     subsTasks.forEach((subtask) => {
@@ -144,7 +147,11 @@ function getEditedSubtask(){
 
 
 
-
+/**
+ * change the contain of the subtask element to the edit form.
+ * @param {string} subtaskContent value of the subtask
+ * @returns 
+ */
 function templateRenderFormEditSubtask(subtaskContent){
     const subtaskTitle = escapeForInlineJS(subtaskContent);
     return `
@@ -163,6 +170,11 @@ function templateRenderFormEditSubtask(subtaskContent){
 }
 
 
+/**
+ * modifie the subtask value in the subtask list
+ * @param {string} subtaskContent value of the subtask
+ * @returns 
+ */
 function modifySubtaskInEdited(subtaskContent){
     const input = document.getElementById('subtaskEdit');
     if (!Array.isArray(subtasks)) {
@@ -173,16 +185,18 @@ function modifySubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         const newValue = input.value;
-        subtasks[found] = {
-            title: newValue.trim(),
-            checked: false
+        subtasks[found] = {title: newValue.trim(), checked: false
         };
         input.value = '';
         showSubTask();
     }
 }
 
-
+/**
+ * remove the subtask in the subtask list
+ * @param {string} subtaskContent  value of the subtask
+ * @returns 
+ */
 function deleteSubtaskInEdited(subtaskContent){
      if (!Array.isArray(subtasks)) {
         return;
