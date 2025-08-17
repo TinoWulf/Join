@@ -145,6 +145,11 @@ function setupPriorityButtons(initialPriority) {
 }
 
 
+/**
+ * get the contacts already assigned to the task and return them as an array them.
+ * @param {string} taskId 
+ * @returns array of contacts already assigned to the task
+ */
 async function getAlreadySubtask(taskId){
     const subtaskListRef = ref(database, `tasks/${taskId}`);
     try{
@@ -158,20 +163,22 @@ async function getAlreadySubtask(taskId){
             return subtasklistItem;
         }
     }catch(error){
-        console.log("can't fetch this data", error);
+        openErrorPage();
     } 
 }
 
 
+/**
+ * add a new contact to the list of contacts, if the contact already exists, it will be remove
+ * @param {number} id contact id
+ * @returns array of contacts
+ */
 function getAssignedContactById(id){
     alreadyAssigned = !alreadyAssigned ? [] : alreadyAssigned;
     let contactRef = document.getElementById(id);
     contactRef.addEventListener('click', function(){
         const name = contactRef.value.trim();
-        const newContact = {
-            name: name,
-            checked: true
-        }
+        const newContact = { name: name,  checked: tru }
         if(!alreadyAssigned.find(item => item.name === newContact.name)){
             alreadyAssigned.push(newContact);
         }else{
@@ -183,6 +190,9 @@ function getAssignedContactById(id){
 }
 
 
+/**
+ * add a new Assigned contact to the container of assigned contacts for more user interaction
+ */
 function renderAssignedUsers() {
     alreadyAssignedContainer.innerHTML = '';
     for(let i=0; i<alreadyAssigned.length; i++) {
@@ -192,7 +202,10 @@ function renderAssignedUsers() {
 }
 
 
-
+/**
+ * this function add a new subtask to the subtask list
+ * @returns array of subtasks
+ */
 function addSubstask(){
     let SubtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
@@ -230,6 +243,11 @@ async function getEditedTask(taskId, event) {
 }
 
 
+/**
+ * change the task information in the database using the edited task data.
+ * @param {object} updatedTaskData  the new task object data
+ * @param {*} taskId 
+ */
 async function updateTaskInDatabase(updatedTaskData, taskId) {
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
@@ -244,6 +262,12 @@ async function updateTaskInDatabase(updatedTaskData, taskId) {
 
 
 
+/**
+ * Escapes special characters in a string for safe inline JavaScript usage.
+ * Specifically, it escapes backslashes, single quotes, and double quotes.
+ * @param {string} str - The input string to escape.
+ * @returns {string} The escaped string safe for inline JavaScript.
+ */
 function escapeForInlineJS(str) {
     return str
         .replace(/\\/g, '\\\\')
@@ -252,6 +276,9 @@ function escapeForInlineJS(str) {
 }
 
 
+/**
+ * start subtask edit
+ */
 function getEditedSubtask(){
     const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask-item');
     subsTasks.forEach((subtask) => {
