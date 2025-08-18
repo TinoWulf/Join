@@ -1,0 +1,39 @@
+
+.arrow-left-line {
+    position: sticky;
+    top: 20%;
+    left: 94%;
+    height: 25px;
+    width: 25px;
+}
+
+.arrow-left-line:hover {
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    transform: scale(1.20);
+}
+
+@media (min-width: 1440px) {
+        .arrow-left-line {
+        height: 40px;
+        width: 40px;
+    }
+}
+@media (min-width: 4000px) {
+    .arrow-left-line {
+        height: 50px;
+        width: 50px;
+    }
+}
+@media (min-width: 6000px) {
+    .arrow-left-line {
+        height: 70px;
+        width: 70px;
+    }
+}
+@media (min-width: 8000px) {
+    .arrow-left-line {
+        height: 90px;
+        width: 90px;
+    }
+}

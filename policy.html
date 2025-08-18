@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="./styles/menu-bar.css">
     <link rel="stylesheet" href="./styles/policy.css">
+    <link rel="stylesheet" href="./styles/back-button.css">
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon"/>
     <script src="./script.js"></script>
     <script defer src="./scripts/legacyPolicy.js"></script>
@@ -17,6 +18,9 @@
 <body onload="callUserData(), notUser()">
     <header id="navbar"></header>
     <div class="policy-body">
+        <a href="#" onclick="goBack()">
+            <img class="arrow-left-line" src="./assets/icons/arrow-left-line.png">
+        </a>
         <h1>Privacy Policy</h1>
         <br>
         <br>
