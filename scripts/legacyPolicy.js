@@ -8,6 +8,7 @@ if (nameUser && nameUser.trim() !== '') {
   localStorage.setItem("userName", nameUserTrimmed);
 }
 
+
 /**
  * checks the userName in localStorage and if it is 'nouser' load the templateNoUser function 
  * else load the templateHeader function.
@@ -43,6 +44,7 @@ function checkIfLegacyPage() {
 }
 
 
+
 /**
  * 
  * @returns {string} A string representing the HTML structure for the header menu when no user is logged in.
@@ -61,6 +63,7 @@ function templateHeaderNoUser(){
             </div>
         `;
 }
+
 
 /**
  * 

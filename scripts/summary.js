@@ -182,16 +182,31 @@ function activeNavItem(){
   document.getElementById('contacts').classList.remove('active');
   document.getElementById('addtask').classList.remove('active');
   document.getElementById('summary').classList.add('active');
+  
 }
 
+
+function greetMobile(){
+  if( window.innerWidth < 876 ){
+    document.getElementById('greetMobile').classList.add('show');
+    document.getElementById('boardSummary').classList.add('hide');
+    document.getElementById('navSummary').classList.add('hide');
+    setTimeout(()=>{
+      document.getElementById('greetMobile').classList.remove('show');
+      document.getElementById('boardSummary').classList.remove('hide');
+      document.getElementById('navSummary').classList.remove('hide');
+    }, 2000);
+  }
+}
 
 /**
  * Initializes the summary by fetching and displaying all task statistics.
  */
+greetMobile();
 getAllTasksSummary();
 activeNavItem();
 
-export{capitalizeName, getUserExits, getGuestUser, activeNavItem};
+export{capitalizeName, getUserExits, getGuestUser, activeNavItem, greetMobile};
 
 window.getGuestUser = getGuestUser;
 window.getUserExits = getUserExits;

@@ -10,7 +10,6 @@ let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
 let subtaskListEdit = document.getElementById("subtaskListEdit");
 
 
-
 /**
  * get all contacts from database, already asigned for this task.
  * if there are no contacts, the functioin create a empty array.
@@ -72,8 +71,6 @@ async function getUser(taskId) {
     // openErrorPage();
   }
 }
-
-
 
 
 /**

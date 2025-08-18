@@ -1,4 +1,4 @@
-import{database,ref, get, auth, signInWithEmailAndPassword} from './connection.js'
+import{database,ref, get, auth, signInWithEmailAndPassword} from './connection.js';
 let loginError = document.getElementById('error-message');
 let loginEmailRef = document.getElementById('email');
 let loginPasswordRef = document.getElementById('password');

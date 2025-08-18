@@ -275,12 +275,13 @@
 }
 
 .show {
-  display: flex;
+  display: flex !important;
 }
 
 .hide {
   display: none !important;
 }
+
 
 @media (max-width : 1090px) {
     .container-summary{

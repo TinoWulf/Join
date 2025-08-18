@@ -17,14 +17,14 @@
     <header id="navbar">
 
     </header>
-    <main class="main-summary">
-        <nav class="nav-summary">
+    <main class="main-summary" id="mainSummary">
+        <nav class="nav-summary" id="navSummary">
             <h1>Join 479</h1>
             <span>Key Metrics at a Glance</span>
             <hr class="hr-join">
         </nav>
         <div class="container-summary">
-            <div class="board-summary">
+            <div class="board-summary" id="boardSummary">
                 <div class="todo-summary">
                     <section class="todo-summary-section" onclick="openBoard()">
                         <p class="image-summary hide-p "><img class="hide-image" src="./assets/icons/editwhite.png" alt="edit icon"></p>
@@ -51,7 +51,7 @@
                     <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="tasksAwaitFeedbacks">2</span>  <span class="task-category">Awaiting <br>Feedback</span></section>
                 </div>
             </div>
-            <div class="great-user">
+            <div class="great-user greet-mobile" id="greetMobile">
                 <p id="greetMessage"></p>
                 <h2 id="userName"></h2>
             </div>
