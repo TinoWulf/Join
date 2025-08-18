@@ -272,9 +272,13 @@ body {
     white-space: nowrap;
 }
 
+.center-top-responsive-edit {
+    display: none;
+}
+
 .center-top-edit {
-    width: 159px;
-    height: 24px;
+    width: 100%;
+    height: 100%;
     opacity: 1;
     display: flex;
     gap: 12px;

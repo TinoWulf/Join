@@ -69,9 +69,8 @@ function triggerCounter() { // Increments color counter
  * Variables used: activeContactIndex
  */
 function showContact(initials, color, user, email, phone, userID, i) { // Show contact details
-    if (activeContactIndex !== null) { // If another contact is active
-        const oldActive = document.getElementById(`render-div${activeContactIndex}`); // Get old element
-        if (oldActive) oldActive.classList.remove("render-div-hover"); // Remove highlight
+    if (activeContactIndex !== null) {
+        RemoveActiveContact(activeContactIndex); // Remove highlight from previous contact
     }
     document.getElementById(`render-div${i}`).classList.add("render-div-hover"); // Highlight current
     activeContactIndex = i; // Store active index
@@ -109,18 +108,15 @@ function openContactAdd() {
  * After the animation, it removes the slide-in class to reset the state.
 */
 function openResponsivContactadd() {
-    const popup = document.getElementById("popup-add");
-    document.getElementById("popup-background").style.display = "flex"; // Sichtbar machen
-    popup.style.display = "flex"; // Popup anzeigen
-
-    popup.classList.remove("slide-out"); // Alte Animation entfernen
-    void popup.offsetWidth; // Reflow erzwingen (damit Animation neu startet)
-    popup.classList.add("slide-in"); // Neue Animation starten
-
-    // Nach der Animation Klasse wieder entfernen
-    popup.addEventListener("animationend", () => {
-        popup.classList.remove("slide-in");
-    }, { once: true });
+    const popup = document.getElementById("popup-add"); // Get the popup element
+    document.getElementById("popup-background").style.display = "flex"; // Show background
+    popup.style.display = "flex"; // Show popup
+    popup.classList.remove("slide-out"); // Remove slide-out animation
+    void popup.offsetWidth; // Force reflow to reset animation state
+    popup.classList.add("slide-in"); // Add slide-in animation
+    popup.addEventListener("animationend", () => { // After animation ends
+        popup.classList.remove("slide-in"); // Remove slide-in class to reset state
+    }, { once: true }); // Ensure this runs only once
 }
 
 
@@ -151,11 +147,11 @@ function closeContactAdd() { // Close add contact popup
 */
 function openEdit(initials, color, user, email, phone, userID) { // Open edit popup
     closeResponsivContact(); // Close responsive contact view if open
-    let popupEdit = document.getElementById("popup-edit");
+    let popupEdit = document.getElementById("popup-edit"); // Get edit popup element
     popupEdit.innerHTML = renderOpenEdit(color, initials, userID);// Set HTML content for edit popup
-    popupEdit.classList.remove("slide-out");
+    popupEdit.classList.remove("slide-out"); 
     document.getElementById("popup-background").style.display = "flex";
-    popupEdit.style.display = "flex";
+    popupEdit.style.display = "flex"; 
     popupEdit.classList.add("slide-in");
     document.getElementById("in-name-edit").value = user; // Prefill inputs
     document.getElementById("in-email-edit").value = email;
@@ -193,7 +189,7 @@ async function saveContact(userID) { // Save edited contact
     const result = checkInput(name, email, number, "edit"); // Validate input
 
     if (result) {
-        await finishSaveContact(result, userID);
+        await finishSaveContact(result, userID); // Save contact
     }
 }
 
@@ -229,29 +225,19 @@ async function addContact() { // Add new contact
  * and formats the phone number to start with +49.
 */
 function checkInput(nameInput, emailInput, phoneInput, int) {
-    const nameParts = nameInput.trim().split(" "); // Split name into parts
-    const digitsOnly = phoneInput.replace(/\D/g, ""); // Remove non-digit characters from phone
-    const nameField = document.getElementById(`in-name-${int}`); // Get input fields
-    const emailField = document.getElementById(`in-email-${int}`); // Get email input field
-    const phoneField = document.getElementById(`in-number-${int}`); // Get phone input field
-    const nameError = document.getElementById(`invalid-name-${int}`); // Get error elements
-    const emailError = document.getElementById(`invalid-email-${int}`);
-    const phoneError = document.getElementById(`invalid-phone-${int}`);
+    const { nameParts, digitsOnly, nameField, emailField, phoneField, nameError, emailError, phoneError } 
+     = getValidationElements(int, nameInput, phoneInput); // Get validation elements based on input type
     let valid = true; // Flag to track validation
     if (!validateName(nameParts, nameField, nameError)) valid = false; // Validate name
     if (!validateEmail(emailInput, emailField, emailError, int)) valid = false; // Validate email
     if (!validatePhone(digitsOnly, phoneField, phoneError, int)) valid = false; // Validate phone number
     if (!valid) return null; // If any validation failed, return null
-    const formattedName = nameParts // Format name to have first letter uppercase and rest lowercase
-        .map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()) // Capitalize each part of the name
-        .join(" "); // Join parts back into a full name
-    const formattedPhone = digitsOnly.startsWith("0") // Format phone number to start with +49
-        ? "+49" + digitsOnly.slice(1) // Remove leading zero if present
-        : "+49" + digitsOnly; // Add +49 prefix to phone number
+    const formattedName = getFormattedName(nameParts); // Format name
+    const formattedPhone = getFormattedPhone(digitsOnly); // Format phone number
     return { // Return validated and formatted contact data
         name: formattedName,
         email: emailInput,
-        number: formattedPhone
+        number: formattedPhone 
     };
 }
 
@@ -261,7 +247,7 @@ function checkInput(nameInput, emailInput, phoneInput, int) {
  * If not, it displays an error message and adds an invalid class to the input field.
  * If valid, it hides the error message and removes the invalid class.
  * It ensures the name input is properly formatted with at least two parts.
-*/ 
+*/
 function validateName(nameParts, inputField, errorElement) {
     if (nameParts.length < 2) { // Check if name has at least first and last name
         errorElement.style.display = "block";
@@ -299,7 +285,7 @@ function validateEmail(email, inputField, errorElement) {
  * If not, it displays an error message and adds an invalid class to the input field.
  * If valid, it hides the error message and removes the invalid class.
  * It ensures the phone number input is properly formatted with a length between 8 and 13 digits.
-*/ 
+*/
 function validatePhone(phoneDigits, inputField, errorElement) {
     if (phoneDigits.length < 8 || phoneDigits.length > 13) { // Check if phone number has valid length
         errorElement.style.display = "block";
@@ -317,7 +303,7 @@ function validatePhone(phoneDigits, inputField, errorElement) {
  * It ensures the ID is not already in use by checking against the contactArray.
  * It generates a random number between 0 and max (exclusive) until it finds a unique ID.
  * It returns the unique ID.
-*/ 
+*/
 function getRandomID(max) { // Generate a random unique ID
     let randomID;
     do {
@@ -332,15 +318,15 @@ function getRandomID(max) { // Generate a random unique ID
  * It sends a PUT request to Firebase to save the contact.
  * If the request fails, it logs an error and alerts the user.
  * It ensures the contact is saved in Firebase with the correct structure.
-*/ 
+*/
 async function pushContact(name, email, number, userID) { // Save contact in Firebase
     try {
-        const contact = { id: userID, name: name, email: email, phone: number };
-        const contactId = contact.id;
-        const response = await fetch(`${baseUrl}/contacts/${contactId}.json`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(contact)
+        const contact = { id: userID, name: name, email: email, phone: number }; // Create contact object
+        const contactId = contact.id; // Get contact ID
+        const response = await fetch(`${baseUrl}/contacts/${contactId}.json`, { // Send PUT request to Firebase
+            method: "PUT", // Use PUT to update or create contact
+            headers: { "Content-Type": "application/json" }, // Set content type
+            body: JSON.stringify(contact) // Convert contact object to JSON string
         });
         if (!response.ok) {
             throw new Error(`Error writing contact ${contactId}`);
@@ -360,11 +346,11 @@ async function pushContact(name, email, number, userID) { // Save contact in Fir
 */
 async function deleteContact(userID) { // Delete contact from Firebase
     try {
-        const response = await fetch(`${baseUrl}/contacts/${userID}.json`, {
-            method: "DELETE"
+        const response = await fetch(`${baseUrl}/contacts/${userID}.json`, { // Send DELETE request
+            method: "DELETE" // Delete contact by userID
         });
         await fetchData(); // Refresh
-        finishDelete();
+        finishDelete(); // Close edit popup
     } catch (error) {
         console.error("Error deleting contact:", error);
         alert("Error deleting contact");
@@ -373,16 +359,7 @@ async function deleteContact(userID) { // Delete contact from Firebase
 
 
 /** This function toggles the visibility of the alert popup.
- * It adds or removes the 'alert-close' class to show or hide the alert.
- * It ensures the alert is displayed for a brief period after actions like saving or deleting contacts.
- * It is used to provide feedback to the user after actions like saving or deleting contacts.
- * It can be called after successful operations to inform the user.
- * It uses a timeout to automatically hide the alert after a few seconds.
- * It can be used to show success or error messages based on the operation performed,
- * be called after actions like saving or deleting contacts to inform the user of the result,
- * also be used to show success or error messages based on the operation performed and
- * it can be called after actions like saving or deleting contacts to inform the user of the result.
-*/ 
+*/
 function showAlert() { // Toggle alert popup visibility
     document.getElementById('alert').classList.toggle('alert-close');
 }
@@ -390,9 +367,6 @@ function showAlert() { // Toggle alert popup visibility
 
 /** This function renders the letter header for contact groups.
  * It creates a div with the letter and a splitter for styling.
- * It is used to visually separate contact groups by their starting letter.
- * It renders the letter header for contact groups in the contact list.
- * It returns a string containing the HTML structure for the letter header and the letter header for contact groups in the contact list.
 */
 function renderLetterHeader(alphabetArray) {
     return `<div class="render-div-splitter">
@@ -435,7 +409,7 @@ function renderContactInfo(initials, color, user, email, phone, userID) {
             </div>
             <div class="center-top-second-div">
                 <div class="center-top-name">${user}</div>
-                <div class="center-top-edit">
+                <div id="center-top-edit" class="center-top-edit">
                     <div onclick="openEdit('${initials}','${color}','${user}','${email}','${phone}',${userID})" class="edit">
                         <img src="./assets/icons/edit.png" alt="">
                         <sub class="edit-sub">Edit</sub>
@@ -517,7 +491,7 @@ function renderOpenEdit(color, initials, userID) {
  * It pushes the contact data to Firebase, refreshes the contact list,
  * closes the edit popup, and shows a success alert.
  * It ensures the contact is saved in Firebase and the UI is updated accordingly.
-*/ 
+*/
 async function finishSaveContact(result, userID) {
     await pushContact(result.name, result.email, result.number, userID); // Save to Firebase
     await fetchData(); // Refresh contact list
@@ -534,17 +508,16 @@ async function finishSaveContact(result, userID) {
  * It pushes the contact data to Firebase, refreshes the contact list,
  * closes the add popup, and shows a success alert.
  * It ensures the new contact is saved in Firebase and the UI is updated accordingly.
-*/ 
+*/
 async function finishAddContact(result, userID) {
     await pushContact(result.name, result.email, result.number, userID); // Push to Firebase
     await fetchData(); // Refresh
     closeContactAdd(); // Close add popup
-    setTimeout(showAlert, 3000);
-    document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully created</sub>';
-    document.getElementById('alert').classList.toggle('alert-close');
+    setTimeout(showAlert, 3000); // Show success alert and set timeout for 3 seconds
+    document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully created</sub>'; // Set alert message
+    document.getElementById('alert').classList.toggle('alert-close'); // Toggle alert visibility
     let centerBody = document.getElementById("center-body");
-    centerBody.innerHTML = "";
-
+    centerBody.innerHTML = ""; // Clear center body content
 }
 
 
@@ -567,7 +540,7 @@ function finishDelete() {
  * It sets a timeout to automatically hide the alert after 5 seconds.
  * It updates the alert message with the provided text and toggles the alert class to show it and
  * ensures the alert is displayed for a brief period after actions like saving or deleting contacts.
-*/ 
+*/
 function showAlertCheck(message) {
     setTimeout(showAlert, 5000);
     let alert = document.getElementById("alert");
@@ -589,7 +562,7 @@ function clearInputs() {
 
 /** This function closes the responsive contact popup.
  * It removes the slide-in animation class and adds a slide-out animation class.
-*/ 
+*/
 function closeResponsivContact() {
     let popup = document.getElementById("center");
     popup.classList.remove("center"); // Remove slide-in animation
@@ -599,7 +572,7 @@ function closeResponsivContact() {
 
 /** This function shows the responsive contact popup.
  * It removes the slide-out animation class and adds a slide-in animation class.
-*/ 
+*/
 function showResponsivContact() {
     document.getElementById("center").classList.remove("center-out"); // Remove slide-out animation
     document.getElementById("center").classList.add("center");
@@ -609,7 +582,7 @@ function showResponsivContact() {
 
 /** This function closes the responsive contact popup.
  * It removes the slide-out animation class and adds a slide-in animation class.
-*/ 
+*/
 function closeResponsivContactadd() {
     document.getElementById("center").classList.remove("center-out"); // Remove slide-out animation
     document.getElementById("center").classList.add("center");
@@ -619,7 +592,7 @@ function closeResponsivContactadd() {
 
 /** This function sets the active navigation item to "Contacts".
  * It removes the active class from other navigation items and adds it to the contacts item.
-*/ 
+*/
 function activeNavItem() {
     document.getElementById('board').classList.remove('active');
     document.getElementById('contacts').classList.add('active');
@@ -628,8 +601,79 @@ function activeNavItem() {
 }
 
 
+/** This function opens the responsive buttons menu.
+ * It displays the edit button with a slide-in animation and sets up an event listener to remove the animation class after it ends.
+*/
+function openButtonsMenu(event) {
+    let editButton = document.getElementById("center-top-edit");
+    editButton.style.display = "flex";
+    editButton.classList.remove("slide-out"); // Alte Animation entfernen
+    void popup.offsetWidth; // Reflow erzwingen (damit Animation neu startet)
+    editButton.classList.add("slide-in"); // Neue Animation starten
+    editButton.addEventListener("animationend", () => {
+        editButton.classList.remove("slide-in"); // Remove slide-in class after animation ends
+    }, { once: true }); // Remove slide-in class after animation ends
+    event.stopPropagation() // Prevent event bubbling
+}
+
+
+/** This function closes the responsive buttons menu.
+ * It removes the slide-in animation class and adds a slide-out animation class.
+*/
+function closeResponsivButtons() {
+    if (window.matchMedia("(max-width: 876px)").matches) { // If on mobile, close responsive buttons
+        let editButton = document.getElementById("center-top-edit"); // Get edit button
+        editButton.classList.remove("slide-in"); // Alte Animation entfernen
+        editButton.classList.add("slide-out"); // Neue Animation starten
+        editButton.addEventListener("animationend", () => {
+            editButton.style.display = "none"; // Nach der Animation ausblenden
+        }, { once: true }); // Remove slide-in class after animation ends
+    }
+}
+
+
+/** This function removes the highlight from the previously active contact.
+ * It gets the old active contact element by its index and removes the highlight class.
+*/
+function RemoveActiveContact(activeContactIndex) {
+    const oldActive = document.getElementById(`render-div${activeContactIndex}`); // Get old element
+        if (oldActive) oldActive.classList.remove("render-div-hover"); // Remove highlight
+}
+
+
+/** This function initializes the contact page by fetching data and setting the active navigation item.
+ * It calls fetchData to load contacts and activeNavItem to set the active navigation item.
+*/
+function getValidationElements(int, nameInput, phoneInput) {
+    const nameParts = nameInput.trim().split(" "); // Split name into parts
+    const digitsOnly = phoneInput.replace(/\D/g, ""); // Remove non-digit characters from phone
+    const nameField = document.getElementById(`in-name-${int}`); // Get input fields
+    const emailField = document.getElementById(`in-email-${int}`);
+    const phoneField = document.getElementById(`in-number-${int}`);
+    const nameError = document.getElementById(`invalid-name-${int}`); // Get error elements
+    const emailError = document.getElementById(`invalid-email-${int}`);
+    const phoneError = document.getElementById(`invalid-phone-${int}`);
+    return { nameParts, digitsOnly, nameField, emailField, phoneField, nameError, emailError, phoneError };
+}
+
+
+/** This function formats the name by capitalizing the first letter of each part.
+ * It takes an array of name parts, capitalizes the first letter of each part,
+*/
+function getFormattedName(nameParts) {
+    return nameParts.map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" "); // Format name
+}
+
+
+/** This function formats the phone number to start with +49.
+ * It checks if the phone number starts with 0 and replaces it with +49.
+*/
+function getFormattedPhone(digitsOnly) {
+    return digitsOnly.startsWith("0") ? "+49" + digitsOnly.slice(1) : "+49" + digitsOnly; // Format phone number
+}
+
 // Check if user is logged in
 let actualUser = localStorage.getItem("userName");
-if (actualUser == 'nouser') {
-    window.location.href = `login.html`;
-} 
+if (actualUser == 'nouser') { // If no user is logged in, redirect to login page
+    window.location.href = `login.html`; // Redirect to login page
+}

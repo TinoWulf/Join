@@ -33,7 +33,7 @@
             <div id="contact-render" class="contact-render">
             </div>
         </div>
-        <div id="center" class="center">
+        <div onclick="closeResponsivButtons()" id="center" class="center">
             <div id="center-head" class="center-head">
                 <sub class="center-headline-text">Contacts</sub>
                 <div class="center-head-splitter"></div>
@@ -42,6 +42,9 @@
             <div id="center-body" class="center-body"></div>
             <div onclick="closeResponsivContact()" class="responsive-back-btn">
                 <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
+            </div>
+            <div onclick="openButtonsMenu(event)" class="center-top-responsive-edit">
+                <img src="./assets/icons/more_vert.png" alt="">
             </div>
         </div>
         <div id="popup-background" style="display: none;" class="popup-background none"></div>
@@ -71,18 +74,21 @@
                 <div class="popup-field">
                     <div class="popup-field-name">
                         <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-add">
+                        <sub class="popup-field-invalid-sub" id="invalid-name-add"> Invalid name, please enter a full
+                            first and last name.</sub>
                         <img class="popup-input-img-person" src="./assets/icons/person-input.png" alt="">
-                        <sub class="popup-field-invalid-sub" id="invalid-name-add"> Invalid name, please enter a full first and last name.</sub>
                     </div>
                     <div class="popup-field-email">
                         <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-add">
+                        <sub class="popup-field-invalid-sub" id="invalid-email-add"> Please enter a valid email
+                            address.</sub>
                         <img class="popup-input-img-email" src="./assets/icons/mail.png" alt="">
-                        <sub class="popup-field-invalid-sub" id="invalid-email-add"> Please enter a valid email address.</sub>
                     </div>
                     <div class="popup-field-phone">
                         <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-add">
+                        <sub class="popup-field-invalid-sub" id="invalid-phone-add"> The phone number must contain
+                            between 8 and 13 digits.</sub>
                         <img class="popup-input-img-phone" src="./assets/icons/call.png" alt="">
-                        <sub class="popup-field-invalid-sub" id="invalid-phone-add"> The phone number must contain between 8 and 13 digits.</sub>
                     </div>
                 </div>
                 <div class="popup-buttons-quarry-container">
