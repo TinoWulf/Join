@@ -213,12 +213,17 @@
         width: 300px;
     }
 
-    .popup-input-img-person,
     .popup-input-img-email,
     .popup-input-img-phone {
         position: relative;
         right: -270px;
         top: -35px;
+    }
+
+    .popup-input-img-person {
+        position: relative;
+        right: -230px;
+        top: -55px;
     }
 }
 
