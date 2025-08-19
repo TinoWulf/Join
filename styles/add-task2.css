@@ -1,6 +1,7 @@
 .subtask-listes{
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: 75px;
+  overflow-y: auto;
 }
 
 .subtask{
@@ -24,13 +25,21 @@
 }
 
 .subtask input{
-    background-color: transparent;
+  background-color: transparent;
   display: flex;
   border: unset;
-    outline: none;
+  outline: none;
   justify-content: flex-start;
   width: 90%;
   padding-left: 0;
+}
+
+.subbtask-margin{
+  margin-top: 20px;
+}
+
+.category, input, img {
+  cursor: pointer;
 }
 
 .img-icons{
