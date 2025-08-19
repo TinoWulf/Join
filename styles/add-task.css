@@ -4,7 +4,6 @@
   margin-top: 90px;
   padding: 10px 0 10px 20px;
   font-size: 20px;
-  /* background-color: #f6f7f8; */
 }
 
 button{
@@ -182,9 +181,27 @@ label, .label-date{
   gap: 10px;
 }
 
+.option input{
+      appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../assets/icons/unchecked.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+  cursor: pointer;
+}
+
+.option input:checked {
+    background-image: url("../assets/icons/checkedwhite.png");
+}
+
 .option:hover{
   background-color: var(--light-grey-color);
 }
+
 
 .option:has(input[type="checkbox"]:checked){
   color: var(--white);
@@ -314,7 +331,7 @@ label, .label-date{
 }
 
 .add-task-form-footer{
-  width: calc(100% - 250px);
+  max-width: 1000px;
   height: 56px;
   display: flex;
   flex-direction: row;

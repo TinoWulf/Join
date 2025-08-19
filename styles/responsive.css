@@ -362,13 +362,12 @@
 
   .priority-button{
     background-color: var(--white);
-    font-size: 16px;
+    font-size: 12px;
     padding: 12px 10px;
-    width: 100px;
+    width: 75px;
     height: 100%;
     align-items: center;
     display: flex;
-    justify-content: center;
     gap: 8px;
     border-radius: 10px;
   }

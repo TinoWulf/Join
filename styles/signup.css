@@ -157,6 +157,29 @@ main{
     width: 100%;
     padding:12px 21px;
     gap: 10px;
+    position: relative;
+}
+
+.label-privacy p{
+    font-size: 18px;
+}
+
+.label-privacy input {
+    appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../assets/icons/unchecked.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 0;
+  cursor: pointer;
+}
+
+.label-privacy input:checked {
+  background-image: url("../assets/icons/checked.png");
 }
 
 .privacy-link{
