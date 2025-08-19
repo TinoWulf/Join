@@ -250,11 +250,11 @@ function checkInput(nameInput, emailInput, phoneInput, int) {
 */
 function validateName(nameParts, inputField, errorElement) {
     if (nameParts.length < 2) { // Check if name has at least first and last name
-        errorElement.style.display = "block";
+        errorElement.innerHTML = "Invalid name, please enter a full first and last name.";
         inputField.classList.add("input-invalid");
         return false;
     } else {
-        errorElement.style.display = "none";
+        errorElement.innerHTML = "";
         inputField.classList.remove("input-invalid");
         return true;
     }
@@ -269,11 +269,11 @@ function validateName(nameParts, inputField, errorElement) {
 */
 function validateEmail(email, inputField, errorElement) {
     if (!email.includes("@") || !email.includes(".") || email.length < 6) { // Check if email is valid
-        errorElement.style.display = "block";
+        errorElement.innerHTML = "Please enter a valid email address.";
         inputField.classList.add("input-invalid");
         return false;
     } else {
-        errorElement.style.display = "none";
+        errorElement.innerHTML = "";
         inputField.classList.remove("input-invalid");
         return true;
     }
@@ -288,11 +288,11 @@ function validateEmail(email, inputField, errorElement) {
 */
 function validatePhone(phoneDigits, inputField, errorElement) {
     if (phoneDigits.length < 8 || phoneDigits.length > 13) { // Check if phone number has valid length
-        errorElement.style.display = "block";
+        errorElement.innerHTML = "The phone number must contain between 8 and 13 digits.";
         inputField.classList.add("input-invalid");
         return false;
     } else {
-        errorElement.style.display = "none";
+        errorElement.innerHTML = "";
         inputField.classList.remove("input-invalid");
         return true;
     }

@@ -19,7 +19,7 @@
 
     .popup-banner {
         width: 100%;
-        height: 42.5vh;
+        height: 250px;
         padding: 24px;
         border-radius: 20px 20px 0 0;
         align-items: flex-start;
@@ -72,7 +72,8 @@
     }
 
     .popup-contact-div {
-        height: 155px;
+        height: 120px;
+        width: 120px;
         top: -55px;
         right: 10%;
         z-index: 1000;
@@ -90,15 +91,14 @@
     }
 
     .popup-field {
+        position: static;
         width: 100%;
-        position: relative;
-        top: -20px;
-        left: 0;
         padding: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        gap: 5px;
     }
 
     .popup-field-name,
@@ -117,13 +117,10 @@
         width: 90%;
     }
 
-
-
     .popup-buttons-quarry-container {
+
         width: 100%;
-        position: relative;
-        top: 0;
-        left: 0;
+        position: static;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -163,14 +160,14 @@
     .popup-input-img-phone {
         position: relative;
         right: -26vw;
-        top: -42px;
+        top: -60px;
         height: 20px;
     }
 
     .popup-input-img-person {
         position: relative;
         right: -26vw;
-        top: -42px;
+        top: -57px;
         height: 15px;
     }
 }
