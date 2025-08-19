@@ -202,6 +202,23 @@
   gap: 10px;
 }
 
+.option input{
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../assets/icons/unchecked.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+  cursor: pointer;
+}
+
+.option input:checked {
+  background-image: url("../assets/icons/checkedwhite.png");
+}
+
 .option:hover{
   background-color: var(--light-grey-color);
 }
