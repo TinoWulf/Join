@@ -162,7 +162,8 @@ function templateEditTask(task){
             </div>
           <label for="title" class="label-title">
               Title
-              <input type="text" name="title" id="taskTitle" value="${task.title}" required>
+              <input type="text" class="" name="title" id="taskTitle" value="${task.title}" required>
+              <p class="error-message hide" id="errorTitle">this field can not be empty</p>
           </label>
           <label for="description">
               Description
@@ -170,7 +171,8 @@ function templateEditTask(task){
           </label>
           <label for="date" class="label-date">
               Due date
-              <input type="date" name="date" id="dueDate" value="${task.dueDate}" required>
+              <input type="date" class="" name="date" id="dueDate" value="${task.dueDate}" required>
+              <p class="error-message hide" id="errorDate">this Date alredy passed</p>
           </label>
           <label for="" class="label-priority">
               Priority
@@ -221,7 +223,7 @@ function templateEditTask(task){
               </div>
           </label>
           <div class="edit-button">
-            <button class="btn-submit-change" onclick="getEditedTask(${task.id}, event)">Ok <img src="./assets/icons/check.png" alt=""></button>
+            <button class="btn-submit-change" onclick="getEditedTask(${task.id});renderError()">Ok <img src="./assets/icons/check.png" alt=""></button>
           </div>
       </div>
     <script type="module" defer src="./scripts/edittask.js"></script>

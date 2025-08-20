@@ -237,6 +237,15 @@
   border: unset;
 }
 
+.field-error{
+  border: 2px solid #FF8190 !important;
+}
+
+.error-message{
+  color: #FF8190;
+  font-size: 15px;
+}
+
 .subtask-item label{
   margin-right: 10px;
   border-bottom: 1px solid var(--blue);

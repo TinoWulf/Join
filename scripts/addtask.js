@@ -101,7 +101,8 @@ function addSubstask(){
     let subtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
-    if(newSubtask){
+    const already = !!subtasks.find(item => item.title == newSubtask);
+    if(newSubtask && newSubtask!="" && !already){
         const subtask = { title: newSubtask,checked: false,}
         subtasks.push(subtask);
        showSubTask();
@@ -192,6 +193,7 @@ function modifySubtaskInEdited(subtaskContent){
     }
 }
 
+
 /**
  * remove the subtask in the subtask list
  * @param {string} subtaskContent  value of the subtask
@@ -212,6 +214,21 @@ function deleteSubtaskInEdited(subtaskContent){
 
 
 /**
+ * check if the "date" ist already passed or is in the futur.
+ * @param {date} date a date
+ * @returns return true or false
+ */
+function isDueDatePassed(date) {
+  if (!date) return false; 
+  const dueDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  dueDate.setHours(0, 0, 0, 0);
+  return dueDate < today;
+}
+
+
+/**
  * Retrieves all task data from the form inputs and constructs a task object.
  * The task object includes properties like title, description, due date, category, priority, assigned contacts, and subtasks.
  * The function then calls `getAddTask` to save the task data to Firebase.
@@ -225,7 +242,7 @@ function getTaskData(){
     let newAssignedTo = assignedToList ? assignedToList: [];
     let newSubtasks = subtasks ? subtasks : [];
     const taskData = {id: Date.now(), title: newTitle,  description: newDescription,  dueDate: newDueDate, category: category, range: "toDo", priority: newPriority, assignedTo: newAssignedTo,  subtasks: newSubtasks};
-    getAddTask(taskData) 
+    getAddTask(taskData);
 }
 
 
@@ -236,14 +253,11 @@ function getTaskData(){
  */
 function renderError() {
     let hasError = false;
+    const dueDate = dueDateInput.value.trim()
+    hasError = validateDueDate(dueDate);
     if (!taskTitleInput.value.trim()) {
         taskTitleInput.classList.add('field-error');
         errorTitle.classList.remove('hide');
-        hasError = true;
-    }
-    if (!dueDateInput.value.trim()) {
-        dueDateInput.classList.add('field-error');
-        errorDate.classList.remove("hide");
         hasError = true;
     }
     if (!categoryInput.value.trim()) {
@@ -254,6 +268,29 @@ function renderError() {
     removeError();
     return !hasError;
 }
+
+/**
+ * check if the date was enter by user if not the render the error mesage by remove the hide class in the error field
+ * or if the date is already passed. it remove the hide class and add the message "THE DATE IS ALREWADY PASSED" 
+ * @param {string} dueDate date 
+ * @returns true or false
+ */
+function validateDueDate(dueDate) {
+    let hasError = false
+  if (!dueDate) {
+    dueDateInput.classList.add('field-error');
+    errorDate.classList.remove("hide");
+    hasError = true;
+  } 
+  else if (isDueDatePassed(dueDate)) {
+    dueDateInput.classList.add('field-error');
+    errorDate.classList.remove("hide");
+    errorDate.innerHTML = "This date is already passed";
+    hasError = true;
+  }
+  return hasError;
+}
+
 
 
 /**
@@ -400,7 +437,7 @@ if (actualUser === 'nouser' ) {
   window.location.href = `login.html`;
 }
 
-export{setupPriorityButtons };
+export{setupPriorityButtons, isDueDatePassed };
 
 window.getTaskData = getTaskData;
 window.setupPriorityButtons = setupPriorityButtons;

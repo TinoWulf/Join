@@ -53,7 +53,9 @@ async function deleteTask(taskId, event) {
  */
 function closePopUp(event) {
   document.getElementById("taskCardParent").classList.toggle("hide");
-  event.stopPropagation();
+  if (event && event.stopPropagation) {
+    event.stopPropagation();
+  }
 }
 
 

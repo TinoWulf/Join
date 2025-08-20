@@ -8,6 +8,10 @@ let contactListGlobal = [];
 let contactIdList = [];
 let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
 let subtaskListEdit = document.getElementById("subtaskListEdit");
+let errorTitle  = document.getElementById('errorTitle');
+let errorDate  = document.getElementById('errorDate');
+const dueDateInput = document.getElementById('dueDate');
+const taskTitleInput = document.getElementById('taskTitle');
 
 
 /**
@@ -207,7 +211,8 @@ function addSubstask(){
     let SubtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
-    if(newSubtask){
+    const already = !!subtasklistItem.find(item => item.title == newSubtask);
+    if(newSubtask && !already && newSubtask !=""){
         const subtask = {title: newSubtask,checked: false,}
         subtasklistItem.push(subtask);
         SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}</li>`; 
@@ -223,20 +228,100 @@ function addSubstask(){
  * Gets all edited task data from the form and updates it in Firebase.
  * @param {string} taskId The unique ID of the task to be updated.
  */
-async function getEditedTask(taskId, event) {
+async function getEditedTask(taskId) {
     const taskTitleInput = document.getElementById('taskTitle');
     const taskDescriptionInput = document.getElementById('taskDescription');
     const dueDateInput = document.getElementById('dueDate');
     const priorityInput = document.getElementById('priorityInput');
     const newTitle = taskTitleInput ? taskTitleInput.value.trim() : '';
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
-    const newDueDate = dueDateInput ? dueDateInput.value : ''; 
+    const newDueDate = dueDateInput ? dueDateInput.value : '';
+    isDueDatePassed(newDueDate);
+    renderError();
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     const newAssignedTo = alreadyAssigned ? alreadyAssigned : [];
     const newSubtasks = subtasklistItem ? subtasklistItem : [];
     const updatedTaskData = { title: newTitle, description: newDescription, dueDate: newDueDate, priority: newPriority, assignedTo: newAssignedTo, subtasks: newSubtasks};
     await updateTaskInDatabase(updatedTaskData, taskId);
-    closePopUp(event);
+}
+
+
+/**
+ * check if the "date" ist already passed or is in the futur.
+ * @param {date} date a date
+ * @returns return true or false
+ */
+function isDueDatePassed(date) {
+  if (!date) return false; 
+  const dueDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  dueDate.setHours(0, 0, 0, 0);
+  return dueDate < today;
+}
+
+
+/**
+ * Validates the form inputs for task creation.
+ * Checks if the task title, due date, and category are filled out.
+ * @returns {boolean} Returns true if there are no errors in the form, otherwise false.
+ */
+function renderError() {
+    let hasError = false;
+    let errorTitle  = document.getElementById('errorTitle');
+    const dueDateInput = document.getElementById('dueDate');
+    const taskTitleInput = document.getElementById('taskTitle');
+    const dueDate = dueDateInput.value.trim();
+    hasError = validateDueDate(dueDate);
+    if (!taskTitleInput.value.trim()) {
+        taskTitleInput.classList.add('field-error');
+        errorTitle.classList.remove('hide');
+        hasError = true;
+    }
+    removeError();
+    return !hasError;
+}
+
+
+/**
+ * Removes error classes and hides error messages after a delay.
+ * 
+ */
+function removeError(){
+    const dueDateInput = document.getElementById('dueDate');
+    const taskTitleInput = document.getElementById('taskTitle');
+    let errorTitle  = document.getElementById('errorTitle');
+    let errorDate  = document.getElementById('errorDate');
+    setTimeout(()=>{
+        taskTitleInput.classList.remove('field-error');
+        dueDateInput.classList.remove('field-error');
+        errorTitle.classList.add('hide');
+        errorDate.classList.add("hide");
+    }, 3000);
+}
+
+/**
+ * check if the date was enter by user if not the render the error mesage by remove the hide class in the error field
+ * or if the date is already passed. it remove the hide class and add the message "THE DATE IS ALREWADY PASSED" 
+ * @param {string} dueDate date 
+ * @returns true or false
+ */
+function validateDueDate(dueDate) {
+    let hasError = false;
+    const dueDateInput = document.getElementById('dueDate');
+    let errorDate  = document.getElementById('errorDate');
+    if (!dueDate) {
+    dueDateInput.classList.add('field-error');
+    errorDate.classList.remove("hide");
+    hasError = true;
+    } 
+    else if (isDueDatePassed(dueDate)) {
+    dueDateInput.classList.add('field-error');
+    errorDate.classList.remove("hide");
+    errorDate.innerHTML = "This date is already passed";
+    hasError = true;
+    }
+    return hasError;
 }
 
 
@@ -245,18 +330,22 @@ async function getEditedTask(taskId, event) {
  * @param {object} updatedTaskData  the new task object data
  * @param {*} taskId 
  */
-async function updateTaskInDatabase(updatedTaskData, taskId) {
+async function updateTaskInDatabase(updatedTaskData, taskId, event) {
     const taskRef = ref(database, `tasks/${taskId}`);
     try {
-        await update(taskRef, updatedTaskData);
-        initiateBoard();
+        if(renderError()){
+            await update(taskRef, updatedTaskData);
+            initiateBoard();
+        }else{
+            return ;
+        }
     } catch (error) {
         openErrorPage();
     }
     subtasklistItem = [];
     alreadyAssigned = [];
+    closePopUp(event);
 }
-
 
 
 /**
@@ -374,4 +463,5 @@ window.modifySubtaskInEdited = modifySubtaskInEdited;
 window.deleteSubtaskInEdited = deleteSubtaskInEdited;
 window.getUser = getUser;
 window.fetchContacts = fetchContacts;
+window.renderError = renderError;
 
