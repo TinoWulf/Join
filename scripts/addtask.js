@@ -132,7 +132,6 @@ function showSubTask(){
  * start change subtask form <li> element to input element
  */
 function getEditedSubtask(){
-    deleteSubtaskInEdited(subtaskContent);
     const subsTasks = document.querySelectorAll('#subtaskListEdit .subtask');
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
