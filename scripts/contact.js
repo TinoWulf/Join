@@ -21,30 +21,7 @@ async function fetchData() { // Loads and displays contacts from Firebase
         const response = await fetch(baseUrl + "/.json"); // Fetch all data from Firebase
         const contactData = await response.json(); // Parse JSON response
         const usersCode = Object.keys(contactData.contacts); // Get list of contact IDs
-        for (let index = 0; index < alphabetArray.length; index++) { // Loop through A-Z
-            let currentLetter = alphabetArray[index]; // Get current letter
-            let letterHasMatch = false; // Flag to track if a contact matches this letter
-            let tempHTML = ""; // Temporary container for rendered contacts
-            for (let i = 0; i < usersCode.length; i++) { // Loop through contacts
-                let userID = usersCode[i]; // Get contact ID
-                let user = contactData.contacts[userID]; // Get contact data
-                if (user.name[0].toUpperCase() === currentLetter) { // Check if contact starts with current letter
-                    contactArray.push(userID); // Add to contact array
-                    let parts = user.name.split(" "); // Split name into parts
-                    let initials = ""; // Initialize initials
-                    if (parts.length >= 2) { // If full name is available
-                        initials = parts[0][0].toUpperCase() + parts[1][0].toUpperCase(); // Create initials from first letters of first and last name
-                    }
-                    tempHTML += renderContactDiv(initials, colors[counter], user, userID, i); // Build contact HTML
-                    triggerCounter(); // Increment color counter
-                    letterHasMatch = true; // Set flag if a contact matched
-                }
-            }
-            if (letterHasMatch) { // If there are contacts for this letter
-                contactDiv.innerHTML += renderLetterHeader(currentLetter); // Only render letter header if match
-                contactDiv.innerHTML += tempHTML; // Append contacts for this letter
-            }
-        }
+        initializeContactArray(usersCode, contactArray, contactDiv, counter, contactData); // Initialize contact array with IDs
     } catch (error) {
         console.error(error); // Log fetch error
     }
@@ -394,6 +371,99 @@ function renderContactDiv(initials, color, user, userID, i) {
 }
 
 
+/**
+ * This function returns the HTML for the detailed contact info display.
+ * and highlights the active contact in the list.
+ * It is used to show the contact details when a contact is selected, and
+ * includes the initials, name, email, and phone number of the contact.
+*/
+function renderContactInfo(initials, color, user, email, phone, userID) {
+    return `<div class="center-top">
+            <div class="center-top-inital-circle">
+            <div class="center-top-inital-div" style="background-color: ${color};">
+                <sub class="center-top-inital">${initials}</sub>
+            </div>
+            </div>
+            <div class="center-top-second-div">
+                <div class="center-top-name">${user}</div>
+                <div id="center-top-edit" class="center-top-edit">
+                    <div onclick="openEdit('${initials}','${color}','${user}','${email}','${phone}',${userID})" class="edit">
+                        <img src="./assets/icons/edit.png" alt="">
+                        <sub class="edit-sub">Edit</sub>
+                    </div>
+                    <div onclick="deleteContact(${userID})" class="delete">
+                        <img src="./assets/icons/delete.png" alt="">
+                        <sub class="delete-sub">Delete</sub>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="center-middle">
+            <sub class="center-middle-text">Contact Information</sub>
+        </div>
+        <div class="center-bottom">
+            <div class="center-bottom-mail">
+                <sub class="center-bottom-mail-text">Email</sub>
+                <sub class="center-bottom-mail-name">${email}</sub>
+            </div>
+            <div class="center-bottom-number">
+                <sub class="center-bottom-phone-text">Phone</sub>
+                <sub class="center-bottom-phone-number">${phone}</sub>
+            </div>
+        </div>`
+}
+
+
+/** This function returns the HTML for the edit contact popup.
+ * It includes fields for name, email, and phone number,
+ * and buttons to save or delete the contact.
+ * It is used to render the edit contact popup with pre-filled values.
+*/
+function renderOpenEdit(color, initials, userID) {
+    return `<div class="popup-main">
+            <div class="popup-banner">
+                <div onclick="closeEdit()" class="popup-close-btn-img-white">
+                        <img src="./assets/icons/close_white.png" alt="">
+                    </div>
+                <div class="popup-banner-join">
+                    <img class="popup-banner-join-logo" src="./assets/img/logo.png" alt="">
+                </div>
+                <div class="popup-banner-join-text">
+                    <sub class="popup-banner-sub1">Edit contact</sub>
+                </div>
+                <div class="popup-banner-vector"></div>
+            </div>
+
+            <div class="popup-close-btn-div">
+                <div  onclick="closeEdit()" class="popup-close-btn">
+                    <img src="./assets/icons/iconoir_cancel.png" alt="">
+                </div>
+            </div>
+            <div class="popup-contact-div" style="background-color: ${color};">
+                <sub class="center-top-inital">${initials}</sub>
+            </div>
+            <div class="popup-field">
+                <div class="popup-field-name">
+                    <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-name-edit"> Invalid name, please enter a full first and last name.</sub>
+                </div>
+                <div class="popup-field-email">
+                    <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-email-edit"> Please enter a valid email address.</sub>
+                </div>
+                <div class="popup-field-phone">
+                    <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-edit">
+                    <sub class="popup-field-invalid-sub" id="invalid-phone-edit"> The phone number must contain between 8 and 13 digits.</sub>
+                </div>
+            </div>
+            <div class="popup-buttons">
+                <button onclick="deleteContact(${userID})" class="popup-btn-cancel">Delete</button>
+                <button onclick="saveContact(${userID})" class="popup-btn-save">Save <img src="./assets/icons/check.png" alt=""></button>
+            </div>
+        </div>`
+}
+
+
 /** This function handles the completion of saving a contact.
  * It pushes the contact data to Firebase, refreshes the contact list,
  * closes the edit popup, and shows a success alert.
@@ -578,6 +648,47 @@ function getFormattedName(nameParts) {
 function getFormattedPhone(digitsOnly) {
     return digitsOnly.startsWith("0") ? "+49" + digitsOnly.slice(1) : "+49" + digitsOnly; // Format phone number
 }
+
+
+/** This function initializes the contact array by looping through each letter of the alphabet.
+ * It checks if any contacts match the current letter and renders them accordingly.
+ * It updates the contactDiv with the rendered contacts for each letter.
+*/
+function initializeContactArray(usersCode, contactArray, contactDiv, counter, contactData) {
+    for (let index = 0; index < alphabetArray.length; index++) { // Loop through each letter in the alphabet
+        let currentLetter = alphabetArray[index]; // Get current letter
+        let letterHasMatch = false; // Flag to check if any contact matches the current letter
+        let tempHTML = ""; // Temporary HTML to store contacts for the current letter
+        let result = initializeContactArrayForLetter(usersCode, contactData, currentLetter, contactArray, counter, letterHasMatch, tempHTML); // Initialize contact array for the current letter
+        counter = result.counter; // Update counter
+            if (result.letterHasMatch) { // If there are contacts for the current letter
+                contactDiv.innerHTML += renderLetterHeader(currentLetter); // Render letter header
+                contactDiv.innerHTML += result.tempHTML; // Append contacts for the current letter
+            }
+    }
+}
+
+
+/** * This function initializes the contact array for a specific letter.
+ * It loops through each user ID, checks if the first letter of the user's name matches the current letter,
+ * and if so, adds the user ID to the contactArray and renders the contact div.
+*/
+function initializeContactArrayForLetter(usersCode, contactData, currentLetter, contactArray, counter, letterHasMatch, tempHTML) {
+    for (let i = 0; i < usersCode.length; i++) { // Loop through each user ID
+        let userID = usersCode[i]; // Get user ID
+        let user = contactData.contacts[userID]; // Get user data from contactData
+        if (user.name[0].toUpperCase() === currentLetter) { // Check if the first letter matches the current letter
+            contactArray.push(userID); // Add user ID to contactArray
+            let parts = user.name.split(" "); // Split name into parts
+            let initials = parts.length >= 2 // If name has first and last name, use initials from both
+                ? parts[0][0].toUpperCase() + parts[1][0].toUpperCase() // Use first letter of first and last name
+                : parts[0][0].toUpperCase(); // Use first letter of first name only
+            tempHTML += renderContactDiv(initials, colors[counter], user, userID, i); // Render contact div
+            counter = triggerCounter();  // wichtig: neuen Counter zurückholen
+            letterHasMatch = true;}} // If the first letter matches, add to contactArray and render contact div
+    return { contactArray, tempHTML, letterHasMatch, counter };
+}
+
 
 // Check if user is logged in
 let actualUser = localStorage.getItem("userName");
