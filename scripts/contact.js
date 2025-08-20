@@ -692,6 +692,6 @@ function initializeContactArrayForLetter(usersCode, contactData, currentLetter, 
 
 // Check if user is logged in
 let actualUser = localStorage.getItem("userName");
-if (actualUser == 'nouser') { // If no user is logged in, redirect to login page
-    window.location.href = `login.html`; // Redirect to login page
+if (!actualUser || actualUser === '' ) {
+  window.location.href = `login.html`;
 }

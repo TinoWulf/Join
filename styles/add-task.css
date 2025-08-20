@@ -152,6 +152,7 @@ label, .label-date{
   justify-content: space-between;
   align-items: center;
   color: var(--primary-color);
+  cursor: pointer;
 }
 
 .option label{
@@ -159,6 +160,7 @@ label, .label-date{
   display: flex;
   flex-direction: row;
   gap: 10px;
+  cursor: pointer;
 }
 
 

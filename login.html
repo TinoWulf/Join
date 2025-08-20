@@ -49,8 +49,8 @@
                     <p id="error-message" class="error"></p>
                     <div class="button-overlay">
                         <button type="submit" class="log-in-and-guest-log-in white-color-text " id="login-button">Log in</button>
-                        <a href="./board.html">
-                            <button class="guest-login-button log-in-and-guest-log-in" onclick="openSummary()">Guest Log in</button>
+                        <a href="summary.html?name=guest" onclick="openSummaryPara('guest')">
+                            <button class="guest-login-button log-in-and-guest-log-in" onclick="">Guest Log in</button>
                         </a>
                     </div>
                 <div id="messageLogin"> </div>
@@ -64,8 +64,8 @@
             </a>
         </div>
         <footer class="" id="login-footer">
-            <a href="./policy.html?user=nouser" class="grey-text ">Privacy Policy</a>
-            <a href="./notice.html?user=nouser" class="grey-text ">Legal notice</a>
+            <a href="./policy.html" class="grey-text ">Privacy Policy</a>
+            <a href="./notice.html" class="grey-text ">Legal notice</a>
         </footer>
     </main>
     <script type="module" src="./scripts/logIn.js"></script>

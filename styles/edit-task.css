@@ -65,6 +65,7 @@
 .label-date input[type="date"]::-webkit-calendar-picker-indicator{
     background-image: url('../assets/icons/event.png');
     transform: scale(1.8);
+    cursor: pointer;
 }
 
 .add-task-priority{
@@ -106,6 +107,7 @@
     border-radius: 10px;
     padding: 12px 10px;
     border: 2px solid var(--light-grey-color);
+    cursor: pointer;
 
 }
 
@@ -123,6 +125,7 @@
     text-align: center;
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .drop-down-input span:hover{
@@ -147,6 +150,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.btn-submit-change:hover{
+  background-color: var(--blue);
 }
 
 .urgent {
@@ -191,6 +199,7 @@
   align-items: center;
   color: var(--primary-color);
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .option label{
@@ -200,6 +209,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: 10px;
+  cursor: pointer;
 }
 
 .option input{
@@ -254,6 +264,7 @@
   width: 100%;
   align-items: center;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .subtask-item input{
@@ -287,9 +298,6 @@
   padding-right: 5px;
   border-right: 1px solid var(--primary-color);
 }
-
-
-
 
 @media (max-width: 768px) {
   .editTaskPopup {

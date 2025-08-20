@@ -180,5 +180,6 @@ function openErrorPage() {
 
 
 window.openSummary = openSummary;
+window.openSummaryPara = openSummaryPara;
 window.togglePassword = togglePassword;
 setupLogin();

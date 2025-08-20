@@ -147,6 +147,6 @@ function showContainerOnBoard(taskId, event) {
 
 
 let actualUser = localStorage.getItem("userName");
-if (actualUser === 'nouser' ) {
+if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }

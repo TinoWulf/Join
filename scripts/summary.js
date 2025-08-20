@@ -141,13 +141,13 @@ function getUserExits(currentHour){
  */
 function getGuestUser(currentHour){
   if (currentHour >= 5 && currentHour < 12) {
-      return "Good morning";
+      return "Good morning!";
     } else if (currentHour >= 12 && currentHour < 18) {
-      return "Good afternoon";
+      return "Good afternoon!";
     } else if (currentHour >= 18 && currentHour < 24) {
-      return "Good evening";
+      return "Good evening!";
     } else {
-      return "Good night";
+      return "Good night!";
     }
 }
 
@@ -161,15 +161,15 @@ if (currentUserName && currentUserName.trim() !== '') {
 
 
 let actualUser = localStorage.getItem("userName");
-if (actualUser == 'nouser' ) {
-  window.location.href = `login.html`;
-} else if( actualUser && actualUser !== 'null') {
+if (actualUser === 'Guest' ) {
+  document.getElementById('initial-user').textContent = 'G';
+  document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
+} else if( actualUser && actualUser !== 'Guest') {
   document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
   document.getElementById('greetMessage').textContent = getUserExits(currentHour);
   document.getElementById('userName').textContent = actualUser;
 }else{
-  document.getElementById('initial-user').textContent = 'G';
-  document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
+  window.location.href = `login.html`;
 }
 
 
@@ -198,6 +198,7 @@ function greetMobile(){
     }, 2000);
   }
 }
+
 
 /**
  * Initializes the summary by fetching and displaying all task statistics.

@@ -135,18 +135,28 @@
   margin-top: 20px;
 }
 
-.taskCardPopup .taskPopupFooter img {
-  width: 24px;
-  height: 24px;
-}
 .taskCardPopup .taskPopupFooter p {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 16px;
-  margin: 10px;
-  gap: 8px;
+  margin-top: 10px;
+  gap: 4px;
 }
+
+.taskCardPopup .taskPopupFooter p:last-child{
+  padding-left: 10px;
+  border-left: 2px solid var(--primary-color);
+}
+
+.delete-icon:hover img{
+  content: url('../assets/icons/deleteblue.png');
+}
+
+.edit-icon:hover img{
+  content: url('../assets/icons/editblue.png');
+}
+
 
 .asigned-to-list{
   max-height: 120px;

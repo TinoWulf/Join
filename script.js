@@ -40,12 +40,12 @@ function getAbbreviation(str) {
  */
 function callUserData(){
   let actualUser = localStorage.getItem("userName");
-  if (actualUser === 'nouser') {
-    document.getElementById('initial-user').classList.add("hide");
-  } else if( actualUser && actualUser !== 'null') {
+  if (actualUser=='Guest') {
+    document.getElementById('initial-user').textContent = 'G';
+  } else if( actualUser && actualUser !== 'Guest') {
     document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
   }else{
-    document.getElementById('initial-user').textContent = 'G';
+    document.getElementById('initial-user').classList.add("hide");
   }
 }
 

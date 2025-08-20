@@ -1,13 +1,4 @@
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const nameUser = urlParams.get('user');
-
-
-if (nameUser && nameUser.trim() !== '') {
-  const nameUserTrimmed = nameUser.trim();
-  localStorage.setItem("userName", nameUserTrimmed);
-}
-
+let actualUser = localStorage.getItem("userName");
 
 /**
  * checks the userName in localStorage and if it is 'nouser' load the templateNoUser function 
@@ -16,9 +7,8 @@ if (nameUser && nameUser.trim() !== '') {
 function notUser() {
     let menuSide = document.getElementById("menuSide");
     let navLinks = document.getElementById("navLinks");
-    const user = localStorage.getItem("userName");
     menuSide.innerHTML = '';
-    if (user === 'nouser') {
+    if (!actualUser || actualUser === '') {
         navLinks.classList.add("hide");
         menuSide.innerHTML += templateHeaderNoUser();
     }else{
