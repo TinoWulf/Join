@@ -13,6 +13,10 @@ let errorTitle  = document.getElementById('errorTitle');
 let errorDate  = document.getElementById('errorDate');
 let errorCat  = document.getElementById('errorCat');
 let resetButton  = document.getElementById('resetButton');
+let labelCategory  = document.getElementById('labelCategory');
+let categoryList  = document.getElementById('category');
+let contactBoard = document.getElementById("assigned");
+let AssignToLabel = document.getElementById("assigned-to");
 let assignedToList = [];
 let subtasks = [];
 let contactList = [];
@@ -334,13 +338,10 @@ async function getAddTask(taskData) {
  * @param {event} event 
  */
 function showContainerOnBoardAddTask(event){
-  let contactBoard = document.getElementById("assigned");
-  let AssignToLabel = document.getElementById("assigned-to");
   if (contactBoard.classList.contains("hide")) {
     contactBoard.classList.remove("hide");
     contactBoard.classList.add("dFlex");
     AssignToLabel.classList.add('addheigth');
-    getUser();
   } else {
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
@@ -385,8 +386,6 @@ function showSucessMessage() {
  * @returns {void}
  */
 function showCategory(){
-    let labelCategory  = document.getElementById('labelCategory');
-    let categoryList  = document.getElementById('category');
     if(categoryList.classList.contains('hide')){
         categoryList.classList.remove('hide')
         labelCategory.classList.add('addheigth');
@@ -432,6 +431,16 @@ function renderContact(contactIdList, contactData) {
 }
 
 
+function closeDropDown(event){
+    categoryList.classList.add('hide');
+    labelCategory.classList.remove('addheigth');
+    contactBoard.classList.add("hide");
+    contactBoard.classList.remove("dFlex");
+    AssignToLabel.classList.remove('addheigth');
+    event.stopPropagation();
+}
+
+
 let actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
@@ -440,12 +449,14 @@ if (!actualUser || actualUser === '' ) {
 export{setupPriorityButtons, isDueDatePassed };
 
 window.getTaskData = getTaskData;
+window.getUser = getUser;
 window.setupPriorityButtons = setupPriorityButtons;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
 window.showCategory = showCategory;
 window.getCategory = getCategory;
+window.closeDropDown = closeDropDown;
 window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;
 window.deleteSubtaskInEdited = deleteSubtaskInEdited;
