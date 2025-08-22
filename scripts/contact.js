@@ -29,18 +29,6 @@ async function fetchData() { // Loads and displays contacts from Firebase
 
 
 /**
- * This function increments the color counter and resets it after 10.
- * Variables used: counter
- */
-function triggerCounter() { // Increments color counter
-    counter++;
-    if (counter == 10) { // Reset after 10
-        counter = 0; // Reset color counter
-    }
-}
-
-
-/**
  * This function displays the selected contact's details in the contact info area
  * and highlights the active contact in the list.
  * Variables used: activeContactIndex
@@ -62,61 +50,6 @@ function showContact(initials, color, user, email, phone, userID, i) { // Show c
 }
 
 
-/** * This function opens the add contact popup, either in responsive mode for mobile
- * or with a slide-in animation for desktop.
- * It sets the popup to be visible and applies the appropriate styles.
- */
-function openContactAdd() {
-    if (window.matchMedia("(max-width: 876px)").matches) {
-        openResponsivContactadd(); // If on mobile, show responsive contact view
-    }
-    else {
-        document.getElementById("popup-add").classList.remove("slide-out");
-        document.getElementById("popup-background").style.display = "flex";
-        document.getElementById("popup-add").style.display = "flex";
-        document.getElementById("popup-add").classList.add("slide-in"); // Show popup with slide-in animation
-    }
-}
-
-
-/** This function opens the responsive add contact popup, which is used on mobile devices.
- * It applies a slide-in animation and sets the popup to be visible.
- * It also ensures the background is displayed as a flex container.
- * After the animation, it removes the slide-in class to reset the state.
-*/
-function openResponsivContactadd() {
-    const popup = document.getElementById("popup-add"); // Get the popup element
-    document.getElementById("popup-background").style.display = "flex"; // Show background
-    popup.style.display = "flex"; // Show popup
-    popup.classList.remove("slide-out"); // Remove slide-out animation
-    void popup.offsetWidth; // Force reflow to reset animation state
-    popup.classList.add("slide-in"); // Add slide-in animation
-    popup.addEventListener("animationend", () => { // After animation ends
-        popup.classList.remove("slide-in"); // Remove slide-in class to reset state
-    }, { once: true }); // Ensure this runs only once
-}
-
-
-/** This function closes the add contact popup, removing the slide-in animation
- * and hiding the background.
- * It also clears the input fields and hides any error messages.
- * It resets the input styles to remove any invalid input indicators.
-*/
-function closeContactAdd() { // Close add contact popup
-    document.getElementById("popup-add").classList.remove("slide-in");
-    document.getElementById("popup-add").classList.add("slide-out");
-    document.getElementById("popup-background").style.display = "none";
-    document.getElementById("popup-add").style.display = "none"; // Hide popup
-    clearInputs(); // Clear input fields
-    document.getElementById("invalid-name-add").style.display = "none"; // Hide error messages
-    document.getElementById("invalid-email-add").style.display = "none";
-    document.getElementById("invalid-phone-add").style.display = "none";
-    document.getElementById("in-name-add").classList.remove("input-invalid"); // Remove invalid input styles
-    document.getElementById("in-email-add").classList.remove("input-invalid");
-    document.getElementById("in-number-add").classList.remove("input-invalid");
-}
-
-
 /** This function opens the edit contact popup, pre-filling it with the contact's details.
  * It sets the popup to be visible and applies the slide-in animation.
  * It also sets the background to be displayed as a flex container.
@@ -133,23 +66,7 @@ function openEdit(initials, color, user, email, phone, userID) { // Open edit po
     document.getElementById("in-name-edit").value = user; // Prefill inputs
     document.getElementById("in-email-edit").value = email;
     document.getElementById("in-number-edit").value = phone;
-}
-
-
-/** This function closes the edit contact popup, removing the slide-in animation
- * and hiding the background.
- * It also clears the input fields and hides any error messages.
- * It resets the input styles to remove any invalid input indicators.
- * It ensures the popup is hidden and the inputs are cleared for the next use.
-*/
-function closeEdit() { // Close edit popup
-    document.getElementById("popup-edit").classList.remove("slide-in");
-    document.getElementById("popup-edit").classList.add("slide-out");
-    document.getElementById("popup-background").style.display = "none";
-    document.getElementById("popup-edit").style.display = "none"; // Hide popup
-    document.getElementById("in-name-edit").value = ""; // Clear inputs
-    document.getElementById("in-email-edit").value = "";
-    document.getElementById("in-number-edit").value = "";
+    clearValidationMessages("edit"); // Clear any previous validation messages
 }
 
 
@@ -167,26 +84,6 @@ async function saveContact(userID) { // Save edited contact
 
     if (result) {
         await finishSaveContact(result, userID); // Save contact
-    }
-}
-
-
-/** This function adds a new contact.
- * It retrieves the values from the input fields, validates them,
- * and if valid, generates a unique userID.
- * It then calls finishAddContact to save the new contact.
- * If the input is valid, it generates a unique ID and calls finishAddContact to save the new contact.
-*/
-async function addContact() { // Add new contact
-    const name = document.getElementById("in-name-add").value;
-    const email = document.getElementById("in-email-add").value;
-    const number = document.getElementById("in-number-add").value;
-    const result = checkInput(name, email, number, "add"); // Validate input
-    let userID = Date.now() + getRandomID(100000); // Generate unique ID
-
-    if (result) {
-        await finishAddContact(result, userID); // Save contact
-        clearInputs(); // Clear input fields
     }
 }
 
@@ -335,13 +232,6 @@ async function deleteContact(userID) { // Delete contact from Firebase
 }
 
 
-/** This function toggles the visibility of the alert popup.
-*/
-function showAlert() { // Toggle alert popup visibility
-    document.getElementById('alert').classList.toggle('alert-close');
-}
-
-
 /** This function renders the letter header for contact groups.
  * It creates a div with the letter and a splitter for styling.
 */
@@ -368,99 +258,6 @@ function renderContactDiv(initials, color, user, userID, i) {
                     <sub class="contact-mail">${user.email}</sub>
                 </div>
             </div>`
-}
-
-
-/**
- * This function returns the HTML for the detailed contact info display.
- * and highlights the active contact in the list.
- * It is used to show the contact details when a contact is selected, and
- * includes the initials, name, email, and phone number of the contact.
-*/
-function renderContactInfo(initials, color, user, email, phone, userID) {
-    return `<div class="center-top">
-            <div class="center-top-inital-circle">
-            <div class="center-top-inital-div" style="background-color: ${color};">
-                <sub class="center-top-inital">${initials}</sub>
-            </div>
-            </div>
-            <div class="center-top-second-div">
-                <div class="center-top-name">${user}</div>
-                <div id="center-top-edit" class="center-top-edit">
-                    <div onclick="openEdit('${initials}','${color}','${user}','${email}','${phone}',${userID})" class="edit">
-                        <img src="./assets/icons/edit.png" alt="">
-                        <sub class="edit-sub">Edit</sub>
-                    </div>
-                    <div onclick="deleteContact(${userID})" class="delete">
-                        <img src="./assets/icons/delete.png" alt="">
-                        <sub class="delete-sub">Delete</sub>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="center-middle">
-            <sub class="center-middle-text">Contact Information</sub>
-        </div>
-        <div class="center-bottom">
-            <div class="center-bottom-mail">
-                <sub class="center-bottom-mail-text">Email</sub>
-                <sub class="center-bottom-mail-name">${email}</sub>
-            </div>
-            <div class="center-bottom-number">
-                <sub class="center-bottom-phone-text">Phone</sub>
-                <sub class="center-bottom-phone-number">${phone}</sub>
-            </div>
-        </div>`
-}
-
-
-/** This function returns the HTML for the edit contact popup.
- * It includes fields for name, email, and phone number,
- * and buttons to save or delete the contact.
- * It is used to render the edit contact popup with pre-filled values.
-*/
-function renderOpenEdit(color, initials, userID) {
-    return `<div class="popup-main">
-            <div class="popup-banner">
-                <div onclick="closeEdit()" class="popup-close-btn-img-white">
-                        <img src="./assets/icons/close_white.png" alt="">
-                    </div>
-                <div class="popup-banner-join">
-                    <img class="popup-banner-join-logo" src="./assets/img/logo.png" alt="">
-                </div>
-                <div class="popup-banner-join-text">
-                    <sub class="popup-banner-sub1">Edit contact</sub>
-                </div>
-                <div class="popup-banner-vector"></div>
-            </div>
-
-            <div class="popup-close-btn-div">
-                <div  onclick="closeEdit()" class="popup-close-btn">
-                    <img src="./assets/icons/iconoir_cancel.png" alt="">
-                </div>
-            </div>
-            <div class="popup-contact-div" style="background-color: ${color};">
-                <sub class="center-top-inital">${initials}</sub>
-            </div>
-            <div class="popup-field">
-                <div class="popup-field-name">
-                    <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-name-edit"> Invalid name, please enter a full first and last name.</sub>
-                </div>
-                <div class="popup-field-email">
-                    <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-email-edit"> Please enter a valid email address.</sub>
-                </div>
-                <div class="popup-field-phone">
-                    <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-phone-edit"> The phone number must contain between 8 and 13 digits.</sub>
-                </div>
-            </div>
-            <div class="popup-buttons">
-                <button onclick="deleteContact(${userID})" class="popup-btn-cancel">Delete</button>
-                <button onclick="saveContact(${userID})" class="popup-btn-save">Save <img src="./assets/icons/check.png" alt=""></button>
-            </div>
-        </div>`
 }
 
 
@@ -498,21 +295,6 @@ async function finishAddContact(result, userID) {
 }
 
 
-/** This function handles the completion of deleting a contact.
- * It closes the edit popup, shows a success alert,
- * and clears the contact detail view.
- * It ensures the contact is removed from the UI and the user is informed of the successful deletion.
-*/
-function finishDelete() {
-    document.getElementById("popup-edit").classList.add("none"); // Close popup
-    setTimeout(showAlert, 3000);
-    document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully deleted</sub>';
-    document.getElementById('alert').classList.toggle('alert-close');
-    let centerBody = document.getElementById("center-body");
-    centerBody.innerHTML = "";
-}
-
-
 /** This function shows an alert message after actions like saving or deleting contacts.
  * It sets a timeout to automatically hide the alert after 5 seconds.
  * It updates the alert message with the provided text and toggles the alert class to show it and
@@ -524,88 +306,6 @@ function showAlertCheck(message) {
     alert.innerHTML = `<sub class="alert-text">${message}</sub>`;
     alert.classList.add("alert");
     document.getElementById('alert').classList.toggle('alert-close');
-}
-
-
-/** This function clears the input fields in the add contact popup.
- * It resets the values of the name, email, and phone number inputs to empty strings.
-*/
-function clearInputs() {
-    document.getElementById("in-name-add").value = ""; // Clear inputs
-    document.getElementById("in-email-add").value = "";
-    document.getElementById("in-number-add").value = "";
-}
-
-
-/** This function closes the responsive contact popup.
- * It removes the slide-in animation class and adds a slide-out animation class.
-*/
-function closeResponsivContact() {
-    let popup = document.getElementById("center");
-    popup.classList.remove("center"); // Remove slide-in animation
-    popup.classList.add("center-out"); // Add slide-out animation
-}
-
-
-/** This function shows the responsive contact popup.
- * It removes the slide-out animation class and adds a slide-in animation class.
-*/
-function showResponsivContact() {
-    document.getElementById("center").classList.remove("center-out"); // Remove slide-out animation
-    document.getElementById("center").classList.add("center");
-    document.getElementById("center").style.display = "block";
-}
-
-
-/** This function closes the responsive contact popup.
- * It removes the slide-out animation class and adds a slide-in animation class.
-*/
-function closeResponsivContactadd() {
-    document.getElementById("center").classList.remove("center-out"); // Remove slide-out animation
-    document.getElementById("center").classList.add("center");
-    document.getElementById("center").style.display = "block";
-}
-
-
-/** This function sets the active navigation item to "Contacts".
- * It removes the active class from other navigation items and adds it to the contacts item.
-*/
-function activeNavItem() {
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.add('active');
-    document.getElementById('addtask').classList.remove('active');
-    document.getElementById('summary').classList.remove('active');
-}
-
-
-/** This function opens the responsive buttons menu.
- * It displays the edit button with a slide-in animation and sets up an event listener to remove the animation class after it ends.
-*/
-function openButtonsMenu(event) {
-    let editButton = document.getElementById("center-top-edit");
-    editButton.style.display = "flex";
-    editButton.classList.remove("slide-out"); // Alte Animation entfernen
-    void popup.offsetWidth; // Reflow erzwingen (damit Animation neu startet)
-    editButton.classList.add("slide-in"); // Neue Animation starten
-    editButton.addEventListener("animationend", () => {
-        editButton.classList.remove("slide-in"); // Remove slide-in class after animation ends
-    }, { once: true }); // Remove slide-in class after animation ends
-    event.stopPropagation() // Prevent event bubbling
-}
-
-
-/** This function closes the responsive buttons menu.
- * It removes the slide-in animation class and adds a slide-out animation class.
-*/
-function closeResponsivButtons() {
-    if (window.matchMedia("(max-width: 876px)").matches) { // If on mobile, close responsive buttons
-        let editButton = document.getElementById("center-top-edit"); // Get edit button
-        editButton.classList.remove("slide-in"); // Alte Animation entfernen
-        editButton.classList.add("slide-out"); // Neue Animation starten
-        editButton.addEventListener("animationend", () => {
-            editButton.style.display = "none"; // Nach der Animation ausblenden
-        }, { once: true }); // Remove slide-in class after animation ends
-    }
 }
 
 
@@ -687,11 +387,4 @@ function initializeContactArrayForLetter(usersCode, contactData, currentLetter, 
             counter = triggerCounter();  // wichtig: neuen Counter zurückholen
             letterHasMatch = true;}} // If the first letter matches, add to contactArray and render contact div
     return { contactArray, tempHTML, letterHasMatch, counter };
-}
-
-
-// Check if user is logged in
-let actualUser = localStorage.getItem("userName");
-if (!actualUser || actualUser === '' ) {
-  window.location.href = `login.html`;
 }

@@ -73,16 +73,19 @@ function renderOpenEdit(color, initials, userID) {
             <div class="popup-field">
                 <div class="popup-field-name">
                     <input class="popup-field-name-input" type="name" placeholder="Name" id="in-name-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-name-edit"> Invalid name, please enter a full first and last name.</sub>
+                    <img class="popup-input-img-person" src="./assets/icons/person-input.png" alt="">
                 </div>
+                <sub class="popup-field-invalid-sub" id="invalid-name-edit"></sub>
                 <div class="popup-field-email">
                     <input class="popup-field-email-input" type="email" placeholder="Email" id="in-email-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-email-edit"> Please enter a valid email address.</sub>
+                    <img class="popup-input-img-email" src="./assets/icons/mail.png" alt="">
                 </div>
+                <sub class="popup-field-invalid-sub" id="invalid-email-edit"></sub>
                 <div class="popup-field-phone">
                     <input class="popup-field-phone-input" type="text" placeholder="Phone" id="in-number-edit">
-                    <sub class="popup-field-invalid-sub" id="invalid-phone-edit"> The phone number must contain between 8 and 13 digits.</sub>
+                    <img class="popup-input-img-phone" src="./assets/icons/call.png" alt="">
                 </div>
+                <sub class="popup-field-invalid-sub" id="invalid-phone-edit"></sub>
             </div>
             <div class="popup-buttons">
                 <button onclick="deleteContact(${userID})" class="popup-btn-cancel">Delete</button>

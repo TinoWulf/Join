@@ -139,7 +139,7 @@
     }
 
     .contact-mail {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .center-headline-text {
@@ -222,8 +222,8 @@
 
     .popup-input-img-person {
         position: relative;
-        right: -230px;
-        top: -55px;
+        right: -270px;
+        top: -30px;
     }
 }
 
@@ -482,7 +482,7 @@
         height: 78px;
         padding-right: 8px;
         padding-left: 8px;
-        gap: 10px;
+        gap: 20px;
     }
 
     .render-letter-splitter {
@@ -498,8 +498,8 @@
     }
 
     .render-div-initals {
-        height: 30px;
-        width: 30px;
+        height: 40px;
+        width: 40px;
     }
 
     .center-headline-text {
