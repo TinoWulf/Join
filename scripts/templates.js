@@ -239,7 +239,7 @@ function templateEditTask(task){
  */
 function templateRenderContactOnBord(contact, contactIsAssignedToTask){
   return `
-    <div class="option ${contactIsAssignedToTask ? 'background-option' : ''}" onclick="getAssignedContactById(${contact.id})">
+    <div class="option ${contactIsAssignedToTask ? 'background-option' : ''}" onclick="getAssignedContactById(${contact.id}, event)">
       <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
       <input type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}" data-id = "${contact.id}"  ${contactIsAssignedToTask ? 'checked' : ''}/>
     </div>

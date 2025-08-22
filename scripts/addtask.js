@@ -22,25 +22,9 @@ let subtasks = [];
 let contactList = [];
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 
-document.addEventListener('DOMContentLoaded', function() {
-    /**
-     * Sets the navigation state by activating the 'addtask' nav item and deactivating
-     * 'board', 'contacts', and 'summary' nav items. This function manipulates the
-     * 'active' CSS class on the corresponding elements.
-     */
-    function activeNavItem(){
-        document.getElementById('board').classList.remove('active');
-        document.getElementById('contacts').classList.remove('active');
-        document.getElementById('addtask').classList.add('active');
-        document.getElementById('summary').classList.remove('active');
-    }
-    
-    activeNavItem();
-    setupPriorityButtons('medium');
-    getCategory()
+setupPriorityButtons('medium');
+getCategory()
         
-});
-
 
 
 resetButton.addEventListener('click', function(){
@@ -61,7 +45,7 @@ resetButton.addEventListener('click', function(){
  * @param {*} id contact ID to be assigned
  * @returns a list of assigned contacts
  */
-function getAssignedContactById(id){
+function getAssignedContactById(id, event){
     let contactRef = document.getElementById(id);
     contactRef.addEventListener('click', function(){
         const name = contactRef.value.trim();
@@ -77,6 +61,7 @@ function getAssignedContactById(id){
         }
         renderAssignedUsers();
     })
+    event.stopPropagation();
     return assignedToList;
 }
 
@@ -432,13 +417,26 @@ function renderContact(contactIdList, contactData) {
 
 
 function closeDropDown(event){
-    categoryList.classList.add('hide');
-    labelCategory.classList.remove('addheigth');
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
     AssignToLabel.classList.remove('addheigth');
     event.stopPropagation();
 }
+
+
+/**
+ * Sets the navigation state by activating the 'addtask' nav item and deactivating
+ * 'board', 'contacts', and 'summary' nav items. This function manipulates the
+ * 'active' CSS class on the corresponding elements.
+ */
+function activeNavItem(){
+    document.getElementById('board').classList.remove('active');
+    document.getElementById('contacts').classList.remove('active');
+    document.getElementById('addtask').classList.add('active');
+    document.getElementById('summary').classList.remove('active');
+}
+
+activeNavItem();
 
 
 let actualUser = localStorage.getItem("userName");
