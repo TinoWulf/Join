@@ -12,7 +12,6 @@ let categoryInput  = document.getElementById('categoryInput');
 let errorTitle  = document.getElementById('errorTitle');
 let errorDate  = document.getElementById('errorDate');
 let errorCat  = document.getElementById('errorCat');
-let resetButton  = document.getElementById('resetButton');
 let labelCategory  = document.getElementById('labelCategory');
 let categoryList  = document.getElementById('category');
 let contactBoard = document.getElementById("assigned");
@@ -21,38 +20,22 @@ let assignedToList = [];
 let subtasks = [];
 let contactList = [];
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
-
 setupPriorityButtons('medium');
-getCategory()
+getCategory();
         
-
-
-resetButton.addEventListener('click', function(){
-    categoryInput.value ='';
-    taskTitleInput.value ='';
-    taskDescriptionInput.value = '';
-    dueDateInput.value = ''; 
-    priorityInput.value = '';
-    let subtaskListEdit = document.getElementById('subtaskListEdit');
-    subtaskListEdit.innerHTML = '';
-})
-
 
 /**
  * 
  * Retrieves the assigned contact by ID and adds an event listener to toggle its checked state.
  * If the contact is already assigned, it will be removed from the assignedToList.
- * @param {*} id contact ID to be assigned
+ * @param {number} id contact ID to be assigned
  * @returns a list of assigned contacts
  */
 function getAssignedContactById(id, event){
     let contactRef = document.getElementById(id);
     contactRef.addEventListener('click', function(){
         const name = contactRef.value.trim();
-        const newContact = {
-            name: name,
-            checked: true
-        }
+        const newContact = {name: name,  checked: true }
         if(!assignedToList.find(item => item.name === newContact.name)){
             assignedToList.push(newContact);
         }else{
@@ -68,8 +51,7 @@ function getAssignedContactById(id, event){
 
 /**
  * Renders the list of already assigned users in the assigned container.
- * Iterates through the assignedToList and creates a span for each user with their abbreviation.
- * Applies the assigned color span to each user.
+ * Iterates through the assignedToList and creates a span for each user with their abbreviation. Applies the assigned color span to each user.
  */
 function renderAssignedUsers() {
     alreadyAssignedContainer.innerHTML = '';
@@ -92,7 +74,7 @@ function addSubstask(){
     let newSubtask = newSubtaskRef.value.trim();
     const already = !!subtasks.find(item => item.title == newSubtask);
     if(newSubtask && newSubtask!="" && !already){
-        const subtask = { title: newSubtask,checked: false,}
+        const subtask = { title: newSubtask,checked: false}
         subtasks.push(subtask);
        showSubTask();
         newSubtaskRef.value = '';
@@ -119,6 +101,22 @@ function showSubTask(){
 
 
 /**
+ * 
+ * Toggles the visibility of the category list and adjusts the label height accordingly.
+ * @returns {void}
+ */
+function showCategory(){
+    if(categoryList.classList.contains('hide')){
+        categoryList.classList.remove('hide')
+        labelCategory.classList.add('addheigth');
+    }else{
+        labelCategory.classList.remove('addheigth');
+        categoryList.classList.add('hide');
+    }
+}
+
+
+/**
  * start change subtask form <li> element to input element
  */
 function getEditedSubtask(){
@@ -134,7 +132,6 @@ function getEditedSubtask(){
         })
     })
 }
-
 
 
 /**
@@ -175,8 +172,7 @@ function modifySubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         const newValue = input.value;
-        subtasks[found] = {title: newValue.trim(), checked: false
-        };
+        subtasks[found] = {title: newValue.trim(), checked: false};
         input.value = '';
         showSubTask();
     }
@@ -218,9 +214,8 @@ function isDueDatePassed(date) {
 
 
 /**
- * Retrieves all task data from the form inputs and constructs a task object.
- * The task object includes properties like title, description, due date, category, priority, assigned contacts, and subtasks.
- * The function then calls `getAddTask` to save the task data to Firebase.
+ * Retrieves all task data from the form inputs and constructs a task object. The task object includes properties like title, description, due date, category, priority, assigned contacts, and subtasks.
+ *  The function then calls `getAddTask` to save the task data to Firebase.
  */
 function getTaskData(){
     let category  = categoryInput.value ? categoryInput.value.trim(): "User Test"
@@ -236,8 +231,7 @@ function getTaskData(){
 
 
 /**
- * Validates the form inputs for task creation.
- * Checks if the task title, due date, and category are filled out.
+ * Validates the form inputs for task creation. Checks if the task title, due date, and category are filled out.
  * @returns {boolean} Returns true if there are no errors in the form, otherwise false.
  */
 function renderError() {
@@ -258,9 +252,10 @@ function renderError() {
     return !hasError;
 }
 
+
 /**
  * check if the date was enter by user if not the render the error mesage by remove the hide class in the error field
- * or if the date is already passed. it remove the hide class and add the message "THE DATE IS ALREWADY PASSED" 
+ * or if the date is already passed. it remove the hide class and add the message "THE DATE IS ALREADY PASSED" 
  * @param {string} dueDate date 
  * @returns true or false
  */
@@ -281,10 +276,8 @@ function validateDueDate(dueDate) {
 }
 
 
-
 /**
  * Removes error classes and hides error messages after a delay.
- * 
  */
 function removeError(){
     setTimeout(()=>{
@@ -318,9 +311,8 @@ async function getAddTask(taskData) {
 
 
 /**
- * Toggles the visibility of the assigned contacts container in the Add Task form.
- * If the container is hidden, it will be displayed and populated with contacts.
- * @param {event} event 
+ * Toggles the visibility of the assigned contacts container in the Add Task form. If the container is hidden, it will be displayed and populated with contacts.
+ * @param {event} event use to stop the Progation in other container
  */
 function showContainerOnBoardAddTask(event){
   if (contactBoard.classList.contains("hide")) {
@@ -337,8 +329,7 @@ function showContainerOnBoardAddTask(event){
 
 
 /**
- * Retrieves the selected category from the dropdown and updates the input field accordingly.
- * This function also sets up event listeners for category options.
+ * Retrieves the selected category from the dropdown and updates the input field accordingly. This function also sets up event listeners for category options.
  */
 function getCategory(){
     let categoryInput  = document.getElementById('categoryInput');
@@ -348,43 +339,12 @@ function getCategory(){
             categoryInput.value = category.value;
         })
     })
-    showCategory()
+    showCategory();
 }
 
 
 /**
- * Displays a success message after a task is successfully added and redirects to the board.
- */
-function showSucessMessage() {
-    let successMessage = document.getElementById("successMessageTask");
-    successMessage.classList.remove("hide");
-    setTimeout(() => {
-        successMessage.classList.add("hide");
-        openBoard(); 
-    }, 1000);
-}
-
-
-/**
- * 
- * Toggles the visibility of the category list and adjusts the label height accordingly.
- * @returns {void}
- */
-function showCategory(){
-    if(categoryList.classList.contains('hide')){
-        categoryList.classList.remove('hide')
-        labelCategory.classList.add('addheigth');
-    }else{
-        labelCategory.classList.remove('addheigth');
-        categoryList.classList.add('hide');
-    }
-}
-
-
-/**
- * Fetches all contacts from the database and renders them on the assigned conntainer in Addtask form.
- * @returns {Promise<void>}
- * @throws {Error} If the fetch operation fails, it will open an error page.
+ * Fetches all contacts from the database and renders them on the assigned conntainer in Addtask form. If the fetch operation fails, it will open an error page.
  */
 async function getUser(){
   try{ 
@@ -398,10 +358,11 @@ async function getUser(){
   }
 }
 
+
 /**
  * render all contacts on the assigned container in Addtask form.
  * @param {Array} contactIdList list of contact IDs to be rendered
- * @param {*} contactData contatct data fetched from the database
+ * @param {Object} contactData contatct data fetched from the database
  */
 function renderContact(contactIdList, contactData) {
     let contactBoard = document.getElementById("assigned");
@@ -416,34 +377,6 @@ function renderContact(contactIdList, contactData) {
 }
 
 
-function closeDropDown(event){
-    contactBoard.classList.add("hide");
-    contactBoard.classList.remove("dFlex");
-    AssignToLabel.classList.remove('addheigth');
-    event.stopPropagation();
-}
-
-
-/**
- * Sets the navigation state by activating the 'addtask' nav item and deactivating
- * 'board', 'contacts', and 'summary' nav items. This function manipulates the
- * 'active' CSS class on the corresponding elements.
- */
-function activeNavItem(){
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.remove('active');
-    document.getElementById('addtask').classList.add('active');
-    document.getElementById('summary').classList.remove('active');
-}
-
-activeNavItem();
-
-
-let actualUser = localStorage.getItem("userName");
-if (!actualUser || actualUser === '' ) {
-  window.location.href = `login.html`;
-}
-
 export{setupPriorityButtons, isDueDatePassed };
 
 window.getTaskData = getTaskData;
@@ -452,9 +385,8 @@ window.setupPriorityButtons = setupPriorityButtons;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
-window.showCategory = showCategory;
 window.getCategory = getCategory;
-window.closeDropDown = closeDropDown;
+window.showCategory = showCategory;
 window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;
 window.deleteSubtaskInEdited = deleteSubtaskInEdited;
