@@ -137,18 +137,10 @@
         justify-content: center;
     }
 
-    .popup-btn-cancel {
-        display: none;
-    }
-
     .alert {
         width: 90%;
         left: 5%;
         z-index: 1000;
-    }
-
-    .popup-btn-cancel {
-        display: none;
     }
 
     .popup-btn-create {
@@ -158,15 +150,15 @@
     .popup-input-img-email,
     .popup-input-img-phone {
         position: relative;
-        right: -26vw;
-        top: -60px;
+        right: 8vw;
+        top: 0px;
         height: 20px;
     }
 
     .popup-input-img-person {
         position: relative;
-        right: -26vw;
-        top: -57px;
+        right: 8vw;
+        top: 0px;
         height: 15px;
     }
 }
@@ -198,6 +190,44 @@
     .popup-field-email,
     .popup-field-phone {
         width: 100%;
+    }
+
+    .popup-input-img-email,
+    .popup-input-img-phone,
+    .popup-input-img-person {
+        position: relative;
+        right: 10vw;
+        top: 0px;
+    }
+
+    .popup-btn-cancel {
+        width: 90px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .popup-btn-save {
+        width: 80px;
+        height: 50px;
+        font-size: 16px;  
+    }
+}
+
+@media (max-width: 376px) {
+
+    .popup-main {
+        width: 102%;
+        height: 102vh;
+    }
+
+    .center-top-edit {
+        right: 9vw;
+        top: 42vh;
+    }
+
+    .center-top-responsive-edit {
+        right: 4vh;
+        bottom: 5vh;
     }
 }
 

@@ -383,7 +383,6 @@
         top: 80px;
         left: 50px;
         width: 100%;
-        max-width: 452px;
         height: 364px;
         opacity: 1;
         gap: 21px;
@@ -429,7 +428,7 @@
     .center-top-edit {
         position: absolute;
         top: 42vh;
-        left: 65vw;
+        right: 8vw;
         width: 116px;
         height: 100px;
         display: flex;
@@ -526,7 +525,7 @@
     .center-body {
         position: relative;
         left: 16px;
-        width: 452px;
+        top: 10px;
         height: 364px;
         opacity: 1;
         gap: 21px;
@@ -557,4 +556,8 @@
         white-space: nowrap;
     }
 
+    .center-top-edit {
+        top: 50vh;
+        right: 8vw;
+    }
 }
