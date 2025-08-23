@@ -1,6 +1,6 @@
 const baseUrl = "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app" // Firebase base URL
 let contactArray = []; // Stores all contact IDs
-const alphabetArray = ["A", "B", "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] // Letters used to sort contacts
+const alphabetArray = ["A", "B", "C", "D","E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"] // Letters used to sort contacts
 const colors = ["red", "blue", "green", "orange", "purple", "brown", "cyan", "magenta", "lime", "gold"]; // Color options for contact initials
 let counter = 0; // Color counter
 let activeContactIndex = null; // Currently selected contact index
@@ -218,13 +218,13 @@ async function pushContact(name, email, number, userID) { // Save contact in Fir
  * After deletion, it refreshes the contact list and shows a success alert.
  * It ensures the contact is removed from Firebase and the UI is updated accordingly.
 */
-async function deleteContact(userID) { // Delete contact from Firebase
+async function deleteContact(userID, hide) { // Delete contact from Firebase
     try {
         const response = await fetch(`${baseUrl}/contacts/${userID}.json`, { // Send DELETE request
             method: "DELETE" // Delete contact by userID
         });
         await fetchData(); // Refresh
-        finishDelete(); // Close edit popup
+        finishDelete(hide); // Close edit popup
     } catch (error) {
         console.error("Error deleting contact:", error);
         alert("Error deleting contact");

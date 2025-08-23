@@ -19,7 +19,7 @@ function renderContactInfo(initials, color, user, email, phone, userID) {
                         <img src="./assets/icons/edit.png" alt="">
                         <sub class="edit-sub">Edit</sub>
                     </div>
-                    <div onclick="deleteContact(${userID})" class="delete">
+                    <div onclick="deleteContact(${userID}, hide = false)" class="delete">
                         <img src="./assets/icons/delete.png" alt="">
                         <sub class="delete-sub">Delete</sub>
                     </div>
@@ -88,7 +88,7 @@ function renderOpenEdit(color, initials, userID) {
                 <sub class="popup-field-invalid-sub" id="invalid-phone-edit"></sub>
             </div>
             <div class="popup-buttons">
-                <button onclick="deleteContact(${userID})" class="popup-btn-cancel">Delete</button>
+                <button onclick="deleteContact(${userID}, hide = true)" class="popup-btn-cancel">Delete</button>
                 <button onclick="saveContact(${userID})" class="popup-btn-save">Save <img src="./assets/icons/check.png" alt=""></button>
             </div>
         </div>`

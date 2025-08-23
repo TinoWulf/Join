@@ -33,17 +33,16 @@ setupPriorityButtons('medium');
  */
 function getAssignedContactById(id, event){
     let contactRef = document.getElementById(id);
-    contactRef.addEventListener('click', function(){
-        const name = contactRef.value.trim();
+    const name = contactRef.value.trim();
+    if(contactRef.checked){
         const newContact = {name: name,  checked: true }
         if(!assignedToList.find(item => item.name === newContact.name)){
             assignedToList.push(newContact);
-        }else{
-            const index = assignedToList.indexOf(newContact);
-            assignedToList.splice(index, 1);
         }
-        renderAssignedUsers();
-    })
+    }else{
+        assignedToList = assignedToList.filter(item => item.name !== name);
+    }
+    renderAssignedUsers();
     event.stopPropagation();
     return assignedToList;
 }

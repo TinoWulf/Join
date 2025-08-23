@@ -60,8 +60,10 @@ function closeResponsivButtons() {
  * and clears the contact detail view.
  * It ensures the contact is removed from the UI and the user is informed of the successful deletion.
 */
-function finishDelete() {
-    closeEdit(); // Close edit popup
+function finishDelete(hide) {
+    if(hide){
+        closeEdit(); // Close edit popup
+    }
     setTimeout(showAlert, 3000);
     document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully deleted</sub>';
     document.getElementById('alert').classList.toggle('alert-close');

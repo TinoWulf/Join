@@ -366,6 +366,15 @@ label, .label-date{
   gap: 4px;
 }
 
+.cancel-button:hover{
+  border: 1px solid var(--blue);
+  color: var(--blue);
+}
+
+.cancel-button:hover img{
+  content: url('../assets/icons/closeblue.png');
+}
+
 .create-task-button{
   display: flex;
   justify-content: center;
@@ -380,4 +389,8 @@ label, .label-date{
   border-radius: 10px;
   padding: 16px;
   gap: 4px;
+}
+
+.create-task-button:hover{
+  background-color: var(--blue);
 }

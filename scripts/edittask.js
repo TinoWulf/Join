@@ -177,16 +177,15 @@ async function getAlreadySubtask(taskId){
 function getAssignedContactById(id){
     alreadyAssigned = !alreadyAssigned ? [] : alreadyAssigned;
     let contactRef = document.getElementById(id);
-    contactRef.addEventListener('click', function(){
-        const name = contactRef.value.trim();
-        const newContact = { name: name,  checked: tru }
+    const name = contactRef.value.trim();
+    if(contactRef.checked){
+        const newContact = {name: name,  checked: true }
         if(!alreadyAssigned.find(item => item.name === newContact.name)){
             alreadyAssigned.push(newContact);
-        }else{
-            const index = alreadyAssigned.indexOf(newContact);
-            alreadyAssigned.splice(index, 1);
         }
-    })
+    }else{
+        alreadyAssigned = alreadyAssigned.filter(item => item.name !== name);
+    }
     return alreadyAssigned;
 }
 
