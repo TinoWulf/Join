@@ -34,7 +34,7 @@ function showSucessMessage() {
 function closeDropDown(event){
     contactBoard.classList.add("hide");
     contactBoard.classList.remove("dFlex");
-    AssignToLabel.classList.remove('addheigth');
+    categoryList.classList.add('hide');
     event.stopPropagation();
 }
 
@@ -65,7 +65,14 @@ resetButton.addEventListener('click', function(){
     dueDateInput.value = ''; 
     priorityInput.value = '';
     let subtaskListEdit = document.getElementById('subtaskListEdit');
+    let AssignedContact = document.getElementById('assignedContact');
     subtaskListEdit.innerHTML = '';
+    AssignedContact.innerHTML = '';
+    assignedToList = [];
+    subtasks = [];
+    contactList = [];
+    setupPriorityButtons('medium');
+    getUser();
 })
 
 

@@ -79,17 +79,17 @@
                 
                 <label for="category" class="label-category" id="labelCategory">
                     <p>Category <span class="star">*</span></p>
-                    <div class="drop-down-input" onclick="showCategory()" id="categoryContain">
+                    <div class="drop-down-input" onclick="getCategory(event)" id="categoryContain">
                         <input type="text" placeholder="Select task category" readonly id="categoryInput">
-                        <span onclick="showCategory()"><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
+                        <span onclick="getCategory(event)"><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
                     </div>
-                    <p class="error-message hide" id="errorCat">This field is required</p>
-                    <div id="category" class="category">
+                    <div id="category" class="category hide">
                         <option value="User Story" onclick="showCategory()">User Story</option>
                         <option value="Technical Task" onclick="showCategory()">Technical Task</option>
                         <option value="Development" onclick="showCategory()">Developement</option>
                         <option value="Maketing" onclick="showCategory()">Maketing</option>
                     </div>
+                    <p class="error-message hide" id="errorCat">This field is required</p>
                 </label>
                 <label for="subtasks" class="label-subtask subbtask-margin">Subtasks
                     <div class="drop-down-input">

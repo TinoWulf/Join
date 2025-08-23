@@ -1,6 +1,33 @@
+.menu, .navbar{
+  z-index: 2;
+}
+
+.container-contact{
+  background-color: var(--white);
+  position: absolute;
+  display: flex;
+  width: 100%;
+  top: 75px;
+  flex-direction: column;
+  height: 150px;
+  overflow-y: auto;
+  padding: 10px 30px;
+  border-radius: 0 0 10px 10px;
+  z-index: 1;
+}
+
+.category{
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 78px;
+  background-color: var(--white);
+  border-radius: 0 0 10px 10px;
+}
+
 .subtask-listes{
   width: 100%;
-  height: 80px;
+  max-height: 100px;
   overflow-y: auto;
 }
 
@@ -111,7 +138,8 @@
 
 @media (max-width: 1000px) {
   .add-task-form{
-      padding: 40px 20px;
+      padding: 40px 0;
+      padding-right: 15px;
       display: flex;
       flex-direction: column;
       gap: 32px;
@@ -142,7 +170,7 @@
 
   .add-right-side{
       width: 100%;
-      height: 400px;
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-items: center;

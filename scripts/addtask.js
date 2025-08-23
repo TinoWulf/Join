@@ -21,7 +21,7 @@ let subtasks = [];
 let contactList = [];
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 setupPriorityButtons('medium');
-getCategory();
+// getCategory();
         
 
 /**
@@ -108,9 +108,7 @@ function showSubTask(){
 function showCategory(){
     if(categoryList.classList.contains('hide')){
         categoryList.classList.remove('hide')
-        labelCategory.classList.add('addheigth');
     }else{
-        labelCategory.classList.remove('addheigth');
         categoryList.classList.add('hide');
     }
 }
@@ -315,23 +313,23 @@ async function getAddTask(taskData) {
  * @param {event} event use to stop the Progation in other container
  */
 function showContainerOnBoardAddTask(event){
-  if (contactBoard.classList.contains("hide")) {
-    contactBoard.classList.remove("hide");
-    contactBoard.classList.add("dFlex");
-    AssignToLabel.classList.add('addheigth');
-  } else {
-    contactBoard.classList.add("hide");
-    contactBoard.classList.remove("dFlex");
-    AssignToLabel.classList.remove('addheigth');
-  }
-  event.stopPropagation();
+    if (contactBoard.classList.contains("hide")) {
+        contactBoard.classList.remove("hide");
+        contactBoard.classList.add("dFlex");
+    } else {
+        contactBoard.classList.add("hide");
+        contactBoard.classList.remove("dFlex");
+    }
+    categoryList.classList.add('hide');
+    event.stopPropagation();
 }
 
 
 /**
  * Retrieves the selected category from the dropdown and updates the input field accordingly. This function also sets up event listeners for category options.
  */
-function getCategory(){
+function getCategory(event){
+    contactBoard.classList.add("hide");
     let categoryInput  = document.getElementById('categoryInput');
     let options = document.querySelectorAll(".category option");
     options.forEach(category=>{
@@ -340,6 +338,7 @@ function getCategory(){
         })
     })
     showCategory();
+    event.stopPropagation();
 }
 
 
