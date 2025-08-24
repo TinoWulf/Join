@@ -92,9 +92,17 @@
                     <p class="error-message hide" id="errorCat">This field is required</p>
                 </label>
                 <label for="subtasks" class="label-subtask subbtask-margin">Subtasks
-                    <div class="drop-down-input">
-                        <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
-                        <span onclick="addSubstask()"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                    <div class="drop-down-input" id="addSubtask">
+                        <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask" class="subtask-add">
+                        <div class="img-icons" id="imgIcons">
+                            <span class="delete-icon" onclick="deleteSubtaskInput()">
+                                <img src="./assets/icons/delete.png"alt="search icon" />
+                            </span>
+                            <span class="check-icon" onclick="addSubstask(); deleteSubtaskInput()">
+                                <img src="./assets/icons/checkgrey.png" alt="search icon" />
+                            </span>
+                        </div>
+                        <span onclick="addSubstask()" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
                     </div>
                 </label>
                 <div id="subtaskListEdit" class="subtask-listes">

@@ -11,6 +11,9 @@ let errorTitle  = document.getElementById('errorTitle');
 let errorDate  = document.getElementById('errorDate');
 let errorCat  = document.getElementById('errorCat');
 let resetButton  = document.getElementById('resetButton');
+let addSubtaskRef  = document.getElementById('addSubtask');
+let imgAddsubtaskPlus  = document.querySelector('.img-addsubtask');
+let imgIconsAddsubtask  = document.getElementById('imgIcons');
 
 
 
@@ -39,19 +42,6 @@ function closeDropDown(event){
 }
 
 
-/**
- * Sets the navigation state by activating the 'addtask' nav item and deactivating
- * 'board', 'contacts', and 'summary' nav items. This function manipulates the
- * 'active' CSS class on the corresponding elements.
- */
-function activeNavItem(){
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.remove('active');
-    document.getElementById('addtask').classList.add('active');
-    document.getElementById('summary').classList.remove('active');
-}
-
-
 let actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
@@ -76,4 +66,35 @@ resetButton.addEventListener('click', function(){
 })
 
 
+let inputAddSubtask = addSubtaskRef.querySelector('input');
+inputAddSubtask.addEventListener('focus', function(){
+    imgAddsubtaskPlus.hidden = true;
+    imgIconsAddsubtask.classList.add('show-icons');
+})
+
+inputAddSubtask.addEventListener("blur", () => {
+  if (!inputAddSubtask.value.trim()) {
+    imgAddsubtaskPlus.hidden = false;
+    imgIconsAddsubtask.classList.remove('show-icons');
+  }
+});
+
+function deleteSubtaskInput(){
+    inputAddSubtask.value = '';
+    imgAddsubtaskPlus.hidden = false;
+    imgIconsAddsubtask.classList.remove('show-icons');
+}
+
+
+/**
+ * Sets the navigation state by activating the 'addtask' nav item and deactivating
+ * 'board', 'contacts', and 'summary' nav items. This function manipulates the
+ * 'active' CSS class on the corresponding elements.
+ */
+function activeNavItem(){
+    document.getElementById('board').classList.remove('active');
+    document.getElementById('contacts').classList.remove('active');
+    document.getElementById('addtask').classList.add('active');
+    document.getElementById('summary').classList.remove('active');
+}
 activeNavItem();
