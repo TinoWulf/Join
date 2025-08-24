@@ -104,19 +104,24 @@
   padding: 7px 16px;
 }
 
-.taskCardPopup input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #555;
-  background: none;
+
+.taskCardPopup input[type="checkbox"]{
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url("../assets/icons/unchecked.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
   cursor: pointer;
 }
+
 .taskCardPopup input[type="checkbox"]:checked {
-  background: none;
-  content: "✓";
-  color: var(--border-color);
-  border-color: var(--border-color);
+    background-image: url("../assets/icons/checked.png");
 }
+
 
 .taskCardPopup .form-check {
   display: flex;

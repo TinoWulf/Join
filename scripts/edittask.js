@@ -391,10 +391,10 @@ function templateRenderFormEditSubtask(subtaskContent){
         <label>
             <input type="text" value="${subtaskContent}" id="subtaskEdit"/>
             <div class="img-icons">
-                <span class="delete-icon" onclick="deleteSubtaskInEdited('${subtaskTitle}')">
+                <span class="" onclick="deleteSubtaskInEdited('${subtaskTitle}')">
                     <img src="./assets/icons/delete.png"alt="search icon" />
                 </span>
-                <span class="check-icon" onclick="modifySubtaskInEdited('${subtaskTitle}')">
+                <span class="" onclick="modifySubtaskInEdited('${subtaskTitle}')">
                     <img src="./assets/icons/checkgrey.png" alt="search icon" />
                 </span>
             </div>
@@ -450,7 +450,6 @@ function deleteSubtaskInEdited(subtaskContent){
         initiateBoard();
     }
 }
-
 
 export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers, escapeForInlineJS, modifySubtaskInEdited, deleteSubtaskInEdited};
 

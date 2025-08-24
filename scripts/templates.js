@@ -155,6 +155,7 @@ function donePlaceholderTemplate(){
  */
 function templateEditTask(task){
   return `
+  <script src="./scripts/edittaskAction.js"></script>
      <div class="editTaskPopup" onclick="preventEvent(event)">
             <div class="taskCard-header close-header">
               <spa class="taskType"></spa>
@@ -206,9 +207,17 @@ function templateEditTask(task){
           </label>
           <label for="subtasks" class="label-subtask" onclick="preventEvent(event)">
               Substaks
-              <div class="drop-down-input">
+              <div class="drop-down-input" id="addSubtask">
                 <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask">
-                <span onclick="addSubstask()",onclick="preventEvent(event)"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                <div class="img-icons" id="imgIcons">
+                  <span class="delete-icon" onclick="deleteSubtaskInput()">
+                      <img src="./assets/icons/close.png"alt="search icon" />
+                  </span>
+                  <span class="check-icon" onclick="addSubstask(); deleteSubtaskInput()">
+                      <img src="./assets/icons/checkgrey.png" alt="search icon" />
+                  </span>
+                </div>
+                <span onclick="addSubstask()",onclick="preventEvent(event)" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
               <div id="subtaskListEdit">
               ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
@@ -227,6 +236,7 @@ function templateEditTask(task){
           </div>
       </div>
     <script type="module" defer src="./scripts/edittask.js"></script>
+
   `;
 }
 

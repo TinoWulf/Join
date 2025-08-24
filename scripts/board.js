@@ -346,12 +346,10 @@ function activeNavItem() {
  */
 async function moveTo(range) {
   const taskID = currentDraggedTask;
-  const rangeId = `${range}Task`;
   const taskRef = ref(database, "tasks/" + taskID);
   try {
     await update(taskRef, { range: range });
     loadTasks();
-    removeHighlight(rangeId);
     initiateBoard();
   } catch (error) {
     openErrorPage();

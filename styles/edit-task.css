@@ -293,6 +293,15 @@
   padding-right: 5px;
 }
 
+.img-icons img:hover{
+  scale: 1.2;
+}
+
+.show-icons{
+  display: flex !important;
+  gap: 10px;
+}
+
 .img-icons span:first-child{
   border-radius: 0;
   padding-right: 5px;

@@ -73,8 +73,18 @@ function preventEvent(event) {
  * Allows a drop event by preventing the default behavior.
  * @param {DragEvent} event - The drag event.
  */
-function allowDrop(event) {
+function allowDrop(event, id) {
   event.preventDefault();
+  const currentDragContainer = event.target.closest('.draggable-section');
+  if (!currentDragContainer) return;
+  let placeholder = currentDragContainer.querySelector('.placeholderTask');
+  if (!placeholder) {
+    placeholder = document.createElement("div");
+    placeholder.classList.add("placeholderTask");
+    currentDragContainer.appendChild(placeholder);
+  }
+  placeholder.classList.remove("hide");
+  removeHighlightFromOthers(id);
 }
 
 
@@ -90,12 +100,10 @@ function highlight(id) {
 /**
  * start drag and show the placeholder task
  * @param {boolean} startDragged 
- * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where is being dragged.
+ * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where task is being dragged.
  */
 function moveToHover(startDragged, range){
-  const rangeId = `${range}Task`;
   if(startDragged){
-    highlight(rangeId);
     try{
       moveTo(range);
     }catch(error){
@@ -123,8 +131,13 @@ function showPlaceholderTask(){
  * Removes the highlight from a drop area by removing a CSS class.
  * @param {string} id - The ID of the drop area element.
  */
-function removeHighlight(id) {
-  document.getElementById(id).classList.remove("drag-area-highlight");
+function removeHighlightFromOthers(activeId) {
+  document.querySelectorAll(".draggable-section").forEach(section => {
+    if (section.id !== activeId) {
+      const placeholder = section.querySelector(".placeholderTask");
+      if (placeholder) placeholder.classList.add("hide");
+    }
+  });
 }
 
 

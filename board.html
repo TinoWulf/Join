@@ -69,8 +69,7 @@
             id="toDoTask"
             class="tasks-container board-scroll-wrapper draggable-section"
             ondrop=" moveToHover(true, 'toDo')"
-            ondragleave="removeHighlight('toDoTask')"
-            ondragover="allowDrop(event)"
+            ondragover="allowDrop(event,'toDoTask')"
           >
             <div id="toDoTaskPlaceholder" class="placeholder show">
               No tasks To do
@@ -88,8 +87,7 @@
             id="inProgressTask"
             class="tasks-container board-scroll-wrapper draggable-section"
             ondrop="moveToHover(true, 'inProgress') "
-            ondragleave="removeHighlight('inProgressTask')"
-            ondragover="allowDrop(event)"
+            ondragover="allowDrop(event, 'inProgressTask')"
           >
             <div id="inProgressTaskPlaceholder" class="placeholder show">
               No tasks in progress
@@ -108,8 +106,7 @@
               id="awaitReviewTask"
               class="tasks-container board-scroll-wrapper draggable-section"
               ondrop=" moveToHover(true, 'awaitReview')"
-              ondragleave="removeHighlight('awaitReviewTask')"
-              ondragover="allowDrop(event)"
+              ondragover="allowDrop(event, 'awaitReviewTask')"
             >
               <div id="awaitReviewTaskPlaceholder" class="placeholder show">
                 No tasks awaiting feedback
@@ -126,8 +123,7 @@
               id="doneTask"
               class="tasks-container board-scroll-wrapper draggable-section"
               ondrop=" moveToHover(true, 'done')"
-              ondragleave="removeHighlight('doneTask')"
-              ondragover="allowDrop(event)"
+              ondragover="allowDrop(event, 'doneTask')"
             >
               <div id="doneTaskPlaceholder" class="placeholder show">
                 No Task Done

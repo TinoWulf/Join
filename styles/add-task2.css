@@ -104,6 +104,10 @@
   gap: 10px;
 }
 
+.img-icons img:hover{
+  scale: 1.2;
+}
+
 .success-message{
   position: fixed;
   background: rgba(24, 30, 63, 0.5);
