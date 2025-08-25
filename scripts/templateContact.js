@@ -24,6 +24,9 @@ function renderContactInfo(initials, color, user, email, phone, userID) {
                         <sub class="delete-sub">Delete</sub>
                     </div>
                 </div>
+                <div onclick="openButtonsMenu(event)" class="center-top-responsive-edit">
+                    <img src="./assets/icons/more_vert.png" alt="">
+                </div>
             </div>
         </div>
         <div class="center-middle">

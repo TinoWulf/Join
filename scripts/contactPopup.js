@@ -1,4 +1,3 @@
-
 /** This function closes the responsive contact popup.
  * It removes the slide-in animation class and adds a slide-out animation class.
 */
@@ -63,6 +62,9 @@ function closeResponsivButtons() {
 function finishDelete(hide) {
     if(hide){
         closeEdit(); // Close edit popup
+    }
+    if (window.matchMedia("(max-width: 876px)").matches) {
+        closeResponsivContact(); // Close responsive contact view
     }
     setTimeout(showAlert, 3000);
     document.getElementById("alert").innerHTML = '<sub class="alert-text">Contact successfully deleted</sub>';

@@ -1,3 +1,60 @@
+@media (max-width: 1030px) {
+    .popup-main {
+        width: 800px;
+    }
+
+    .popup-buttons {
+        position: relative;
+        width: 364px;
+        height: 57px;
+        top: -150px;
+        left: 400px;
+        opacity: 1;
+        gap: 24px;
+        display: flex;
+    }
+
+    .popup-close-btn-div {
+        left: 430px;
+    }
+
+    .popup-contact-div {
+        width: 100px;
+        height: 100px;
+        left: 0;
+    }
+
+    .popup-field {
+        width: 322px;
+        left: 40px;
+    }
+
+    .popup-field-name-input,
+    .popup-field-email-input,
+    .popup-field-phone-input {
+        width: 300px;
+    }
+
+    .popup-field-name,
+    .popup-field-email,
+    .popup-field-phone {
+        width: 300px;
+    }
+
+    .popup-input-img-email,
+    .popup-input-img-phone {
+        position: relative;
+        right: -270px;
+        top: -35px;
+    }
+
+    .popup-input-img-person {
+        position: relative;
+        right: -270px;
+        top: -30px;
+    }
+}
+
 @media (max-width: 876px) {
 
     html,
@@ -9,7 +66,7 @@
         position: fixed;
         flex-direction: column;
         width: 80%;
-        height: calc(100vh - 176px);
+        height: auto;
         border-radius: 20px;
         flex-wrap: nowrap;
         z-index: 9999;
@@ -119,7 +176,6 @@
     }
 
     .popup-buttons-quarry-container {
-
         width: 100%;
         position: static;
         display: flex;
@@ -224,18 +280,7 @@
 @media (max-width: 376px) {
 
     .popup-main {
-        width: 102%;
-        height: 102vh;
-    }
-
-    .center-top-edit {
-        right: 9vw;
-        top: 42vh;
-    }
-
-    .center-top-responsive-edit {
-        right: 4vh;
-        bottom: 5vh;
+        width: 100%;
     }
 }
 

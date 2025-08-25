@@ -65,7 +65,7 @@ function openEdit(initials, color, user, email, phone, userID) { // Open edit po
     popupEdit.classList.add("slide-in");
     document.getElementById("in-name-edit").value = user; // Prefill inputs
     document.getElementById("in-email-edit").value = email;
-    document.getElementById("in-number-edit").value = phone;
+    document.getElementById("in-number-edit").value = phone.replace(/^(\+49|49)/, ""); // Remove +49 or 49 prefix for editing
     clearValidationMessages("edit"); // Clear any previous validation messages
 }
 

@@ -45,13 +45,10 @@
             <div onclick="closeResponsivContact()" class="responsive-back-btn">
                 <img class="responsive-back-img" src="./assets/icons/back.png" alt="">
             </div>
-            <div onclick="openButtonsMenu(event)" class="center-top-responsive-edit">
-                <img src="./assets/icons/more_vert.png" alt="">
-            </div>
         </div>
         <div id="popup-background" style="display: none;" class="popup-background none"></div>
-        <div id="popup-add" style="display: none;" class="popup">
-            <div class="popup-main">
+        <div id="popup-add" style="display: none;" class="popup"  onclick="closeContactAdd()">
+            <div class="popup-main" onclick="event.stopPropagation()">
                 <div class="popup-banner">
                     <div onclick="closeContactAdd()" class="popup-close-btn-img-white">
                         <img src="./assets/icons/close_white.png" alt="">
@@ -100,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div id="popup-edit" style="display: none;" class="popup"></div>
+        <div id="popup-edit" style="display: none;" class="popup" onclick="closeEdit()"></div>
         <div id="alert" class="alert alert-close"></div>
     </main>
 
