@@ -307,10 +307,10 @@ label, .label-date{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--white);
   background-color: var(--blue);
   padding: 5px 10px;
