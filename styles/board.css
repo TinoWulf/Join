@@ -79,6 +79,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  height: 500px !important;
   gap: 5px;
   margin-bottom: 50px;
 }
@@ -256,7 +257,7 @@ progress{
 }
 
 .tasks-container {
-  max-height: calc(100vh - 15px);
+  max-height: 70vh;
   overflow-y: auto;
   padding-right: 1px;
 }
