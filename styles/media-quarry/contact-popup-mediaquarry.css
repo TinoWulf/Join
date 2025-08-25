@@ -107,6 +107,8 @@
         align-items: center;
         justify-content: center;
         height: 50px;
+        padding-left: 15px;
+        gap: 0;
     }
 
     .popup-field-name-input,
@@ -208,6 +210,12 @@
 
     .popup-btn-save {
         width: 80px;
+        height: 50px;
+        font-size: 16px;  
+    }
+
+    .popup-btn-create {
+        width: 150px;
         height: 50px;
         font-size: 16px;  
     }
