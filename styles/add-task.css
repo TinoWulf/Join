@@ -21,7 +21,8 @@ button{
 }
 
 .add-left-side{
-    width: 440px;
+    width: 540px;
+    min-width: 240px;
     height: 392px;
     display: flex;
     flex-direction: column;
@@ -30,7 +31,8 @@ button{
 }
 
 .add-right-side{
-    width: 440px;
+    width: 540px;
+    min-width: 240px;
     min-height: 400px;
     max-height: auto;
     display: flex;
@@ -192,7 +194,7 @@ label, .label-date{
 }
 
 .option input{
-      appearance: none;
+  appearance: none;
   -webkit-appearance: none;
   display: inline-block;
   width: 24px;
@@ -332,65 +334,3 @@ label, .label-date{
   color: white;
 }
 
-.add-task-form-footer{
-  max-width: 1000px;
-  height: 56px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 0px;
-}
-
-.button-footer-container{
-  display: flex;
-  flex-direction: row;
-  width: 350px;
-  height: 100%;
-  gap: 16px;
-}
-
-.cancel-button{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--white);
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-  font-weight: 400;
-  font-size: 20px;
-  width: 110px;
-  height: 100%;
-  border-radius: 10px;
-  padding: 16px;
-  gap: 4px;
-}
-
-.cancel-button:hover{
-  border: 1px solid var(--blue);
-  color: var(--blue);
-}
-
-.cancel-button:hover img{
-  content: url('../assets/icons/closeblue.png');
-}
-
-.create-task-button{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--white);
-  font-weight: 700;
-  font-size: 21px;
-  width: 183px;
-  height: 100%;
-  border-radius: 10px;
-  padding: 16px;
-  gap: 4px;
-}
-
-.create-task-button:hover{
-  background-color: var(--blue);
-}

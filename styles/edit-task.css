@@ -302,6 +302,14 @@
   gap: 10px;
 }
 
+.img-addsubtask{
+  scale: 1.3;
+}
+
+.img-addsubtask:hover{
+  scale: 1.5;
+}
+
 .img-icons span:first-child{
   border-radius: 0;
   padding-right: 5px;

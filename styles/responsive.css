@@ -41,7 +41,7 @@
   }
 
   .main-board,
-  .main-summary, .main-addtask {
+  .main-summary, .main-addtask, .main-help {
     margin-left: 0;
     width: calc(100% - 0px);
     height: 100dvh;

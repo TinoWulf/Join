@@ -108,6 +108,14 @@
   scale: 1.2;
 }
 
+.img-addsubtask{
+  scale: 1.3;
+}
+
+.img-addsubtask:hover{
+  scale: 2;
+}
+
 .success-message{
   position: fixed;
   background: rgba(24, 30, 63, 0.5);
@@ -133,6 +141,69 @@
   animation: slideTop 0.1s ease-in-out 125ms both, fadeOut 2s ease-in-out 2s forwards;
 }
 
+.add-task-form-footer{
+  max-width: 1200px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0px;
+}
+
+.button-footer-container{
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  height: 100%;
+  gap: 16px;
+}
+
+.cancel-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 400;
+  font-size: 20px;
+  width: 110px;
+  height: 100%;
+  border-radius: 10px;
+  padding: 16px;
+  gap: 4px;
+}
+
+.cancel-button:hover{
+  border: 1px solid var(--blue);
+  color: var(--blue);
+}
+
+.cancel-button:hover img{
+  content: url('../assets/icons/closeblue.png');
+}
+
+.create-task-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 21px;
+  width: 183px;
+  height: 100%;
+  border-radius: 10px;
+  padding: 16px;
+  gap: 4px;
+}
+
+.create-task-button:hover{
+  background-color: var(--blue);
+}
+
 @keyframes slideTop {
   from {
     transform: translateY(-100px);
@@ -149,7 +220,7 @@
   to   { opacity: 0; transform: translateY(-100px); }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1048px) {
   .add-task-form{
       padding: 40px 0;
       padding-right: 15px;
