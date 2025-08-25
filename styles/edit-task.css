@@ -1,6 +1,6 @@
 .editTaskPopup {
   align-content: center;
-  width: 750px;
+  width: 550px;
   max-height: 98vh;
   background-color: var(--white);
   padding: 48px 40px;
@@ -318,7 +318,7 @@
 
 @media (max-width: 768px) {
   .editTaskPopup {
-    width: 90vw;
+    max-width: 500px;
     padding: 24px;
   }
 
@@ -335,4 +335,11 @@
     padding: 6px;
   }
   
+}
+
+@media (max-width: 530px) {
+  .editTaskPopup {
+    width: 95vw;
+    padding: 24px;
+  }
 }
