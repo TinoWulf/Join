@@ -1,0 +1,38 @@
+.task-description{
+    max-height: 100px;
+    overflow: auto;
+}
+
+.description{
+    max-height: 200px;
+}
+
+.description::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+  background-color: transparent; 
+}
+
+.description::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.description::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.asigned-to-list::-webkit-scrollbar, .task-description::-webkit-scrollbar, .form-subtask::-webkit-scrollbar{
+  height: 6px;
+  width: 6px;
+  background-color: transparent; 
+}
+
+.asigned-to-list::-webkit-scrollbar-thumb, .task-description::-webkit-scrollbar-thumb, .form-subtask::-webkit-scrollbar-thumb{
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.asigned-to-list::-webkit-scrollbar-track, .task-description::-webkit-scrollbar-track, .form-subtask::-webkit-scrollbar-track{
+  background-color: transparent;
+}

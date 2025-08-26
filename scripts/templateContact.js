@@ -6,11 +6,12 @@
  * includes the initials, name, email, and phone number of the contact.
 */
 function renderContactInfo(initials, color, user, email, phone, userID) {
-    return `<div class="center-top">
+    return `
+        <div class="center-top">
             <div class="center-top-inital-circle">
-            <div class="center-top-inital-div" style="background-color: ${color};">
-                <sub class="center-top-inital">${initials}</sub>
-            </div>
+                <div class="center-top-inital-div" style="background-color: ${color};">
+                    <sub class="center-top-inital">${initials}</sub>
+                </div>
             </div>
             <div class="center-top-second-div">
                 <div class="center-top-name">${user}</div>

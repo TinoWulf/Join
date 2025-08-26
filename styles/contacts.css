@@ -92,7 +92,6 @@ body {
     font-size: 20px;
     line-height: 120%;
     letter-spacing: 0%;
-    vertical-align: middle;
     display: block;
     max-width: 100%;
     white-space: nowrap;
@@ -107,7 +106,6 @@ body {
     font-size: 16px;
     line-height: 120%;
     letter-spacing: 0%;
-    vertical-align: middle;
     display: block;
     max-width: 100%;
     white-space: nowrap;
@@ -281,7 +279,6 @@ body {
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
-    vertical-align: middle;
     white-space: nowrap;
     display: block;
     max-width: 500px;

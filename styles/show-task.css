@@ -162,9 +162,14 @@
   content: url('../assets/icons/editblue.png');
 }
 
-
 .asigned-to-list{
   max-height: 120px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.form-subtask{
+  max-height: 150px;
   width: 100%;
   overflow-y: auto;
 }

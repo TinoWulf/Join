@@ -12,7 +12,7 @@ function templateTaskCard(task) {
         <img src="./assets/icons/iconoir_cancel.png" alt="cancel" class="hide" />
       </div>
       <h4>${task.title}</h4>
-      <p class="taskCard-body">${task.description}</p>
+      <p class="taskCard-body task-description">${task.description}</p>
       ${task.subtasks?.length>0 ? 
         `
           <div class="progress">
@@ -24,8 +24,22 @@ function templateTaskCard(task) {
     }
       
       <div class="taskCard-footer">
-        <div class="asigned-to">
-            ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): ''}
+        <div class="asigned-to" id="assignedContactTask">
+            ${
+              task.assignedTo?.length > 0 
+                ? (() => {
+                    const visibleCount = 4;
+                    const users = task.assignedTo;
+                    const visibleUsers = users.slice(0, visibleCount);
+                    const hiddenCount = users.length - visibleCount;
+                    const spans = visibleUsers.map(user => `<span>${getAbbreviation(user.name)}</span>`);
+                    if (hiddenCount > 0) {
+                      spans.push(`<span class="more-users">+${hiddenCount}</span>`);
+                    }
+                    return spans.join("");
+                  })()
+                : ''
+              }
         </div><img src="./assets/icons/${task.priority}.png" alt="" class="taskGrade">
       </div>  
     </div>
@@ -47,7 +61,7 @@ function templateTaskCardDetail(task){
               <span class="close-span"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
             </div>
             <h4>${task.title}</h4>
-            <p class="taskCard-body description">
+            <p class="taskCard-body description task-description">
               ${task.description}
             </p>
             <p class="taskCard-body due-date">
