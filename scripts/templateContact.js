@@ -51,7 +51,7 @@ function renderContactInfo(initials, color, user, email, phone, userID) {
  * It is used to render the edit contact popup with pre-filled values.
 */
 function renderOpenEdit(color, initials, userID) {
-    return `<div class="popup-main">
+    return `<div class="popup-main" onclick="event.stopPropagation()">
             <div class="popup-banner">
                 <div onclick="closeEdit()" class="popup-close-btn-img-white">
                         <img src="./assets/icons/close_white.png" alt="">

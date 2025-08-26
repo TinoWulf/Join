@@ -76,13 +76,14 @@ body {
 
 .contact-info {
     width: 200px;
-    height: 48px;
+    height: auto;
     opacity: 1;
     gap: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    overflow: hidden;
 }
 
 .contact-name {
@@ -92,6 +93,11 @@ body {
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .contact-mail {
@@ -102,6 +108,11 @@ body {
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .render-div-splitter {
@@ -183,7 +194,7 @@ body {
 
 .center-body {
     position: absolute;
-    width: 452px;
+    width: auto;
     height: 364px;
     top: 311px;
     left: 800px;
@@ -194,7 +205,7 @@ body {
 }
 
 .center-top {
-    width: 452px;
+    width: auto;
     height: 120px;
     opacity: 1;
     gap: 54px;
@@ -255,21 +266,27 @@ body {
 }
 
 .center-top-second-div {
-    width: 278px;
+    width: auto;
     height: 88px;
     opacity: 1;
     gap: 8px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .center-top-name {
+    height: 200px;
     font-weight: 500;
     font-style: Medium;
     font-size: 47px;
     line-height: 120%;
     vertical-align: middle;
     white-space: nowrap;
+    display: block;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .center-top-responsive-edit {

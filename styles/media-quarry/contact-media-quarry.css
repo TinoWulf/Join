@@ -82,7 +82,6 @@
 
     .center-body {
         left: 550px;
-        width: 360px;
     }
 
     .center-top {
@@ -169,10 +168,17 @@
     }
 }
 
+@media (max-width: 1140px) {
+    .center-top-name {
+        max-width: 400px;
+    }
+}
+
 @media (max-width: 1030px) {
 
     .center-top-name {
         font-size: 30px;
+        max-width: 270px;
     }
 
     .popup-main {
@@ -450,12 +456,20 @@
 
     .center-top-name {
         width: 100%;
+        max-width: 250px;
         height: 100%;
-        display: flex;
         align-items: center;
         justify-content: flex-start;
         font-weight: 700 !important;
         font-style: bold !important;
+        white-space: nowrap;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .center-top-second-div {
+        height: auto;
     }
 
     .center-top-responsive-edit {
