@@ -10,61 +10,61 @@
 
 </head>
 <body class="body-signup">
-    <header class="header-signup" id="headerSignup">
-        <img src="./assets/img/logonoir.png" alt=" logo noir">
-    </header>
-    <main class="main-signup" id="mainSignup">
-        
-        <section class="form-signup-section">
-            <div class="form-header">
-                <a href="./login.html" class="span-link"><span class="hover-img"><img src="./assets/icons/back.png" alt=" back"></span></a>
-                <h2 style="text-align: center;">Sign up
-                    <hr class="hr-signup">
-                </h2>
-                <span class="bar-signup"></span>
-            </div>
-            <form class="form-signup" id="signupForm">
-                <label for="name" class="form-input">
-                    <input type="text" name="name" id="sign-up-name" placeholder="Name" required>
-                    <span><img src="./assets/icons/person.svg" alt="person"></span>
-                </label>
-                <label for="email" class="form-input" id="emailLabel">
-                    <input type="text" name="email" id="sign-up-email" placeholder="Email" required>
-                    <span><img src="./assets/icons/mail.svg" alt="email"></span>
-                </label>
-                <p class="error hide" id="emailError"></p>
-                <label for="password" class="form-input password">
-                    <input type="text" name="password" id="sign-up-password" placeholder="Password" required autocomplete="off">
-                    <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.svg" alt="person"></span>
-                </label>
-                <label for="password2" class="form-input password-confirm">
-                    <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" required autocomplete="off">
-                    <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.svg" alt="lock"></span>
-                </label>
-                <p id="error-passord" class="error hide"></p>
-                <label for="privacy" class="label-privacy">
-                    <input type="checkbox" name="privacy" id="acceptPolicy">
-                    <p>I accept <a href="./policy.html" class="privacy-link">privacy policy</a></p>
-                </label>
-                <p id="sign-up-error" class="error"></p>
-                <div class="submit-btn">
-                    <button type="submit" id="signUpBtn" class="signup-button" disabled>Sign up</button>
+    <!-- <div class="body-signup"> -->
+        <header class="header-signup" id="headerSignup">
+            <img src="./assets/img/logonoir.png" alt="logo noir">
+            <span></span>
+        </header>
+        <main class="main-signup" id="mainSignup">
+            
+            <section class="form-signup-section">
+                <div class="form-header">
+                    <a href="./login.html" class="span-link"><span class="hover-img"><img src="./assets/icons/back.png" alt=" back"></span></a>
+                    <h2 style="text-align: center;">Sign up<hr class="hr-signup"></h2>
+                        
                 </div>
-            </form>
-        </section>
-    </main>
-    <div class="success-message hide" id="success-message">
-        <div class="success-message-content" >
-            You are Sign Up successfully!
+                <form class="form-signup" id="signupForm">
+                    <label for="name" class="form-input" id="nameLabel">
+                        <input type="text" name="name" id="sign-up-name" placeholder="Name">
+                        <span><img src="./assets/icons/person.svg" alt="person"></span>
+                    </label>
+                    <label for="email" class="form-input" id="emailLabel">
+                        <input type="text" name="email" id="sign-up-email" placeholder="Email" >
+                        <span><img src="./assets/icons/mail.svg" alt="email"></span>
+                    </label>
+                    <p class="error hide" id="emailError"></p>
+                    <label for="password" class="form-input password">
+                        <input type="text" name="password" id="sign-up-password" placeholder="Password" autocomplete="off">
+                        <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.svg" alt="person"></span>
+                    </label>
+                    <label for="password2" class="form-input password-confirm">
+                        <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" autocomplete="off">
+                        <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.svg" alt="lock"></span>
+                    </label>
+                    <p id="error-passord" class="error hide"></p>
+                    <label for="privacy" class="label-privacy">
+                        <input type="checkbox" name="privacy" id="acceptPolicy">
+                        <p>I accept <a href="./policy.html" class="privacy-link">privacy policy</a></p>
+                    </label>
+                    <p id="sign-up-error" class="error"></p>
+                    <div class="submit-btn">
+                        <button type="submit" id="signUpBtn" class="signup-button" disabled>Sign up</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <div class="success-message hide" id="success-message">
+            <div class="success-message-content" >
+                You are Sign Up successfully!
+            </div>
         </div>
-    </div>
-    <footer>
-        <div class="signup-footer">
-            <a href="./policy.html">Privacy policy</a>
-            <a href="./notice.html">Legal notice</a>
-        </div>
-    </footer>
-    
+        <footer>
+            <div class="signup-footer">
+                <a href="./policy.html">Privacy policy</a>
+                <a href="./notice.html">Legal notice</a>
+            </div>
+        </footer>
+    <!-- </div> -->
     <script type="module" src="./scripts/signUp.js"></script>  
 </body>
 </html>

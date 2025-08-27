@@ -3,7 +3,7 @@
     top: 96px;
     right: -250px;
     position: fixed;
-    animation: slideFromRight 1.2s ease-in-out forwards; 
+    animation: slideFromRight 100ms ease-in-out forwards; 
   }
 
   @keyframes slideFromRight {
@@ -20,7 +20,7 @@
     top: 96px;
     right: -250px;
     position: fixed;
-    animation: slideFromLeft 2s ease-in-out forwards; 
+    animation: slideFromLeft 120ms ease-in-out forwards; 
   }
 
   @keyframes slideFromLeft {
@@ -307,10 +307,15 @@
   
 }
 @media (max-width: 450px) {
+  .main-summary{
+    top: -77px;
+    position: fixed;
+  }
   .container-summary{
     justify-content: center;
     align-items: center;
     margin-left: 15px;
+    gap: 24px;
   }
   .board-summary {
     display: flex;
@@ -320,6 +325,7 @@
     font-size: 16px !important;
     width: 320px;
     height: 384px;
+    gap: 12px;
   }
   .todo-summary,
   .urgent-summary,

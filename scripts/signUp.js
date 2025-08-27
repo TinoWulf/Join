@@ -4,6 +4,7 @@ const nameRef = document.getElementById("sign-up-name");
 const emailRef = document.getElementById("sign-up-email");
 const passwordRef = document.getElementById("sign-up-password");
 const confirmPasswordRef = document.getElementById("confirmPassword");
+const nameLabel = document.getElementById("nameLabel");
 const emailLabel = document.getElementById("emailLabel");
 const acceptPolicyRef = document.getElementById("acceptPolicy");
 const signUpBtn = document.getElementById("signUpBtn");
@@ -54,7 +55,8 @@ async function createContactBySignUp(name, email) {
     await set(contactRef, contact);
   }
   catch(error){
-    openErrorPage();
+    console.log(error)
+    // openErrorPage();
   }
 }
 
@@ -124,17 +126,57 @@ function setupSignUp() {
     const acceptedPolicy = acceptPolicyRef;
     verifyPassword(password, confirmPassword);
     verifyPolicy(acceptedPolicy);
-    try {
-      await signUpUser(email, password, name, acceptedPolicy);
-      await createContactBySignUp(name, email);
-      signupForm.reset();
-      showSucessMessage()
-    } catch (error) {
-      openErrorPage();
+    if(password==confirmPassword){
+      try {
+        await signUpUser(email, password, name, acceptedPolicy);
+        await createContactBySignUp(name, email);
+        signupForm.reset();
+        showSucessMessage()
+      } catch (error) {
+        openErrorPage();
+      }
     }
   });
 }
 
+
+function isValidEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+
+emailRef.addEventListener('blur', function(){
+  const name = nameRef.value;
+  if(name=="" || name.length<=2){
+    nameLabel.classList.add("password-error");
+  }else{
+    nameLabel.classList.remove("password-error");
+  }
+})
+
+emailRef.addEventListener('blur', function(){
+  const email = emailRef.value;
+  let check = isValidEmail(email);
+  if(!check){
+  emailLabel.classList.add("password-error");
+  emailError.innerText="Invalid email address.";
+  }else{
+  emailLabel.classList.remove("password-error");
+  }
+})
+
+confirmPasswordRef.addEventListener('blur', function(){
+  const confirmPassword = confirmPasswordRef.value;
+  if(confirmPassword!=passwordRef.value){
+    passwordOutlineError.classList.add("password-error");
+    passwordOutlineErrorConfirm.classList.add("password-error");
+    passwordError.innerText="the password don't match!";
+  }else{
+    passwordOutlineError.classList.remove("password-error");
+    passwordOutlineErrorConfirm.classList.remove("password-error");
+  }
+})
 
 /**
  * Displays the success message by removing the "hide" class from the element with ID "success-message".

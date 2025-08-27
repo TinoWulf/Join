@@ -1,18 +1,11 @@
-body{
+.body-signup{
     max-width: 1920px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    padding: 0 auto;
-
-}
-
-header{
-    max-width: 1920px;
-    height: 122px;
-    padding: 0 auto;
+    margin: 0 auto;
 }
 
 .main-signup{
@@ -20,26 +13,35 @@ header{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 1920px;
-    padding: 0 auto;
     flex: 1;
     height: 100dvh;
 }
 
 .header-signup{
+    top: 0;
+    right: 0;
+    left: 0;
     position: absolute;
-    top: 30px;
-    left: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    height: 125px;
 }
 
 .header-signup img{
     width: 100px;
     height: 121px;
-    z-index: 1000;
+    margin-top: 30px;
+    margin-left: 20px;
+    z-index: 2;
 }
 
 .form-signup-section{
-    position: absolute;
+    position: relative;
     width: 598px;
     height: auto;
     margin-top: 98px;
@@ -54,7 +56,7 @@ header{
 .form-header{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     margin-bottom: 30px;
 }
@@ -64,6 +66,7 @@ header{
     padding-right: 70px;
     font-size: 61px;
     font-weight: 700;
+    text-align: center;
 }
 
 .form-signup{
@@ -75,6 +78,9 @@ header{
 }
 
 .span-link{
+    position: absolute;
+    top: 60px;
+    left: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,11 +207,17 @@ header{
     font-weight: 700;
     color: var(--white);
     border-radius: 8px;
+    border: unset;
+}
+
+.signup-button:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed; 
 }
 
 .signup-button:hover{
     background-color: var(--blue);
-    border: unset;
 }
 
 .success-message{
@@ -249,12 +261,18 @@ header{
 }
 
 footer{
+    bottom: 0;
+    right: 0;
+    left: 0;
     position: absolute;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    bottom: 0;
-    height: 40px;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    height: 45px;
 }
 
 .signup-footer{
@@ -292,9 +310,51 @@ footer{
     .form-signup-section{
         width: 100%;
         padding:24px;
+        gap: 24px;
     }
     .form-header h2{
         font-size: 30px;
+    }
+
+    .header-signup img{
+        width: 90px;
+        height: 101px;
+    }
+
+    .span-link{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    .form-signup{
+        gap: 16px;
+    }
+
+    .signup-button{
+        padding: 10px 24px;
+        gap: 8px;
+        font-size: 18px;
+    }
+
+}
+
+@media (max-width: 420px){
+
+    .form-header{
+        margin-bottom: 10px;
+    }
+    .form-signup-section{
+        width: 100%;
+        padding:24px;
+    }
+    .form-header h2{
+        font-size: 30px;
+    }
+
+    .header-signup img{
+        width: 50px;
+        height: 70px;
     }
 
 }
