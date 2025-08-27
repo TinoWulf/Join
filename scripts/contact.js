@@ -99,15 +99,15 @@ async function saveContact(userID) { // Save edited contact
  * and formats the phone number to start with +49.
 */
 function checkInput(nameInput, emailInput, phoneInput, int) {
-    const { nameParts, digitsOnly, nameField, emailField, phoneField, nameError, emailError, phoneError } 
+    const { nameParts, nameField, emailField, phoneField, nameError, emailError, phoneError } 
      = getValidationElements(int, nameInput, phoneInput); // Get validation elements based on input type
     let valid = true; // Flag to track validation
-    if (!validateName(nameParts, nameField, nameError)) valid = false; // Validate name
+    if (!validateName(nameParts, nameField, nameError, nameInput)) valid = false; // Validate name
     if (!validateEmail(emailInput, emailField, emailError, int)) valid = false; // Validate email
-    if (!validatePhone(digitsOnly, phoneField, phoneError, int)) valid = false; // Validate phone number
+    if (!validatePhone(phoneInput, phoneField, phoneError, int)) valid = false; // Validate phone number
     if (!valid) return null; // If any validation failed, return null
     const formattedName = getFormattedName(nameParts); // Format name
-    const formattedPhone = getFormattedPhone(digitsOnly); // Format phone number
+    const formattedPhone = getFormattedPhone(phoneInput); // Format phone number
     return { // Return validated and formatted contact data
         name: formattedName,
         email: emailInput,
@@ -122,12 +122,16 @@ function checkInput(nameInput, emailInput, phoneInput, int) {
  * If valid, it hides the error message and removes the invalid class.
  * It ensures the name input is properly formatted with at least two parts.
 */
-function validateName(nameParts, inputField, errorElement) {
+function validateName(nameParts, inputField, errorElement, nameInput) {
     if (nameParts.length < 2) { // Check if name has at least first and last name
         errorElement.innerHTML = "Invalid name, please enter a full first and last name.";
         inputField.classList.add("input-invalid");
-        return false;
-    } else {
+        return false;}
+    else if (/\d/.test(nameInput)) { // Check if name contains digits
+        errorElement.innerHTML = "Name cannot contain digits.";
+        inputField.classList.add("input-invalid");
+        return false;}
+    else {
         errorElement.innerHTML = "";
         inputField.classList.remove("input-invalid");
         return true;
@@ -160,12 +164,17 @@ function validateEmail(email, inputField, errorElement) {
  * If valid, it hides the error message and removes the invalid class.
  * It ensures the phone number input is properly formatted with a length between 8 and 13 digits.
 */
-function validatePhone(phoneDigits, inputField, errorElement) {
+function validatePhone(phoneDigits, inputField, errorElement,) {
     if (phoneDigits.length < 8 || phoneDigits.length > 13) { // Check if phone number has valid length
         errorElement.innerHTML = "The phone number must contain between 8 and 13 digits.";
         inputField.classList.add("input-invalid");
         return false;
-    } else {
+    }
+    else if (/[a-zA-Z]/.test(phoneDigits)) { // Check if phone number contains letters
+        errorElement.innerHTML = "Your number cannot contain letters.";
+        inputField.classList.add("input-invalid");
+        return false;}
+    else {
         errorElement.innerHTML = "";
         inputField.classList.remove("input-invalid");
         return true;
@@ -323,14 +332,13 @@ function RemoveActiveContact(activeContactIndex) {
 */
 function getValidationElements(int, nameInput, phoneInput) {
     const nameParts = nameInput.trim().split(" "); // Split name into parts
-    const digitsOnly = phoneInput.replace(/\D/g, ""); // Remove non-digit characters from phone
     const nameField = document.getElementById(`in-name-${int}`); // Get input fields
     const emailField = document.getElementById(`in-email-${int}`);
     const phoneField = document.getElementById(`in-number-${int}`);
     const nameError = document.getElementById(`invalid-name-${int}`); // Get error elements
     const emailError = document.getElementById(`invalid-email-${int}`);
     const phoneError = document.getElementById(`invalid-phone-${int}`);
-    return { nameParts, digitsOnly, nameField, emailField, phoneField, nameError, emailError, phoneError };
+    return { nameParts, nameField, emailField, phoneField, nameError, emailError, phoneError };
 }
 
 

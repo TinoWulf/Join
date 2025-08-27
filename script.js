@@ -121,6 +121,7 @@ function formatDueDate(dateString, format = "numeric") {
 function showLogout(){
   document.getElementById('popup').classList.toggle("popupshow");
   document.getElementById('popup').classList.toggle("back");
+  document.getElementById('popup-header-background').classList.toggle("back");
 }
 
 /**
