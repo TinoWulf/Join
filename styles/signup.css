@@ -1,23 +1,29 @@
 body{
+    max-width: 1920px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-header{
-    height: 122px;
+    justify-content: center;
+    padding: 0 auto;
+
 }
 
-main{
-    flex: 1;
-    padding: auto 0;
-    height: 100dvh;
+header{
+    max-width: 1920px;
+    height: 122px;
+    padding: 0 auto;
 }
 
 .main-signup{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-width: 1920px;
+    padding: 0 auto;
+    flex: 1;
+    height: 100dvh;
 }
 
 .header-signup{
@@ -264,7 +270,6 @@ footer{
     padding: 8px;
     font-size: 16px;
     color: var(--text-color);
-
 }
 
 .signup-footer a:hover{
@@ -280,40 +285,6 @@ footer{
     border: 1px solid #FF8190;
 }
 
-/* 
-@media (max-width: 876px) {
-    .header-signup{
-        top: 15px;
-        left: 15px;
-    }
-    .header-signup img{
-        width: 90px;
-        height: 101px;
-    }
-    .form-signup-section{
-        width: 498px;
-        height: 530px;
-    }
-
-    .form-header{
-        margin-bottom: 0;
-    }
-    .form-header h2{
-        font-size: 42px;
-        padding-right: 0px;
-    }
-
-    .span-link{
-        padding-right: 100px;
-        margin-right: 0px;
-    }
-
-    .bar-signup{
-        display: block;
-        margin-right: 50px;
-    }
-}
-*/
 @media (max-width: 620px){
     .form-header{
         margin-bottom: 10px;
@@ -327,63 +298,4 @@ footer{
     }
 
 }
-/* 
-@media (max-width: 450px){
-    .main-signup{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .form-signup-section{
-        width: 380px;
-        height: 480px;
-        padding: 20px;
-    }
 
-    .form-input{
-        width: 290px;
-    }
-
-    .form-input input{
-        font-size: 16px;
-        padding: 12px 10px;
-        width: 240px;
-    }
-
-    .form-input span{
-        padding: 12px 6px;
-    }
-    .signup-button{
-        padding: 10px 40px;
-    }
-
-    .label-privacy{
-        width: 300px;
-    }
-
-    .hr-signup{
-        margin: 10px 20px;
-    }
-
-}
-
-@media (max-width:400px) {
-    .form-signup-section{
-        width: 310px;
-        padding: 10px;
-    }
-
-    .form-input{
-        width: 300px;
-    }
-
-    .form-input input{
-        width: 270px;
-    }
-
-    .label-privacy{
-        width: 250px;
-    }
-    
-}
- */

@@ -7,9 +7,17 @@ import { countSubtasks, countSubtasksDone, getAbbreviation } from "./board.js";
 function templateTaskCard(task) {
   return `
     <div class="taskCard" draggable="true" data-taskId = "${task.id}" ondragstart="startDragging(${task.id})" id="${task.id}" onclick ="openTaskDetail(${task.id})">
-      <div class="taskCard-header">
+      <div class="taskCard-header" id="task${task.id}">
         <span class="taskType">${task.category}</span>
-        <img src="./assets/icons/iconoir_cancel.png" alt="cancel" class="hide" />
+        <div class="move-mobile-task hide" id="moveTaskMobile">
+          <ul>
+            <li onclick="moveTo(${task.id}, 'toDo');preventEvent(event)" class="${task.range === "toDo"  ? "hide"  : " "}">ToDo</li>
+            <li onclick="moveTo(${task.id}, 'inProgress');preventEvent(event)" class="${task.range === "inProgress"  ? "hide"  : " "}">In Progress</li>
+            <li onclick="moveTo(${task.id}, 'awaitReview');preventEvent(event)" class="${task.range === "awaitReview"  ? "hide"  : " "}" >Await Feedback</li>
+            <li onclick="moveTo(${task.id}, 'done');preventEvent(event) " class="${task.range === "done"  ? "hide"  : " "}"  >Done</li>
+          </ul>
+        </div>
+        <img src="${task.range === "done"  ? "./assets/icons/up.png"  : task.range === "toDo" ? "./assets/icons/down.png" : "./assets/icons/up-down.png"}" alt="cancel" class="move-task-mobile" onclick="openMoveTaskMobile(${task.id}, event)" />
       </div>
       <h4>${task.title}</h4>
       <p class="taskCard-body task-description">${task.description}</p>
@@ -60,6 +68,7 @@ function templateTaskCardDetail(task){
               <span class="taskType">${task.category}</span>
               <span class="close-span"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
             </div>
+          <div class="edit-container">
             <h4>${task.title}</h4>
             <p class="taskCard-body description task-description">
               ${task.description}
@@ -94,7 +103,8 @@ function templateTaskCardDetail(task){
                 }
               </section>
             </div>
-            <div class="taskPopupFooter">
+          </div>
+            <div class="taskPopupFooter show-footer">
               <p onclick = "deleteTask(${task.id}, event)" class="delete-icon"><img src="./assets/icons/deletegrey.png" alt="delete" /></p>
               <p onclick="openEditTask(${task.id}); getEditedSubtask(${task.id})" class="edit-icon"><img src="./assets/icons/editgrey.png" alt="edit" /></p>
             </div>
@@ -170,11 +180,12 @@ function donePlaceholderTemplate(){
 function templateEditTask(task){
   return `
   <script src="./scripts/edittaskAction.js"></script>
-     <div class="editTaskPopup" onclick="preventEvent(event)">
-            <div class="taskCard-header close-header">
+     <div class="editTaskPopup container-edit" onclick="preventEvent(event)">
+            <div class="taskCard-header close-header edit-header">
               <spa class="taskType"></spa>
               <span class="close-span"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
             </div>
+        <div class="edit-container">
           <label for="title" class="label-title">
               Title
               <input type="text" class="" name="title" id="taskTitle" value="${task.title}" required>
@@ -233,7 +244,7 @@ function templateEditTask(task){
                 </div>
                 <span onclick="addSubstask()",onclick="preventEvent(event)" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
-              <div id="subtaskListEdit">
+              <div id="subtaskListEdit" class="subtask-listes-edit">
               ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
                 `<div class="subtask-item">
                     <li name="subtask${index}" data-index ="${index}">${subtask.title}</li>
@@ -245,6 +256,7 @@ function templateEditTask(task){
                 }
               </div>
           </label>
+        </div>
           <div class="edit-button">
             <button class="btn-submit-change" onclick="getEditedTask(${task.id});renderError()">Ok <img src="./assets/icons/check.png" alt=""></button>
           </div>

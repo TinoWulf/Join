@@ -7,10 +7,26 @@
   font-family: "Inter";
   gap: 24px;
   opacity: 2;
-  overflow-y: auto;
+  z-index: 2;
   border-radius: 30px;
-  position: absolute;
+  position: relative;
   z-index: 1000;
+}
+
+.edit-header{
+  position: absolute;
+  padding:20px;
+  top: 10px;
+  right: 0;
+  height: 50px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.edit-container{
+  overflow: auto;
+  margin-top: 20px;
+  max-height: 90%;
 }
 
 
@@ -35,14 +51,19 @@
   font-size: 18px;
 }
 
-.editTaskPopup::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
+.edit-container::-webkit-scrollbar {
+  height: 2px;
+  width: 3px;
+  background-color: transparent; 
 }
 
-.editTaskPopup::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  border-radius: 4px;
+.edit-container::-webkit-scrollbar-thumb {
+  background-color:transparent;
+  border-radius: 3px;
+}
+
+.edit-container::-webkit-scrollbar-track {
+  background-color: transparent; 
 }
 
 .editTaskPopup label{
@@ -134,9 +155,16 @@
 }
 
 .edit-button{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  position: absolute;
+  height: 50px;
+  width: 100%;
+  bottom: 30px;
+  right: 30px;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
 }
 
 .btn-submit-change{
@@ -238,10 +266,17 @@
   background-color: var(--primary-color);
 }
 
+.subtask-listes-edit{
+  height: 200px;
+  width: 100%;
+  overflow: auto;
+}
+
 .subtask-item{
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 25px;
   align-items: center;
   flex-direction: row;
   border: unset;

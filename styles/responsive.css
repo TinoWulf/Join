@@ -38,6 +38,7 @@
     top: 0;
     width: calc(100% - 0px);
     margin-left: 0;
+    z-index: 1;
   }
 
   .main-board,
@@ -106,6 +107,7 @@
     width: 100vw;
     position: fixed;
     bottom: 0;
+    z-index: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -368,7 +370,7 @@
     background-color: var(--white);
     font-size: 12px;
     padding: 12px 20px;
-    width: 100%;
+    width: 90px;
     height: 100%;
     align-items: center;
     display: flex;

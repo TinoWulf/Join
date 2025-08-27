@@ -8,8 +8,8 @@
 }
 
 .description::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 2px;
+  width: 2px;
   background-color: transparent; 
 }
 
@@ -22,17 +22,65 @@
   background-color: transparent;
 }
 
-.asigned-to-list::-webkit-scrollbar, .task-description::-webkit-scrollbar, .form-subtask::-webkit-scrollbar{
-  height: 6px;
-  width: 6px;
+.subtask-listes-edit::-webkit-scrollbar ,  .form-subtask::-webkit-scrollbar{
+  height: 2px;
+  width: 2px;
   background-color: transparent; 
 }
 
-.asigned-to-list::-webkit-scrollbar-thumb, .task-description::-webkit-scrollbar-thumb, .form-subtask::-webkit-scrollbar-thumb{
+.subtask-listes-edit::-webkit-scrollbar-thumb, .form-subtask::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 3px;
+}
+
+.subtask-listes-edit::-webkit-scrollbar-track , .form-subtask::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.asigned-to-list::-webkit-scrollbar, .task-description::-webkit-scrollbar{
+  height: 2px;
+  width: 2px;
+  background-color: transparent; 
+}
+
+.asigned-to-list::-webkit-scrollbar-thumb, .task-description::-webkit-scrollbar-thumb{
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 }
 
-.asigned-to-list::-webkit-scrollbar-track, .task-description::-webkit-scrollbar-track, .form-subtask::-webkit-scrollbar-track{
+.asigned-to-list::-webkit-scrollbar-track, .task-description::-webkit-scrollbar-track{
   background-color: transparent;
 }
+
+
+.move-mobile-task{
+  position: absolute;
+  background-color: var(--primary-color);
+  color: white;
+  width: 150px;
+  max-height: 140px;
+  top: 45px;
+  right: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 20px 0  20px 20px;
+}
+
+.move-mobile-task ul{
+  text-decoration: none;
+  list-style: none;
+  margin: 5px;
+}
+
+.move-mobile-task ul li{
+  padding: 5px;
+}
+
+.move-mobile-task ul li:hover{
+  background-color: var(--border-color);
+}
+
+
+
+
+
+

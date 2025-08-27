@@ -105,12 +105,29 @@ function highlight(id) {
 function moveToHover(startDragged, range){
   if(startDragged){
     try{
-      moveTo(range);
-    }catch(error){
-      console.log(error);
+      moveTo(currentDraggedTask, range);
+      startDragged = false;
+    }catch{
+      openErrorPage();
     }
-    startDragged = false;
   }
+}
+
+
+function closeAllOpenMove(){
+  let moveTaskMobileAll=  document.querySelectorAll('.move-mobile-task');
+  moveTaskMobileAll.forEach( movetask=>{
+    movetask.classList.add('hide');
+  })
+}
+
+
+function openMoveTaskMobile(taskId, event){
+  closeAllOpenMove();
+  const parentTask = document.getElementById(taskId);
+  const moveTaskMobile = parentTask.querySelector('#moveTaskMobile');
+  moveTaskMobile.classList.toggle('hide');
+  event.stopPropagation();
 }
 
 

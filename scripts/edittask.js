@@ -214,7 +214,7 @@ function addSubstask(){
     if(newSubtask && !already && newSubtask !=""){
         const subtask = {title: newSubtask,checked: false,}
         subtasklistItem.push(subtask);
-        SubtasklistContainer.innerHTML+= `<li class="subtask">${subtask.title}</li>`; 
+        SubtasklistContainer.innerHTML+= renderSubtask(subtask);
         newSubtaskRef.value = '';
     }else{
         SubtasklistContainer.innerHTML+="";
@@ -404,6 +404,20 @@ function templateRenderFormEditSubtask(subtaskContent){
 
 
 /**
+ * add the subtask  to list of subtasks
+ * @param {*} subtaskContent subtask content
+ * @returns html template for add subtask
+ */
+function renderSubtask(subtask){
+    const subtaskTitle = escapeForInlineJS(subtask.title);
+    return `<div class="subtask-item">
+                <li name="">${subtask.title}</li>
+                <div class="img-icons"><span onclick="deleteSubtaskInEdited('${subtaskTitle}')"><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="getEditedSubtask()"><img src="./assets/icons/edit.png" alt="edit" /></span></div>
+            </div>`; 
+}
+
+
+/**
  * modifie the value of the subtask in the list
  * @param {string} subtaskContent subtask value
  * @returns 
@@ -436,7 +450,7 @@ function modifySubtaskInEdited(subtaskContent){
  * @returns 
  */
 function deleteSubtaskInEdited(subtaskContent){
-    const input = document.getElementById('subtaskEdit');
+    const container = document.querySelector('.subtask-item');
      if (!Array.isArray(subtasklistItem)) {
         return;
     }
@@ -445,8 +459,7 @@ function deleteSubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         subtasklistItem.splice(found, 1);
-        const contain = input.closest(".subtask-item");
-        contain.outerHTML = '';
+        container.innerHTML = '';
         initiateBoard();
     }
 }

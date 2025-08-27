@@ -53,13 +53,20 @@ function getAssignedContactById(id, event){
  * Iterates through the assignedToList and creates a span for each user with their abbreviation. Applies the assigned color span to each user.
  */
 function renderAssignedUsers() {
-    alreadyAssignedContainer.innerHTML = '';
-    for(let i=0; i<assignedToList.length; i++) {
-        const assignedTo = assignedToList[i];
-        alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;        
+  alreadyAssignedContainer.innerHTML = '';
+  for (let i = 0; i < assignedToList.length; i++) {
+    if (i < 4) {
+      const assignedTo = assignedToList[i];
+      alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;
+    } else if (i === 4) {
+      const remaining = assignedToList.length - 4;
+      alreadyAssignedContainer.innerHTML += `<span>+${remaining}</span>`;
+      break; 
     }
-    applyAssignedToColorSpan();
+  }
+  applyAssignedToColorSpan();
 }
+
 
 
 /**

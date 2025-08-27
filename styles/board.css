@@ -79,7 +79,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  height: 500px !important;
   gap: 5px;
   margin-bottom: 50px;
 }
@@ -147,6 +146,7 @@
 }
 
 .taskCard {
+  position: relative;
   background-color: var(--white);
   border-radius: 24px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
@@ -155,6 +155,7 @@
   max-width: 280px;
   height: auto;
   padding: 10px;
+  z-index: 0;
 }
 
 .rotate{
@@ -326,7 +327,9 @@ progress{
   border-top-right-radius: 8px;
 }
 
-
+.move-task-mobile{
+  display: none;
+}
 
 @media (max-width: 1520px) {
   .todo, .done, .in-progress, .await-feedback {
@@ -365,6 +368,12 @@ progress{
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     background: transparent;
+  }
+
+  .move-task-mobile{
+    display: block;
+    width: 40px;
+    height: 40px;
   }
 
 }

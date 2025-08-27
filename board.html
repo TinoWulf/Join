@@ -16,10 +16,10 @@
       href="./assets/img/logo.png"
       type="image/x-icon"
     />
-    <script src="./script.js"></script>
+    <script defer src="./script.js"></script>
     <script src="./scripts/scriptBord.js"></script>
   </head>
-  <body onload="initiateBoard()">
+  <body onload="initiateBoard()" onclick="closeAllOpenMove()">
     <header id="navbar">
       
     </header>
@@ -28,7 +28,6 @@
 
     </div>
     <main id="main" class="main-board" onload="initiateBoard()">
-
       <nav class="board-nav-mobile">
         <div class="search-box">
           <input type="text" placeholder="Find Task" id="searchValueMobile" />

@@ -26,6 +26,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 
@@ -254,7 +256,7 @@ footer a:hover {
     font-weight: 400;
     width: 100%;
     display: flex;
-    margin-top: 100px;
+    margin-top: 70px;
   }
 
   .border-line::after {
@@ -296,23 +298,42 @@ footer a:hover {
 }
 
 @media (max-width: 425px){
+  .logo{
+    width: 60px;
+    height: 70px;
+  }
   .login-div {
     width: 95%;
-    height: 475px;
+    height: 470px;
     padding: 32px 0;
-    gap: 32px;
+    gap: 24px;
   }
 
   .form-input{
     width: 310px;
-    gap: 16px;
+    gap: 10px;
   }
 
   .form-input input{
       width: 90%;
-      padding: 12px 21px;
+      padding: 10px 21px;
       border-radius: 20px;
       font-size: 20px;
       gap: 10px;
   }
+
+  .guest-login-button, #login-button{
+    width: 180px;
+    height: 41px;
+    gap: 8px;
+  }
+
+  .sign-up-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+  }
+
 }

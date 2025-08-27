@@ -344,7 +344,7 @@ function activeNavItem() {
  * change the range of the task in the database and reload the bord.
  * @param {*} range where the task will be moved (todo, inprogress,awaitingfeedback, done)
  */
-async function moveTo(range) {
+async function moveTo(currentDraggedTask, range) {
   const taskID = currentDraggedTask;
   const taskRef = ref(database, "tasks/" + taskID);
   try {

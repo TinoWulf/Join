@@ -7,12 +7,17 @@
  * @returns {void}
  */
 function loadMenu() {
+  try{
   fetch("menu-bar.html")
     .then((response) => response.text())
     .then((html) => {
       document.getElementById("navbar").innerHTML = html;
     })
-    .catch((error) => console.error("Failed to load nav:", error));
+  }catch(error){
+    openErrorPage();
+  };
+  
+    
 }
 
 loadMenu();
