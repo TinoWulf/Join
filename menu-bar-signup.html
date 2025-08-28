@@ -1,0 +1,35 @@
+
+    <head>
+        <link rel="stylesheet" href="./styles/menu-bar.css">
+        <link rel="stylesheet" href="./styles/standard.css">
+        <link rel="stylesheet" href="./styles/responsive.css">
+        <script defer src="./scripts/legacyPolicy.js"></script>
+    </head>
+    <div class="popup-header back" id="popup">
+        <ul>
+            <li class="help-mobile" id="help-mobile"><a href="help.html">Help</a></li>
+            <li><a href="notice.html">Legal Notice</a></li>
+            <li><a href="notice.html">Privacy Policy</a></li>
+            <li onclick="logOut()"><a>Logout</a></li>
+        </ul>
+    </div>
+
+    <nav class="navbar">
+        <img src="./assets/img/logonoir.png" alt="logo mobile" class="logo-mobile">
+        <h4 class="help-pc">Kanban Project Management Tool</h4>
+    </nav>
+    <div class="menu menu-mobile" >
+        <div class="menu-header help-pc">
+            <a><img src="./assets/img/logo.png" alt="logo" class="logo"></a>
+        </div>
+        <div class="menu-signup-body" id="menuSide">
+            <a href="login.html"><div class="menu-btn" id="login">
+                <img src="./assets/icons/login.png" alt="">
+                <p class="menu-p">Log In</p>
+            </div></a>
+        </div>
+        <div class="menu-footer help-pc">
+            <a href="policy-signup.html" id="privacy"><p class="menu-p on-policy">Privacy Policy</p></a>
+            <a href="notice-signup.html" id="legacy"><p class="menu-p on-notice">Legal notice</p></a>
+        </div>
+    </div>

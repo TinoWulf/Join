@@ -171,6 +171,15 @@
     gap: 8px;
   }
 
+.menu-signup-body {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+ }
+
 .menu-btn {
     display: flex;
     align-items: center;
