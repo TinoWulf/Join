@@ -10,9 +10,10 @@ const acceptPolicyRef = document.getElementById("acceptPolicy");
 const signUpBtn = document.getElementById("signUpBtn");
 const signupForm = document.getElementById("signupForm");
 
+let nameError = document.getElementById('nameError');
 let emailError = document.getElementById('emailError');
 let signUpError = document.getElementById('sign-up-error');
-let passwordError = document.getElementById('error-passord');
+let passwordError = document.getElementById('error-password');
 let passwordOutlineError = document.querySelector(".password");
 let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
 
@@ -146,23 +147,26 @@ function isValidEmail(email) {
 }
 
 
-emailRef.addEventListener('blur', function(){
+nameRef.addEventListener('blur', function(){
   const name = nameRef.value;
-  if(name=="" || name.length<=2){
+  if (name !== "" && (/\d/.test(name) || name.length <= 2)) {
     nameLabel.classList.add("password-error");
+    nameError.innerText="Invalid name.";
   }else{
     nameLabel.classList.remove("password-error");
+    nameError.innerText="";
   }
 })
 
 emailRef.addEventListener('blur', function(){
   const email = emailRef.value;
   let check = isValidEmail(email);
-  if(!check){
+  if(email !== "" &&!check){
   emailLabel.classList.add("password-error");
   emailError.innerText="Invalid email address.";
   }else{
   emailLabel.classList.remove("password-error");
+  emailError.innerText="";
   }
 })
 
@@ -175,6 +179,7 @@ confirmPasswordRef.addEventListener('blur', function(){
   }else{
     passwordOutlineError.classList.remove("password-error");
     passwordOutlineErrorConfirm.classList.remove("password-error");
+    passwordError.innerText="";
   }
 })
 

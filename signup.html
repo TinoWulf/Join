@@ -28,20 +28,22 @@
                         <input type="text" name="name" id="sign-up-name" placeholder="Name">
                         <span><img src="./assets/icons/person.svg" alt="person"></span>
                     </label>
+                    <p class="error" id="nameError"></p>
                     <label for="email" class="form-input" id="emailLabel">
                         <input type="text" name="email" id="sign-up-email" placeholder="Email" >
                         <span><img src="./assets/icons/mail.svg" alt="email"></span>
                     </label>
-                    <p class="error hide" id="emailError"></p>
+                    <p class="error" id="emailError"></p>
                     <label for="password" class="form-input password">
                         <input type="text" name="password" id="sign-up-password" placeholder="Password" autocomplete="off">
                         <span id="eyePassword" onclick="togglePassword()"><img src="./assets/icons/lock.svg" alt="person"></span>
                     </label>
+                    <p class="error"></p>
                     <label for="password2" class="form-input password-confirm">
                         <input type="text" name="password2" id="confirmPassword" placeholder="Confirm password" autocomplete="off">
                         <span id="eyePassword2" onclick="togglePasswordConfirm()"><img src="./assets/icons/lock.svg" alt="lock"></span>
                     </label>
-                    <p id="error-passord" class="error hide"></p>
+                    <p id="error-password" class="error"></p>
                     <label for="privacy" class="label-privacy">
                         <input type="checkbox" name="privacy" id="acceptPolicy">
                         <p>I accept <a href="./policy.html" class="privacy-link">privacy policy</a></p>
