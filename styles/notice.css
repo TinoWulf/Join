@@ -20,3 +20,7 @@
         text-align: center;
     }
 }
+
+.hidden-header{
+    opacity: 0;
+}

@@ -195,7 +195,7 @@ function greetMobile(){
       document.getElementById('greetMobile').classList.remove('show');
       document.getElementById('boardSummary').classList.remove('hide');
       document.getElementById('navSummary').classList.remove('hide');
-    }, 2000);
+    }, 1500);
   }
 }
 

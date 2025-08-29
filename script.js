@@ -12,6 +12,8 @@ function loadMenu() {
     .then((response) => response.text())
     .then((html) => {
       document.getElementById("navbar").innerHTML = html;
+      callUserData();
+      notUser();
     })
   }catch(error){
     openErrorPage();
@@ -43,14 +45,14 @@ function getAbbreviation(str) {
  *
  * Depends on a function `getAbbreviation` to generate the abbreviation.
  */
+actualUser = localStorage.getItem("userName");
 function callUserData(){
-  let actualUser = localStorage.getItem("userName");
-  if (actualUser=='Guest') {
+  if (actualUser==='Guest') {
     document.getElementById('initial-user').textContent = 'G';
   } else if( actualUser && actualUser !== 'Guest') {
     document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
   }else{
-    document.getElementById('initial-user').classList.add("hide");
+    document.getElementById('initial-user').classList.add("hidden-header");
   }
 }
 
@@ -82,7 +84,6 @@ function openBoard() {
 function openSummary() {
   if(localStorage.getItem("userName")){
     localStorage.removeItem("userName");
-    console.log(" User logged out");
     return window.location.href = "summary.html";
   }
   else{
@@ -126,7 +127,6 @@ function formatDueDate(dateString, format = "numeric") {
 function showLogout(){
   document.getElementById('popup').classList.toggle("popupshow");
   document.getElementById('popup').classList.toggle("back");
-  document.getElementById('popup-header-background').classList.toggle("back");
 }
 
 /**
@@ -153,6 +153,90 @@ function capitalizeName(name) {
     .split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+
+/**
+ * checks the userName in localStorage and if it is 'nouser' load the templateNoUser function 
+ * else load the templateHeader function.
+*/
+function notUser() {
+    let menuSide = document.querySelector("header .menu .menu-body");
+    let navLinks = document.getElementById("navLinks");
+    let initialsUser = document.getElementById('initial-user');
+    menuSide.innerHTML = '';
+    if (!actualUser || actualUser === '') {
+        initialsUser.classList.add("hidden-header");
+        navLinks.classList.add("hidden-header");
+        menuSide.innerHTML += templateHeaderNoUser();
+    }else{
+        initialsUser.classList.remove("hidden-header");
+        navLinks.classList.remove("hidden-header");
+        menuSide.innerHTML += templateHeader();
+    }
+   checkIfLegacyPage();
+}
+
+
+/**
+ * Checks the current URL to determine if it includes "notice.html" or "policy.html".
+ * If "notice.html" is present, it adds the "actived" class to the "legacy" element.
+ * If "policy.html" is present, it adds the "actived" class to the "privacy" element.
+ * This function is used to highlight the active page in the header menu.
+ */
+function checkIfLegacyPage() {
+    if (window.location.href.includes("notice.html")) {
+        document.getElementById("legacy").classList.add("actived");
+    }else{
+        document.getElementById("privacy").classList.add("actived");
+    }
+}
+
+
+
+/**
+ * 
+ * @returns {string} A string representing the HTML structure for the header menu when no user is logged in.
+ * (the is has click to privay policy and legal notice without been  logged in)
+ */
+function templateHeaderNoUser(){
+    return `<a href="login.html" class="login-no-user" id="login-no-user">
+                <div class="menu-btn" id="login-no-user">
+                    <img src="./assets/icons/login.png" alt="">
+                    <p class="menu-p">Login</p>
+                </div>
+            </a> 
+            <div class="dflex-row">
+                <a href="policy.html" id="privacy" onclick="clearCurrentUser()"><p class="menu-p on-policy">Privacy Policy</p></a>
+                <a href="notice.html" id="legacy" onclick="clearCurrentUser()"><p class="menu-p on-notice">Legal notice</p></a>
+            </div>
+        `;
+}
+
+
+/**
+ * 
+ * @returns {string} A string representing the HTML structure for the header menu.
+ */
+function templateHeader(){
+    return `
+            <a href="summary.html"><div class="menu-btn" id="summary">
+                <img src="./assets/icons/summary.png" alt="">
+                <p class="menu-p">Summary</p>
+            </div></a>
+            <a href="add-task.html"><div class="menu-btn" id="addtask">
+                <img src="./assets/icons/add-task.png" alt="">
+                <p class="menu-p">Add Task</p>
+            </div></a>
+            <a href="board.html"><div class="menu-btn" id="board">
+                <img src="./assets/icons/board.png" alt="">
+                <p class="menu-p">Board</p>
+            </div></a>
+            <a href="contacts.html"><div class="menu-btn" id="contacts">
+                <img src="./assets/icons/contact.png" alt="">
+                <p class="menu-p">Contacts</p>
+            </div></a> 
+        `;
 }
 
 

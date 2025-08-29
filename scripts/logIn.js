@@ -171,6 +171,15 @@ function openSummary() {
 }
 
 
+function clearCurrentUser() {
+  if(localStorage.getItem("userName")){
+    localStorage.removeItem("userName");
+  }
+  else{
+    localStorage.clear();
+  }
+}
+
 /**
  * open the Error page with location.href
  */
@@ -180,6 +189,7 @@ function openErrorPage() {
 
 
 window.openSummary = openSummary;
+window.clearCurrentUser = clearCurrentUser;
 window.openSummaryPara = openSummaryPara;
 window.togglePassword = togglePassword;
 setupLogin();

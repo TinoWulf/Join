@@ -311,6 +311,15 @@ function openErrorPage() {
 }
 
 
+function clearCurrentUser() {
+  if(localStorage.getItem("userName")){
+    localStorage.removeItem("userName");
+  }
+  else{
+    localStorage.clear();
+  }
+}
+
 /**
  * Toggles the visibility of the password input field.
  * Updates the input value to show either the real password or masked characters,
@@ -328,5 +337,5 @@ function togglePasswordConfirm() {
 
 window.togglePassword = togglePassword;
 window.togglePasswordConfirm = togglePasswordConfirm;
-
+window.clearCurrentUser = clearCurrentUser;
 setupSignUp();
