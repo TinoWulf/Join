@@ -78,6 +78,13 @@ function getAllNumber(tasksList) {
 
 
 /**
+ * Initializes the summary by fetching and displaying all task statistics.
+ */
+greetMobile();
+getAllTasksSummary();
+
+
+/**
  * Capitalizes the first letter of each word in a given name string.
  *
  * @param {string} name - The name string to capitalize.
@@ -157,33 +164,22 @@ const currentUserName = urlParams.get('name');
 if (currentUserName && currentUserName.trim() !== '') {
   const loggedUser = capitalizeName(currentUserName.trim().toUpperCase());
   localStorage.setItem("userName", loggedUser);
+  actualUser = loggedUser;
 }
 
 
-let actualUser = localStorage.getItem("userName");
-if (actualUser === 'Guest' ) {
-  document.getElementById('initial-user').textContent = 'G';
-  document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
-} else if( actualUser && actualUser !== 'Guest') {
-  document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
-  document.getElementById('greetMessage').textContent = getUserExits(currentHour);
-  document.getElementById('userName').textContent = actualUser;
-}else{
-  window.location.href = `login.html`;
-}
+document.addEventListener('DOMContentLoaded', function(){
 
-
-/**
- * Sets the 'active' class on the summary navigation item and removes it from other navigation items.
- * This function highlights the summary section in the navigation bar.
- */
-function activeNavItem(){
-  document.getElementById('board').classList.remove('active');
-  document.getElementById('contacts').classList.remove('active');
-  document.getElementById('addtask').classList.remove('active');
-  document.getElementById('summary').classList.add('active');
+  if (actualUser === 'Guest' ) {
+    document.getElementById('greetMessage').textContent = getGuestUser(currentHour);
+  } else if( actualUser && actualUser !== 'Guest') {
+    document.getElementById('greetMessage').textContent = getUserExits(currentHour);
+    document.getElementById('userName').textContent = actualUser;
+  }else{
+    window.location.href = `login.html`;
+  }
   
-}
+})
 
 
 function greetMobile(){
@@ -200,15 +196,8 @@ function greetMobile(){
 }
 
 
-/**
- * Initializes the summary by fetching and displaying all task statistics.
- */
-greetMobile();
-getAllTasksSummary();
-activeNavItem();
-
-export{capitalizeName, getUserExits, getGuestUser, activeNavItem, greetMobile};
+export{capitalizeName, getUserExits, getGuestUser, greetMobile};
 
 window.getGuestUser = getGuestUser;
 window.getUserExits = getUserExits;
-window.activeNavItem = activeNavItem;
+// window.activeNavItem = activeNavItem;

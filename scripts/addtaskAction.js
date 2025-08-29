@@ -42,7 +42,6 @@ function closeDropDown(event){
 }
 
 
-let actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }

@@ -45,7 +45,7 @@ function getAbbreviation(str) {
  *
  * Depends on a function `getAbbreviation` to generate the abbreviation.
  */
-actualUser = localStorage.getItem("userName");
+let actualUser = localStorage.getItem("userName");
 function callUserData(){
   if (actualUser==='Guest') {
     document.getElementById('initial-user').textContent = 'G';
@@ -161,7 +161,7 @@ function capitalizeName(name) {
  * else load the templateHeader function.
 */
 function notUser() {
-    let menuSide = document.querySelector("header .menu .menu-body");
+    let menuSide = document.querySelector(".menu-body");
     let navLinks = document.getElementById("navLinks");
     let initialsUser = document.getElementById('initial-user');
     menuSide.innerHTML = '';
@@ -193,7 +193,6 @@ function checkIfLegacyPage() {
 }
 
 
-
 /**
  * 
  * @returns {string} A string representing the HTML structure for the header menu when no user is logged in.
@@ -220,7 +219,7 @@ function templateHeaderNoUser(){
  */
 function templateHeader(){
     return `
-            <a href="summary.html"><div class="menu-btn" id="summary">
+            <a href="summary.html"><div class="menu-btn active" id="summary">
                 <img src="./assets/icons/summary.png" alt="">
                 <p class="menu-p">Summary</p>
             </div></a>

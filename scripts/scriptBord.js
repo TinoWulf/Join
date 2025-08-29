@@ -175,8 +175,7 @@ function showContainerOnBoard(taskId, event) {
   event.stopPropagation();
 }
 
-
-let actualUser = localStorage.getItem("userName");
+actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }

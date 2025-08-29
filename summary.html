@@ -9,11 +9,9 @@
     <link rel="stylesheet" href="./styles/responsive.css" />
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon">
-    <script src="./script.js"></script>
     <script defer src="./scripts/connection.js" type="module"></script>
-    <script defer src="./scripts/summary.js" type="module"></script>
   </head>
-<body onclick="closePopupLogout(event)">
+<body>
     <header id="navbar">
 
     </header>
@@ -29,26 +27,26 @@
                     <section class="todo-summary-section" onclick="openBoard()">
                         <p class="image-summary hide-p "><img class="hide-image" src="./assets/icons/editwhite.png" alt="edit icon"></p>
                         <p class="image-summary hide show-image-hover"><img class="hide" src="./assets/icons/edit.png" alt="edit icon"></p>
-                        <p><span class="task-number" id="toDoTasks">1</span> <span class="task-category">To-do</span></p>
+                        <p><span class="task-number" id="toDoTasks">0</span> <span class="task-category">To-do</span></p>
                     </section>
                     <section class="done-summary-section" onclick="openBoard()">
                         <p class="image-summary hide-p"><img class="hide-p-image" src="./assets/icons/checkbold.png" alt="check icon"></p>
                         <p class="image-summary hide show-image-hover"><img class="hide-image" src="./assets/icons/checknoir.png" alt="check icon"></p>
-                        <p><span class="task-number" id="doneTasks" >1</span ><span class="task-category">Done</span></p>
+                        <p><span class="task-number" id="doneTasks" >0</span ><span class="task-category">Done</span></p>
                     </section>
                 </div>
                 <div class="urgent-summary" onclick="openBoard()">
                     <section class="urgent-summary-section">
                         <p class="image-summary"><img src="./assets/icons/urgentwhite.png" alt="urgent icon"></p>
-                        <p><span class="task-number" id="urgentTasks">1</span> <span class="task-category">Urgent</span></p>
+                        <p><span class="task-number" id="urgentTasks">0</span> <span class="task-category">Urgent</span></p>
                     </section>
                     <div class="bar"></div>
                     <section class="urgent-summary-deadline"><p id="upComingDeadline">August 21, 2025</p> <span>Upcoming Deadline</span></section>
                 </div>
                 <div class="tasks-summary">
-                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="totalTasks">5</span>  <span class="task-category">Tasks in <br> Board</span></section>
-                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="tasksInProgress">2</span>  <span class="task-category">Tasks in <br>Progress</span></section>
-                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="tasksAwaitFeedbacks">2</span>  <span class="task-category">Awaiting <br>Feedback</span></section>
+                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="totalTasks">0</span>  <span class="task-category">Tasks in <br> Board</span></section>
+                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="tasksInProgress">0</span>  <span class="task-category">Tasks in <br>Progress</span></section>
+                    <section class="tasks-sum-section" onclick="openBoard()"><span class="task-number" id="tasksAwaitFeedbacks">0</span>  <span class="task-category">Awaiting <br>Feedback</span></section>
                 </div>
             </div>
             <div class="great-user greet-mobile" id="greetMobile">
@@ -60,6 +58,7 @@
     <footer>
 
     </footer>
-    
+    <script defer src="./script.js"></script>
+    <script defer src="./scripts/summary.js" type="module"></script>
 </body>
 </html>

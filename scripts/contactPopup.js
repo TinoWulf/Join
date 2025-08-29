@@ -217,7 +217,6 @@ function clearInputs(window) {
 
 
 // Check if user is logged in
-let actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }
