@@ -1,4 +1,10 @@
-import{database,ref, set, auth, createUserWithEmailAndPassword} from './connection.js'
+import {
+  database,
+  ref,
+  set,
+  auth,
+  createUserWithEmailAndPassword,
+} from "./connection.js";
 
 const nameRef = document.getElementById("sign-up-name");
 const emailRef = document.getElementById("sign-up-email");
@@ -10,13 +16,12 @@ const acceptPolicyRef = document.getElementById("acceptPolicy");
 const signUpBtn = document.getElementById("signUpBtn");
 const signupForm = document.getElementById("signupForm");
 
-let nameError = document.getElementById('nameError');
-let emailError = document.getElementById('emailError');
-let signUpError = document.getElementById('sign-up-error');
-let passwordError = document.getElementById('error-password');
+let nameError = document.getElementById("nameError");
+let emailError = document.getElementById("emailError");
+let signUpError = document.getElementById("sign-up-error");
+let passwordError = document.getElementById("error-password");
 let passwordOutlineError = document.querySelector(".password");
 let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
-
 
 /**
  * Registers a new user with the provided email, password, and name, and stores their profile in the database.
@@ -30,37 +35,45 @@ let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
  */
 async function signUpUser(email, password, name, acceptedPolicy) {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const user = userCredential.user;
     const userId = user.uid;
-    const userProfileRef = ref(database, 'users/' + userId);
-    await set(userProfileRef, {id: userId, name: name, email: email, acceptedPolicy: acceptedPolicy,created_at: user.metadata.creationTime ? new Date(user.metadata.creationTime).getTime() : Date.now(),});
+    const userProfileRef = ref(database, "users/" + userId);
+    await set(userProfileRef, {
+      id: userId,
+      name: name,
+      email: email,
+      acceptedPolicy: acceptedPolicy,
+      created_at: user.metadata.creationTime
+        ? new Date(user.metadata.creationTime).getTime()
+        : Date.now(),
+    });
     return user;
   } catch (error) {
     catchError(error);
   }
 }
 
-
 /**
- * 
+ *
  * this function is used to create a contact in the database by signup.
  * @param {string} name user name
  * @param {string} email user email
  */
 async function createContactBySignUp(name, email) {
-  const contactId = Date.now()
+  const contactId = Date.now();
   const contactRef = ref(database, `contacts/${contactId}`);
-  try{
-    const contact = {id: contactId, name: name, email: email, phone: ''};
+  try {
+    const contact = { id: contactId, name: name, email: email, phone: "" };
     await set(contactRef, contact);
-  }
-  catch(error){
-    console.log(error)
-    // openErrorPage();
+  } catch (error) {
+    openErrorPage();
   }
 }
-
 
 /**
  * Handles authentication errors by displaying user-friendly messages
@@ -70,27 +83,27 @@ async function createContactBySignUp(name, email) {
  * @param {string} error.code - The specific error code identifying the type of authentication error.
  * @throws Will rethrow the provided error after displaying the appropriate message.
  */
-function catchError(error){
+function catchError(error) {
   emailError.classList.remove("hide");
-  if (error.code === 'auth/email-already-in-use') {
-      emailError.innerText="This email address is already in use.";
-      emailLabel.classList.add("password-error");
-    } else if (error.code === 'auth/invalid-email') {
-      emailLabel.classList.add("password-error");
-      emailError.innerText="Invalid email address.";
-    } else if (error.code === 'auth/weak-password') {
-      signUpError.innerText="Password is too weak. Please choose a stronger password.";
-      passwordOutlineError.classList.add("password-error");
-      passwordOutlineErrorConfirm.classList.add("password-error");
-    } else {
-      signUpError.innerText="An error occurred. Please try again.";
-    }
-    setTimeout(() => {
-      hideErrorMessages();
-    }, 3000);
-    throw error;
+  if (error.code === "auth/email-already-in-use") {
+    emailError.innerText = "This email address is already in use.";
+    emailLabel.classList.add("password-error");
+  } else if (error.code === "auth/invalid-email") {
+    emailLabel.classList.add("password-error");
+    emailError.innerText = "Invalid email address.";
+  } else if (error.code === "auth/weak-password") {
+    signUpError.innerText =
+      "Password is too weak. Please choose a stronger password.";
+    passwordOutlineError.classList.add("password-error");
+    passwordOutlineErrorConfirm.classList.add("password-error");
+  } else {
+    signUpError.innerText = "An error occurred. Please try again.";
+  }
+  setTimeout(() => {
+    hideErrorMessages();
+  }, 3000);
+  throw error;
 }
-
 
 /**
  * Hides error messages by adding the "hide" class to the relevant elements after a delay.
@@ -103,7 +116,6 @@ function hideErrorMessages() {
   passwordOutlineError.classList.remove("password-error");
   passwordOutlineErrorConfirm.classList.remove("password-error");
 }
-
 
 /**
  * Sets up the sign-up form submission handler.
@@ -127,80 +139,153 @@ function setupSignUp() {
     const acceptedPolicy = acceptPolicyRef;
     verifyPassword(password, confirmPassword);
     verifyPolicy(acceptedPolicy);
-    if(password==confirmPassword){
+    if (password == confirmPassword) {
       try {
         await signUpUser(email, password, name, acceptedPolicy);
         await createContactBySignUp(name, email);
         signupForm.reset();
-        showSucessMessage()
+        showSucessMessage();
       } catch (error) {
-        openErrorPage();
+        catchError(error);
       }
     }
   });
 }
 
-
+// --- helpers -------------------------------------------------
 function isValidEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
+function validateNameValue(v) {
+  const name = v.trim();
+  if (name.length <= 2)
+    return { valid: false, msg: "Name must be more than 2 characters." };
+  if (/\d/.test(name))
+    return { valid: false, msg: "Name cannot contain numbers." };
+  return { valid: true, msg: "" };
+}
+
+function validateEmailValue(v) {
+  const email = v.trim();
+  if (!isValidEmail(email))
+    return { valid: false, msg: "Invalid email. Please check your email." };
+  return { valid: true, msg: "" };
+}
+
+function validatePasswordsValue(pass, confirm) {
+  if (!pass || !confirm)
+    return { valid: false, msg: "Passwords cannot be empty." };
+  if (pass !== confirm) return { valid: false, msg: "Passwords do not match." };
+  return { valid: true, msg: "" };
+}
+
+// --- state: track if user touched each field -----------------
+const touched = {
+  name: false,
+  email: false,
+  password: false,
+  confirm: false,
+  policy: false,
+};
+
+// --- UI update helper ----------------------------------------
+function applyFieldState({ valid, msg }, { labelEl, errorEl }, showErrors) {
+  if (!showErrors) {
+    // User hasn't interacted with this field yet → no errors displayed
+    labelEl.classList.remove("password-error");
+    errorEl.innerText = "";
+    return;
+  }
+  if (!valid) {
+    labelEl.classList.add("password-error");
+    errorEl.innerText = msg;
+  } else {
+    labelEl.classList.remove("password-error");
+    errorEl.innerText = "";
+  }
 }
 
 
-nameRef.addEventListener('blur', function(){
-  const name = nameRef.value;
-  if (name !== "" && (/\d/.test(name) || name.length <= 2)) {
-    nameLabel.classList.add("password-error");
-    nameError.innerText="Invalid name.";
-  }else{
-    nameLabel.classList.remove("password-error");
-    nameError.innerText="";
-  }
-})
 
-emailRef.addEventListener('blur', function(){
-  const email = emailRef.value;
-  let check = isValidEmail(email);
-  if(email !== "" &&!check){
-  emailLabel.classList.add("password-error");
-  emailError.innerText="Invalid email address.";
-  }else{
-  emailLabel.classList.remove("password-error");
-  emailError.innerText="";
-  }
-})
-
-confirmPasswordRef.addEventListener('blur', function(){
-  const confirmPassword = confirmPasswordRef.value;
-  if(confirmPassword!=passwordRef.value){
-    passwordOutlineError.classList.add("password-error");
-    passwordOutlineErrorConfirm.classList.add("password-error");
-    passwordError.innerText="the password don't match!";
-  }else{
-    passwordOutlineError.classList.remove("password-error");
-    passwordOutlineErrorConfirm.classList.remove("password-error");
-    passwordError.innerText="";
-  }
-})
-
-/**
- * Displays the success message by removing the "hide" class from the element with ID "success-message".
- * After 2 seconds, hides the message and redirects the user to the login page.
- */
-function showSucessMessage() {
-    let successMessage = document.getElementById("success-message");
-    successMessage.classList.remove("hide");
-    setTimeout(() => {
-        successMessage.classList.add("hide");
-        window.location.href = `login.html`; 
-    }, 2000);
+function validateForm() {
+  const nameRes = validateNameValue(nameRef.value);
+  const emailRes = validateEmailValue(emailRef.value);
+  const passRes = validatePasswordsValue(
+    passwordRef.value,
+    confirmPasswordRef.value
+  );
+  const policyRes = { valid: acceptPolicyRef.checked, msg: "" };
+  applyFieldState(
+    nameRes,
+    { labelEl: nameLabel, errorEl: nameError },
+    touched.name
+  );
+  applyFieldState(
+    emailRes,
+    { labelEl: emailLabel, errorEl: emailError },
+    touched.email
+  );
+  applyFieldState(
+    passRes,
+    { labelEl: passwordOutlineError, errorEl: passwordError },
+    touched.password || touched.confirm
+  );
+  const allValid =
+    nameRes.valid && emailRes.valid && passRes.valid && policyRes.valid;
+  signUpBtn.disabled = !allValid;
 }
-
-
-acceptPolicyRef.addEventListener("change", function () {
-  signUpBtn.disabled = !acceptPolicyRef.checked;
+nameRef.addEventListener("input", () => {
+  touched.name = true;
+  validateForm();
+});
+nameRef.addEventListener("blur", () => {
+  touched.name = true;
+  validateForm();
 });
 
+emailRef.addEventListener("input", () => {
+  touched.email = true;
+  validateForm();
+});
+emailRef.addEventListener("blur", () => {
+  touched.email = true;
+  validateForm();
+});
+
+passwordRef.addEventListener("input", () => {
+  touched.password = true;
+  validateForm();
+});
+passwordRef.addEventListener("blur", () => {
+  touched.password = true;
+  validateForm();
+});
+
+confirmPasswordRef.addEventListener("input", () => {
+  touched.confirm = true;
+  validateForm();
+});
+confirmPasswordRef.addEventListener("blur", () => {
+  touched.confirm = true;
+  validateForm();
+});
+
+acceptPolicyRef.addEventListener("change", () => {
+  touched.policy = true;
+  validateForm();
+});
+
+document.addEventListener("DOMContentLoaded", validateForm);
+
+function showSucessMessage() {
+  const successMessage = document.getElementById("success-message");
+  successMessage.classList.remove("hide");
+  setTimeout(() => {
+    successMessage.classList.add("hide");
+    window.location.href = "login.html";
+  }, 2000);
+}
 
 /**
  * Verifies if the policy checkbox has been accepted.
@@ -209,23 +294,22 @@ acceptPolicyRef.addEventListener("change", function () {
  *
  * @param {HTMLInputElement} acceptedPolicy - The checkbox input element representing policy acceptance.
  */
-function verifyPolicy(acceptedPolicy){
-        if (!acceptedPolicy.checked) {
-        signUpError.innerText = "You must accept the policy.";
-        return;
-    } else {
-        signUpError.innerText = ""; 
-        signUpBtn.removeAttribute("disabled");
-    }
+function verifyPolicy(acceptedPolicy) {
+  if (!acceptedPolicy.checked) {
+    signUpError.innerText = "You must accept the policy.";
+    return;
+  } else {
+    signUpError.innerText = "";
+    signUpBtn.removeAttribute("disabled");
+  }
 }
-
 
 /**
  * this function verifies if the password and confirm password fields match
  * if they do not match, it displays an error message
  * @param {string} password  the user's password
  * @param {string} confirmPassword  the user's confirm password
- * @returns 
+ * @returns
  */
 function verifyPassword(password, confirmPassword) {
   if (password !== confirmPassword) {
@@ -237,30 +321,26 @@ function verifyPassword(password, confirmPassword) {
   }
 }
 
-
 const passwordField = document.getElementById("sign-up-password");
 const toggleIcon = document.getElementById("eyePassword");
 const passwordField2 = document.getElementById("confirmPassword");
 const toggleIcon2 = document.getElementById("eyePassword2");
-let realValue = ""; 
+let realValue = "";
 let isVisible = false;
 
-
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
-passwordField.addEventListener('input', function(){
+passwordField.addEventListener("input", function () {
   toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-})
-
+});
 
 /**
  * this listener toggles the visibility of the password icon when a user start typing in the password field
  */
-passwordField2.addEventListener('input', function(){
+passwordField2.addEventListener("input", function () {
   toggleIcon2.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-})
-
+});
 
 /**
  * this listener change the visibility of the password value when a user typing in the password field
@@ -275,7 +355,6 @@ passwordField.addEventListener("input", (e) => {
   passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
 });
 
-
 passwordField2.addEventListener("input", (e) => {
   const newValue = e.target.value;
   if (newValue.length < realValue.length) {
@@ -285,7 +364,6 @@ passwordField2.addEventListener("input", (e) => {
   }
   passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
 });
-
 
 /**
  * Toggles the visibility of the password input field.
@@ -298,9 +376,10 @@ passwordField2.addEventListener("input", (e) => {
 function togglePassword() {
   isVisible = !isVisible;
   passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
-  toggleIcon.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+  toggleIcon.innerHTML = isVisible
+    ? `<img src="./assets/icons/visibility.png" alt="lock">`
+    : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 }
-
 
 /**
  * open the Error page with location.href
@@ -310,12 +389,10 @@ function openErrorPage() {
   window.location.href = "error.html";
 }
 
-
 function clearCurrentUser() {
-  if(localStorage.getItem("userName")){
+  if (localStorage.getItem("userName")) {
     localStorage.removeItem("userName");
-  }
-  else{
+  } else {
     localStorage.clear();
   }
 }
@@ -332,7 +409,9 @@ function clearCurrentUser() {
 function togglePasswordConfirm() {
   isVisible = !isVisible;
   passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
-  toggleIcon2.innerHTML = isVisible? `<img src="./assets/icons/visibility.png" alt="lock">`: `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+  toggleIcon2.innerHTML = isVisible
+    ? `<img src="./assets/icons/visibility.png" alt="lock">`
+    : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 }
 
 window.togglePassword = togglePassword;

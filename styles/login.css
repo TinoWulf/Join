@@ -218,6 +218,7 @@ footer a:hover {
 }
 
 .error {
+  font-size: 18px;
   color: #FF8190 !important;
 }
 
@@ -334,6 +335,10 @@ footer a:hover {
     justify-content: center;
     width: 100px;
     height: 40px;
+  }
+
+  .error {
+    font-size: 13px;
   }
 
 }

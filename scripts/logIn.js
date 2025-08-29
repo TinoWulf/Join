@@ -32,6 +32,13 @@ async function loginUser(email, password) {
 }
 
 
+function isValidEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
+
+
+
 /**
  * Sets up the login form submission handler.
  * Prevents default form submission, retrieves user credentials,
@@ -45,6 +52,10 @@ function setupLogin() {
     event.preventDefault();
     const email = loginEmailRef.value;
     const password = loginPasswordRef.value;
+    if(!email || !isValidEmail(email) || !password){
+      showErrorLogin(loginError, inputPassword,inputEmail );
+      return
+    }
     try {
       await loginUser(email, password);
     } catch (e) {
@@ -70,7 +81,7 @@ function showErrorLogin(loginError,inputPassword,inputEmail){
       loginError.innerText="";
       inputPassword.classList.remove('login-error');
       inputEmail.classList.remove('login-error');
-    }, 2000);
+    }, 3000);
 }
 
 

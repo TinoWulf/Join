@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }else{
     window.location.href = `login.html`;
   }
-  
+
 })
 
 
@@ -200,4 +200,4 @@ export{capitalizeName, getUserExits, getGuestUser, greetMobile};
 
 window.getGuestUser = getGuestUser;
 window.getUserExits = getUserExits;
-// window.activeNavItem = activeNavItem;
+
