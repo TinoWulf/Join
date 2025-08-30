@@ -125,7 +125,7 @@ label, .label-date{
   background-color: var(--white);
   font-size: 20px;
   padding: 16px 10px;
-  max-width: 136px;
+  width: 136px;
   height: 100%;
   align-items: center;
   display: flex;

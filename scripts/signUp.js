@@ -18,7 +18,6 @@ const signupForm = document.getElementById("signupForm");
 
 let nameError = document.getElementById("nameError");
 let emailError = document.getElementById("emailError");
-let signUpError = document.getElementById("sign-up-error");
 let passwordError = document.getElementById("error-password");
 let passwordOutlineError = document.querySelector(".password");
 let passwordOutlineErrorConfirm = document.querySelector(".password-confirm");
@@ -92,12 +91,12 @@ function catchError(error) {
     emailLabel.classList.add("password-error");
     emailError.innerText = "Invalid email address.";
   } else if (error.code === "auth/weak-password") {
-    signUpError.innerText =
+    passwordError.innerText =
       "Password is too weak. Please choose a stronger password.";
     passwordOutlineError.classList.add("password-error");
     passwordOutlineErrorConfirm.classList.add("password-error");
   } else {
-    signUpError.innerText = "An error occurred. Please try again.";
+    passwordError.innerText = "An error occurred. Please try again.";
   }
   setTimeout(() => {
     hideErrorMessages();
@@ -111,7 +110,6 @@ function catchError(error) {
 function hideErrorMessages() {
   emailError.classList.add("hide");
   emailLabel.classList.remove("password-error");
-  signUpError.classList.add("hide");
   passwordError.classList.add("hide");
   passwordOutlineError.classList.remove("password-error");
   passwordOutlineErrorConfirm.classList.remove("password-error");
@@ -303,22 +301,6 @@ function showSucessMessage() {
 }
 
 
-/**
- * Verifies if the policy checkbox has been accepted.
- * Displays an error message if not accepted and disables the sign-up button.
- * Clears the error message and enables the sign-up button if accepted.
- *
- * @param {HTMLInputElement} acceptedPolicy - The checkbox input element representing policy acceptance.
- */
-function verifyPolicy(acceptedPolicy) {
-  if (!acceptedPolicy.checked) {
-    signUpError.innerText = "You must accept the policy.";
-    return;
-  } else {
-    signUpError.innerText = "";
-    signUpBtn.removeAttribute("disabled");
-  }
-}
 
 /**
  * this function verifies if the password and confirm password fields match
@@ -346,6 +328,9 @@ function openErrorPage() {
 }
 
 
+/**
+ * clear the localstorage if a user click to privacy or legacy page without been login.
+ */
 function clearCurrentUser() {
   if (localStorage.getItem("userName")) {
     localStorage.removeItem("userName");
@@ -355,24 +340,5 @@ function clearCurrentUser() {
 }
 
 
-/**
- * Toggles the visibility of the password input field.
- * Updates the input value to show either the real password or masked characters,
- * and switches the visibility icon accordingly.
- *
- * @function
- * @global
- * @returns {void}
- */
-function togglePasswordConfirm() {
-  isVisible = !isVisible;
-  passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
-  toggleIcon2.innerHTML = isVisible
-    ? `<img src="./assets/icons/visibility.png" alt="lock">`
-    : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-}
-
-window.togglePassword = togglePassword;
-window.togglePasswordConfirm = togglePasswordConfirm;
 window.clearCurrentUser = clearCurrentUser;
 setupSignUp();

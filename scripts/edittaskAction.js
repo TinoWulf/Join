@@ -19,7 +19,4 @@ function deleteSubtaskInput(){
     imgIconsAddsubtask.classList.remove('show-icons');
 }
 
-console.log(addSubtaskRef);
-console.log("Hello WORLD");
-
 window.deleteSubtaskInput = deleteSubtaskInput;

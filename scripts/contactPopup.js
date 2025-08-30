@@ -28,16 +28,6 @@ function closeResponsivContactadd() {
 }
 
 
-/** This function sets the active navigation item to "Contacts".
- * It removes the active class from other navigation items and adds it to the contacts item.
-*/
-function activeNavItem() {
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.add('active');
-    document.getElementById('addtask').classList.remove('active');
-    document.getElementById('summary').classList.remove('active');
-}
-
 
 /** This function closes the responsive buttons menu.
  * It removes the slide-in animation class and adds a slide-out animation class.
@@ -217,6 +207,18 @@ function clearInputs(window) {
 
 
 // Check if user is logged in
+actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }
+
+/** This function sets the active navigation item to "Contacts".
+ * It removes the active class from other navigation items and adds it to the contacts item.
+*/
+function activeNavItem() {
+    document.getElementById('board').classList.remove('active');
+    document.getElementById('contacts').classList.add('active');
+    document.getElementById('addtask').classList.remove('active');
+    document.getElementById('summary').classList.remove('active');
+}
+

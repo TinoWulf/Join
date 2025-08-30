@@ -62,3 +62,21 @@ function togglePassword() {
     ? `<img src="./assets/icons/visibility.png" alt="lock">`
     : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
 }
+
+
+/**
+ * Toggles the visibility of the password input field.
+ * Updates the input value to show either the real password or masked characters,
+ * and switches the visibility icon accordingly.
+ *
+ * @function
+ * @global
+ * @returns {void}
+ */
+function togglePasswordConfirm() {
+  isVisible = !isVisible;
+  passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
+  toggleIcon2.innerHTML = isVisible
+    ? `<img src="./assets/icons/visibility.png" alt="lock">`
+    : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
+}

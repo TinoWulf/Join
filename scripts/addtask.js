@@ -175,6 +175,9 @@ function modifySubtaskInEdited(subtaskContent){
     if (found<0) {
         return;
     }else if(found>= 0){
+        if(!input.value.trim() || input.value.length < 2){
+            return
+        }
         const newValue = input.value;
         subtasks[found] = {title: newValue.trim(), checked: false};
         input.value = '';
@@ -357,6 +360,7 @@ async function getUser(){
     const contactData = await response.json(); 
     const contactIdList = Object.keys(contactData.contacts);
     renderContact(contactIdList, contactData);
+    activeNavItem();
   }
   catch(error){
     openErrorPage();

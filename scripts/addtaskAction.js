@@ -41,7 +41,7 @@ function closeDropDown(event){
     event.stopPropagation();
 }
 
-
+actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;
 }
@@ -57,6 +57,7 @@ resetButton.addEventListener('click', function(){
     let AssignedContact = document.getElementById('assignedContact');
     subtaskListEdit.innerHTML = '';
     AssignedContact.innerHTML = '';
+    contactBoard.innerHTML = '';
     assignedToList = [];
     subtasks = [];
     contactList = [];
@@ -78,6 +79,10 @@ inputAddSubtask.addEventListener("blur", () => {
   }
 });
 
+
+/**
+ * this function hide the input for edit subtask after this one is already edited.
+ */
 function deleteSubtaskInput(){
     inputAddSubtask.value = '';
     imgAddsubtaskPlus.hidden = false;
@@ -96,4 +101,4 @@ function activeNavItem(){
     document.getElementById('addtask').classList.add('active');
     document.getElementById('summary').classList.remove('active');
 }
-activeNavItem();
+

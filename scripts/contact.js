@@ -22,6 +22,7 @@ async function fetchData() { // Loads and displays contacts from Firebase
         const contactData = await response.json(); // Parse JSON response
         const usersCode = Object.keys(contactData.contacts); // Get list of contact IDs
         initializeContactArray(usersCode, contactArray, contactDiv, counter, contactData); // Initialize contact array with IDs
+        activeNavItem();
     } catch (error) {
         console.error(error); // Log fetch error
     }

@@ -114,6 +114,9 @@ function moveToHover(startDragged, range){
 }
 
 
+/**
+ * close all popup for mobile move if one are open.
+ */
 function closeAllOpenMove(){
   let moveTaskMobileAll=  document.querySelectorAll('.move-mobile-task');
   moveTaskMobileAll.forEach( movetask=>{
@@ -122,6 +125,11 @@ function closeAllOpenMove(){
 }
 
 
+/**
+ * open the popup for move task if a user are in mobile
+ * @param {number} taskId task id
+ * @param {event} event event
+ */
 function openMoveTaskMobile(taskId, event){
   closeAllOpenMove();
   const parentTask = document.getElementById(taskId);
@@ -174,6 +182,19 @@ function showContainerOnBoard(taskId, event) {
   }
   event.stopPropagation();
 }
+
+
+/**
+ * Sets the 'active' class on the board navigation item and removes it from other navigation items.
+ * This function highlights the board section in the navigation bar.
+ */
+function activeNavItem() {
+  document.getElementById("board").classList.add("active");
+  document.getElementById("contacts").classList.remove("active");
+  document.getElementById("addtask").classList.remove("active");
+  document.getElementById("summary").classList.remove("active");
+}
+
 
 actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {

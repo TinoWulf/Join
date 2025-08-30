@@ -145,6 +145,7 @@ function loadTasks() {
     findTasksByCategory(category);
   }
   applyAssignedToColors();
+  activeNavItem();
 }
 
 
@@ -310,37 +311,6 @@ function submitCheckedSubtask(taskId){
 
 
 /**
- * Retrieves the current user's name from localStorage and updates the DOM element
- * with the user's initials. If no user is found, sets a default initial 'G'.
- *
- * Depends on a function `getAbbreviation` to generate initials from the username.
- * Updates the element with id 'initial-user'.
- */
-function callUserData(){
-  let actualUser = localStorage.getItem("userName");
-  if (actualUser === 'nouser') {
-    document.getElementById('initial-user').classList.add("hide");
-  } else if( actualUser && actualUser !== 'null') {
-    document.getElementById('initial-user').textContent = getAbbreviation(actualUser);
-  }else{
-    document.getElementById('initial-user').textContent = 'G';
-  }
-}
-
-
-/**
- * Sets the 'active' class on the board navigation item and removes it from other navigation items.
- * This function highlights the board section in the navigation bar.
- */
-function activeNavItem() {
-  document.getElementById("board").classList.add("active");
-  document.getElementById("contacts").classList.remove("active");
-  document.getElementById("addtask").classList.remove("active");
-  document.getElementById("summary").classList.remove("active");
-}
-
-
-/**
  * change the range of the task in the database and reload the bord.
  * @param {*} range where the task will be moved (todo, inprogress,awaitingfeedback, done)
  */
@@ -363,12 +333,10 @@ async function moveTo(currentDraggedTask, range) {
  * 
  */
 function initiateBoard() {
-  activeNavItem();
-  callUserData();
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, callUserData, openTaskDetail, moveTo,getPriority, tasksList};
+export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, openTaskDetail, moveTo,getPriority, tasksList};
 
 
 window.initiateBoard = initiateBoard;
@@ -377,7 +345,6 @@ window.getAbbreviation = getAbbreviation;
 window.countSubtasks = countSubtasks;
 window.countSubtasksDone = countSubtasksDone;
 window.loadTasks = loadTasks;
-window.callUserData = callUserData;
 window.openTaskDetail = openTaskDetail;
 window.moveTo = moveTo;
 window.getPriority = getPriority;

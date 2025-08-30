@@ -165,6 +165,7 @@ if (currentUserName && currentUserName.trim() !== '') {
   const loggedUser = capitalizeName(currentUserName.trim().toUpperCase());
   localStorage.setItem("userName", loggedUser);
   actualUser = loggedUser;
+  notUser();
 }
 
 
