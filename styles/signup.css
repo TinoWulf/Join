@@ -63,7 +63,6 @@
 
     
 .form-header h2{
-    padding-right: 70px;
     font-size: 61px;
     font-weight: 700;
     text-align: center;
@@ -304,6 +303,16 @@ footer{
     border: 1px solid #FF8190;
 }
 
+@media (max-width:770px) {
+    .form-header h2{
+        padding-right: 0;
+    }
+    
+    .hr-signup{
+        margin: 10px 50px;
+    }
+}
+
 @media (max-width: 620px){
     .form-header{
         margin-bottom: 10px;
@@ -313,8 +322,13 @@ footer{
         padding:24px;
         gap: 24px;
     }
+
     .form-header h2{
-        font-size: 30px;
+        padding-right: 0;
+    }
+    
+    .hr-signup{
+        margin: 10px 50px;
     }
 
     .header-signup img{
@@ -337,25 +351,39 @@ footer{
         gap: 8px;
         font-size: 18px;
     }
-
 }
 
 @media (max-width: 420px){
+    .form-signup{
+        gap: 0px;
+    }
 
     .form-header{
         margin-bottom: 10px;
     }
+
     .form-signup-section{
         width: 100%;
         padding:24px;
+        gap: 5px;
     }
+
     .form-header h2{
         font-size: 30px;
+        padding-right: 0;
     }
 
     .header-signup img{
         width: 50px;
         height: 70px;
+    }
+    
+    .hr-signup{
+        margin: 10px 20px;
+    }
+
+    .error{
+        font-size: 13px;
     }
 
 }

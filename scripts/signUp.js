@@ -152,124 +152,135 @@ function setupSignUp() {
   });
 }
 
-// --- helpers -------------------------------------------------
+
+/**
+ * Checks if the given email string has a valid format.
+ * @param {string} email - The email string to validate.
+ * @returns {boolean} True if valid, false otherwise.
+ */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 }
 
-function validateNameValue(v) {
-  const name = v.trim();
-  if (name.length <= 2)
-    return { valid: false, msg: "Name must be more than 2 characters." };
-  if (/\d/.test(name))
-    return { valid: false, msg: "Name cannot contain numbers." };
+
+/**
+ * Validates a user's name.
+ * - Must be longer than 2 characters
+ * - Cannot contain numbers
+ * @param {string} name - The name input value.
+ * @returns {{ valid: boolean, msg: string }} Validation result.
+ */
+function validateName(name) {
+  const value = name.trim();
+  if (value.length <= 2) return { valid: false, msg: "Name must be more than 2 characters." };
+  if (/\d/.test(value))   return { valid: false, msg: "Name cannot contain numbers." };
   return { valid: true, msg: "" };
 }
 
-function validateEmailValue(v) {
-  const email = v.trim();
-  if (!isValidEmail(email))
+
+/**
+ * Validates an email address.
+ * @param {string} email - The email input value.
+ * @returns {{ valid: boolean, msg: string }} Validation result.
+ */
+function validateEmail(email) {
+  if (!isValidEmail(email.trim())) {
     return { valid: false, msg: "Invalid email. Please check your email." };
+  }
   return { valid: true, msg: "" };
 }
 
-function validatePasswordsValue(pass, confirm) {
-  if (!pass || !confirm)
-    return { valid: false, msg: "Passwords cannot be empty." };
-  if (pass !== confirm) return { valid: false, msg: "Passwords do not match." };
+
+
+/**
+ * Validates password and confirmation fields.
+ * - Cannot be empty
+ * - must be long than 5 charaters
+ * - Must match each other
+ * @param {string} password - The password input.
+ * @param {string} confirm - The confirmation input.
+ * @returns {{ valid: boolean, msg: string }} Validation result.
+ */
+function validatePasswords(password, confirm) {
+  if (!password || !confirm) return { valid: false, msg: "Passwords cannot be empty." };
+  if (password.length<6) return { valid: false, msg: "Password must be long than 5 caraters." };
+  if (password !== confirm)  return { valid: false, msg: "Passwords do not match." };
   return { valid: true, msg: "" };
 }
 
-// --- state: track if user touched each field -----------------
-const touched = {
-  name: false,
-  email: false,
-  password: false,
-  confirm: false,
-  policy: false,
-};
 
-// --- UI update helper ----------------------------------------
-function applyFieldState({ valid, msg }, { labelEl, errorEl }, showErrors) {
+/**
+ * Updates UI (label + error message) based on validation result.
+ * @param {{valid: boolean, msg: string}} validation - The validation result.
+ * @param {HTMLElement} label - The input label or wrapper element.
+ * @param {HTMLElement} error - The error message container element.
+ * @param {boolean} showErrors - Whether errors should be shown yet (depends on if field is "touched").
+ */
+function updateFieldUI(validation, label, error, showErrors) {
   if (!showErrors) {
-    // User hasn't interacted with this field yet → no errors displayed
-    labelEl.classList.remove("password-error");
-    errorEl.innerText = "";
+    label.classList.remove("password-error");
+    error.innerText = "";
     return;
   }
-  if (!valid) {
-    labelEl.classList.add("password-error");
-    errorEl.innerText = msg;
+  if (!validation.valid) {
+    label.classList.add("password-error");
+    error.innerText = validation.msg;
   } else {
-    labelEl.classList.remove("password-error");
-    errorEl.innerText = "";
+    label.classList.remove("password-error");
+    error.innerText = "";
   }
 }
 
 
-
-function validateForm() {
-  const nameRes = validateNameValue(nameRef.value);
-  const emailRes = validateEmailValue(emailRef.value);
-  const passRes = validatePasswordsValue(
-    passwordRef.value,
-    confirmPasswordRef.value
-  );
-  const policyRes = { valid: acceptPolicyRef.checked, msg: "" };
-  applyFieldState(
-    nameRes,
-    { labelEl: nameLabel, errorEl: nameError },
-    touched.name
-  );
-  applyFieldState(
-    emailRes,
-    { labelEl: emailLabel, errorEl: emailError },
-    touched.email
-  );
-  applyFieldState(
-    passRes,
-    { labelEl: passwordOutlineError, errorEl: passwordError },
-    touched.password || touched.confirm
-  );
-  const allValid =
-    nameRes.valid && emailRes.valid && passRes.valid && policyRes.valid;
-  signUpBtn.disabled = !allValid;
+/**
+ * Enables or disables the submit button based on form validity.
+ * @param {boolean} isValid - Whether the whole form is valid.
+ */
+function setButtonState(isValid) {
+  signUpBtn.disabled = !isValid;
 }
-nameRef.addEventListener("input", () => {
-  touched.name = true;
-  validateForm();
-});
-nameRef.addEventListener("blur", () => {
-  touched.name = true;
-  validateForm();
-});
 
-emailRef.addEventListener("input", () => {
-  touched.email = true;
-  validateForm();
-});
-emailRef.addEventListener("blur", () => {
-  touched.email = true;
-  validateForm();
-});
 
-passwordRef.addEventListener("input", () => {
-  touched.password = true;
-  validateForm();
-});
-passwordRef.addEventListener("blur", () => {
-  touched.password = true;
-  validateForm();
-});
+/**
+ * Validates the entire form:
+ * - Runs all field validators
+ * - Updates UI for touched fields
+ * - Enables/disables submit button
+ */
+function validateForm() {
+  const nameCheck   = validateName(nameRef.value);
+  const emailCheck  = validateEmail(emailRef.value);
+  const passCheck   = validatePasswords(passwordRef.value, confirmPasswordRef.value);
+  const policyCheck = { valid: acceptPolicyRef.checked, msg: "" };
+  updateFieldUI(nameCheck, nameLabel, nameError, touched.name);
+  updateFieldUI(emailCheck, emailLabel, emailError, touched.email);
+  updateFieldUI(passCheck, passwordOutlineError, passwordError, touched.password || touched.confirm);
+  const allValid = nameCheck.valid && emailCheck.valid && passCheck.valid && policyCheck.valid;
+  setButtonState(allValid);
+}
 
-confirmPasswordRef.addEventListener("input", () => {
-  touched.confirm = true;
-  validateForm();
-});
-confirmPasswordRef.addEventListener("blur", () => {
-  touched.confirm = true;
-  validateForm();
-});
+
+/**
+ * Tracks whether each field has been interacted with ("touched").
+ * This prevents showing errors before user has typed/blurred a field.
+ */
+const touched = { name: false, email: false, password: false, confirm: false, policy: false };
+
+
+/**
+ * Binds validation to an input field on both `input` and `blur` events.
+ * @param {HTMLInputElement} input - The input element.
+ * @param {string} key - The field key (matches `touched` object).
+ */
+function bindValidation(input, key) {
+  input.addEventListener("input", () => { touched[key] = true; validateForm(); });
+  input.addEventListener("blur",  () => { touched[key] = true; validateForm(); });
+}
+
+bindValidation(nameRef, "name");
+bindValidation(emailRef, "email");
+bindValidation(passwordRef, "password");
+bindValidation(confirmPasswordRef, "confirm");
 
 acceptPolicyRef.addEventListener("change", () => {
   touched.policy = true;
@@ -278,6 +289,10 @@ acceptPolicyRef.addEventListener("change", () => {
 
 document.addEventListener("DOMContentLoaded", validateForm);
 
+
+/**
+ * Displays success message for 2s, then redirects to login page.
+ */
 function showSucessMessage() {
   const successMessage = document.getElementById("success-message");
   successMessage.classList.remove("hide");
@@ -286,6 +301,7 @@ function showSucessMessage() {
     window.location.href = "login.html";
   }, 2000);
 }
+
 
 /**
  * Verifies if the policy checkbox has been accepted.
@@ -321,73 +337,14 @@ function verifyPassword(password, confirmPassword) {
   }
 }
 
-const passwordField = document.getElementById("sign-up-password");
-const toggleIcon = document.getElementById("eyePassword");
-const passwordField2 = document.getElementById("confirmPassword");
-const toggleIcon2 = document.getElementById("eyePassword2");
-let realValue = "";
-let isVisible = false;
-
-/**
- * this listener toggles the visibility of the password icon when a user start typing in the password field
- */
-passwordField.addEventListener("input", function () {
-  toggleIcon.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-});
-
-/**
- * this listener toggles the visibility of the password icon when a user start typing in the password field
- */
-passwordField2.addEventListener("input", function () {
-  toggleIcon2.innerHTML = `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-});
-
-/**
- * this listener change the visibility of the password value when a user typing in the password field
- */
-passwordField.addEventListener("input", (e) => {
-  const newValue = e.target.value;
-  if (newValue.length < realValue.length) {
-    realValue = realValue.slice(0, newValue.length);
-  } else {
-    realValue += newValue[newValue.length - 1];
-  }
-  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
-});
-
-passwordField2.addEventListener("input", (e) => {
-  const newValue = e.target.value;
-  if (newValue.length < realValue.length) {
-    realValue = realValue.slice(0, newValue.length);
-  } else {
-    realValue += newValue[newValue.length - 1];
-  }
-  passwordField2.value = isVisible ? realValue : "*".repeat(realValue.length);
-});
-
-/**
- * Toggles the visibility of the password input field.
- * Updates the input value to show either the real password or masked characters,
- * and switches the visibility icon accordingly.
- * @function
- * @global
- * @returns {void}
- */
-function togglePassword() {
-  isVisible = !isVisible;
-  passwordField.value = isVisible ? realValue : "*".repeat(realValue.length);
-  toggleIcon.innerHTML = isVisible
-    ? `<img src="./assets/icons/visibility.png" alt="lock">`
-    : `<img src="./assets/icons/visibility_off.png" alt="lock">`;
-}
 
 /**
  * open the Error page with location.href
  */
-
 function openErrorPage() {
   window.location.href = "error.html";
 }
+
 
 function clearCurrentUser() {
   if (localStorage.getItem("userName")) {
@@ -396,6 +353,7 @@ function clearCurrentUser() {
     localStorage.clear();
   }
 }
+
 
 /**
  * Toggles the visibility of the password input field.
