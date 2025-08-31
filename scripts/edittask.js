@@ -1,17 +1,11 @@
 import { initiateBoard } from "./board.js";
 import {ref, update,get,  database} from "./connection.js";
-const dataBaseURL =
-  "https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
+const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
 let alreadyAssigned = [];
 let subtasklistItem = [];
 let contactListGlobal = [];
 let contactIdList = [];
 let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
-let subtaskListEdit = document.getElementById("subtaskListEdit");
-let errorTitle  = document.getElementById('errorTitle');
-let errorDate  = document.getElementById('errorDate');
-const dueDateInput = document.getElementById('dueDate');
-const taskTitleInput = document.getElementById('taskTitle');
 
 
 /**
@@ -71,8 +65,7 @@ async function getUser(taskId) {
     await fetchContacts(taskId);
   }
   catch(error){
-    console.error("Error fetching contacts:", error);
-    // openErrorPage();
+    openErrorPage();
   }
 }
 
@@ -235,28 +228,11 @@ async function getEditedTask(taskId) {
     const newTitle = taskTitleInput ? taskTitleInput.value.trim() : '';
     const newDescription = taskDescriptionInput ? taskDescriptionInput.value.trim() : '';
     const newDueDate = dueDateInput ? dueDateInput.value : '';
-    isDueDatePassed(newDueDate);
-    renderError();
     const newPriority = priorityInput ? priorityInput.value : 'medium';
     const newAssignedTo = alreadyAssigned ? alreadyAssigned : [];
     const newSubtasks = subtasklistItem ? subtasklistItem : [];
     const updatedTaskData = { title: newTitle, description: newDescription, dueDate: newDueDate, priority: newPriority, assignedTo: newAssignedTo, subtasks: newSubtasks};
     await updateTaskInDatabase(updatedTaskData, taskId);
-}
-
-
-/**
- * check if the "date" ist already passed or is in the futur.
- * @param {date} date a date
- * @returns return true or false
- */
-function isDueDatePassed(date) {
-  if (!date) return false; 
-  const dueDate = new Date(date);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  dueDate.setHours(0, 0, 0, 0);
-  return dueDate < today;
 }
 
 
@@ -268,10 +244,7 @@ function isDueDatePassed(date) {
 function renderError() {
     let hasError = false;
     let errorTitle  = document.getElementById('errorTitle');
-    const dueDateInput = document.getElementById('dueDate');
     const taskTitleInput = document.getElementById('taskTitle');
-    const dueDate = dueDateInput.value.trim();
-    hasError = validateDueDate(dueDate);
     if (!taskTitleInput.value.trim()) {
         taskTitleInput.classList.add('field-error');
         errorTitle.classList.remove('hide');
@@ -287,40 +260,12 @@ function renderError() {
  * 
  */
 function removeError(){
-    const dueDateInput = document.getElementById('dueDate');
     const taskTitleInput = document.getElementById('taskTitle');
     let errorTitle  = document.getElementById('errorTitle');
-    let errorDate  = document.getElementById('errorDate');
     setTimeout(()=>{
         taskTitleInput.classList.remove('field-error');
-        dueDateInput.classList.remove('field-error');
         errorTitle.classList.add('hide');
-        errorDate.classList.add("hide");
     }, 3000);
-}
-
-/**
- * check if the date was enter by user if not the render the error mesage by remove the hide class in the error field
- * or if the date is already passed. it remove the hide class and add the message "THE DATE IS ALREWADY PASSED" 
- * @param {string} dueDate date 
- * @returns true or false
- */
-function validateDueDate(dueDate) {
-    let hasError = false;
-    const dueDateInput = document.getElementById('dueDate');
-    let errorDate  = document.getElementById('errorDate');
-    if (!dueDate) {
-    dueDateInput.classList.add('field-error');
-    errorDate.classList.remove("hide");
-    hasError = true;
-    } 
-    else if (isDueDatePassed(dueDate)) {
-    dueDateInput.classList.add('field-error');
-    errorDate.classList.remove("hide");
-    errorDate.innerHTML = "This date is already passed";
-    hasError = true;
-    }
-    return hasError;
 }
 
 
@@ -379,7 +324,6 @@ function getEditedSubtask(){
 }
 
 
-
 /**
  * change the subtask list item to edit mode
  * @param {*} subtaskContent subtask content
@@ -432,13 +376,11 @@ function modifySubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         const newValue = input.value;
-        subtasklistItem[found] = {
-            title: newValue.trim(),
-            checked: false
-        };
+        if(!newValue.trim()) return ;
+        subtasklistItem[found] = {title: newValue.trim(),  checked: false };
         input.value = '';
         const contain = input.closest(".subtask-item");
-        contain.outerHTML = `<div class="subtask-item"><li>${newValue}</li></div>`;
+        contain.outerHTML = renderSubtask(subtasklistItem[found]);
         initiateBoard();
     }
 }
@@ -450,6 +392,7 @@ function modifySubtaskInEdited(subtaskContent){
  * @returns 
  */
 function deleteSubtaskInEdited(subtaskContent){
+    const input = document.getElementById('subtaskEdit');
     const container = document.querySelector('.subtask-item');
      if (!Array.isArray(subtasklistItem)) {
         return;
@@ -459,6 +402,8 @@ function deleteSubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         subtasklistItem.splice(found, 1);
+        const contain = input.closest(".subtask-item");
+        contain.innerHTML = '';
         container.innerHTML = '';
         initiateBoard();
     }
@@ -475,4 +420,3 @@ window.deleteSubtaskInEdited = deleteSubtaskInEdited;
 window.getUser = getUser;
 window.fetchContacts = fetchContacts;
 window.renderError = renderError;
-

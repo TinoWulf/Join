@@ -326,6 +326,7 @@
   height: 100%;
   padding-left: 5px;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .img-icons img:hover{

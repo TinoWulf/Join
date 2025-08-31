@@ -65,6 +65,14 @@
   border-radius: 20px 0  20px 20px;
 }
 
+.move-mobile-task h5{
+  text-align: center;
+  color: var(--blue);
+  font-size: 20px;
+  padding: 5px;
+}
+
+
 .move-mobile-task ul{
   text-decoration: none;
   list-style: none;
@@ -72,6 +80,7 @@
 }
 
 .move-mobile-task ul li{
+  font-size: 15px;
   padding: 5px;
 }
 

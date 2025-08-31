@@ -10,11 +10,12 @@ function templateTaskCard(task) {
       <div class="taskCard-header" id="task${task.id}">
         <span class="taskType">${task.category}</span>
         <div class="move-mobile-task hide" id="moveTaskMobile">
+          <h5>Move To:</h5>
           <ul>
-            <li onclick="moveTo(${task.id}, 'toDo');preventEvent(event)" class="${task.range === "toDo"  ? "hide"  : " "}">ToDo</li>
-            <li onclick="moveTo(${task.id}, 'inProgress');preventEvent(event)" class="${task.range === "inProgress"  ? "hide"  : " "}">In Progress</li>
-            <li onclick="moveTo(${task.id}, 'awaitReview');preventEvent(event)" class="${task.range === "awaitReview"  ? "hide"  : " "}" >Await Feedback</li>
-            <li onclick="moveTo(${task.id}, 'done');preventEvent(event) " class="${task.range === "done"  ? "hide"  : " "}"  >Done</li>
+            <li onclick="moveTo(${task.id}, 'toDo');preventEvent(event)" class="${task.range === "toDo"  ? "hide"  : " "}">- ToDo</li>
+            <li onclick="moveTo(${task.id}, 'inProgress');preventEvent(event)" class="${task.range === "inProgress"  ? "hide"  : " "}">- In Progress</li>
+            <li onclick="moveTo(${task.id}, 'awaitReview');preventEvent(event)" class="${task.range === "awaitReview"  ? "hide"  : " "}" >- Await Feedback</li>
+            <li onclick="moveTo(${task.id}, 'done');preventEvent(event) " class="${task.range === "done"  ? "hide"  : " "}"  >- Done</li>
           </ul>
         </div>
         <img src="${task.range === "done"  ? "./assets/icons/up.png"  : task.range === "toDo" ? "./assets/icons/down.png" : "./assets/icons/up-down.png"}" alt="cancel" class="move-task-mobile" onclick="openMoveTaskMobile(${task.id}, event)" />
@@ -226,7 +227,21 @@ function templateEditTask(task){
                 
               </form>
               <div class="already-assigned" id="alreadyAssigned">
-                ${task.assignedTo?.length>0 ? task.assignedTo.map((user) => `<span>${getAbbreviation(user.name)}</span>`).join(""): '' }
+                ${
+                    task.assignedTo?.length > 0 
+                      ? (() => {
+                          const visibleCount = 6;
+                          const users = task.assignedTo;
+                          const visibleUsers = users.slice(0, visibleCount);
+                          const hiddenCount = users.length - visibleCount;
+                          const spans = visibleUsers.map(user => `<span>${getAbbreviation(user.name)}</span>`);
+                          if (hiddenCount > 0) {
+                            spans.push(`<span class="more-users">+${hiddenCount}</span>`);
+                          }
+                          return spans.join("");
+                        })()
+                      : ''
+                    }
               </div>
 
           </label>
