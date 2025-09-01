@@ -36,7 +36,7 @@ function renderContactInfo(initials, color, user, email, phone, userID) {
         <div class="center-bottom">
             <div class="center-bottom-mail">
                 <sub class="center-bottom-mail-text">Email</sub>
-                <sub class="center-bottom-mail-name">${email}</sub>
+                <a href="mailto:${email}"><sub class="center-bottom-mail-name">${email}</sub></a>
             </div>
             <div class="center-bottom-number">
                 <sub class="center-bottom-phone-text">Phone</sub>

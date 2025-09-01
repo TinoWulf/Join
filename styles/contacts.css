@@ -305,7 +305,7 @@ body {
 }
 
 .center-bottom {
-    width: 140px;
+    width: 320px;
     height: 128px;
     gap: 22px;
     opacity: 1;
@@ -314,7 +314,7 @@ body {
 }
 
 .center-bottom-mail {
-    width: 140px;
+    width: 320px;
     height: 53px;
     gap: 15px;
     opacity: 1;
@@ -344,6 +344,10 @@ body {
     line-height: 120%;
     vertical-align: middle;
     color: #007CEE;
+}
+
+.center-bottom-mail-name:hover {
+    cursor: pointer;
 }
 
 .center-bottom-phone-text {
