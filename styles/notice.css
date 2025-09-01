@@ -11,6 +11,14 @@
     transform: scale(1.1);
 }
 
+address {
+    font-style: normal;
+    padding-top: 20px;
+}
+.impressum-place {
+    padding-bottom: 20px;
+}
+
 @media (max-width: 876px) {
     .policy-body {
         padding:100px 10px;
