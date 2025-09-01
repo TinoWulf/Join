@@ -191,7 +191,7 @@ body {
 }
 
 .center-body {
-    position: absolute;
+    position: fixed;
     width: auto;
     height: 364px;
     top: 311px;
