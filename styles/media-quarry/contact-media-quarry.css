@@ -1,4 +1,4 @@
-@media (max-width:1400px) {
+@media (max-width:1460px) {
     .contacts {
         width: 350px;
     }
@@ -40,7 +40,7 @@
 
 }
 
-@media (max-width:1250px) {
+@media (max-width:1310px) {
 
     .popup-main {
         width: 1000px;
@@ -174,7 +174,7 @@
     }
 }
 
-@media (max-width: 1030px) {
+@media (max-width: 1055px) {
 
     .center-top-name {
         font-size: 30px;
@@ -240,6 +240,23 @@
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 920px) {
+
+    .center-top-name {
+        max-width: 230px;
+    }
+
+    .center-headline-text {
+        font-size: 35px;
+    }
+
+    .center-head {
+        left: 520px;
+        width: 355px;
+        gap: 8px;
     }
 }
 

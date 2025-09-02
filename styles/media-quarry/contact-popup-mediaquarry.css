@@ -1,4 +1,4 @@
-@media (max-width: 1030px) {
+@media (max-width: 1055px) {
     .popup-main {
         width: 800px;
     }
@@ -129,8 +129,8 @@
     }
 
     .popup-contact-div {
-        height: 120px;
-        width: 120px;
+        height: 100px;
+        width: 100px;
         top: -55px;
         right: 10%;
         z-index: 1000;
@@ -237,7 +237,7 @@
     }
 
     .popup-banner-sub2 {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .popup-banner-join-text {
