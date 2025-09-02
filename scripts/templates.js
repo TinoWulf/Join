@@ -180,7 +180,7 @@ function donePlaceholderTemplate(){
  */
 function templateEditTask(task){
   return `
-  <script src="./scripts/edittaskAction.js"></script>
+  <script type="module" src="./scripts/edittaskAction.js"></script>
      <div class="editTaskPopup container-edit" onclick="preventEvent(event)">
             <div class="taskCard-header close-header edit-header">
               <spa class="taskType"></spa>
@@ -259,6 +259,7 @@ function templateEditTask(task){
                 </div>
                 <span onclick="addSubstask()",onclick="preventEvent(event)" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
               </div>
+              <p id="errorSubtask" class="error-message error-subtask"></p>
               <div id="subtaskListEdit" class="subtask-listes-edit">
               ${task.subtasks?.length > 0 ? task.subtasks.map((subtask, index) => 
                 `<div class="subtask-item">

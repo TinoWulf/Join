@@ -26,3 +26,4 @@ function deleteSubtaskInput(){
 }
 
 window.deleteSubtaskInput = deleteSubtaskInput;
+

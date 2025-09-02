@@ -202,6 +202,8 @@ function renderAssignedUsers() {
 function addSubstask(){
     let SubtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
+    let labelSubtask = document.getElementById("addSubtask");
+    let errorSubtask = document.getElementById("errorSubtask");
     let newSubtask = newSubtaskRef.value.trim();
     const already = !!subtasklistItem.find(item => item.title == newSubtask);
     if(newSubtask && !already && newSubtask !=""){
@@ -210,7 +212,9 @@ function addSubstask(){
         SubtasklistContainer.innerHTML+= renderSubtask(subtask);
         newSubtaskRef.value = '';
     }else{
-        SubtasklistContainer.innerHTML+="";
+        labelSubtask.classList.add('field-error');
+        errorSubtask.innerHTML = "This subtask already exists!"
+        clearAddSubtaskError();
     }
     return subtasklistItem;
 }
@@ -266,6 +270,21 @@ function removeError(){
         taskTitleInput.classList.remove('field-error');
         errorTitle.classList.add('hide');
     }, 3000);
+}
+
+
+/**
+ * set and after 1s clear the error message in addSubtask input.
+ */
+function clearAddSubtaskError(){
+  let labelSubtask = document.getElementById("addSubtask");
+  let errorSubtask = document.getElementById("errorSubtask");
+  labelSubtask.classList.add('field-error');
+  errorSubtask.innerHTML = "This subtask already exists!"
+  setTimeout(()=>{
+    labelSubtask.classList.remove('field-error');
+    errorSubtask.innerHTML = ""
+  },1000)
 }
 
 

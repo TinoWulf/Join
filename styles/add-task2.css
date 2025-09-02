@@ -82,6 +82,13 @@
   padding-left: 0;
 }
 
+.error-subtask{
+  display: block;
+  height: 20px;
+  width: 100%;
+}
+
+
 .subbtask-margin{
   margin-top: 20px;
 }

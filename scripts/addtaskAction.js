@@ -14,7 +14,40 @@ let resetButton  = document.getElementById('resetButton');
 let addSubtaskRef  = document.getElementById('addSubtask');
 let imgAddsubtaskPlus  = document.querySelector('.img-addsubtask');
 let imgIconsAddsubtask  = document.getElementById('imgIcons');
+let labelSubtask = document.getElementById("addSubtask");
+let errorSubtask = document.getElementById("errorSubtask");
 
+
+/**
+ * set and after 1s clear the error message in addSubtask input.
+ */
+function clearAddSubtaskError(){
+  let labelSubtask = document.getElementById("addSubtask");
+  let errorSubtask = document.getElementById("errorSubtask");
+  labelSubtask.classList.add('field-error');
+  errorSubtask.innerHTML = "This subtask already exists!"
+  setTimeout(()=>{
+    labelSubtask.classList.remove('field-error');
+    errorSubtask.innerHTML = ""
+  },2000)
+}
+
+
+/**
+ * Retrieves the selected category from the dropdown and updates the input field accordingly. This function also sets up event listeners for category options.
+ */
+function getCategory(event){
+    contactBoard.classList.add("hide");
+    let categoryInput  = document.getElementById('categoryInput');
+    let options = document.querySelectorAll(".category option");
+    options.forEach(category=>{
+        category.addEventListener('click', function(){
+            categoryInput.value = category.value;
+        })
+    })
+    showCategory();
+    event.stopPropagation();
+}
 
 
 /**

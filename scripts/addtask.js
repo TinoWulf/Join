@@ -15,6 +15,8 @@ let errorCat  = document.getElementById('errorCat');
 let labelCategory  = document.getElementById('labelCategory');
 let categoryList  = document.getElementById('category');
 let contactBoard = document.getElementById("assigned");
+let labelSubtask = document.getElementById("addSubtask");
+let errorSubtask = document.getElementById("errorSubtask");
 let AssignToLabel = document.getElementById("assigned-to");
 let assignedToList = [];
 let subtasks = [];
@@ -85,7 +87,10 @@ function addSubstask(){
        showSubTask();
         newSubtaskRef.value = '';
     }else{
-        subtasklistContainer.innerHTML+="";
+        labelSubtask.classList.add('field-error');
+        errorSubtask.innerHTML = "This subtask already exists!"
+        newSubtaskRef.value = newSubtask;
+        clearAddSubtaskError();
     }
     return subtasks;
 }
@@ -334,22 +339,6 @@ function showContainerOnBoardAddTask(event){
 }
 
 
-/**
- * Retrieves the selected category from the dropdown and updates the input field accordingly. This function also sets up event listeners for category options.
- */
-function getCategory(event){
-    contactBoard.classList.add("hide");
-    let categoryInput  = document.getElementById('categoryInput');
-    let options = document.querySelectorAll(".category option");
-    options.forEach(category=>{
-        category.addEventListener('click', function(){
-            categoryInput.value = category.value;
-        })
-    })
-    showCategory();
-    event.stopPropagation();
-}
-
 
 /**
  * Fetches all contacts from the database and renders them on the assigned conntainer in Addtask form. If the fetch operation fails, it will open an error page.
@@ -385,7 +374,6 @@ function renderContact(contactIdList, contactData) {
     }
 }
 
-
 export{setupPriorityButtons, isDueDatePassed };
 
 window.getTaskData = getTaskData;
@@ -394,7 +382,7 @@ window.setupPriorityButtons = setupPriorityButtons;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
-window.getCategory = getCategory;
+// window.getCategory = getCategory;
 window.showCategory = showCategory;
 window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;

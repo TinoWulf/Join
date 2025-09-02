@@ -6,11 +6,6 @@
     max-width: calc(1920px - 232px);
 }
 
-.on-policy {
-    color: var(--blue) !important;
-    transform: scale(1.1);
-}
-
 @media (max-width: 876px) {
     .policy-body {
         padding:100px 10px;

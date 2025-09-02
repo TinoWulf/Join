@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/menu-bar.css">
     <link rel="stylesheet" href="./styles/standard.css">
     <link rel="stylesheet" href="./styles/add-task.css">
     <link rel="stylesheet" href="./styles/add-task2.css">
@@ -91,7 +92,7 @@
                     </div>
                     <p class="error-message hide" id="errorCat">This field is required</p>
                 </label>
-                <label for="subtasks" class="label-subtask subbtask-margin">Subtasks
+                <label for="subtasks" class="label-subtask subbtask-margin" id="labelSubtask">Subtasks
                     <div class="drop-down-input" id="addSubtask">
                         <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask" class="subtask-add">
                         <div class="img-icons" id="imgIcons">
@@ -105,6 +106,7 @@
                         <span onclick="addSubstask()" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
                     </div>
                 </label>
+                <p id="errorSubtask" class="error-message error-subtask"></p>
                 <div id="subtaskListEdit" class="subtask-listes">
 
                 </div>
