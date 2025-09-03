@@ -27,6 +27,14 @@
   border-radius: 0 0 10px 10px;
 }
 
+.drop-down-input span{
+  cursor: pointer;
+}
+
+.drop-down-input span img:hover{
+  scale: 1.5;
+}
+
 .drop-down-input .subtask-add:focus span{
   background-color: brown;
 }
@@ -134,11 +142,11 @@
 
 .img-addsubtask{
   z-index: 0;
-  scale: 1.3;
+  scale: 1;
 }
 
 .img-addsubtask:hover{
-  scale: 2;
+  scale: 1.5;
 }
 
 .success-message{
