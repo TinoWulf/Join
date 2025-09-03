@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .contacts {
     position: fixed;
     width: 456px;

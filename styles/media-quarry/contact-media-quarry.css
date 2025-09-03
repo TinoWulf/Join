@@ -362,7 +362,7 @@
         position: relative;
         top: 76px;
         display: none;
-        overflow-y: auto;
+        overflow-y: hidden;
         overflow-x: hidden;
     }
 
