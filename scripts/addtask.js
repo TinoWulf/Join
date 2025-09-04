@@ -18,7 +18,7 @@ let contactBoard = document.getElementById("assigned");
 let labelSubtask = document.getElementById("addSubtask");
 let errorSubtask = document.getElementById("errorSubtask");
 let AssignToLabel = document.getElementById("assigned-to");
-let assignedToList = [];
+window.assignedToList = [];
 let subtasks = [];
 let contactList = [];
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
@@ -38,15 +38,15 @@ function getAssignedContactById(id, event){
     const name = contactRef.value.trim();
     if(contactRef.checked){
         const newContact = {name: name,  checked: true }
-        if(!assignedToList.find(item => item.name === newContact.name)){
-            assignedToList.push(newContact);
+        if(!window.assignedToList.find(item => item.name === newContact.name)){
+            window.assignedToList.push(newContact);
         }
     }else{
-        assignedToList = assignedToList.filter(item => item.name !== name);
+        window.assignedToList = window.assignedToList.filter(item => item.name !== name);
     }
     renderAssignedUsers();
     event.stopPropagation();
-    return assignedToList;
+    return window.assignedToList;
 }
 
 
@@ -56,12 +56,12 @@ function getAssignedContactById(id, event){
  */
 function renderAssignedUsers() {
   alreadyAssignedContainer.innerHTML = '';
-  for (let i = 0; i < assignedToList.length; i++) {
+  for (let i = 0; i < window.assignedToList.length; i++) {
     if (i < 4) {
-      const assignedTo = assignedToList[i];
+      const assignedTo = window.assignedToList[i];
       alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;
     } else if (i === 4) {
-      const remaining = assignedToList.length - 4;
+      const remaining = window.assignedToList.length - 4;
       alreadyAssignedContainer.innerHTML += `<span>+${remaining}</span>`;
       break; 
     }
@@ -235,7 +235,7 @@ function getTaskData(){
     let newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
     let newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
     let newPriority = priorityInput.value ? priorityInput.value : 'medium';
-    let newAssignedTo = assignedToList ? assignedToList: [];
+    let newAssignedTo = window.assignedToList ? window.assignedToList: [];
     let newSubtasks = subtasks ? subtasks : [];
     const taskData = {id: Date.now(), title: newTitle,  description: newDescription,  dueDate: newDueDate, category: category, range: "toDo", priority: newPriority, assignedTo: newAssignedTo,  subtasks: newSubtasks};
     getAddTask(taskData);

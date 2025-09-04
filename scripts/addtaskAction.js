@@ -91,7 +91,7 @@ resetButton.addEventListener('click', function(){
     subtaskListEdit.innerHTML = '';
     AssignedContact.innerHTML = '';
     contactBoard.innerHTML = '';
-    assignedToList = [];
+    window.assignedToList.length = 0;
     subtasks = [];
     contactList = [];
     setupPriorityButtons('medium');
@@ -134,4 +134,3 @@ function activeNavItem(){
     document.getElementById('addtask').classList.add('active');
     document.getElementById('summary').classList.remove('active');
 }
-
