@@ -124,7 +124,7 @@ function toDoPlaceholderTemplate(){
   return `
 
     <div id="toDoTaskPlaceholder" class="placeholder show">
-      No tasks To do
+      No tasks Todo
       </div>
   
   `;
@@ -139,7 +139,7 @@ function toDoPlaceholderTemplate(){
 function inProgressPlaceholderTemplate(){
   return `
     <div id="inProgressTaskPlaceholder" class="placeholder show">
-      No tasks in progress
+      No tasks in Progress
     </div>
   `;
 }
@@ -153,7 +153,7 @@ function inProgressPlaceholderTemplate(){
 function awaitReviewPlaceholderTemplate(){
   return `
     <div id="awaitReviewTaskPlaceholder" class="placeholder show">
-      No tasks awaiting feedback
+      No tasks Awaiting Feedback
     </div>
   `;
 }
@@ -298,6 +298,125 @@ function templateRenderContactOnBord(contact, contactIsAssignedToTask){
   `;
 }
 
+function templateAddTaskInBoard(){
+  return `
+    <link rel="stylesheet" href="./styles/add-task-board.css">
+    <link rel="stylesheet" href="./styles/add-task2.css">
+    <script type="module" src="./scripts/addtaskboard.js"></script>
+    <section class="main-addtask" id="addTaskContain">
+        <h1 class="add-task-header">Add Task</h1>
+    
+        <div id="add-task-form" class="add-task-form">
+            <div class="add-left-side">
+                <label for="title" class="label-title">
+                    <p>Title <span class="star">*</span></p>
+                    <div class="input-title" id="titleContain">
+                        <input id="taskTitle" class="outline" type="text" name="title" placeholder="Enter a title" required>
+                    </div>
+                    <p class="error-message hide" id="errorTitle">This field is required</p>
+                </label>
+                <label for="description" class="label-textarea">
+                    Description
+                    <div class="input-textarea">
+                        <textarea id="taskDescription" name="description" class="textarea" class="description-area" id="description" rows="5" cols="100" placeholder="Enter a Description"></textarea>
+                    </div>
+                </label>
+                <label for="date" class="label-date">
+                    <p>Due date <span class="star">*</span></p>
+                    <div class="input-date" id="dateContain">
+                        <input   class="required outline" type="date" id="dueDate" name="date" required placeholder="dd/mm/yyyy" /> 
+                    </div>
+                    <p class="error-message hide" id="errorDate">This field is required</p>
+                </label>
+            </div>
+            <div class="separator"></div>
+            <div class="add-right-side">
+                <label for="priority" class="label-priority">
+                    Priority
+                    <div class="button-priority-container" id="">
+                        <input type="hidden" name="priority" id="priorityInput" value="" />
+                        <button type="submit"  class="priority-button" id="priorityButtonUrgent" data-priority="urgent">
+                            Urgent
+                            <img class="priority-img" src="./assets/icons/urgent.png" id="imgUrgent">
+                        </button>
+                        <button type="submit" class="priority-button" id="priorityButtonMedium" data-priority="medium">
+                            Medium
+                            <img class="priority-img" src="./assets/icons/medium.png" id="imgMedium">
+                        </button>
+                        <button type="submit"  class="priority-button" id="priorityButtonLow" data-priority="low">
+                            low
+                            <img class="priority-img" src="./assets/icons/low.png" id="imgLow">
+                        </button>
+                    </div>
+                </label>
+                <label for="assigned" id="assigned-to" class="label-assignto">
+                    Assigned to
+                    <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)">
+                        <input name="assigned" id="assignedTo" placeholder="Select contacts to assign" readonly/>
+                        <span><img src="./assets/icons/drop-down.png" alt=""></span>
+                    </div>
+                    <form name="assigned" id="assigned" class="hide container-contact">
+                        
+                        
+                    </form>
+                </label>
+                <div class="assigned-contact" id="assignedContact">
+
+                </div>
+                
+                <label for="category" class="label-category" id="labelCategory">
+                    <p>Category <span class="star">*</span></p>
+                    <div class="drop-down-input" onclick="getCategory(event)" id="categoryContain">
+                        <input type="text" placeholder="Select task category" readonly id="categoryInput">
+                        <span onclick="getCategory(event)"><img class="arrow-drop-down-img" src="./assets/icons/arrow_drop_down.png"></span>
+                    </div>
+                    <div id="category" class="category hide">
+                        <option value="User Story" onclick="showCategory()">User Story</option>
+                        <option value="Technical Task" onclick="showCategory()">Technical Task</option>
+                        <option value="Development" onclick="showCategory()">Developement</option>
+                        <option value="Maketing" onclick="showCategory()">Maketing</option>
+                    </div>
+                    <p class="error-message hide" id="errorCat">This field is required</p>
+                </label>
+                <label for="subtasks" class="label-subtask subbtask-margin" id="labelSubtask">Subtasks
+                    <div class="drop-down-input" id="addSubtask">
+                        <input type="text" name="subtasks" id="subtask-input" placeholder="Add new Subtask" class="subtask-add">
+                        <div class="img-icons" id="imgIcons">
+                            <span class="delete-icon" onclick="deleteSubtaskInput()">
+                                <img src="./assets/icons/close.png"alt="search icon" />
+                            </span>
+                            <span class="check-icon" onclick="addSubstask(); deleteSubtaskInput()">
+                                <img src="./assets/icons/checkgrey.png" alt="search icon" />
+                            </span>
+                        </div>
+                        <span onclick="addSubstask()" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                    </div>
+                </label>
+                <div id="subtaskListEdit" class="subtask-listes">
+
+                </div>
+            </div>
+        </div>
+        <div class="add-task-form-footer">
+            <p><span class="star">*</span> This field is required</p>
+            <div class="button-footer-container">
+                <button type="reset" class="cancel-button" id="resetButton">Clear
+                        <img class="button-img" src="./assets/icons/iconoir_cancel.png">
+                </button>
+                <button type="submit" class="create-task-button" onclick="getTaskData()" id="addTask">
+                    Create Task
+                    <img class="button-img" src="./assets/icons/check.png">
+                </button>
+            </div>
+        </div>
+        <div id="taskMessage">
+
+        </div>
+        <span class="this-list-is-for-test"></span>
+    </section>
+  `;
+}
+
 
 export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord };
 
@@ -309,3 +428,4 @@ window.inProgressPlaceholderTemplate = inProgressPlaceholderTemplate ;
 window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
 window.donePlaceholderTemplate = donePlaceholderTemplate ;
 window.templateRenderContactOnBord = templateRenderContactOnBord ;
+window.templateAddTaskInBoard = templateAddTaskInBoard ;

@@ -81,21 +81,22 @@ if (!actualUser || actualUser === '' ) {
 
 
 resetButton.addEventListener('click', function(){
-    categoryInput.value ='';
-    taskTitleInput.value ='';
-    taskDescriptionInput.value = '';
-    dueDateInput.value = ''; 
-    priorityInput.value = '';
-    let subtaskListEdit = document.getElementById('subtaskListEdit');
-    let AssignedContact = document.getElementById('assignedContact');
-    subtaskListEdit.innerHTML = '';
-    AssignedContact.innerHTML = '';
-    contactBoard.innerHTML = '';
-    window.assignedToList.length = 0;
-    subtasks = [];
-    contactList = [];
-    setupPriorityButtons('medium');
-    getUser();
+  categoryInput.value ='';
+  location.reload();
+  taskTitleInput.value ='';
+  taskDescriptionInput.value = '';
+  dueDateInput.value = ''; 
+  priorityInput.value = '';
+  window.contactList = [];
+  window.subtasks = [];
+  let subtaskListEdit = document.getElementById('subtaskListEdit');
+  let AssignedContact = document.getElementById('assignedContact');
+  subtaskListEdit.innerHTML = '';
+  AssignedContact.innerHTML = '';
+  contactBoard.innerHTML = '';
+  window.assignedToList.length = 0;
+  setupPriorityButtons('medium');
+  getUser();
 })
 
 

@@ -1,8 +1,6 @@
 .main-addtask{
-  max-width: calc(1920px - 232px);
-  margin-left: 250px;
-  margin-top: 90px;
-  padding: 10px 0 10px 20px;
+  max-width: calc(100%);
+  padding: 10px;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -21,32 +19,32 @@ button{
 }
 
 .add-left-side{
-    width: 540px;
+    width: 440px;
     min-width: 240px;
     height: 392px;
     display: flex;
     flex-direction: column;
     justify-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .add-right-side{
-    width: 540px;
+    width: 440px;
     min-width: 240px;
-    min-height: 400px;
-    max-height: auto;
+    height: 450px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 label, .label-date{
     width: 100%;
-    height: 96px;
+    height: 80px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
 
 .input-title, .input-date{
@@ -67,7 +65,7 @@ label, .label-date{
 .label-textarea{
   width: 100%;
   height: 168px;
-  gap: 8px;
+  gap: 4px;
 }
 
 .input-textarea{
@@ -80,7 +78,7 @@ label, .label-date{
   border-radius: 10px;
   width: 100%;
   height: 120px;
-  padding: 18px 16px;
+  padding: 12px 16px;
   outline: none;
   font-size: 20px;
 }
@@ -96,7 +94,7 @@ label, .label-date{
 
 .label-date input[type="date"]::-webkit-calendar-picker-indicator{
   background-image: url('../assets/icons/event.png');
-  transform: scale(1.5);
+  transform: scale(1.4);
 }
 
 .separator{
@@ -132,6 +130,7 @@ label, .label-date{
   justify-content: center;
   gap: 8px;
   border-radius: 10px;
+  border: 2px solid var(--light-grey-color);
 }
 
 .label-assignto, .label-category, .label-subtask {
@@ -164,12 +163,8 @@ label, .label-date{
   height: 30px;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
-}
-
-.menu, .navbar{
-  z-index: 2;
 }
 
 .option{
@@ -249,7 +244,7 @@ label, .label-date{
 
 .error-message{
   color: #FF8190;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .drop-down-input{
@@ -297,7 +292,7 @@ label, .label-date{
   padding: 5px 10px;
   flex-wrap: wrap;
   width: 100%;
-  height: 50px;
+  height: auto;
 }
 
 .assigned-contact span{
@@ -329,4 +324,26 @@ label, .label-date{
 .low {
   background-color: rgb(122, 226, 41) !important;
   color: white;
+}
+
+.add-right-side::-webkit-scrollbar {
+  height: 2px;
+  width: 2px;
+  background-color: transparent; 
+}
+
+.add-right-side::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 3px;
+}
+
+.add-right-side::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.add-task-form-footer{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 50px;
 }

@@ -18,6 +18,7 @@
       type="image/x-icon"
     />
     <script src="./script.js"></script>
+    <script type="module" src="./scripts/templates.js"></script>
     <script  defer src="./scripts/scriptBord.js"></script>
   </head>
   <body onload="initiateBoard()" onclick="closeAllOpenMove()">
@@ -25,6 +26,7 @@
       
     </header>
     <div class="taskCardParent hide" id="taskCardParent" onclick="closePopUp(event)">
+      <div id="addTaskBoard" class="add-task-board" onclick="preventEvent(event)"></div>
       <!--   -->
 
     </div>
@@ -52,7 +54,7 @@
               ><img src="./assets/icons/search.png" alt="search icon"
             /></span>
           </div>
-          <button class="add-task" onclick="openAddTask()">
+          <button class="add-task" onclick="loadAddtask()">
             Add Task
             <img src="./assets/icons/add.png" alt="add icon" />
           </button>
