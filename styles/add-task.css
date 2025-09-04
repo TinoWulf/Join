@@ -295,7 +295,7 @@ label, .label-date{
   padding: 5px 10px;
   flex-wrap: wrap;
   width: 100%;
-  height: auto;
+  height: 50px;
 }
 
 .assigned-contact span{
