@@ -226,7 +226,7 @@ function templateEditTask(task){
                 
                 
               </form>
-              <div class="already-assigned" id="alreadyAssigned">
+              <div class="already-assigned" id="assignedContact">
                 ${
                     task.assignedTo?.length > 0 
                       ? (() => {
@@ -300,6 +300,7 @@ function templateRenderContactOnBord(contact, contactIsAssignedToTask){
 
 function templateAddTaskInBoard(){
   return `
+  <script type="module" src="./scripts/addtaskboard.js"></script>
     <link rel="stylesheet" href="./styles/add-task-board.css">
     <link rel="stylesheet" href="./styles/add-task2.css">
     <section class="main-addtask" id="addTaskContain">

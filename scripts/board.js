@@ -1,5 +1,5 @@
 import {database,ref,update,get } from "./connection.js";
-import {initialiseElements } from "./addtaskboard.js";
+import {getAssignedContactById, addSubstask } from "./addtaskboard.js";
 import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
 import {applyAssignedToColors } from "./searchtask.js";
 import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateAddTaskInBoard } from "./templates.js";
@@ -331,15 +331,11 @@ async function moveTo(currentDraggedTask, range) {
 function loadAddtask(){
   document.getElementById('taskCardParent').classList.remove('hide');
   const addTaskContainer = document.getElementById("addTaskBoard");
-  try{
-    addTaskContainer.innerHTML = templateAddTaskInBoard();
-    initialiseElements();
-    setupPriorityButtons('medium');
-    getUser();
-  }catch(error){
-    console.error("Error loading add task template:", error);
-  }
-  
+  addTaskContainer.innerHTML = templateAddTaskInBoard();
+  // initialiseElements();
+  setupPriorityButtons('medium');
+  document.getElementById("assigned").innerHTML = '';
+  getUser();
 }
 
 

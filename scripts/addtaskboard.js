@@ -116,7 +116,6 @@ function getCategory(event){
  * Adds a new subtask to the subtasks array and updates the display of subtasks.
  */
 function addSubstask(){
-    let subtasklistContainer =  document.getElementById('subtaskListEdit');
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
     const already = !!subtasks.find(item => item.title == newSubtask);
@@ -173,7 +172,7 @@ function getEditedSubtask(){
     subsTasks.forEach((subtask) => {
         subtask.addEventListener('click', function(){
             if(subtask.querySelector('input')){
-                return
+                return;
             }
             const subtaskContent = subtask.querySelector('li').textContent.trim();
             subtask.innerHTML = "";
@@ -221,7 +220,7 @@ function modifySubtaskInEdited(subtaskContent){
         return;
     }else if(found>= 0){
         if(!input.value.trim() || input.value.length < 2){
-            return
+            return;
         }
         const newValue = input.value;
         subtasks[found] = {title: newValue.trim(), checked: false};
@@ -297,6 +296,9 @@ function renderError() {
     const dueDate = dueDateInput.value.trim();
     const taskTitleInput = document.getElementById('taskTitle');
     const categoryInput  = document.getElementById('categoryInput');
+    const errorCat  = document.getElementById('errorCat');
+    const errorTitle  = document.getElementById('errorTitle');
+    const errorDate  = document.getElementById('errorDate');
     hasError = validateDueDate(dueDate);
     if (!taskTitleInput.value.trim()) {
         taskTitleInput.classList.add('field-error');
@@ -308,7 +310,7 @@ function renderError() {
         errorCat.classList.remove('hide');
         hasError = true;
     }
-    removeError();
+    removeError(errorTitle, errorDate, errorCat);
     return !hasError;
 }
 
@@ -320,7 +322,9 @@ function renderError() {
  * @returns true or false
  */
 function validateDueDate(dueDate) {
-    let hasError = false
+    let hasError = false;
+    const dueDateInput = document.getElementById('dueDate');
+    const errorDate  = document.getElementById('errorDate');
   if (!dueDate) {
     dueDateInput.classList.add('field-error');
     errorDate.classList.remove("hide");
@@ -339,10 +343,10 @@ function validateDueDate(dueDate) {
 /**
  * Removes error classes and hides error messages after a delay.
  */
-function removeError(){
+function removeError(errorTitle, errorDate, errorCat){
     setTimeout(()=>{
-        taskTitleInput.classList.remove('field-error');
-        dueDateInput.classList.remove('field-error');
+        document.getElementById('taskTitle').classList.remove('field-error');
+        document.getElementById('dueDate').classList.remove('field-error');
         categoryContain.classList.remove('field-error');
         errorTitle.classList.add('hide');
         errorDate.classList.add("hide");
@@ -388,7 +392,6 @@ function showContainerOnBoardAddTask(event){
     categoryList.classList.add('hide');
     event.stopPropagation();
 }
-
 
 
 /**
@@ -462,19 +465,6 @@ function clearAddSubtaskError(){
 
 
 /**
- * Displays a success message after a task is successfully added and redirects to the board.
- */
-function showSucessMessage() {
-    let successMessage = document.getElementById("successMessageTask");
-    successMessage.classList.remove("hide");
-    setTimeout(() => {
-        successMessage.classList.add("hide");
-        openBoard(); 
-    }, 1000);
-}
-
-
-/**
  * close drowpdown by assigned contact
  * @param {string} event 
  */
@@ -487,26 +477,21 @@ function closeDropDown(event){
     event.stopPropagation();
 }
 
-actualUser = localStorage.getItem("userName");
-if (!actualUser || actualUser === '' ) {
-  window.location.href = `login.html`;
-}
-
 
 // resetButton.addEventListener('click', function(){
-//   categoryInput.value ='';
+//   document.getElementById('categoryInput').value ='';
 //   location.reload();
-//   taskTitleInput.value ='';
-//   taskDescriptionInput.value = '';
-//   dueDateInput.value = ''; 
-//   priorityInput.value = '';
+//   document.getElementById('taskTitle').value ='';
+//   document.getElementById('taskDescription').value = '';
+//   document.getElementById('dueDate').value = ''; 
+//   document.getElementById('priorityInput').value = '';
 //   window.contactList = [];
 //   window.subtasks = [];
 //   let subtaskListEdit = document.getElementById('subtaskListEdit');
 //   let AssignedContact = document.getElementById('assignedContact');
 //   subtaskListEdit.innerHTML = '';
 //   AssignedContact.innerHTML = '';
-//   contactBoardAddtask.innerHTML = '';
+//   document.getElementById("assigned").innerHTML = '';
 //   window.assignedToList.length = 0;
 //   setupPriorityButtons('medium');
 //   getUser();
@@ -536,19 +521,6 @@ function deleteSubtaskInput(){
     imgIconsAddsubtask.classList.remove('show-icons');
 }
 
-
-/**
- * Sets the navigation state by activating the 'addtask' nav item and deactivating
- * 'board', 'contacts', and 'summary' nav items. This function manipulates the
- * 'active' CSS class on the corresponding elements.
- */
-function activeNavItem(){
-    document.getElementById('board').classList.remove('active');
-    document.getElementById('contacts').classList.remove('active');
-    document.getElementById('addtask').classList.add('active');
-    document.getElementById('summary').classList.remove('active');
-}
-console.log('Add Task Board Initialized');
 
 export{setupPriorityButtons, isDueDatePassed, getTaskData, getUser, addSubstask, getAssignedContactById, showContainerOnBoardAddTask,
     showCategory, getEditedSubtask, modifySubtaskInEdited, deleteSubtaskInEdited, subtasks, contactList };

@@ -5,7 +5,7 @@ let alreadyAssigned = [];
 let subtasklistItem = [];
 let contactListGlobal = [];
 let contactIdList = [];
-let alreadyAssignedContainer = document.getElementById("alreadyAssigned");
+let alreadyAssignedContainer = document.getElementById("assignedContact");
 
 
 /**
@@ -174,6 +174,7 @@ function getAssignedContactById(id){
     if(contactRef.checked){
         const newContact = {name: name,  checked: true }
         if(!alreadyAssigned.find(item => item.name === newContact.name)){
+            console.log('add contact', newContact);
             alreadyAssigned.push(newContact);
         }
     }else{
@@ -209,6 +210,7 @@ function addSubstask(){
     if(newSubtask && !already && newSubtask !=""){
         const subtask = {title: newSubtask,checked: false,}
         subtasklistItem.push(subtask);
+        console.log(subtask);
         SubtasklistContainer.innerHTML+= renderSubtask(subtask);
         newSubtaskRef.value = '';
     }else{
