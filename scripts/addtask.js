@@ -27,7 +27,6 @@ setupPriorityButtons('medium');
         
 
 /**
- * 
  * Retrieves the assigned contact by ID and adds an event listener to toggle its checked state.
  * If the contact is already assigned, it will be removed from the assignedToList.
  * @param {number} id contact ID to be assigned
@@ -374,7 +373,8 @@ function renderContact(contactIdList, contactData) {
     }
 }
 
-export{setupPriorityButtons, isDueDatePassed };
+export{setupPriorityButtons, isDueDatePassed, getTaskData, getUser, addSubstask, getAssignedContactById, showContainerOnBoardAddTask,
+    showCategory, getEditedSubtask, modifySubtaskInEdited, deleteSubtaskInEdited, subtasks, contactList };
 
 window.getTaskData = getTaskData;
 window.getUser = getUser;

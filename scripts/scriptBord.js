@@ -196,12 +196,6 @@ function activeNavItem() {
 }
 
 
-function loadAddtask(){
-  document.getElementById('taskCardParent').classList.remove('hide');
-  document.getElementById("addTaskBoard").innerHTML = templateAddTaskInBoard();
-}
-
-
 actualUser = localStorage.getItem("userName");
 if (!actualUser || actualUser === '' ) {
   window.location.href = `login.html`;

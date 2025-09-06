@@ -1,6 +1,6 @@
 let labelCategory  = document.getElementById('labelCategory');
 let categoryList  = document.getElementById('category');
-let contactBoard = document.getElementById("assigned");
+let contactBoardAddtask = document.getElementById("assigned");
 let AssignToLabel = document.getElementById("assigned-to");
 const taskTitleInput = document.getElementById('taskTitle');
 const taskDescriptionInput = document.getElementById('taskDescription');
@@ -37,7 +37,7 @@ function clearAddSubtaskError(){
  * Retrieves the selected category from the dropdown and updates the input field accordingly. This function also sets up event listeners for category options.
  */
 function getCategory(event){
-    contactBoard.classList.add("hide");
+    contactBoardAddtask.classList.add("hide");
     let categoryInput  = document.getElementById('categoryInput');
     let options = document.querySelectorAll(".category option");
     options.forEach(category=>{
@@ -68,8 +68,8 @@ function showSucessMessage() {
  * @param {string} event 
  */
 function closeDropDown(event){
-    contactBoard.classList.add("hide");
-    contactBoard.classList.remove("dFlex");
+    contactBoardAddtask.classList.add("hide");
+    contactBoardAddtask.classList.remove("dFlex");
     categoryList.classList.add('hide');
     event.stopPropagation();
 }
@@ -93,7 +93,7 @@ resetButton.addEventListener('click', function(){
   let AssignedContact = document.getElementById('assignedContact');
   subtaskListEdit.innerHTML = '';
   AssignedContact.innerHTML = '';
-  contactBoard.innerHTML = '';
+  contactBoardAddtask.innerHTML = '';
   window.assignedToList.length = 0;
   setupPriorityButtons('medium');
   getUser();

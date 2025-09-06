@@ -1,7 +1,8 @@
 import {database,ref,update,get } from "./connection.js";
+import {initialiseElements } from "./addtaskboard.js";
 import {setupPriorityButtons, getAlreadySubtask } from "./edittask.js";
 import {applyAssignedToColors } from "./searchtask.js";
-import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate } from "./templates.js";
+import { templateTaskCard, templateTaskCardDetail, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateAddTaskInBoard } from "./templates.js";
 let toDo = document.getElementById("toDoTask");
 let awaitReview = document.getElementById("awaitReviewTask");
 let inProgress = document.getElementById("inProgressTask");
@@ -326,6 +327,21 @@ async function moveTo(currentDraggedTask, range) {
   }
 }
 
+//.innerHTML = templateAddTaskInBoard()
+function loadAddtask(){
+  document.getElementById('taskCardParent').classList.remove('hide');
+  const addTaskContainer = document.getElementById("addTaskBoard");
+  try{
+    addTaskContainer.innerHTML = templateAddTaskInBoard();
+    initialiseElements();
+    setupPriorityButtons('medium');
+    getUser();
+  }catch(error){
+    console.error("Error loading add task template:", error);
+  }
+  
+}
+
 
 /**
  * initiateBoard() function is called when the board is loaded or when a task is moved.
@@ -349,4 +365,5 @@ window.openTaskDetail = openTaskDetail;
 window.moveTo = moveTo;
 window.getPriority = getPriority;
 window.openEditTask = openEditTask;
+window.loadAddtask = loadAddtask;
 

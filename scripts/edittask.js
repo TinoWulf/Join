@@ -428,7 +428,7 @@ function deleteSubtaskInEdited(subtaskContent){
     }
 }
 
-export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers, escapeForInlineJS, modifySubtaskInEdited, deleteSubtaskInEdited};
+export{setupPriorityButtons, getAlreadySubtask, getAlreadyAssigned, renderAssignedUsers, escapeForInlineJS, modifySubtaskInEdited, deleteSubtaskInEdited, activatePriority, bindPriorityEvents};
 
 window.getEditedTask = getEditedTask;
 window.addSubstask = addSubstask;

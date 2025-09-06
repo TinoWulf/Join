@@ -31,7 +31,8 @@ button{
 .add-right-side{
     width: 440px;
     min-width: 240px;
-    height: 450px;
+    min-height: 450px;
+    max-height: 600px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;

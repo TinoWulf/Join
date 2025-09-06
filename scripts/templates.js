@@ -302,7 +302,6 @@ function templateAddTaskInBoard(){
   return `
     <link rel="stylesheet" href="./styles/add-task-board.css">
     <link rel="stylesheet" href="./styles/add-task2.css">
-    <script type="module" src="./scripts/addtaskboard.js"></script>
     <section class="main-addtask" id="addTaskContain">
         <h1 class="add-task-header">Add Task</h1>
     
@@ -351,7 +350,7 @@ function templateAddTaskInBoard(){
                 </label>
                 <label for="assigned" id="assigned-to" class="label-assignto">
                     Assigned to
-                    <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)">
+                    <div class="drop-down-input" onclick="showContainerOnBoardAddTask(event)" id="assignedDropDown">
                         <input name="assigned" id="assignedTo" placeholder="Select contacts to assign" readonly/>
                         <span><img src="./assets/icons/drop-down.png" alt=""></span>
                     </div>
@@ -416,9 +415,9 @@ function templateAddTaskInBoard(){
     </section>
   `;
 }
+//onclick="getTaskData()" onclick="getCategory(event)"   
 
-
-export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord };
+export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord, templateAddTaskInBoard };
 
 window.templateTaskCard = templateTaskCard ;
 window.templateTaskCardDetail = templateTaskCardDetail ;
