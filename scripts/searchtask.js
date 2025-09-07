@@ -1,8 +1,22 @@
-import { tasksList } from "./board.js";
-import { templateTaskCard, } from "./templates.js";
+import { tasksList, loadTasks, clearAllColums } from "./board.js";   
 const letterColors = { A: "#e57373", B: "#f06292", C: "#ba68c8", D: "#9575cd", E: "#7986cb", F: "#64b5f6", G: "#4fc3f7", H: "#4dd0e1", I: "#4db6ac", J: "#81c784", K: "#aed581", L: "#dce775", M: "#fff176", N: "#ffd54f", O: "#ffb74d", P: "#ff8a65", Q: "#a1887f", R: "#e67e22", S: "#8e44ad", T: "#34495e", U: "#16a085", V: "#27ae60", W: "#2980b9", X: "#8e44ad", Y: "#f39c12", Z: "#c0392b"};
-let showSearchResult = document.getElementById("containerBoard");
 let searchInput; 
+
+let searchInputRef= window.innerWidth < 878 ? document.getElementById("searchValueMobile") : document.getElementById("searchValue");
+
+searchInputRef.addEventListener("focus", function(){
+  searchInput = searchInputRef.value;
+  console.log("searchInput on blur:", searchInput);
+  clearAllColums();
+  searchParticularTask(searchInput);
+});
+
+searchInputRef.addEventListener("blur", function(){
+  searchInput = searchInputRef.value;
+  console.log("searchInput on blur:", searchInput);
+  clearAllColums();
+  searchParticularTask(searchInput);
+});
 
 
 /**
@@ -23,19 +37,12 @@ function searchTasks(tasks, keyword) {
 }
 
 
-function searchParticularTask() {
+function searchParticularTask(searchInput) {
     searchInput = window.innerWidth < 878 ? document.getElementById("searchValueMobile").value : document.getElementById("searchValue").value;
     let resultSearch = searchTasks(tasksList, searchInput);
-    showSearchResult.innerHTML = "";
-    if(resultSearch.length>0){
-    for (let taskindex in resultSearch) {
-        const task = resultSearch[taskindex];
-        showSearchResult.innerHTML += templateTaskCard(task);
-        applyAssignedToColors();  
-    }
-    }else{
-    showSearchResult.innerHTML += `<p style="color:red; font-size:20px;">the search result is empty there is not any task that match your search</p>`;
-    }
+    console.log("resultSearch:", resultSearch);
+    clearAllColums();
+    loadTasks(resultSearch);
 }
 
 

@@ -2,7 +2,7 @@
  * Imports the necessary Firebase database functions and references.
  */
 import { database, ref, get} from "./connection.js";
-import { getAbbreviation} from "./board.js";
+// import { getAbbreviation} from "./board.js";
 
 
 /**

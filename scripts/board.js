@@ -95,7 +95,7 @@ function renderTaskOnBoard(snapshot){
   for (let taskId in tasks) {
     const task = tasks[taskId];
     tasksList.push(task);
-    loadTasks();
+    loadTasks(tasksList);
     templateTaskCard(task);
   }
   return tasksList;
@@ -138,7 +138,7 @@ function openEditTask(taskId){
  * Loads all tasks, finds unique categories, renders tasks by category,
  * and applies color styling to assigned user initials.
  */
-function loadTasks() {
+function loadTasks(tasksList) {
   clearAllColums();
   let categories = [...new Set(tasksList.map((t) => t.range))];
   for (let i = 0; i < categories.length; i++) {
@@ -320,7 +320,7 @@ async function moveTo(currentDraggedTask, range) {
   const taskRef = ref(database, "tasks/" + taskID);
   try {
     await update(taskRef, { range: range });
-    loadTasks();
+    loadTasks(tasksList);
     initiateBoard();
   } catch (error) {
     openErrorPage();
@@ -348,7 +348,7 @@ function initiateBoard() {
   getAllTasks();
 }
 
-export { initiateBoard, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, openTaskDetail, moveTo,getPriority, tasksList};
+export { initiateBoard,loadTasks, findTasksByCategory, getAbbreviation, countSubtasks, countSubtasksDone, openTaskDetail, moveTo,getPriority, tasksList, clearAllColums};
 
 
 window.initiateBoard = initiateBoard;
