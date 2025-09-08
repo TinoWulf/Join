@@ -4,13 +4,13 @@ let searchInput;
 
 let searchInputRef= window.innerWidth < 878 ? document.getElementById("searchValueMobile") : document.getElementById("searchValue");
 
-searchInputRef.addEventListener("focus", function(){
+searchInputRef?.addEventListener("focus", function(){
   searchInput = searchInputRef.value;
   clearAllColums();
   searchParticularTask(searchInput);
 });
 
-searchInputRef.addEventListener("blur", function(){
+searchInputRef?.addEventListener("blur", function(){
   searchInput = searchInputRef.value;
   clearAllColums();
   searchParticularTask(searchInput);

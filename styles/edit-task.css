@@ -27,6 +27,7 @@
   overflow: auto;
   margin-top: 20px;
   max-height: 90%;
+  padding-bottom: 10px;
 }
 
 
@@ -375,7 +376,7 @@
 
 @media (max-width: 530px) {
   .editTaskPopup {
-    width: 95vw;
-    padding: 24px;
+    width: 98vw;
+    padding: 24px 8px;
   }
 }

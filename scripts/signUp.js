@@ -136,7 +136,6 @@ function setupSignUp() {
     const confirmPassword = confirmPasswordRef.value;
     const acceptedPolicy = acceptPolicyRef;
     verifyPassword(password, confirmPassword);
-    verifyPolicy(acceptedPolicy);
     if (password == confirmPassword) {
       try {
         await signUpUser(email, password, name, acceptedPolicy);

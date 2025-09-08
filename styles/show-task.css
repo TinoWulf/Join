@@ -135,6 +135,7 @@
   right: 30px;
   left: 0;
   padding: 30px;
+  background-color: white;
   gap: 8px;
 }
 
@@ -178,7 +179,7 @@
   .taskCardPopup {
     width: 95vw;
     max-height: 98vh;
-    padding: 32px 24px;
+    padding: 32px 20px;
   }
 
   .taskCardPopup h4 {
@@ -191,4 +192,11 @@
     font-size: 16px;
   }
 
+}
+
+@media (max-width: 530px) {
+  .taskCardPopup {
+    width: 98vw;
+    padding: 24px 8px;
+  }
 }

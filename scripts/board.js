@@ -330,9 +330,13 @@ async function moveTo(currentDraggedTask, range) {
 //.innerHTML = templateAddTaskInBoard()
 function loadAddtask(){
   document.getElementById('taskCardParent').classList.remove('hide');
-  const addTaskContainer = document.getElementById("addTaskBoard");
+  document.getElementById("taskCardParent").innerHTML = "";
+  const addTaskContainer = document.createElement("div");
+  addTaskContainer.classList.add("add-task-board");
+  addTaskContainer.id = "addTaskBoard";
+  addTaskContainer.setAttribute("onclick", "preventEvent(event)");
   addTaskContainer.innerHTML = templateAddTaskInBoard();
-  // initialiseElements();
+  document.getElementById("taskCardParent").appendChild(addTaskContainer);
   setupPriorityButtons('medium');
   document.getElementById("assigned").innerHTML = '';
   getUser();

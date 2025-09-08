@@ -348,3 +348,16 @@ label, .label-date{
     right: 20px;
     left: 50px;
 }
+
+.close-addtask-board{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    width: 40px !important;
+    height: 40px !important;
+    cursor: pointer;
+}

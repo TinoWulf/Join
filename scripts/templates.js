@@ -304,6 +304,7 @@ function templateAddTaskInBoard(){
     <link rel="stylesheet" href="./styles/add-task-board.css">
     <link rel="stylesheet" href="./styles/add-task2.css">
     <section class="main-addtask" id="addTaskContain">
+      <span class="close-span close-addtask-board"><img src="./assets/icons/iconoir_cancel.png"  alt="cancel" onclick="closePopUp(event)" class="show"/></span>
         <h1 class="add-task-header">Add Task</h1>
     
         <div id="add-task-form" class="add-task-form">
