@@ -167,7 +167,7 @@ function awaitReviewPlaceholderTemplate(){
 function donePlaceholderTemplate(){
   return `
     <div id="doneTaskPlaceholder" class="placeholder show">
-      No Task Done
+      No task Done
     </div>
   `;
 }

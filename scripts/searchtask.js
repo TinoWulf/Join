@@ -6,14 +6,12 @@ let searchInputRef= window.innerWidth < 878 ? document.getElementById("searchVal
 
 searchInputRef.addEventListener("focus", function(){
   searchInput = searchInputRef.value;
-  console.log("searchInput on blur:", searchInput);
   clearAllColums();
   searchParticularTask(searchInput);
 });
 
 searchInputRef.addEventListener("blur", function(){
   searchInput = searchInputRef.value;
-  console.log("searchInput on blur:", searchInput);
   clearAllColums();
   searchParticularTask(searchInput);
 });
@@ -37,10 +35,12 @@ function searchTasks(tasks, keyword) {
 }
 
 
+/** * Searches for tasks based on user input and updates the task display.
+ * @param {string} searchInput - The search input string.
+ */
 function searchParticularTask(searchInput) {
     searchInput = window.innerWidth < 878 ? document.getElementById("searchValueMobile").value : document.getElementById("searchValue").value;
     let resultSearch = searchTasks(tasksList, searchInput);
-    console.log("resultSearch:", resultSearch);
     clearAllColums();
     loadTasks(resultSearch);
 }

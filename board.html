@@ -49,7 +49,7 @@
         <h1>Board</h1>
         <div class="board-nav-links">
           <div class="search-box">
-            <input type="text" placeholder="Find Task" id="searchValue" />
+            <input type="text" placeholder="Find Task" id="searchValue" onkeydown="searchParticularTask()" />
             <span class="search-icon" onclick="searchParticularTask()"
               ><img src="./assets/icons/search.png" alt="search icon"
             /></span>
@@ -129,7 +129,7 @@
               ondragover="allowDrop(event, 'doneTask')"
             >
               <div id="doneTaskPlaceholder" class="placeholder show">
-                No Task Done
+                No task Done
               </div>
             </div>
           

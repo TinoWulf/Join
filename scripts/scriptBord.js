@@ -19,8 +19,18 @@ function startDragging(id) {
 /**
  * open the Board page with location.href
  */
-function openAddTask(){
-  document.location.href ="add-task.html";
+function openAddTask() {
+  if (window.matchMedia("(max-width: 876px)").matches) {
+    document.location.href = "add-task.html";
+  }
+  else {
+    document.getElementById('taskCardParent').classList.remove('hide');
+    const addTaskContainer = document.getElementById("addTaskBoard");
+    addTaskContainer.innerHTML = templateAddTaskInBoard();
+    setupPriorityButtons('medium');
+    document.getElementById("assigned").innerHTML = '';
+    getUser();
+  }
 }
 
 
@@ -102,12 +112,12 @@ function highlight(id) {
  * @param {boolean} startDragged 
  * @param {*number} id contains the id of the range(toDo, inProgress, awaitingFeedback or done) container where task is being dragged.
  */
-function moveToHover(startDragged, range){
-  if(startDragged){
-    try{
+function moveToHover(startDragged, range) {
+  if (startDragged) {
+    try {
       moveTo(currentDraggedTask, range);
       startDragged = false;
-    }catch{
+    } catch {
       openErrorPage();
     }
   }
@@ -117,9 +127,9 @@ function moveToHover(startDragged, range){
 /**
  * close all popup for mobile move if one are open.
  */
-function closeAllOpenMove(){
-  let moveTaskMobileAll=  document.querySelectorAll('.move-mobile-task');
-  moveTaskMobileAll.forEach( movetask=>{
+function closeAllOpenMove() {
+  let moveTaskMobileAll = document.querySelectorAll('.move-mobile-task');
+  moveTaskMobileAll.forEach(movetask => {
     movetask.classList.add('hide');
   })
 }
@@ -130,7 +140,7 @@ function closeAllOpenMove(){
  * @param {number} taskId task id
  * @param {event} event event
  */
-function openMoveTaskMobile(taskId, event){
+function openMoveTaskMobile(taskId, event) {
   closeAllOpenMove();
   const parentTask = document.getElementById(taskId);
   const moveTaskMobile = parentTask.querySelector('#moveTaskMobile');
@@ -143,7 +153,7 @@ function openMoveTaskMobile(taskId, event){
  * 
  * @returns {string} A string representing a placeholder task element.
  */
-function showPlaceholderTask(){
+function showPlaceholderTask() {
   return `
     <div class="placeholderTask">
               
@@ -197,6 +207,6 @@ function activeNavItem() {
 
 
 actualUser = localStorage.getItem("userName");
-if (!actualUser || actualUser === '' ) {
+if (!actualUser || actualUser === '') {
   window.location.href = `login.html`;
 }
