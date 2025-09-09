@@ -165,6 +165,7 @@ function notUser() {
     let navLinks = document.getElementById("navLinks");
     let initialsUser = document.getElementById('initial-user');
     actualUser = localStorage.getItem("userName");
+    if (!menuSide || !navLinks || !initialsUser) {return;}
     menuSide.innerHTML = '';
     if (!actualUser) {
         initialsUser.classList.add("hidden-header");
