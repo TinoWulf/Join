@@ -151,7 +151,7 @@ function templateRenderFormEditSubtask(subtaskContent){
     const subtaskTitle = escapeForInlineJS(subtaskContent);
     return `
         <label>
-            <input type="text" value="${subtaskContent}" id="subtaskEdit"/>
+            <input type="text" value="${subtaskContent}" id="subtaskEdit" onkeydown="if(event.key==='Enter'){addSubstask()}"/>
             <div class="img-icons">
                 <span class="delete-icon" onclick="deleteSubtaskInEdited('${subtaskTitle}')">
                     <img src="./assets/icons/delete.png"alt="search icon" />

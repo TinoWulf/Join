@@ -218,8 +218,11 @@
 }
 
 .success-message{
-  position: fixed;
-  background: rgba(24, 30, 63, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    background: rgba(24, 30, 63, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
