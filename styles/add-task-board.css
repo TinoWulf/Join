@@ -61,6 +61,7 @@ label, .label-date{
     outline: none;
     font-size: 20px;
     border: 1px solid var(--primary-color);
+    border-color: #D1D1D1;
 }
 
 .label-textarea{

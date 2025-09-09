@@ -35,6 +35,10 @@
   background-color: brown;
 }
 
+.subtask-add::placeholder{
+  color: #D1D1D1;
+}
+
 .subtask-listes{
   width: 100%;
   height: 130px;

@@ -1,4 +1,4 @@
-.main-addtask{
+.main-addtask {
   max-width: calc(1920px - 232px);
   margin-left: 250px;
   margin-top: 90px;
@@ -9,109 +9,140 @@
   justify-content: center;
 }
 
-button{
+button {
   border: none;
 }
 
-.add-task-form{
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 32px;
+p {
+  font-family: Inter;
+  font-weight: 300;
+  font-style: Regular;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
 }
 
-.add-left-side{
-    width: 540px;
-    min-width: 240px;
-    height: 392px;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    gap: 16px;
+.add-task-form {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
 }
 
-.add-right-side{
-    width: 540px;
-    min-width: 240px;
-    min-height: 400px;
-    max-height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    gap: 16px;
+.add-left-side {
+  width: 540px;
+  min-width: 240px;
+  height: 392px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  gap: 16px;
 }
 
-label, .label-date{
-    width: 100%;
-    height: 96px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.add-right-side {
+  width: 540px;
+  min-width: 240px;
+  min-height: 400px;
+  max-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  gap: 16px;
 }
 
-.input-title, .input-date{
-    width: 100%;
-    height: 64px;
-    gap: 4px;
+label,
+.label-date {
+  width: 100%;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.input-title input{
-    width: 100%;
-    padding: 12px 21px;
-    border-radius: 10px;
-    outline: none;
-    font-size: 20px;
-    border: 1px solid var(--primary-color);
+.input-title,
+.input-date {
+  width: 100%;
+  height: 64px;
+  gap: 4px;
 }
 
-.label-textarea{
+.input-title input {
+  width: 100%;
+  padding: 12px 21px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 20px;
+  border: 1px solid var(--primary-color);
+  border-color: #D1D1D1;
+}
+
+.input-title input::placeholder {
+  color: #D1D1D1;
+}
+
+.label-textarea {
   width: 100%;
   height: 168px;
   gap: 8px;
 }
 
-.input-textarea{
+.input-textarea {
   width: 100%;
   height: 136px;
   gap: 4px;
 }
 
-.input-textarea textarea{
+.input-textarea textarea {
   border-radius: 10px;
   width: 100%;
   height: 120px;
   padding: 18px 16px;
   outline: none;
   font-size: 20px;
+  border-color: #D1D1D1;
 }
 
-.label-date input{
+.input-textarea textarea::placeholder {
+  color: #D1D1D1;
+}
+
+.label-date input {
   font-size: 20px;
   width: 100%;
   border-radius: 10px;
   padding: 12px 10px;
   outline: none;
   border: 1px solid var(--primary-color);
+  border-color: #D1D1D1;
 }
 
-.label-date input[type="date"]::-webkit-calendar-picker-indicator{
+.label-date input[type="date"]:invalid {
+  color: #D1D1D1;
+}
+
+.label-date input[type="date"]:valid {
+  color: #000;
+}
+
+.label-date input[type="date"]::-webkit-calendar-picker-indicator {
   background-image: url('../assets/icons/event.png');
   transform: scale(1.5);
 }
 
-.separator{
+
+.separator {
   height: 424px;
   border: 1px solid var(--primary-color);
 }
 
 
-.label-priority{
+.label-priority {
   width: 100%;
   height: 88px;
   gap: 8px;
 }
 
-.button-priority-container{
+.button-priority-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -121,7 +152,7 @@ label, .label-date{
   height: 56px;
 }
 
-.priority-button{
+.priority-button {
   background-color: var(--white);
   font-size: 20px;
   padding: 16px 10px;
@@ -134,24 +165,27 @@ label, .label-date{
   border-radius: 10px;
 }
 
-.label-assignto, .label-category, .label-subtask {
+.label-assignto,
+.label-category,
+.label-subtask {
   width: 100%;
   height: 80px;
   gap: 8px;
 }
 
-.label-assignto, .label-category{
+.label-assignto,
+.label-category {
   position: relative;
 }
 
-.already-assigned{
+.already-assigned {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: start;
 }
 
-.option{
+.option {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -160,7 +194,7 @@ label, .label-date{
   cursor: pointer;
 }
 
-.option label{
+.option label {
   height: 30px;
   display: flex;
   flex-direction: row;
@@ -168,11 +202,12 @@ label, .label-date{
   cursor: pointer;
 }
 
-.menu, .navbar{
+.menu,
+.navbar {
   z-index: 2;
 }
 
-.option{
+.option {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -182,7 +217,7 @@ label, .label-date{
   border-radius: 10px;
 }
 
-.option label{
+.option label {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -191,7 +226,7 @@ label, .label-date{
   gap: 10px;
 }
 
-.option input{
+.option input {
   appearance: none;
   -webkit-appearance: none;
   display: inline-block;
@@ -205,19 +240,19 @@ label, .label-date{
 }
 
 .option input:checked {
-    background-image: url("../assets/icons/checkedwhite.png");
+  background-image: url("../assets/icons/checkedwhite.png");
 }
 
-.option:hover{
+.option:hover {
   background-color: var(--light-grey-color);
 }
 
-.option:has(input[type="checkbox"]:checked){
+.option:has(input[type="checkbox"]:checked) {
   color: var(--white);
   background-color: var(--primary-color);
 }
 
-.option span{
+.option span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -233,26 +268,26 @@ label, .label-date{
   border: 2px solid var(--white);
 }
 
-.category option{
+.category option {
   width: 100%;
   padding: 3px 30px;
 }
 
-.category option:hover{
+.category option:hover {
   background-color: var(--light-grey-color);
   border-radius: 10px;
 }
 
-.field-error{
+.field-error {
   border: 2px solid #FF8190 !important;
 }
 
-.error-message{
+.error-message {
   color: #FF8190;
   font-size: 13px;
 }
 
-.drop-down-input{
+.drop-down-input {
   width: 100%;
   height: 48px;
   padding: 12px 16px;
@@ -264,9 +299,10 @@ label, .label-date{
   justify-content: space-between;
   background-color: var(--white);
   border: 1px solid var(--primary-color);
+  border-color: #D1D1D1;
 }
 
-.drop-down-input input{
+.drop-down-input input {
   font-size: 20px;
   width: 95%;
   height: 100%;
@@ -284,11 +320,11 @@ label, .label-date{
   border-radius: 4px;
 }
 
-.star{
+.star {
   color: rgb(255, 61, 0);
 }
 
-.assigned-contact{
+.assigned-contact {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -300,7 +336,7 @@ label, .label-date{
   height: 50px;
 }
 
-.assigned-contact span{
+.assigned-contact span {
   display: flex;
   align-items: center;
   justify-content: center;
