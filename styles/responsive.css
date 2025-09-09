@@ -208,6 +208,16 @@
   .help-mobile {
     display: block;
   }
+
+  .subtask-listes {
+    height: auto;
+    max-height: 130px;
+  }
+
+  .add-task-form{
+      padding: 0 0;
+      margin-bottom: 10px;
+  }
 }
 @media (max-width: 600px) {
   .board-summary {
