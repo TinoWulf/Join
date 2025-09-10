@@ -1,52 +1,18 @@
 import {set, ref, database} from "./connection.js";
 import { getAbbreviation} from "./board.js";
 import { applyAssignedToColorSpan} from "./searchtask.js";
-import {templateRenderContactOnBord } from "./templates.js";
+import {templateRenderContactAddTask } from "./templates.js";
 import {escapeForInlineJS, setupPriorityButtons } from "./edittask.js";
-let alreadyAssignedContainer = document.getElementById("assignedContact");
-const taskTitleInput = document.getElementById('taskTitle');
-const taskDescriptionInput = document.getElementById('taskDescription');
-const dueDateInput = document.getElementById('dueDate');
-const priorityInput = document.getElementById('priorityInput');
-let categoryInput  = document.getElementById('categoryInput');
-let errorTitle  = document.getElementById('errorTitle');
-let errorDate  = document.getElementById('errorDate');
-let errorCat  = document.getElementById('errorCat');
-let labelCategory  = document.getElementById('labelCategory');
-let categoryList  = document.getElementById('category');
-let contactBoard = document.getElementById("assigned");
 let labelSubtask = document.getElementById("addSubtask");
 let errorSubtask = document.getElementById("errorSubtask");
-let AssignToLabel = document.getElementById("assigned-to");
-window.assignedToList = [];
-let subtasks = [];
+let addSubtaskRef  = document.getElementById('addSubtask');
+let imgAddsubtaskPlus  = document.querySelector('.img-addsubtask');
+let imgIconsAddsubtask  = document.getElementById('imgIcons');
+let assignedToList = [];
+let subtasksList = [];
 let contactList = [];
 const dataBaseURL ="https://join-8035a-default-rtdb.europe-west1.firebasedatabase.app";
-setupPriorityButtons('medium');
-// getCategory();
-
-export function initialiseElements(){
-    const alreadyAssignedContainer = document.getElementById("assignedContact");
-    const taskTitleInput = document.getElementById('taskTitle');
-    const taskDescriptionInput = document.getElementById('taskDescription');
-    const dueDateInput = document.getElementById('dueDate');
-    const priorityInput = document.getElementById('priorityInput');
-    const categoryInput  = document.getElementById('categoryInput');
-    const errorTitle  = document.getElementById('errorTitle');
-    const errorDate  = document.getElementById('errorDate');
-    const errorCat  = document.getElementById('errorCat');
-    const labelCategory  = document.getElementById('labelCategory');
-    const categoryList  = document.getElementById('category');
-    const contactBoard = document.getElementById("assigned");
-    const labelSubtask = document.getElementById("addSubtask");
-    const errorSubtask = document.getElementById("errorSubtask");
-    const AssignToLabel = document.getElementById("assigned-to");
-    window.assignedToList = [];
-    let subtasks = [];
-    let contactList = [];
-    const resetButton  = document.getElementById('resetButton');
-    return {alreadyAssignedContainer, taskTitleInput, taskDescriptionInput, dueDateInput, priorityInput, categoryInput, errorTitle, errorDate, errorCat, labelCategory, categoryList, contactBoard, labelSubtask, errorSubtask, AssignToLabel, resetButton, subtasks, contactList};
-}        
+setupPriorityButtons('medium');      
 
 /**
  * Retrieves the assigned contact by ID and adds an event listener to toggle its checked state.
@@ -54,20 +20,20 @@ export function initialiseElements(){
  * @param {number} id contact ID to be assigned
  * @returns a list of assigned contacts
  */
-function getAssignedContactById(id, event){
+function getAssignedToAddTask(id, event){
     let contactRef = document.getElementById(id);
     const name = contactRef.value.trim();
     if(contactRef.checked){
         const newContact = {name: name,  checked: true }
-        if(!window.assignedToList.find(item => item.name === newContact.name)){
-            window.assignedToList.push(newContact);
+        if(!assignedToList.find(item => item.name === newContact.name)){
+            assignedToList.push(newContact);
         }
     }else{
-        window.assignedToList = window.assignedToList.filter(item => item.name !== name);
+        assignedToList = assignedToList.filter(item => item.name !== name);
     }
     renderAssignedUsers();
     event.stopPropagation();
-    return window.assignedToList;
+    return assignedToList;
 }
 
 
@@ -78,12 +44,12 @@ function getAssignedContactById(id, event){
 function renderAssignedUsers() {
     const alreadyAssignedContainer = document.getElementById("assignedContact");
   alreadyAssignedContainer.innerHTML = '';
-  for (let i = 0; i < window.assignedToList.length; i++) {
+  for (let i = 0; i < assignedToList.length; i++) {
     if (i < 4) {
-      const assignedTo = window.assignedToList[i];
+      const assignedTo = assignedToList[i];
       alreadyAssignedContainer.innerHTML += `<span>${getAbbreviation(assignedTo.name)}</span>`;
     } else if (i === 4) {
-      const remaining = window.assignedToList.length - 4;
+      const remaining = assignedToList.length - 4;
       alreadyAssignedContainer.innerHTML += `<span>+${remaining}</span>`;
       break; 
     }
@@ -115,13 +81,13 @@ function getCategory(event){
  * @returns {Array} Returns the updated subtasks array after adding a new subtask.
  * Adds a new subtask to the subtasks array and updates the display of subtasks.
  */
-function addSubstask(){
+function addSubtaskAddTask(){
     let newSubtaskRef = document.getElementById('subtask-input');
     let newSubtask = newSubtaskRef.value.trim();
-    const already = !!subtasks.find(item => item.title == newSubtask);
+    const already = !!subtasksList.find(item => item.title == newSubtask);
     if(newSubtask && newSubtask!="" && !already){
         const subtask = { title: newSubtask,checked: false}
-        subtasks.push(subtask);
+        subtasksList.push(subtask);
        showSubTask();
         newSubtaskRef.value = '';
     }else{
@@ -130,7 +96,7 @@ function addSubstask(){
         newSubtaskRef.value = newSubtask;
         clearAddSubtaskError();
     }
-    return subtasks;
+    return subtasksList;
 }
 
 
@@ -141,8 +107,8 @@ function addSubstask(){
 function showSubTask(){
     let subtasklistContainer =  document.getElementById('subtaskListEdit');
     subtasklistContainer.innerHTML = '';
-    for(let i=0; i<subtasks.length; i++) {
-        const subtask = subtasks[i];
+    for(let i=0; i<subtasksList.length; i++) {
+        const subtask = subtasksList[i];
         const subtaskTitle = escapeForInlineJS(subtask.title);
         subtasklistContainer.innerHTML += `<div class="subtask" id="subTaskElement"><li class="">${subtask.title}</li><div class="img-icons"><span onclick="deleteSubtaskInEdited('${subtaskTitle}')"><img src="./assets/icons/delete.png" alt="delete" /></span><span onclick="getEditedSubtask()"><img src="./assets/icons/edit.png" alt="edit" /></span></div></div>`;
     }
@@ -212,18 +178,13 @@ function templateRenderFormEditSubtask(subtaskContent){
  */
 function modifySubtaskInEdited(subtaskContent){
     const input = document.getElementById('subtaskEdit');
-    if (!Array.isArray(subtasks)) {
-        return;
-    }
-    const found = subtasks.findIndex(item => item.title === subtaskContent.trim());
-    if (found<0) {
-        return;
-    }else if(found>= 0){
-        if(!input.value.trim() || input.value.length < 2){
-            return;
-        }
+    if (!Array.isArray(subtasksList)) { return;}
+    const found = subtasksList.findIndex(item => item.title === subtaskContent.trim());
+    if (found<0) { return;}
+    else if(found>= 0){
+        if(!input.value.trim() || input.value.length < 2){ return; }
         const newValue = input.value;
-        subtasks[found] = {title: newValue.trim(), checked: false};
+        subtasksList[found] = {title: newValue.trim(), checked: false};
         input.value = '';
         showSubTask();
     }
@@ -236,14 +197,14 @@ function modifySubtaskInEdited(subtaskContent){
  * @returns 
  */
 function deleteSubtaskInEdited(subtaskContent){
-     if (!Array.isArray(subtasks)) {
+     if (!Array.isArray(subtasksList)) {
         return;
     }
-    const found = subtasks.findIndex(item => item.title === subtaskContent.trim());
+    const found = subtasksList.findIndex(item => item.title === subtaskContent.trim());
     if (found<0) {
         return;
     }else if(found>= 0){
-        subtasks.splice(found, 1);
+        subtasksList.splice(found, 1);
         showSubTask();
     }
 }
@@ -279,8 +240,8 @@ function getTaskData(){
     let newDescription = taskDescriptionInput.value ? taskDescriptionInput.value.trim() : '';
     let newDueDate = dueDateInput.value ? dueDateInput.value : ''; 
     let newPriority = priorityInput.value ? priorityInput.value : 'medium';
-    let newAssignedTo = window.assignedToList ? window.assignedToList: [];
-    let newSubtasks = subtasks ? subtasks : [];
+    let newAssignedTo = assignedToList ? assignedToList: [];
+    let newSubtasks = subtasksList ? subtasksList : [];
     const taskData = {id: Date.now(), title: newTitle,  description: newDescription,  dueDate: newDueDate, category: category, range: "toDo", priority: newPriority, assignedTo: newAssignedTo,  subtasks: newSubtasks};
     getAddTask(taskData);
 }
@@ -365,7 +326,6 @@ async function getAddTask(taskData) {
         if(renderError()){
            await set(taskRef, taskData);
            openBoard(); 
-            // showSucessMessage() 
         }else{
             return;
         }
@@ -423,30 +383,10 @@ function renderContact(contactIdList, contactData) {
       let contactID = contactIdList[index];
       let contact = contactData.contacts[contactID];
       contactList.push(contact);
-      contactBoard.innerHTML += templateRenderContactOnBord(contact);
+      contactBoard.innerHTML += templateRenderContactAddTask(contact);
       applyAssignedToColorSpan();
     }
 }
-
-
-// let labelCategory  = document.getElementById('labelCategory');
-// let categoryList  = document.getElementById('category');
-let contactBoardAddtask = document.getElementById("assigned");
-// let AssignToLabel = document.getElementById("assigned-to");
-// const taskTitleInput = document.getElementById('taskTitle');
-// const taskDescriptionInput = document.getElementById('taskDescription');
-// const dueDateInput = document.getElementById('dueDate');
-// const priorityInput = document.getElementById('priorityInput');
-// let categoryInput  = document.getElementById('categoryInput');
-// let errorTitle  = document.getElementById('errorTitle');
-// let errorDate  = document.getElementById('errorDate');
-// let errorCat  = document.getElementById('errorCat');
-let resetButton  = document.getElementById('resetButton');
-let addSubtaskRef  = document.getElementById('addSubtask');
-let imgAddsubtaskPlus  = document.querySelector('.img-addsubtask');
-let imgIconsAddsubtask  = document.getElementById('imgIcons');
-// let labelSubtask = document.getElementById("addSubtask");
-// let errorSubtask = document.getElementById("errorSubtask");
 
 
 /**
@@ -478,38 +418,35 @@ function closeDropDown(event){
 }
 
 
-// resetButton.addEventListener('click', function(){
-//   document.getElementById('categoryInput').value ='';
-//   location.reload();
-//   document.getElementById('taskTitle').value ='';
-//   document.getElementById('taskDescription').value = '';
-//   document.getElementById('dueDate').value = ''; 
-//   document.getElementById('priorityInput').value = '';
-//   window.contactList = [];
-//   window.subtasks = [];
-//   let subtaskListEdit = document.getElementById('subtaskListEdit');
-//   let AssignedContact = document.getElementById('assignedContact');
-//   subtaskListEdit.innerHTML = '';
-//   AssignedContact.innerHTML = '';
-//   document.getElementById("assigned").innerHTML = '';
-//   window.assignedToList.length = 0;
-//   setupPriorityButtons('medium');
-//   getUser();
-// })
+ function clearTask(){
+  document.getElementById('categoryInput').value ='';
+  document.getElementById('taskTitle').value ='';
+  document.getElementById('taskDescription').value = '';
+  document.getElementById('dueDate').value = ''; 
+  document.getElementById('priorityInput').value = '';
+  window.contactList = [];
+  window.subtasksList = [];
+  document.getElementById('subtaskListEdit').innerHTML = '';;
+  document.getElementById('assignedContact').innerHTML = '';;
+  document.getElementById("assigned").innerHTML = '';
+  window.assignedToList = [];
+  setupPriorityButtons('medium');
+  getUser();
+}
 
 
-// let inputAddSubtask = addSubtaskRef.querySelector('input');
-// inputAddSubtask.addEventListener('focus', function(){
-//     imgAddsubtaskPlus.hidden = true;
-//     imgIconsAddsubtask.classList.add('show-icons');
-// })
+let inputAddSubtask = addSubtaskRef?.querySelector('input');
+inputAddSubtask?.addEventListener('focus', function(){
+    imgAddsubtaskPlus.hidden = true;
+    imgIconsAddsubtask.classList.add('show-icons');
+})
 
-// inputAddSubtask.addEventListener("blur", () => {
-//   if (!inputAddSubtask.value.trim()) {
-//     imgAddsubtaskPlus.hidden = false;
-//     imgIconsAddsubtask.classList.remove('show-icons');
-//   }
-// });
+inputAddSubtask?.addEventListener("blur", () => {
+  if (!inputAddSubtask.value.trim()) {
+    imgAddsubtaskPlus.hidden = false;
+    imgIconsAddsubtask.classList.remove('show-icons');
+  }
+});
 
 
 /**
@@ -522,14 +459,14 @@ function deleteSubtaskInput(){
 }
 
 
-export{setupPriorityButtons, isDueDatePassed, getTaskData, getUser, addSubstask, getAssignedContactById, showContainerOnBoardAddTask,
-    showCategory, getEditedSubtask, modifySubtaskInEdited, deleteSubtaskInEdited, subtasks, contactList };
+export{setupPriorityButtons, isDueDatePassed, getTaskData, getUser, addSubtaskAddTask, getAssignedToAddTask, showContainerOnBoardAddTask,
+    showCategory, getEditedSubtask, modifySubtaskInEdited, deleteSubtaskInEdited, subtasksList, contactList };
 
 window.getTaskData = getTaskData;
 window.getUser = getUser;
 window.setupPriorityButtons = setupPriorityButtons;
-window.addSubstask = addSubstask;
-window.getAssignedContactById = getAssignedContactById;
+window.addSubtaskAddTask = addSubtaskAddTask;
+window.getAssignedToAddTask = getAssignedToAddTask;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
 window.deleteSubtaskInput = deleteSubtaskInput;
 window.getCategory = getCategory;
@@ -537,7 +474,5 @@ window.showCategory = showCategory;
 window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;
 window.deleteSubtaskInEdited = deleteSubtaskInEdited;
-
-
-
 window.closeDropDown = closeDropDown;
+window.clearTask = clearTask;

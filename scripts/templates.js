@@ -297,6 +297,14 @@ function templateRenderContactOnBord(contact, contactIsAssignedToTask){
     </div>
   `;
 }
+function templateRenderContactAddTask(contact, contactIsAssignedToTask){
+  return `
+    <div class="option ${contactIsAssignedToTask ? 'background-option' : ''}" onclick="getAssignedToAddTask(${contact.id}, event)">
+      <label for="${contact.id}"><span>${getAbbreviation(contact.name)}</span>${contact.name}</label>
+      <input type="checkbox" id="${contact.id}" name="${contact.id}" value ="${contact.name}" data-id = "${contact.id}"  ${contactIsAssignedToTask ? 'checked' : ''}/>
+    </div>
+  `;
+}
 
 function templateAddTaskInBoard(){
   return `
@@ -386,11 +394,11 @@ function templateAddTaskInBoard(){
                             <span class="delete-icon" onclick="deleteSubtaskInput()">
                                 <img src="./assets/icons/close.png"alt="search icon" />
                             </span>
-                            <span class="check-icon" onclick="addSubstask(); deleteSubtaskInput()">
+                            <span class="check-icon" onclick="addSubtaskAddTask(); deleteSubtaskInput()">
                                 <img src="./assets/icons/checkgrey.png" alt="search icon" />
                             </span>
                         </div>
-                        <span onclick="addSubstask()" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
+                        <span onclick="addSubtaskAddTask()" class="img-addsubtask"><img src="./assets/icons/plusbtngrey.png" alt=""></span>
                     </div>
                 </label>
                 <div id="subtaskListEdit" class="subtask-listes">
@@ -401,7 +409,7 @@ function templateAddTaskInBoard(){
         <div class="add-task-form-footer">
             <p><span class="star">*</span> This field is required</p>
             <div class="button-footer-container">
-                <button type="reset" class="cancel-button" id="resetButton">Clear
+                <button type="reset" class="cancel-button" id="resetButton" onclick="clearTask()">Clear
                         <img class="button-img" src="./assets/icons/iconoir_cancel.png">
                 </button>
                 <button type="submit" class="create-task-button" onclick="getTaskData()" id="addTask">
@@ -419,7 +427,7 @@ function templateAddTaskInBoard(){
 }
 //onclick="getTaskData()" onclick="getCategory(event)"   
 
-export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord, templateAddTaskInBoard };
+export { templateTaskCard, templateTaskCardDetail,templateEditTask, toDoPlaceholderTemplate, inProgressPlaceholderTemplate, awaitReviewPlaceholderTemplate, donePlaceholderTemplate, templateRenderContactOnBord, templateAddTaskInBoard,templateRenderContactAddTask };
 
 window.templateTaskCard = templateTaskCard ;
 window.templateTaskCardDetail = templateTaskCardDetail ;
@@ -430,3 +438,4 @@ window.awaitReviewPlaceholderTemplate = awaitReviewPlaceholderTemplate ;
 window.donePlaceholderTemplate = donePlaceholderTemplate ;
 window.templateRenderContactOnBord = templateRenderContactOnBord ;
 window.templateAddTaskInBoard = templateAddTaskInBoard ;
+window.templateRenderContactAddTask = templateRenderContactAddTask ;

@@ -210,7 +210,6 @@ function addSubstask(){
     if(newSubtask && !already && newSubtask !=""){
         const subtask = {title: newSubtask,checked: false,}
         subtasklistItem.push(subtask);
-        console.log(subtask);
         SubtasklistContainer.innerHTML+= renderSubtask(subtask);
         newSubtaskRef.value = '';
     }else{
