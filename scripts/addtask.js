@@ -382,7 +382,6 @@ window.setupPriorityButtons = setupPriorityButtons;
 window.addSubstask = addSubstask;
 window.getAssignedContactById = getAssignedContactById;
 window.showContainerOnBoardAddTask = showContainerOnBoardAddTask;
-// window.getCategory = getCategory;
 window.showCategory = showCategory;
 window.getEditedSubtask = getEditedSubtask;
 window.modifySubtaskInEdited = modifySubtaskInEdited;

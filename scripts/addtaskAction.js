@@ -82,7 +82,6 @@ if (!actualUser || actualUser === '' ) {
 
 resetButton.addEventListener('click', function(){
   categoryInput.value ='';
-  //location.reload();
   taskTitleInput.value ='';
   taskDescriptionInput.value = '';
   dueDateInput.value = ''; 

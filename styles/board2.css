@@ -92,6 +92,7 @@
 .add-task-board{
   width: auto;
   height: 95vh;
+  max-height: 1025px;
   background-color: var(--white);
   padding: 48px 20px;
   gap: 24px;
